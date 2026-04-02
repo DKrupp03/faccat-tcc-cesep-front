@@ -1,0 +1,48 @@
+.wrapper {
+  position: relative;
+}
+
+.input {
+  border-radius: 8px;
+  height: 44px;
+  color: var(--color-primary-900);
+  border-color: var(--color-gray-200);
+  font-size: var(--textSm);
+}
+
+.input:hover,
+.input:focus,
+.input:focus-within {
+  border-color: var(--color-gray-300) !important;
+  box-shadow: none !important;
+}
+
+.prefix {
+  color: var(--color-gray-400);
+  padding-right: 5px;
+}
+
+.label {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: var(--textSm);
+  color: var(--color-gray-300);
+  background: white;
+  padding: 0 4px;
+  pointer-events: none;
+  transition: top 0.3s ease, font-size 0.3s ease, left 0.3s ease;
+  z-index: 10;
+  line-height: 1;
+}
+
+.labelWithPrefix {
+  left: 35px;
+}
+
+.labelFloating {
+  top: 0;
+  font-size: 11px;
+  left: 12px;
+}
