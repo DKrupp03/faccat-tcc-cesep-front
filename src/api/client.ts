@@ -1,28 +1,36 @@
-import axios from 'axios';
+import axios from "axios";
+
+import { authStorage } from "../utils/authStorage";
 
 const api = axios.create({
-  baseURL: 'http://localhost:3000',
+  baseURL: "http://localhost:3000",
   headers: {
-    'Content-Type': 'application/json',
+    "Content-Type": "application/json",
   },
 });
 
 api.interceptors.request.use((config) => {
-  const token = localStorage.getItem('token');
+  const token = authStorage.getToken();
+
   if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
+    config.headers["X-User-Token"] = token;
+    config.headers["X-User-Id"] = authStorage.getUserId();
+    config.headers["X-User-Email"] = authStorage.getUserEmail();
   }
+
   return config;
 });
 
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    const isLoginRequest = error.config?.url === '/login';
+    const isLoginRequest = error.config?.url === "/login";
+
     if (error.response?.status === 401 && !isLoginRequest) {
-      localStorage.removeItem('token');
-      window.location.href = '/login';
+      authStorage.clear();
+      window.location.href = "/login";
     }
+
     return Promise.reject(error);
   },
 );

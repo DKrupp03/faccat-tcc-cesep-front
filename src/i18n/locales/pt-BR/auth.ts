@@ -7,6 +7,7 @@ const login = {
   submit: "Entrar",
   errors: {
     invalidCredentials: "E-mail ou senha inválidos.",
+    notAuthenticated: "Você não está autenticado. Por favor, faça login para acessar esta página.",
   },
 } as const;
 

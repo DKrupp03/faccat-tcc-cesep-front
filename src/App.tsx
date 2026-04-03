@@ -1,11 +1,24 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import LoginPage from './pages/login/LoginPage';
-import { AuthProvider, useAuth } from './contexts/AuthContext';
+import { useTranslation } from 'react-i18next';
 
-function PrivateRoute({ children }: { children: React.ReactNode }) {
+import LoginPage from './pages/login/LoginPage';
+import TherapistsPage from './pages/therapists/TherapistsPage';
+
+import { AuthProvider, useAuth } from './contexts/AuthContext';
+import { useNotification } from "./hooks/useNotification";
+
+const PrivateRoute = ({ children }: { children: React.ReactNode }) => {
+  const { t } = useTranslation();
   const { isAuthenticated } = useAuth();
-  return isAuthenticated ? <>{children}</> : <Navigate to="/login" replace />;
-}
+  const { openNotification } = useNotification();
+
+  if (isAuthenticated) {
+    return <>{children}</>;
+  }
+
+  openNotification("warning", t("auth.errors.notAuthenticated"));
+  return <Navigate to="/login" replace />;
+};
 
 export default function App() {
   return (
@@ -13,16 +26,14 @@ export default function App() {
     <AuthProvider>
       <Routes>
         <Route path="/login" element={<LoginPage />} />
-        {
-          // <Route
-          //   path="/dashboard"
-          //   element={
-          //     <PrivateRoute>
-          //       <DashboardPage />
-          //     </PrivateRoute>
-          //   }
-          // />
-        }
+        <Route
+          path="/therapists"
+          element={
+            <PrivateRoute>
+              <TherapistsPage />
+            </PrivateRoute>
+          }
+        />
         <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
     </AuthProvider>

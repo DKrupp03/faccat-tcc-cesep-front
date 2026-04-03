@@ -1,3 +1,5 @@
+import type { CommonResponse } from "./common";
+
 export type ProfileGender = "male" | "female" | "other";
 
 export type ProfileRole = "admin" | "therapist" | "patient";
@@ -42,4 +44,8 @@ export type Profile = {
   photo_url: string | null;
   created_at: string;
   updated_at: string;
+};
+
+export type ProfileResponse = CommonResponse & {
+  profile: Profile;
 };

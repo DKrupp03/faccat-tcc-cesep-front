@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { Form } from "antd";
 import { IconMail, IconLock } from "@tabler/icons-react";
 import { useTranslation } from "react-i18next";
@@ -14,7 +14,7 @@ export function LoginForm() {
 
   const [loading, setLoading] = useState<boolean>(false);
 
-  const handleSubmit = async (values: { email: string; password: string }) => {
+  const handleSubmit = useCallback(async (values: { email: string; password: string }) => {
     setLoading(true);
 
     try {
@@ -22,7 +22,7 @@ export function LoginForm() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [login]);
 
   return (
     <Form
