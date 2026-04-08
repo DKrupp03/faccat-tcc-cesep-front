@@ -1,5 +1,5 @@
 import common from "./common";
-import login from "./auth";
+import login from "../../../modules/auth/i18n/pt-BR";
 
 const ptBR = { common, login };
 

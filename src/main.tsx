@@ -1,13 +1,13 @@
-import { StrictMode } from 'react';
-import { createRoot } from 'react-dom/client';
-import { App, ConfigProvider } from 'antd';
-import ptBR from 'antd/locale/pt_BR';
-import { antdTheme } from './theme';
-import AppRoot from './App';
-import './i18n';
-import './index.css';
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import { App, ConfigProvider } from "antd";
+import ptBR from "antd/locale/pt_BR";
+import { antdTheme } from "./shared/theme";
+import AppRoot from "./App";
+import "./i18n";
+import "./index.css";
 
-createRoot(document.getElementById('root')!).render(
+createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <ConfigProvider theme={antdTheme} locale={ptBR}>
       <App>
