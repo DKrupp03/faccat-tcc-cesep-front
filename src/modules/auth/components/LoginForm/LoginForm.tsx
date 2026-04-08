@@ -2,15 +2,18 @@ import { useCallback, useState } from "react";
 import { Form } from "antd";
 import { IconMail, IconLock } from "@tabler/icons-react";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 
 import { CommonTextInput } from "@/shared/components/CommonTextInput/CommonTextInput";
 import { CommonButton } from "@/shared/components/CommonButton/CommonButton";
 import { useAuth } from "../../hooks/useAuth";
 import { colors } from "@/shared/theme";
+import { PATHS } from "@/routes/paths";
 
 export function LoginForm() {
   const { login } = useAuth();
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -19,10 +22,11 @@ export function LoginForm() {
 
     try {
       await login(values.email, values.password);
+      navigate(PATHS.therapists, { replace: true });
     } finally {
       setLoading(false);
     }
-  }, [login]);
+  }, [login, navigate]);
 
   return (
     <Form

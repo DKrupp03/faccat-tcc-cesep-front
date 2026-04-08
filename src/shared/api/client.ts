@@ -13,9 +13,7 @@ api.interceptors.request.use((config) => {
   const token = authStorage.getToken();
 
   if (token) {
-    config.headers["X-User-Token"] = token;
-    config.headers["X-User-Id"] = authStorage.getUserId();
-    config.headers["X-User-Email"] = authStorage.getUserEmail();
+    config.headers["Authorization"] = `Bearer ${token}`;
   }
 
   return config;
