@@ -1,6 +1,6 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 
-import LoginPage from "../modules/auth/page";
+import { LoginPage, ForgotPasswordPage } from "../modules/auth/page";
 import TherapistsPage from "../modules/therapists/page";
 
 import PrivateRoute from "./PrivateRoute";
@@ -15,6 +15,10 @@ export default function AppRoutes() {
       <Route
         path={PATHS.login}
         element={isAuthenticated ? <Navigate to={PATHS.therapists} replace /> : <LoginPage />}
+      />
+      <Route
+        path={PATHS.forgotPassword}
+        element={<ForgotPasswordPage />}
       />
       <Route
         path={PATHS.therapists}

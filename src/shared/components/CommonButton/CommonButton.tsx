@@ -3,6 +3,8 @@ import { Button, type ButtonProps, ConfigProvider } from "antd";
 
 import { colors } from "../../theme";
 
+import styles from "./CommonButton.module.css";
+
 interface CommonButtonProps extends ButtonProps {
   outline?: boolean;
   buttonVariant?:
@@ -127,6 +129,7 @@ export const CommonButton: React.FC<CommonButtonProps> = ({
         disabled={disabled}
         htmlType={htmlType}
         icon={icon}
+        className={styles.button}
         {...props}
       >
         {children}

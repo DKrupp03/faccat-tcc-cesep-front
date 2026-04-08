@@ -1,23 +1,24 @@
 import { useCallback, useState } from "react";
-import { Form } from "antd";
+import { Form, Flex } from "antd";
 import { IconMail, IconLock } from "@tabler/icons-react";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { CommonTextInput } from "@/shared/components/CommonTextInput/CommonTextInput";
 import { CommonButton } from "@/shared/components/CommonButton/CommonButton";
-import { useAuth } from "../../hooks/useAuth";
 import { colors } from "@/shared/theme";
 import { PATHS } from "@/routes/paths";
 
-export function LoginForm() {
-  const { login } = useAuth();
+import { useAuth } from "../../hooks/useAuth";
+
+export const LoginForm = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const [loading, setLoading] = useState<boolean>(false);
 
-  const handleSubmit = useCallback(async (values: { email: string; password: string }) => {
+  const handleSubmit = useCallback(async (values: { email: string; password: string; }) => {
     setLoading(true);
 
     try {
@@ -39,14 +40,30 @@ export function LoginForm() {
         gap: 4,
       }}
     >
-      <Form.Item name="email">
+      <Form.Item
+        name="email"
+        rules={[
+          {
+            required: true,
+            message: t("login.insertEmail"),
+          },
+        ]}
+      >
         <CommonTextInput
           icon={<IconMail size={16} />}
           label={t("login.email")}
         />
       </Form.Item>
 
-      <Form.Item name="password">
+      <Form.Item
+        name="password"
+        rules={[
+          {
+            required: true,
+            message: t("login.insertPassword"),
+          },
+        ]}
+      >
         <CommonTextInput
           icon={<IconLock size={16} />}
           label={t("login.password")}
@@ -54,11 +71,11 @@ export function LoginForm() {
         />
       </Form.Item>
 
-      <div style={{ display: "flex", justifyContent: "flex-end", marginTop: -8 }}>
-        <a href="#" style={{ color: colors.gray[300], fontSize: 14 }}>
-          {t("login.forgotPassword")}
-        </a>
-      </div>
+      <Flex justify="flex-end" style={{ marginTop: -8 }}>
+        <Link to={PATHS.forgotPassword} style={{ color: colors.gray[300], fontSize: 14 }}>
+          {t("forgotPassword.forgotPassword")}
+        </Link>
+      </Flex>
 
       <Form.Item style={{ marginTop: 8, marginBottom: 0 }}>
         <CommonButton

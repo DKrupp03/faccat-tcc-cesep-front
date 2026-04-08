@@ -1,5 +1,6 @@
 import axios from "axios";
 
+import i18n from "@/i18n";
 import { authStorage } from "@/modules/auth/utils/authStorage";
 
 const api = axios.create({
@@ -29,7 +30,9 @@ api.interceptors.response.use(
       window.location.href = "/login";
     }
 
-    return Promise.reject(error);
+    return Promise.resolve(
+      error.response ?? { data: { success: false, errors: [i18n.t("common.errors.generic")] } },
+    );
   },
 );
 

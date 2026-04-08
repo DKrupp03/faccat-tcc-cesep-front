@@ -1,5 +1,4 @@
 import { Navigate } from "react-router-dom";
-import { useTranslation } from "react-i18next";
 
 import { useAuth } from "../modules/auth/hooks/useAuth";
 import { PATHS } from "./paths";

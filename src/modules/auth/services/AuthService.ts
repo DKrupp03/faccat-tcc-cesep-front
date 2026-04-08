@@ -1,7 +1,7 @@
 import api from "@/shared/api/client";
 import { type SignInResponse } from "../types/auth";
 
-const AuthService = {
+export const AuthService = {
   async signIn(email: string, password: string): Promise<SignInResponse> {
     const response = await api.post("/login", {
       user: { email, password },
@@ -20,5 +20,3 @@ const AuthService = {
     await api.delete("/logout");
   },
 };
-
-export default AuthService;

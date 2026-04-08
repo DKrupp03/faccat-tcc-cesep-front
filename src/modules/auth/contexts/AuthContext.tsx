@@ -7,7 +7,7 @@ import { authStorage } from "../utils/authStorage";
 import { type AuthContextType } from "../types/auth";
 import { type BasicUser } from "../types/user";
 import { type Profile } from "@/modules/therapists/types/profile";
-import AuthService from "../services/AuthService";
+import { AuthService } from "../services/AuthService";
 import ProfilesService from "@/modules/therapists/services/ProfilesService";
 
 export const AuthContext = createContext<AuthContextType | null>(null);
