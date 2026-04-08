@@ -3,10 +3,10 @@ import { Form } from "antd";
 import { IconMail, IconLock } from "@tabler/icons-react";
 import { useTranslation } from "react-i18next";
 
-import { CommonTextInput } from "../../../../shared/components/CommonTextInput/CommonTextInput";
-import { CommonButton } from "../../../../shared/components/CommonButton/CommonButton";
+import { CommonTextInput } from "@/shared/components/CommonTextInput/CommonTextInput";
+import { CommonButton } from "@/shared/components/CommonButton/CommonButton";
 import { useAuth } from "../../hooks/useAuth";
-import { colors } from "../../../../shared/theme";
+import { colors } from "@/shared/theme";
 
 export function LoginForm() {
   const { login } = useAuth();

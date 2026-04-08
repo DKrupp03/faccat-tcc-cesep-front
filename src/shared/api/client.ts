@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { authStorage } from "../../modules/auth/utils/authStorage";
+import { authStorage } from "@/modules/auth/utils/authStorage";
 
 const api = axios.create({
   baseURL: "http://localhost:3000",

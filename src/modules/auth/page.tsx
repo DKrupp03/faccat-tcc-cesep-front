@@ -1,8 +1,8 @@
 import { Flex, Typography } from "antd";
 import { useTranslation } from "react-i18next";
 
-import { colors } from "../../shared/theme";
-import logo from "../../shared/assets/logo.png";
+import { colors } from "@/shared/theme";
+import logo from "@/shared/assets/logo.png";
 
 import { LoginForm } from "./components/LoginForm/LoginForm";
 

@@ -1,4 +1,4 @@
-import type { CommonResponse } from "../../../shared/types/common";
+import type { CommonResponse } from "@/shared/types/common";
 
 export type ProfileGender = "male" | "female" | "other";
 
