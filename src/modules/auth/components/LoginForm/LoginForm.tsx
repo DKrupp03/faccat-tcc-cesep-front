@@ -45,13 +45,13 @@ export const LoginForm = () => {
         rules={[
           {
             required: true,
-            message: t("login.insertEmail"),
+            message: t("auth.insertEmail"),
           },
         ]}
       >
         <CommonTextInput
           icon={<IconMail size={16} />}
-          label={t("login.email")}
+          label={t("auth.email")}
         />
       </Form.Item>
 
@@ -60,20 +60,20 @@ export const LoginForm = () => {
         rules={[
           {
             required: true,
-            message: t("login.insertPassword"),
+            message: t("auth.insertPassword"),
           },
         ]}
       >
         <CommonTextInput
           icon={<IconLock size={16} />}
-          label={t("login.password")}
+          label={t("auth.password")}
           password
         />
       </Form.Item>
 
       <Flex justify="flex-end" style={{ marginTop: -8 }}>
         <Link to={PATHS.forgotPassword} style={{ color: colors.gray[300], fontSize: 14 }}>
-          {t("forgotPassword.forgotPassword")}
+          {t("auth.forgotPassword.forgotPassword")}
         </Link>
       </Flex>
 
@@ -86,7 +86,7 @@ export const LoginForm = () => {
           loading={loading}
           style={{ borderRadius: 8, height: 44 }}
         >
-          {t("login.submit")}
+          {t("auth.login.submit")}
         </CommonButton>
       </Form.Item>
     </Form>

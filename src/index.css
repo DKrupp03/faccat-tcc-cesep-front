@@ -72,7 +72,6 @@
 
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
   color: var(--color-gray-700);
-  background: var(--color-gray-50);
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -86,6 +85,7 @@
 
 body {
   margin: 0;
+  background: var(--color-gray-100);
 }
 
 #root {

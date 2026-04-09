@@ -1,6 +1,6 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 
-import { LoginPage, ForgotPasswordPage } from "../modules/auth/page";
+import { LoginPage, ForgotPasswordPage, ResetPasswordPage } from "../modules/auth/page";
 import TherapistsPage from "../modules/therapists/page";
 
 import PrivateRoute from "./PrivateRoute";
@@ -19,6 +19,10 @@ export default function AppRoutes() {
       <Route
         path={PATHS.forgotPassword}
         element={<ForgotPasswordPage />}
+      />
+      <Route
+        path={PATHS.resetPassword}
+        element={<ResetPasswordPage />}
       />
       <Route
         path={PATHS.therapists}

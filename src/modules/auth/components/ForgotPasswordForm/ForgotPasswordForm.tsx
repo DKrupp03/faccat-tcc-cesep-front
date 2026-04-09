@@ -8,9 +8,13 @@ import { CommonButton } from "@/shared/components/CommonButton/CommonButton";
 
 type ForgotPasswordFormProps = {
   onSubmit: (email: string) => Promise<void>;
+  loading: boolean;
 };
 
-export const ForgotPasswordForm = ({ onSubmit }: ForgotPasswordFormProps) => {
+export const ForgotPasswordForm = ({
+  onSubmit,
+  loading,
+}: ForgotPasswordFormProps) => {
   const { t } = useTranslation();
 
   const handleSubmit = useCallback(async (values: { email: string }) => {
@@ -33,13 +37,13 @@ export const ForgotPasswordForm = ({ onSubmit }: ForgotPasswordFormProps) => {
         rules={[
           {
             required: true,
-            message: t("login.insertEmail"),
+            message: t("auth.insertEmail"),
           },
         ]}
       >
         <CommonTextInput
           icon={<IconMail size={16} />}
-          label={t("login.email")}
+          label={t("auth.email")}
         />
       </Form.Item>
 
@@ -50,9 +54,10 @@ export const ForgotPasswordForm = ({ onSubmit }: ForgotPasswordFormProps) => {
             htmlType="submit"
             block
             size="large"
+            loading={loading}
             style={{ height: 44 }}
           >
-            {t("forgotPassword.resetPassword")}
+            {t("auth.forgotPassword.resetPassword")}
           </CommonButton>
         </Form.Item>
       </Form.Item>

@@ -43,7 +43,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setToken(response.token);
       setUser(response.user);
     } catch {
-      openNotification("error", t("login.errors.invalidCredentials"));
+      openNotification("error", t("auth.errors.invalidCredentials"));
       throw new Error();
     }
   }, [t, openNotification]);
