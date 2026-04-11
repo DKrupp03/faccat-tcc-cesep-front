@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, type ButtonProps, ConfigProvider } from "antd";
 
-import { colors } from "../../theme";
+import { COLORS } from "../../theme";
 
 import styles from "./CommonButton.module.css";
 
@@ -40,53 +40,53 @@ export const CommonButton: React.FC<CommonButtonProps> = ({
     };
   } = {
     primary: {
-      backgroundColor: colors.primary[500],
+      backgroundColor: COLORS.primary[500],
       borderColor: "transparent",
-      textColor: colors.white,
-      disabledTextColor: colors.gray[300],
-      disabledBackgroundColor: colors.gray[200],
+      textColor: COLORS.white,
+      disabledTextColor: COLORS.gray[300],
+      disabledBackgroundColor: COLORS.gray[200],
       disabledBorderColor: "transparent",
     },
     outline: {
-      backgroundColor: colors.white,
-      borderColor: colors.gray[200],
-      textColor: colors.gray[300],
-      disabledTextColor: colors.gray[200],
+      backgroundColor: COLORS.white,
+      borderColor: COLORS.gray[200],
+      textColor: COLORS.gray[300],
+      disabledTextColor: COLORS.gray[200],
       disabledBackgroundColor: "transparent",
-      disabledBorderColor: colors.gray[200],
+      disabledBorderColor: COLORS.gray[200],
     },
     success: {
-      backgroundColor: colors.green[500],
+      backgroundColor: COLORS.green[500],
       borderColor: "transparent",
-      textColor: colors.white,
-      disabledTextColor: colors.gray[300],
-      disabledBackgroundColor: colors.gray[200],
+      textColor: COLORS.white,
+      disabledTextColor: COLORS.gray[300],
+      disabledBackgroundColor: COLORS.gray[200],
       disabledBorderColor: "transparent",
     },
     danger: {
-      backgroundColor: colors.red[500],
+      backgroundColor: COLORS.red[500],
       borderColor: "transparent",
-      textColor: colors.white,
-      disabledTextColor: colors.gray[300],
-      disabledBackgroundColor: colors.gray[200],
+      textColor: COLORS.white,
+      disabledTextColor: COLORS.gray[300],
+      disabledBackgroundColor: COLORS.gray[200],
       disabledBorderColor: "transparent",
     },
     info: {
-      backgroundColor: colors.primary[200],
+      backgroundColor: COLORS.primary[200],
       borderColor: "transparent",
-      textColor: colors.white,
-      disabledTextColor: colors.gray[300],
-      disabledBackgroundColor: colors.gray[200],
+      textColor: COLORS.white,
+      disabledTextColor: COLORS.gray[300],
+      disabledBackgroundColor: COLORS.gray[200],
       disabledBorderColor: "transparent",
     },
     edit: {
-      backgroundColor: colors.white,
+      backgroundColor: COLORS.white,
       borderColor: "transparent",
-      textColor: colors.gray[300],
-      disabledTextColor: colors.gray[200],
+      textColor: COLORS.gray[300],
+      disabledTextColor: COLORS.gray[200],
       disabledBackgroundColor: "transparent",
       disabledBorderColor: "transparent",
-      hoverBg: colors.gray[200],
+      hoverBg: COLORS.gray[200],
       hoverColor: "transparent",
     },
   };
@@ -105,7 +105,7 @@ export const CommonButton: React.FC<CommonButtonProps> = ({
   const hoverColor = textColor;
   const activeBg = backgroundColor;
   const activeColor = textColor;
-  const hoverBorderColor = colors.gray[300];
+  const hoverBorderColor = COLORS.gray[300];
 
   return (
     <ConfigProvider

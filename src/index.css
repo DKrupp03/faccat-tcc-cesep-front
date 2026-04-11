@@ -7,9 +7,11 @@
   --color-primary-900: #012E4C;
 
   /* gray */
-  --color-gray-50: #F6F6F6;
+  --color-gray-50: #F9F9F9;
   --color-gray-100: #F2F5F6;
+  --color-gray-150: #e8e8e8;
   --color-gray-200: #DFDFE0;
+  --color-gray-250: #9CA7B2;
   --color-gray-300: #4D6D82;
   --color-gray-400: #68686E;
   --color-gray-500: #4B4B53;
@@ -96,4 +98,15 @@ body {
 
 .ant-form-item-explain-error {
   font-size: 12px;
+}
+
+.ant-dropdown-menu-item {
+  border: 1px solid transparent !important;
+  transition: border-color 0s !important;
+}
+
+.ant-dropdown-menu-item:hover,
+.ant-dropdown-menu-item-active {
+  background-color: transparent !important;
+  border-color: var(--color-gray-150) !important;
 }

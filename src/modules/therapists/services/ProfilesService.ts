@@ -1,5 +1,5 @@
 import api from "@/shared/api/client";
-import { type ProfileResponse } from "../types/profile";
+import { type ProfileResponse } from "../../auth/types/profile";
 
 const ProfilesService = {
   async getProfile(id: number): Promise<ProfileResponse> {

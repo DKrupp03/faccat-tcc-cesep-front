@@ -1,7 +1,7 @@
 import { type CommonResponse } from "@/shared/types/common";
 
 import type { BasicUser } from "./user";
-import type { Profile } from "@/modules/therapists/types/profile";
+import type { Profile } from "@/modules/auth/types/profile";
 
 export type SignInResponse = CommonResponse & {
   token: string;

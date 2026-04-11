@@ -1,4 +1,4 @@
-export const colors = {
+export const COLORS = {
   primary: {
     50: "#E9F6FD",
     100: "#CCFAFA",
@@ -7,9 +7,11 @@ export const colors = {
     900: "#012E4C",
   },
   gray: {
-    50: "#F6F6F6",
+    50: "#F9F9F9",
     100: "#F2F5F6",
+    150: "#e8e8e8",
     200: "#DFDFE0",
+    250: "#9CA7B2",
     300: "#4D6D82",
     400: "#68686E",
     500: "#4B4B53",
@@ -44,16 +46,17 @@ export const colors = {
 
 export const antdTheme = {
   token: {
-    colorPrimary: colors.primary[500],
-    colorSuccess: colors.green[500],
-    colorError: colors.red[500],
-    colorWarning: colors.amber[500],
-    colorBgLayout: colors.gray[50],
-    colorBgContainer: colors.white,
-    colorText: colors.gray[700],
-    colorTextSecondary: colors.gray[300],
-    colorBorder: colors.gray[100],
+    colorPrimary: COLORS.primary[500],
+    colorSuccess: COLORS.green[500],
+    colorError: COLORS.red[500],
+    colorWarning: COLORS.amber[500],
+    colorBgLayout: COLORS.gray[50],
+    colorBgContainer: COLORS.white,
+    colorText: COLORS.gray[700],
+    colorTextSecondary: COLORS.gray[300],
+    colorBorder: COLORS.gray[100],
     borderRadius: 8,
+    boxShadowSecondary: "0 2px 8px 0 rgba(0, 0, 0, 0.08)",
     fontFamily: "\"Roboto\", \"Helvetica\", \"Arial\", sans-serif",
   },
 };

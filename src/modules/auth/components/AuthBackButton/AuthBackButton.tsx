@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { IconChevronLeft } from "@tabler/icons-react";
 
 import { CommonButton } from "@/shared/components/CommonButton/CommonButton";
-import { colors } from "@/shared/theme";
+import { COLORS } from "@/shared/theme";
 import { PATHS } from "@/routes/paths";
 
 import styles from "./AuthBackButton.module.css";
@@ -16,7 +16,7 @@ export const AuthBackButton = () => {
       className={styles.backButton}
       onClick={() => navigate(PATHS.login)}
     >
-      <IconChevronLeft color={colors.gray[300]} />
+      <IconChevronLeft color={COLORS.gray[300]} />
     </CommonButton>
   );
 };

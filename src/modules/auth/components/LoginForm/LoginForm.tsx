@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 import { CommonTextInput } from "@/shared/components/CommonTextInput/CommonTextInput";
 import { CommonButton } from "@/shared/components/CommonButton/CommonButton";
-import { colors } from "@/shared/theme";
+import { COLORS } from "@/shared/theme";
 import { PATHS } from "@/routes/paths";
 
 import { useAuth } from "../../hooks/useAuth";
@@ -72,7 +72,7 @@ export const LoginForm = () => {
       </Form.Item>
 
       <Flex justify="flex-end" style={{ marginTop: -8 }}>
-        <Link to={PATHS.forgotPassword} style={{ color: colors.gray[300], fontSize: 14 }}>
+        <Link to={PATHS.forgotPassword} style={{ color: COLORS.gray[300], fontSize: 14 }}>
           {t("auth.forgotPassword.forgotPassword")}
         </Link>
       </Flex>
