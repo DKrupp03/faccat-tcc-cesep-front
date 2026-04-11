@@ -7,7 +7,7 @@ export const COLORS = {
     900: "#012E4C",
   },
   gray: {
-    50: "#F9F9F9",
+    50: "#F6F6F6",
     100: "#F2F5F6",
     150: "#e8e8e8",
     200: "#DFDFE0",

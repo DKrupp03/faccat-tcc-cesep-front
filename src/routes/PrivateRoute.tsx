@@ -12,7 +12,9 @@ export default function PrivateRoute({ children }: { children: React.ReactNode }
     return (
       <Flex>
         <MainSideMenu />
-        {children}
+        <Flex style={{ marginLeft: 250, padding: 20 }}>
+          {children}
+        </Flex>
       </Flex>
     );
   }

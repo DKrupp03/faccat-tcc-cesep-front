@@ -1,3 +1,15 @@
-export default function PaymentsPage() {
+import { useEffect } from "react";
+
+import { useModules } from "@/shared/hooks/useModules";
+
+const PaymentosPage = () => {
+  const { changeActiveModule } = useModules();
+
+  useEffect(() => {
+    changeActiveModule("payments");
+  }, []);
+
   return <div>PAGAMENTOS</div>;
 }
+
+export default PaymentosPage;

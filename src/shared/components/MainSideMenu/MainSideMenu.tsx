@@ -1,90 +1,29 @@
-import { useCallback, useMemo, useState } from "react";
 import { Flex, Typography } from "antd";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 import {
-  IconCalendarMonth,
-  IconStethoscope,
-  IconUsers,
-  IconPremiumRights,
   IconUserSquareRounded,
   IconLogout2
 } from "@tabler/icons-react";
 
 import { CommonAvatar } from "../CommonAvatar/CommonAvatar";
 import { useAuth } from "@/modules/auth/hooks/useAuth";
-import { PATHS } from "@/routes/paths";
+import { useModules } from "@/shared/hooks/useModules";
 import { COLORS } from "@/shared/theme";
 import logo from "@/shared/assets/logo.png";
 
 import styles from "./MainSideMenu.module.css";
-
-type ModuleKey = "services" | "therapists" | "patients" | "payments";
-
-type ModuleType = {
-  key: ModuleKey;
-  path: string;
-  name: string;
-  icon: React.ReactNode;
-};
 
 const { Text } = Typography;
 
 export const MainSideMenu = () => {
   const { t } = useTranslation();
   const { profile } = useAuth();
-
-  const [activeModule, setActiveModule] = useState<ModuleKey>("services");
-
-  const isModuleActive = useCallback((key: ModuleKey) => (
-    activeModule === key
-  ), [activeModule]);
-
-  const modules: ModuleType[] = useMemo(() => [
-    {
-      key: "services",
-      path: PATHS.services,
-      name: t("common.modules.services"),
-      icon: (
-        <IconCalendarMonth
-          size={16}
-          color={isModuleActive("services") ? COLORS.primary[500] : COLORS.gray[300]}
-        />
-      ),
-    },
-    {
-      key: "therapists",
-      path: PATHS.therapists,
-      name: t("common.modules.therapists"),
-      icon: (
-        <IconStethoscope
-          size={16}
-          color={isModuleActive("therapists") ? COLORS.primary[500] : COLORS.gray[300]}
-        />
-      ),
-    },
-    {
-      key: "patients",
-      path: PATHS.patients,
-      name: t("common.modules.patients"),
-      icon: (
-        <IconUsers
-          size={16}
-          color={isModuleActive("patients") ? COLORS.primary[500] : COLORS.gray[300]}
-        />
-      ),
-    },
-    {
-      key: "payments",
-      path: PATHS.payments,
-      name: t("common.modules.payments"),
-      icon: (
-        <IconPremiumRights
-          size={16}
-          color={isModuleActive("payments") ? COLORS.primary[500] : COLORS.gray[300]}
-        />
-      ),
-    },
-  ], [isModuleActive, t]);
+  const navigate = useNavigate();
+  const {
+    isModuleActive,
+    modules,
+  } = useModules();
 
   return (
     <Flex vertical className={styles.menu}>
@@ -105,6 +44,7 @@ export const MainSideMenu = () => {
           <Flex
             key={mod.key}
             align="center" gap={12} className={styles.module}
+            onClick={() => navigate(mod.path)}
             style={isModuleActive(mod.key)
               ? { backgroundColor: COLORS.gray[50], color: COLORS.primary[500] }
               : undefined}
@@ -151,7 +91,7 @@ export const MainSideMenu = () => {
           </Flex>
 
           <IconLogout2
-            size={20}
+            size={18}
             color={COLORS.gray[300]}
             className={styles.footerIcon}
           />

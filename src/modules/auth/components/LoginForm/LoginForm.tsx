@@ -23,7 +23,7 @@ export const LoginForm = () => {
 
     try {
       await login(values.email, values.password);
-      navigate(PATHS.therapists, { replace: true });
+      navigate(PATHS.services, { replace: true });
     } finally {
       setLoading(false);
     }
