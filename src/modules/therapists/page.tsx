@@ -1,3 +1,3 @@
 export default function TherapistsPage() {
-  return <div>LOGADO</div>;
+  return <div>TERAPEUTAS</div>;
 }
