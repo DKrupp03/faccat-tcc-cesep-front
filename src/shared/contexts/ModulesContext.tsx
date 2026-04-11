@@ -21,6 +21,7 @@ type ModuleType = {
 
 type ModulesContextType = {
   activeModule: ModuleKey | undefined;
+  changeDocumentTitle: (title: string) => void;
   changeActiveModule: (module: ModuleKey) => void;
   isModuleActive: (module: ModuleKey) => boolean;
   modules: ModuleType[];
@@ -33,9 +34,14 @@ export const ModulesProvider = ({ children }: { children: React.ReactNode }) => 
 
   const [activeModule, setActiveModule] = useState<ModuleKey>();
 
+  const changeDocumentTitle = useCallback((title: string) => {
+    document.title = `${title} | CESEP`;
+  }, []);
+
   const changeActiveModule = useCallback((module: ModuleKey) => {
     setActiveModule(module);
-  }, [setActiveModule]);
+    changeDocumentTitle(t(`common.modules.${module}`));
+  }, [setActiveModule, t, changeDocumentTitle]);
 
   const isModuleActive = useCallback((key: ModuleKey) => (
     activeModule === key
@@ -92,6 +98,7 @@ export const ModulesProvider = ({ children }: { children: React.ReactNode }) => 
     <ModulesContext.Provider
       value={{
         activeModule,
+        changeDocumentTitle,
         changeActiveModule,
         isModuleActive,
         modules,

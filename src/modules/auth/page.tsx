@@ -1,8 +1,9 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { Flex, Typography, Divider } from "antd";
 import { useTranslation } from "react-i18next";
 import { useSearchParams } from "react-router-dom";
 
+import { useModules } from "@/shared/hooks/useModules";
 import { useNotification } from "@/shared/hooks/useNotification";
 
 import { AuthBackButton } from "./components/AuthBackButton/AuthBackButton";
@@ -17,6 +18,11 @@ const { Title, Text } = Typography;
 
 export const LoginPage = () => {
   const { t } = useTranslation();
+  const { changeDocumentTitle } = useModules();
+
+  useEffect(() => {
+    changeDocumentTitle(t("auth.pages.login"));
+  }, []);
 
   return (
     <AuthCardContainer>
@@ -40,6 +46,7 @@ export const LoginPage = () => {
 export const ForgotPasswordPage = () => {
   const { t } = useTranslation();
   const { openNotification } = useNotification();
+  const { changeDocumentTitle } = useModules();
 
   const [loading, setLoading] = useState<boolean>(false);
   const [emailSent, setEmailSent] = useState<boolean>(false);
@@ -72,6 +79,10 @@ export const ForgotPasswordPage = () => {
       setLoading(false);
     }
   }, [openNotification]);
+
+  useEffect(() => {
+    changeDocumentTitle(t("auth.pages.forgotPassword"));
+  }, []);
 
   return (
     <AuthCardContainer>
@@ -130,9 +141,14 @@ export const ForgotPasswordPage = () => {
 
 export const ResetPasswordPage = () => {
   const { t } = useTranslation();
+  const { changeDocumentTitle } = useModules();
   const [searchParams] = useSearchParams();
 
   const token = searchParams.get("reset_password_token") as string;
+
+  useEffect(() => {
+    changeDocumentTitle(t("auth.pages.resetPassword"));
+  }, []);
 
   return (
     <AuthCardContainer>

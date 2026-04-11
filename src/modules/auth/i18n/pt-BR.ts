@@ -4,6 +4,12 @@ const auth = {
   "insertEmail": "Insira o seu e-mail",
   "insertPassword": "Insira a sua senha",
 
+  "pages": {
+    "login": "Login",
+    "forgotPassword": "Recuperar senha",
+    "resetPassword": "Redefinir senha",
+  },
+
   "login": {
     "welcome": "Bem-vindo!",
     "subtitle": "Digite suas credenciais para entrar.",
