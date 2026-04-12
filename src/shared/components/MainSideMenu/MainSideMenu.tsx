@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { Flex, Typography } from "antd";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
@@ -18,12 +19,19 @@ const { Text } = Typography;
 
 export const MainSideMenu = () => {
   const { t } = useTranslation();
-  const { profile } = useAuth();
   const navigate = useNavigate();
+  const {
+    profile,
+    logout,
+  } = useAuth();
   const {
     isModuleActive,
     modules,
   } = useModules();
+
+  const allowedModules = useMemo(() => (
+    modules.filter((mod) => !mod.notAllowed)
+  ), [modules]);
 
   return (
     <Flex vertical className={styles.menu}>
@@ -40,7 +48,7 @@ export const MainSideMenu = () => {
           {t("common.mainMenu").toUpperCase()}
         </Text>
 
-        {modules.map((mod) => (
+        {allowedModules.map((mod) => (
           <Flex
             key={mod.key}
             align="center" gap={12} className={styles.module}
@@ -94,6 +102,7 @@ export const MainSideMenu = () => {
             size={18}
             color={COLORS.gray[300]}
             className={styles.footerIcon}
+            onClick={logout}
           />
         </Flex>
       )}

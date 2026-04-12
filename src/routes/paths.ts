@@ -7,3 +7,5 @@ export const PATHS = {
   patients: "/patients",
   payments: "/payments",
 } as const;
+
+export const DEFAULT_PATH = PATHS.services;

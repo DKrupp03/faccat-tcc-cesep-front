@@ -39,6 +39,7 @@ const auth = {
   "errors": {
     "invalidCredentials": "E-mail ou senha inválidos.",
     "notAuthenticated": "Você não está autenticado. Por favor, faça login para acessar esta página.",
+    "notAllowedModule": "Acesso não permitido à este módulo!",
   },
 } as const;
 

@@ -18,8 +18,10 @@ export const AuthService = {
     return { token, ...response.data };
   },
 
-  async signOut(): Promise<void> {
-    await api.delete("/logout");
+  async logout(): Promise<CommonResponse> {
+    const response = await api.delete("/logout");
+
+    return response.data;
   },
 
   async requestPasswordRecover(email: string): Promise<CommonResponse> {

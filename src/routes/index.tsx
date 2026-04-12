@@ -8,7 +8,7 @@ import PaymentsPage from "@/modules/payments/page";
 
 import PrivateRoute from "./PrivateRoute";
 import { useAuth } from "../modules/auth/hooks/useAuth";
-import { PATHS } from "./paths";
+import { PATHS, DEFAULT_PATH } from "./paths";
 
 type RouteType = {
   path: string;
@@ -37,7 +37,7 @@ export default function AppRoutes() {
         <Route
           key={index}
           path={route.path}
-          element={isAuthenticated ? <Navigate to={PATHS.services} replace /> : route.element}
+          element={isAuthenticated ? <Navigate to={DEFAULT_PATH} replace /> : route.element}
         />
       ))}
 
@@ -49,7 +49,7 @@ export default function AppRoutes() {
         />
       ))}
 
-      <Route path="*" element={<Navigate to={PATHS.login} replace />} />
+      <Route path="*" element={<Navigate to={DEFAULT_PATH} replace />} />
     </Routes>
   );
 }

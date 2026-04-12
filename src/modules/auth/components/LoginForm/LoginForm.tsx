@@ -2,7 +2,7 @@ import { useCallback, useState } from "react";
 import { Form, Flex } from "antd";
 import { IconMail, IconLock } from "@tabler/icons-react";
 import { useTranslation } from "react-i18next";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import { CommonTextInput } from "@/shared/components/CommonTextInput/CommonTextInput";
 import { CommonButton } from "@/shared/components/CommonButton/CommonButton";
@@ -13,7 +13,6 @@ import { useAuth } from "../../hooks/useAuth";
 
 export const LoginForm = () => {
   const { t } = useTranslation();
-  const navigate = useNavigate();
   const { login } = useAuth();
 
   const [loading, setLoading] = useState<boolean>(false);
@@ -23,11 +22,10 @@ export const LoginForm = () => {
 
     try {
       await login(values.email, values.password);
-      navigate(PATHS.services, { replace: true });
     } finally {
       setLoading(false);
     }
-  }, [login, navigate]);
+  }, [login]);
 
   return (
     <Form
