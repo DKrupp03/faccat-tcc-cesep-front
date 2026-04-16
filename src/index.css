@@ -7,7 +7,7 @@
   --color-primary-900: #012E4C;
 
   /* gray */
-  --color-gray-50: #F6F6F6;
+  --color-gray-50: #FAFAFA;
   --color-gray-100: #F2F5F6;
   --color-gray-150: #e8e8e8;
   --color-gray-200: #DFDFE0;
@@ -87,7 +87,7 @@
 
 body {
   margin: 0;
-  background: var(--color-gray-100);
+  background: var(--color-gray-50);
 }
 
 #root {

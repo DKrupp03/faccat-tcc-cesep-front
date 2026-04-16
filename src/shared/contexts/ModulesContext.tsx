@@ -1,4 +1,4 @@
-import { createContext, useState, useCallback, useMemo } from "react";
+import { createContext, useState, useCallback, useMemo, type Dispatch, type SetStateAction } from "react";
 import { useTranslation } from "react-i18next";
 import {
   IconCalendarMonth,
@@ -12,6 +12,7 @@ import { useAuth } from "@/modules/auth/hooks/useAuth";
 import { useNotification } from "../hooks/useNotification";
 import { PATHS, DEFAULT_PATH } from "@/routes/paths";
 import { COLORS } from "@/shared/theme";
+import { type CommonHeaderType } from "../types/common";
 
 type ModuleKey = "services" | "therapists" | "patients" | "payments";
 
@@ -30,6 +31,8 @@ type ModulesContextType = {
   isModuleActive: (module: ModuleKey) => boolean;
   modules: ModuleType[];
   isModuleAllowed: (module: ModuleKey) => boolean;
+  headerContent: CommonHeaderType;
+  setHeaderContent: Dispatch<SetStateAction<CommonHeaderType>>;
 };
 
 export const ModulesContext = createContext<ModulesContextType | null>(null);
@@ -41,6 +44,7 @@ export const ModulesProvider = ({ children }: { children: React.ReactNode }) => 
   const { openNotification } = useNotification();
 
   const [activeModule, setActiveModule] = useState<ModuleKey>();
+  const [headerContent, setHeaderContent] = useState<CommonHeaderType>({});
 
   const changeDocumentTitle = useCallback((title: string) => {
     document.title = `${title} | CESEP`;
@@ -132,6 +136,8 @@ export const ModulesProvider = ({ children }: { children: React.ReactNode }) => 
         isModuleActive,
         modules,
         isModuleAllowed,
+        headerContent,
+        setHeaderContent,
       }}
     >
       {children}

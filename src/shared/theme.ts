@@ -7,7 +7,7 @@ export const COLORS = {
     900: "#012E4C",
   },
   gray: {
-    50: "#F6F6F6",
+    50: "#FAFAFA",
     100: "#F2F5F6",
     150: "#e8e8e8",
     200: "#DFDFE0",
@@ -52,7 +52,7 @@ export const antdTheme = {
     colorWarning: COLORS.amber[500],
     colorBgLayout: COLORS.gray[50],
     colorBgContainer: COLORS.white,
-    colorText: COLORS.gray[700],
+    colorText: COLORS.primary[900],
     colorTextSecondary: COLORS.gray[300],
     colorBorder: COLORS.gray[100],
     borderRadius: 8,
