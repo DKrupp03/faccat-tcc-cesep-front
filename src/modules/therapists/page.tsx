@@ -7,9 +7,9 @@ const TherapistsPage = () => {
 
   useEffect(() => {
     changeActiveModule("therapists");
-  }, []);
+  }, [changeActiveModule]);
 
   return <div>TERAPEUTAS</div>;
-}
+};
 
 export default TherapistsPage;

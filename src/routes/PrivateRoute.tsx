@@ -6,7 +6,7 @@ import { PATHS } from "./paths";
 import { MainSideMenu } from "@/shared/components/MainSideMenu/MainSideMenu";
 import { CommonHeader } from "@/shared/components/CommonHeader/CommonHeader";
 
-export default function PrivateRoute({ children }: { children: React.ReactNode }) {
+const PrivateRoute = ({ children }: { children: React.ReactNode }) => {
   const { isAuthenticated } = useAuth();
 
   if (isAuthenticated) {
@@ -22,4 +22,6 @@ export default function PrivateRoute({ children }: { children: React.ReactNode }
   }
 
   return <Navigate to={PATHS.login} replace />;
-}
+};
+
+export default PrivateRoute;

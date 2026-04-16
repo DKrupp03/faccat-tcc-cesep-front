@@ -3,13 +3,13 @@ import React, { type ReactNode, Suspense } from "react";
 import { CommonFallbackLoading } from "../components/CommonFallbackLoading/CommonFallbackLoading";
 
 const AuthProvider = React.lazy(() =>
-  import("@/modules/auth/contexts/AuthContext").then((mod) => ({
+  import("@/modules/auth/providers/AuthProvider").then((mod) => ({
     default: mod.AuthProvider,
   })),
 );
 
 const ModulesProvider = React.lazy(() =>
-  import("@/shared/contexts/ModulesContext").then((mod) => ({
+  import("@/shared/contexts/ModulesProvider").then((mod) => ({
     default: mod.ModulesProvider,
   })),
 );

@@ -22,7 +22,7 @@ export const LoginPage = () => {
 
   useEffect(() => {
     changeDocumentTitle(t("auth.pages.login"));
-  }, []);
+  }, [t, changeDocumentTitle]);
 
   return (
     <AuthCardContainer>
@@ -41,7 +41,7 @@ export const LoginPage = () => {
       <LoginForm />
     </AuthCardContainer>
   );
-}
+};
 
 export const ForgotPasswordPage = () => {
   const { t } = useTranslation();
@@ -78,11 +78,11 @@ export const ForgotPasswordPage = () => {
     } finally {
       setLoading(false);
     }
-  }, [openNotification]);
+  }, [openNotification, t]);
 
   useEffect(() => {
     changeDocumentTitle(t("auth.pages.forgotPassword"));
-  }, []);
+  }, [changeDocumentTitle, t]);
 
   return (
     <AuthCardContainer>
@@ -137,7 +137,7 @@ export const ForgotPasswordPage = () => {
       )}
     </AuthCardContainer>
   );
-}
+};
 
 export const ResetPasswordPage = () => {
   const { t } = useTranslation();
@@ -148,7 +148,7 @@ export const ResetPasswordPage = () => {
 
   useEffect(() => {
     changeDocumentTitle(t("auth.pages.resetPassword"));
-  }, []);
+  }, [changeDocumentTitle, t]);
 
   return (
     <AuthCardContainer>
@@ -167,4 +167,4 @@ export const ResetPasswordPage = () => {
       <ResetPasswordForm token={token} />
     </AuthCardContainer>
   );
-}
+};

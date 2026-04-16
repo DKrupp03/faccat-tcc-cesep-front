@@ -7,9 +7,9 @@ const PatientsPage = () => {
 
   useEffect(() => {
     changeActiveModule("patients");
-  }, []);
+  }, [changeActiveModule]);
 
   return <div>PACIENTES</div>;
-}
+};
 
 export default PatientsPage;

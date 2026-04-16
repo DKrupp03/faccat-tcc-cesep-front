@@ -7,9 +7,9 @@ const PaymentosPage = () => {
 
   useEffect(() => {
     changeActiveModule("payments");
-  }, []);
+  }, [changeActiveModule]);
 
   return <div>PAGAMENTOS</div>;
-}
+};
 
 export default PaymentosPage;

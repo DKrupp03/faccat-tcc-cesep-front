@@ -34,7 +34,7 @@ export const CommonBreadcrumb = () => {
           {item.title}
         </span>
       ),
-    }))
+    }));
   }, [t, activeModule, headerContent.submodules]);
 
   const separator = <span style={{ color: COLORS.gray[250] }}>{">"}</span>;
@@ -45,4 +45,4 @@ export const CommonBreadcrumb = () => {
       items={styledItems}
     />
   );
-}
+};

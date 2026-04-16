@@ -1,4 +1,4 @@
-import { createContext, useState, useCallback, useMemo, type Dispatch, type SetStateAction } from "react";
+import { useState, useCallback, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import {
   IconCalendarMonth,
@@ -13,29 +13,9 @@ import { useNotification } from "../hooks/useNotification";
 import { PATHS, DEFAULT_PATH } from "@/routes/paths";
 import { COLORS } from "@/shared/theme";
 import { type CommonHeaderType } from "../types/common";
+import { ModulesContext, type ModuleType } from "../contexts/ModulesContext";
 
 type ModuleKey = "services" | "therapists" | "patients" | "payments";
-
-type ModuleType = {
-  key: ModuleKey;
-  path: string;
-  name: string;
-  icon: React.ReactNode;
-  notAllowed?: boolean;
-};
-
-type ModulesContextType = {
-  activeModule: ModuleKey | undefined;
-  changeDocumentTitle: (title: string) => void;
-  changeActiveModule: (module: ModuleKey) => void;
-  isModuleActive: (module: ModuleKey) => boolean;
-  modules: ModuleType[];
-  isModuleAllowed: (module: ModuleKey) => boolean;
-  headerContent: CommonHeaderType;
-  setHeaderContent: Dispatch<SetStateAction<CommonHeaderType>>;
-};
-
-export const ModulesContext = createContext<ModulesContextType | null>(null);
 
 export const ModulesProvider = ({ children }: { children: React.ReactNode }) => {
   const { t } = useTranslation();
@@ -143,4 +123,4 @@ export const ModulesProvider = ({ children }: { children: React.ReactNode }) => 
       {children}
     </ModulesContext.Provider>
   );
-}
+};

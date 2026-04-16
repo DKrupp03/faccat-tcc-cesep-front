@@ -47,7 +47,7 @@ export const ResetPasswordForm = ({ token }: ResetPasswordFormProps) => {
     } finally {
       setLoading(false);
     }
-  }, [token, openNotification]);
+  }, [t, token, openNotification, navigate]);
 
   return (
     <Form
@@ -106,4 +106,4 @@ export const ResetPasswordForm = ({ token }: ResetPasswordFormProps) => {
       </Form.Item>
     </Form>
   );
-}
+};

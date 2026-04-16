@@ -15,7 +15,7 @@ type RouteType = {
   element: React.ReactNode;
 };
 
-export default function AppRoutes() {
+const AppRoutes = () => {
   const { isAuthenticated } = useAuth();
 
   const authRoutes: RouteType[] = [
@@ -52,4 +52,6 @@ export default function AppRoutes() {
       <Route path="*" element={<Navigate to={DEFAULT_PATH} replace />} />
     </Routes>
   );
-}
+};
+
+export default AppRoutes;

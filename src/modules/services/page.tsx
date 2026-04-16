@@ -7,9 +7,9 @@ const ServicesPage = () => {
 
   useEffect(() => {
     changeActiveModule("services");
-  }, []);
+  }, [changeActiveModule]);
 
   return <div>ATENDIMENTOS</div>;
-}
+};
 
 export default ServicesPage;

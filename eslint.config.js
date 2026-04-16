@@ -21,6 +21,9 @@ export default defineConfig([
     },
     rules: {
       quotes: ["error", "double"],
+      semi: ["error", "always"],
+      "prefer-arrow-callback": ["error"],
+      "func-style": ["error", "expression", { allowArrowFunctions: true }],
     },
   },
 ])

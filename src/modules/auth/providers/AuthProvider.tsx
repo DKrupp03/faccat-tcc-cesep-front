@@ -1,4 +1,4 @@
-import { createContext, useState, useCallback, useMemo, useEffect } from "react";
+import { useState, useCallback, useMemo, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
@@ -6,13 +6,11 @@ import { useNotification } from "@/shared/hooks/useNotification";
 import { PATHS, DEFAULT_PATH } from "@/routes/paths";
 
 import { authStorage } from "../utils/authStorage";
-import { type AuthContextType } from "../types/auth";
 import { type BasicUser } from "../types/user";
 import { type Profile } from "@/modules/auth/types/profile";
 import { AuthService } from "../services/AuthService";
 import ProfilesService from "@/modules/therapists/services/ProfilesService";
-
-export const AuthContext = createContext<AuthContextType | null>(null);
+import { AuthContext } from "../contexts/AuthContext";
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const { t } = useTranslation();
@@ -27,19 +25,17 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     profile?.role === "admin"
   ), [profile?.role]);
 
-  const getProfile = useCallback(async (profileId: number) => {
-    const response = await ProfilesService.getProfile(profileId);
-
-    if (response.success) {
-      setProfile(response.profile);
-    }
-  }, []);
-
   useEffect(() => {
-    if (user) {
-      getProfile(user.profile_id);
-    }
-  }, [getProfile, user]);
+    if (!user) return;
+
+    (async () => {
+      const response = await ProfilesService.getProfile(user.profile_id);
+
+      if (response.success) {
+        setProfile(response.profile);
+      }
+    })();
+  }, [user]);
 
   const login = useCallback(async (email: string, password: string) => {
     try {
@@ -85,4 +81,4 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       {children}
     </AuthContext.Provider>
   );
-}
+};

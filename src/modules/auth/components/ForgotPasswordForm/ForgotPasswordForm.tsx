@@ -63,4 +63,4 @@ export const ForgotPasswordForm = ({
       </Form.Item>
     </Form>
   );
-}
+};

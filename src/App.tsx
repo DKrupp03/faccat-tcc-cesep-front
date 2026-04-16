@@ -3,7 +3,7 @@ import { BrowserRouter } from "react-router-dom";
 import { GlobalProviders } from "./shared/providers/GlobalProviders";
 import AppRoutes from "./routes";
 
-export default function App() {
+const App = () => {
   return (
     <BrowserRouter>
       <GlobalProviders>
@@ -11,4 +11,6 @@ export default function App() {
       </GlobalProviders>
     </BrowserRouter>
   );
-}
+};
+
+export default App;

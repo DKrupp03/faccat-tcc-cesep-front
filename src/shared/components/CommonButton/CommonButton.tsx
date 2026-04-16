@@ -5,7 +5,7 @@ import { COLORS } from "../../theme";
 
 import styles from "./CommonButton.module.css";
 
-interface CommonButtonProps extends ButtonProps {
+type CommonButtonProps = ButtonProps & {
   outline?: boolean;
   buttonVariant?:
   | "primary"

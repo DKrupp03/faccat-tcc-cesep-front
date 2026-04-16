@@ -4,7 +4,7 @@ import type { PasswordProps } from "antd/es/input/Password";
 
 import styles from "./CommonTextInput.module.css";
 
-interface CommonTextInputProps extends InputProps {
+type CommonTextInputProps = InputProps & {
   icon?: ReactNode;
   password?: boolean;
   label?: string;
@@ -72,4 +72,4 @@ export const CommonTextInput: React.FC<CommonTextInputProps> = ({
       />
     </div>
   );
-}
+};

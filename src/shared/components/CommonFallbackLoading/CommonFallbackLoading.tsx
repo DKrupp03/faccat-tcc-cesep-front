@@ -17,4 +17,4 @@ export const CommonFallbackLoading = () => {
       <Spin />
     </Flex>
   );
-}
+};

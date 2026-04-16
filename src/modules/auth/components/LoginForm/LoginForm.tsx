@@ -89,4 +89,4 @@ export const LoginForm = () => {
       </Form.Item>
     </Form>
   );
-}
+};
