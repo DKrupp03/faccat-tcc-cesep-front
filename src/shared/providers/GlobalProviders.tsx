@@ -9,7 +9,7 @@ const AuthProvider = React.lazy(() =>
 );
 
 const ModulesProvider = React.lazy(() =>
-  import("@/shared/contexts/ModulesProvider").then((mod) => ({
+  import("@/shared/providers/ModulesProvider").then((mod) => ({
     default: mod.ModulesProvider,
   })),
 );

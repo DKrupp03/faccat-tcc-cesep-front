@@ -13,9 +13,11 @@ const PrivateRoute = ({ children }: { children: React.ReactNode }) => {
     return (
       <Flex>
         <MainSideMenu />
-        <Flex style={{ marginLeft: 250, padding: 30 }} gap={24} vertical>
+        <Flex style={{ marginLeft: 250, width: "calc(100vw - 250px)" }} gap={24} vertical>
           <CommonHeader />
-          {children}
+          <Flex style={{ padding: "0px 30px" }}>
+            {children}
+          </Flex>
         </Flex>
       </Flex>
     );

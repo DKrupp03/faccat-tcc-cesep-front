@@ -2,8 +2,7 @@ const common = {
   "mainMenu": "Menu principal",
   "myAccount": "Minha conta",
   "configs": "Configurações",
-  "exit": "Sair",
-
+  
   "actions": {
     "save": "Salvar",
     "cancel": "Cancelar",
@@ -11,6 +10,9 @@ const common = {
     "delete": "Excluir",
     "edit": "Editar",
     "back": "Voltar",
+    "exit": "Sair",
+    "filtrate": "Filtrar",
+    "reload": "Recarregar",
   },
 
   "modules": {

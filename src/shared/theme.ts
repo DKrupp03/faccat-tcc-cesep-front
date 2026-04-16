@@ -59,4 +59,14 @@ export const antdTheme = {
     boxShadowSecondary: "0 2px 8px 0 rgba(0, 0, 0, 0.08)",
     fontFamily: "\"Roboto\", \"Helvetica\", \"Arial\", sans-serif",
   },
+  components: {
+    Tooltip: {
+      colorBgSpotlight: COLORS.white,
+      colorTextLightSolid: COLORS.gray[300],
+    },
+    Typography: {
+      colorTextHeading: COLORS.primary[900],
+      colorText: COLORS.gray[300],
+    },
+  },
 };
