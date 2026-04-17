@@ -27,7 +27,7 @@ export const LoginForm = () => {
     } finally {
       setLoading(false);
     }
-  }, [login]);
+  }, [t, login]);
 
   return (
     <Form

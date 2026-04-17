@@ -66,7 +66,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     } catch (error) {
       console.error(error || t("common.errors.unknown"));
     }
-  }, [navigate]);
+  }, [t, navigate]);
 
   return (
     <AuthContext.Provider
