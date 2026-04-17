@@ -6,6 +6,8 @@ import { useTranslation } from "react-i18next";
 import { CommonTextInput } from "@/shared/components/CommonTextInput/CommonTextInput";
 import { CommonButton } from "@/shared/components/CommonButton/CommonButton";
 
+import styles from "./ForgotPasswordForm.module.css";
+
 type ForgotPasswordFormProps = {
   onSubmit: (email: string) => Promise<void>;
   loading: boolean;
@@ -26,11 +28,7 @@ export const ForgotPasswordForm = ({
       layout="vertical"
       onFinish={handleSubmit}
       requiredMark={false}
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        gap: 4,
-      }}
+      className={styles.form}
     >
       <Form.Item
         name="email"
@@ -48,17 +46,15 @@ export const ForgotPasswordForm = ({
       </Form.Item>
 
       <Form.Item noStyle shouldUpdate>
-        <Form.Item style={{ marginTop: 8, marginBottom: 0 }}>
-          <CommonButton
-            buttonVariant="primary"
-            htmlType="submit"
-            block
-            size="large"
-            loading={loading}
-          >
-            {t("auth.forgotPassword.resetPassword")}
-          </CommonButton>
-        </Form.Item>
+        <CommonButton
+          buttonVariant="primary"
+          htmlType="submit"
+          block
+          size="large"
+          loading={loading}
+        >
+          {t("auth.forgotPassword.resetPassword")}
+        </CommonButton>
       </Form.Item>
     </Form>
   );

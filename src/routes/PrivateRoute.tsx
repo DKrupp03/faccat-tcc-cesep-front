@@ -7,6 +7,8 @@ import { MainSideMenu } from "@/shared/components/MainSideMenu/MainSideMenu";
 import { CommonHeader } from "@/shared/components/CommonHeader/CommonHeader";
 import { CommonFallbackLoading } from "@/shared/components/CommonFallbackLoading/CommonFallbackLoading";
 
+import styles from "./PrivateRoute.module.css";
+
 const PrivateRoute = ({ children }: { children: React.ReactNode }) => {
   const { isAuthenticated, profile } = useAuth();
 
@@ -18,9 +20,12 @@ const PrivateRoute = ({ children }: { children: React.ReactNode }) => {
     return (
       <Flex>
         <MainSideMenu />
-        <Flex style={{ width: "100%" }} gap={24} vertical>
+        <Flex
+          gap={24} vertical
+          className={styles.pageContent}
+        >
           <CommonHeader />
-          <Flex style={{ padding: "0px 30px" }}>
+          <Flex className={styles.pageBody}>
             {children}
           </Flex>
         </Flex>

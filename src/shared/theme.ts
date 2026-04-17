@@ -42,12 +42,6 @@ export const FONT_SIZES = {
   "7xl": 56,
 };
 
-export const PADDINGS = {
-  paddingMd: 24,
-  paddingSm: 16,
-  paddingXs: 8,
-};
-
 export const antdTheme = {
   token: {
     colorPrimary: COLORS.primary.main,

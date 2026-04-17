@@ -8,8 +8,9 @@ import { CommonTextInput } from "@/shared/components/CommonTextInput/CommonTextI
 import { CommonButton } from "@/shared/components/CommonButton/CommonButton";
 import { COLORS } from "@/shared/theme";
 import { PATHS } from "@/routes/paths";
-
 import { useAuth } from "../../hooks/useAuth";
+
+import styles from "./LoginForm.module.css";
 
 export const LoginForm = () => {
   const { t } = useTranslation();
@@ -32,11 +33,7 @@ export const LoginForm = () => {
       layout="vertical"
       onFinish={handleSubmit}
       requiredMark={false}
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        gap: 4,
-      }}
+      className={styles.form}
     >
       <Form.Item
         name="email"
@@ -69,13 +66,14 @@ export const LoginForm = () => {
         />
       </Form.Item>
 
-      <Flex justify="flex-end" style={{ marginTop: -8 }}>
-        <Link to={PATHS.forgotPassword} style={{ color: COLORS.primary.grey, fontSize: 14 }}>
-          {t("auth.forgotPassword.forgotPassword")}
-        </Link>
-      </Flex>
+      <Link
+        to={PATHS.forgotPassword}
+        className={styles.forgotPasswordLink}
+      >
+        {t("auth.forgotPassword.forgotPassword")}
+      </Link>
 
-      <Form.Item style={{ marginTop: 8, marginBottom: 0 }}>
+      <Form.Item>
         <CommonButton
           buttonVariant="primary"
           htmlType="submit"

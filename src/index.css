@@ -26,23 +26,6 @@
   --color-white: #FFFFFF;
   --color-black: #000000;
 
-  --textXxs: 10px;
-  --textXs: 12px;
-  --textSm: 14px;
-  --textBase: 16px;
-  --textLg: 18px;
-  --textXl: 20px;
-  --text2Xl: 24px;
-  --text3Xl: 32px;
-  --text4Xl: 36px;
-  --text5Xl: 40px;
-  --text6Xl: 48px;
-  --text7Xl: 56px;
-
-  --paddingMd: 24px;
-  --paddingSm: 16px;
-  --paddingXs: 8px;
-
   font-family: "Lato", sans-serif;
   color: var(--color-primary-dark);
   text-rendering: optimizeLegibility;

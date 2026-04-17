@@ -8,8 +8,9 @@ import { CommonTextInput } from "@/shared/components/CommonTextInput/CommonTextI
 import { CommonButton } from "@/shared/components/CommonButton/CommonButton";
 import { useNotification } from "@/shared/hooks/useNotification";
 import { PATHS } from "@/routes/paths";
-
 import { AuthService } from "../../services/AuthService";
+
+import styles from "./ResetPasswordForm.module.css";
 
 type ResetPasswordFormProps = {
   token: string;
@@ -54,11 +55,7 @@ export const ResetPasswordForm = ({ token }: ResetPasswordFormProps) => {
       layout="vertical"
       onFinish={handleResetPassword}
       requiredMark={false}
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        gap: 4,
-      }}
+      className={styles.form}
     >
       <Form.Item
         name="password"
@@ -92,7 +89,7 @@ export const ResetPasswordForm = ({ token }: ResetPasswordFormProps) => {
         />
       </Form.Item>
 
-      <Form.Item style={{ marginTop: 8, marginBottom: 0 }}>
+      <Form.Item className={styles.submit}>
         <CommonButton
           buttonVariant="primary"
           htmlType="submit"

@@ -92,7 +92,7 @@ export const ForgotPasswordPage = () => {
                 {t("auth.forgotPassword.verifyEmail")}
               </Title>
             </Flex>
-            <Text style={{ textAlign: "center" }}>
+            <Text className={styles.linkSent}>
               {t("auth.forgotPassword.linkSent")}
             </Text>
           </Flex>

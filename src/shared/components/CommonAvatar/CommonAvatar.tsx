@@ -2,21 +2,15 @@ import { useMemo } from "react";
 import { Avatar, type AvatarProps } from "antd";
 
 import { type Profile } from "@/modules/auth/types/profile";
-import { COLORS } from "@/shared/theme";
 
-const AVATAR_STYLE = {
-  backgroundColor: COLORS.primary.outline,
-  color: COLORS.primary.grey,
-};
+import styles from "./CommonAvatar.module.css";
 
 type CommonAvatarProps = AvatarProps & {
   profile: Profile;
-  style?: React.CSSProperties;
 };
 
 export const CommonAvatar = ({
   profile,
-  style,
   ...props
 }: CommonAvatarProps) => {
   const nameInitials = useMemo(() => {
@@ -33,8 +27,8 @@ export const CommonAvatar = ({
     <Avatar
       size={35}
       shape="square"
-      style={{ ...AVATAR_STYLE, ...style }}
-      src={profile.photo_url ?? undefined}
+      className={styles.avatar}
+      src={profile.photo_url}
       {...props}
     >
       {nameInitials}
