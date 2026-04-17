@@ -54,7 +54,7 @@ export const MainSideMenu = () => {
             align="center" gap={12} className={styles.module}
             onClick={() => navigate(mod.path)}
             style={isModuleActive(mod.key)
-              ? { backgroundColor: COLORS.gray[50], color: COLORS.primary[500] }
+              ? { backgroundColor: COLORS.background.light, color: COLORS.primary.main }
               : undefined}
           >
             <Flex align="center">
@@ -75,7 +75,7 @@ export const MainSideMenu = () => {
 
         <Flex align="center" gap={12} className={styles.module}>
           <Flex align="center">
-            <IconUserSquareRounded size={16} color={COLORS.gray[300]} />
+            <IconUserSquareRounded size={16} color={COLORS.primary.grey} />
           </Flex>
           <Flex align="center">
             {t("common.myAccount")}
@@ -100,7 +100,7 @@ export const MainSideMenu = () => {
 
           <IconLogout2
             size={18}
-            color={COLORS.gray[300]}
+            color={COLORS.primary.grey}
             className={styles.footerIcon}
             onClick={logout}
           />

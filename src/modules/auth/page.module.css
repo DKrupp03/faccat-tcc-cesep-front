@@ -1,15 +1,15 @@
 .title {
   margin: 0px !important;
-  color: var(--color-primary-900) !important;
+  color: var(--color-primary-dark) !important;
   font-weight: 700;
 }
 
 .text {
-  color: var(--color-gray-300) !important;
+  color: var(--color-primary-grey) !important;
 }
 
 .resendText {
-  color: var(--color-primary-500);
+  color: var(--color-primary-main);
   font-weight: 700;
   cursor: pointer;
 }

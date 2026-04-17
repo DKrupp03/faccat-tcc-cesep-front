@@ -16,7 +16,7 @@ export const AuthBackButton = () => {
       className={styles.backButton}
       onClick={() => navigate(PATHS.login)}
     >
-      <IconChevronLeft color={COLORS.gray[300]} />
+      <IconChevronLeft color={COLORS.primary.grey} />
     </CommonButton>
   );
 };

@@ -42,7 +42,7 @@ export const ModulesProvider = ({ children }: { children: React.ReactNode }) => 
       icon: (
         <IconCalendarMonth
           size={16}
-          color={isModuleActive("services") ? COLORS.primary[500] : COLORS.gray[300]}
+          color={isModuleActive("services") ? COLORS.primary.main : COLORS.primary.grey}
         />
       ),
     },
@@ -53,7 +53,7 @@ export const ModulesProvider = ({ children }: { children: React.ReactNode }) => 
       icon: (
         <IconStethoscope
           size={16}
-          color={isModuleActive("therapists") ? COLORS.primary[500] : COLORS.gray[300]}
+          color={isModuleActive("therapists") ? COLORS.primary.main : COLORS.primary.grey}
         />
       ),
       notAllowed: !isAdmin,
@@ -65,7 +65,7 @@ export const ModulesProvider = ({ children }: { children: React.ReactNode }) => 
       icon: (
         <IconUsers
           size={16}
-          color={isModuleActive("patients") ? COLORS.primary[500] : COLORS.gray[300]}
+          color={isModuleActive("patients") ? COLORS.primary.main : COLORS.primary.grey}
         />
       ),
     },
@@ -76,7 +76,7 @@ export const ModulesProvider = ({ children }: { children: React.ReactNode }) => 
       icon: (
         <IconPremiumRights
           size={16}
-          color={isModuleActive("payments") ? COLORS.primary[500] : COLORS.gray[300]}
+          color={isModuleActive("payments") ? COLORS.primary.main : COLORS.primary.grey}
         />
       ),
     },

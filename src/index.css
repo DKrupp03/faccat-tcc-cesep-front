@@ -1,79 +1,45 @@
 :root {
   /* primary */
-  --color-primary-50: #E9F6FD;
-  --color-primary-100: #CCFAFA;
-  --color-primary-200: #5BC0DE;
-  --color-primary-500: #27A1EF;
-  --color-primary-900: #012E4C;
+  --color-primary-main: #5E81F4;
+  --color-primary-dark: #1C1D21;
+  --color-primary-grey: #8181A5;
+  --color-primary-outline: #F0F0F3;
 
-  /* gray */
-  --color-gray-50: #FAFAFA;
-  --color-gray-100: #F2F5F6;
-  --color-gray-150: #e8e8e8;
-  --color-gray-200: #DFDFE0;
-  --color-gray-250: #9CA7B2;
-  --color-gray-300: #4D6D82;
-  --color-gray-400: #68686E;
-  --color-gray-500: #4B4B53;
-  --color-gray-600: #313135;
-  --color-gray-700: #19191C;
-  --color-gray-800: #0D0D0E;
-  --color-gray-900: #040404;
+  /* background */
+  --color-bg-light: #F5F5FA;
+  --color-bg-default: #F6F6F6;
+  --color-bg-white: #FFFFFF;
 
-  /* green */
-  --color-green-50: #F0FDF4;
-  --color-green-100: #CCFADF;
-  --color-green-500: #23D44A;
-  --color-green-900: #14532D;
-
-  /* red */
-  --color-red-50: #FEF2F2;
-  --color-red-100: #FACFCC;
-  --color-red-500: #EF4444;
-  --color-red-900: #7F1D1D;
-
-  /* amber */
-  --color-amber-50: #FFFBEB;
-  --color-amber-75: #FFF4CE;
-  --color-amber-100: #FFECD1;
-  --color-amber-300: #FCD34D;
-  --color-amber-500: #F59E0B;
-  --color-amber-900: #92400E;
+  /* secondary */
+  --color-secondary-yellow: #F4BE5E;
+  --color-secondary-green: #7CE7AC;
+  --color-secondary-red: #FF808B;
+  --color-secondary-purple: #9698D6;
+  --color-secondary-cyan: #40E1FA;
 
   --color-white: #FFFFFF;
   --color-black: #000000;
 
   --textXxs: 10px;
-  --textXxsLineHeight: 12px;
   --textXs: 12px;
-  --textXsLineHeight: 18px;
   --textSm: 14px;
-  --textSmLineHeight: 22px;
   --textBase: 16px;
-  --textBaseLineHeight: 24px;
   --textLg: 18px;
-  --textLgLineHeight: 28px;
   --textXl: 20px;
-  --textXlLineHeight: 30px;
   --text2Xl: 24px;
-  --text2XlLineHeight: 36px;
   --text3Xl: 32px;
-  --text3XlLineHeight: 48px;
   --text4Xl: 36px;
-  --text4XlLineHeight: 48px;
   --text5Xl: 40px;
-  --text5XlLineHeight: 56px;
   --text6Xl: 48px;
-  --text6XlLineHeight: 64px;
   --text7Xl: 56px;
-  --text7XlLineHeight: 72px;
 
   --paddingMd: 24px;
   --paddingSm: 16px;
   --paddingXs: 8px;
 
-  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
-  color: var(--color-gray-700);
+  font-family: "Lato", sans-serif;
+  font-weight: 700;
+  color: var(--color-primary-dark);
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -87,7 +53,7 @@
 
 body {
   margin: 0;
-  background: var(--color-gray-50);
+  background: var(--color-bg-default);
 }
 
 #root {
@@ -117,5 +83,5 @@ h5.ant-typography {
 .ant-dropdown-menu-item:hover,
 .ant-dropdown-menu-item-active {
   background-color: transparent !important;
-  border-color: var(--color-gray-150) !important;
+  border-color: var(--color-primary-outline) !important;
 }

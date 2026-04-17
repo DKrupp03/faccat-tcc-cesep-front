@@ -3,7 +3,6 @@ import { useTranslation } from "react-i18next";
 import { Flex, Typography, Breadcrumb, type BreadcrumbProps } from "antd";
 
 import { useModules } from "@/shared/hooks/useModules";
-import { COLORS } from "@/shared/theme";
 
 import styles from "./CommonHeader.module.css";
 

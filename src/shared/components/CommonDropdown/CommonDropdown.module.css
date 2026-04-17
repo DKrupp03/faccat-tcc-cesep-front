@@ -1,5 +1,5 @@
 .text {
-  color: var(--color-gray-300) !important;
+  color: var(--color-primary-grey) !important;
   font-size: 12px;
   display: block;
 }

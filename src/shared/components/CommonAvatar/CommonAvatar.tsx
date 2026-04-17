@@ -5,8 +5,8 @@ import { type Profile } from "@/modules/auth/types/profile";
 import { COLORS } from "@/shared/theme";
 
 const AVATAR_STYLE = {
-  backgroundColor: COLORS.gray[150],
-  color: COLORS.gray[400],
+  backgroundColor: COLORS.primary.outline,
+  color: COLORS.primary.grey,
 };
 
 type CommonAvatarProps = AvatarProps & {

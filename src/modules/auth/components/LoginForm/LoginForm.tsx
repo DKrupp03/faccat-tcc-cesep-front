@@ -70,7 +70,7 @@ export const LoginForm = () => {
       </Form.Item>
 
       <Flex justify="flex-end" style={{ marginTop: -8 }}>
-        <Link to={PATHS.forgotPassword} style={{ color: COLORS.gray[300], fontSize: 14 }}>
+        <Link to={PATHS.forgotPassword} style={{ color: COLORS.primary.grey, fontSize: 14 }}>
           {t("auth.forgotPassword.forgotPassword")}
         </Link>
       </Flex>
