@@ -4,10 +4,13 @@
   gap: 4px;
 }
 
+.forgotPasswordLinkContainer {
+  width: 100%;
+}
+
 .forgotPasswordLink {
   color: var(--color-primary-grey);
   font-size: 14px;
   margin-top: -8px;
   margin-bottom: 8px;
-  text-align: end;
 }

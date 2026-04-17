@@ -71,7 +71,10 @@ export const ForgotPasswordPage = () => {
         }
       } else {
         openNotification("error", response.errors!);
+        throw new Error(response.error);
       }
+    } catch (error) {
+      console.error(error || t("common.errors.unknown"));
     } finally {
       setLoading(false);
     }

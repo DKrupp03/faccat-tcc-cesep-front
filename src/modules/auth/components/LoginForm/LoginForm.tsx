@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 
 import { CommonTextInput } from "@/shared/components/CommonTextInput/CommonTextInput";
 import { CommonButton } from "@/shared/components/CommonButton/CommonButton";
-import { COLORS } from "@/shared/theme";
 import { PATHS } from "@/routes/paths";
 import { useAuth } from "../../hooks/useAuth";
 
@@ -23,6 +22,8 @@ export const LoginForm = () => {
 
     try {
       await login(values.email, values.password);
+    } catch (error) {
+      console.error(error || t("common.errors.unknown"));
     } finally {
       setLoading(false);
     }
@@ -66,12 +67,17 @@ export const LoginForm = () => {
         />
       </Form.Item>
 
-      <Link
-        to={PATHS.forgotPassword}
-        className={styles.forgotPasswordLink}
+      <Flex
+        justify="end"
+        className={styles.forgotPasswordLinkContainer}
       >
-        {t("auth.forgotPassword.forgotPassword")}
-      </Link>
+        <Link
+          to={PATHS.forgotPassword}
+          className={styles.forgotPasswordLink}
+        >
+          {t("auth.forgotPassword.forgotPassword")}
+        </Link>
+      </Flex>
 
       <Form.Item>
         <CommonButton

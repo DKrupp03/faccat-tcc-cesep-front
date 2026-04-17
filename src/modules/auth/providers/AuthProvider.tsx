@@ -43,22 +43,28 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       setUser(response.user);
 
       navigate(DEFAULT_PATH, { replace: true });
-    } catch {
+    } catch (error) {
       openNotification("error", t("auth.errors.invalidCredentials"));
-      throw new Error();
+      console.error(error, t("auth.errors.invalidCredentials"));
     }
   }, [t, openNotification, navigate]);
 
   const logout = useCallback(async () => {
-    const response = await AuthService.logout();
+    try {
+      const response = await AuthService.logout();
 
-    if (response.success) {
-      authStorage.clear();
+      if (response.success) {
+        authStorage.clear();
 
-      setToken(null);
-      setUser(null);
+        setToken(null);
+        setUser(null);
 
-      navigate(PATHS.login, { replace: true });
+        navigate(PATHS.login, { replace: true });
+      } else {
+        throw new Error(response.error);
+      }
+    } catch (error) {
+      console.error(error || t("common.errors.unknown"));
     }
   }, [navigate]);
 

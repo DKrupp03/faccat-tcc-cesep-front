@@ -37,6 +37,7 @@ const common = {
 
   "errors": {
     "generic": "Ocorreu um erro. Tente novamente ou contate um administrador.",
+    "unknown": "Ocorreu um erro desconhecido.",
     "required": "Campo obrigatório.",
   },
 } as const;

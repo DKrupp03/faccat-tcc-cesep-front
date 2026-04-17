@@ -41,7 +41,7 @@ export const ModulesProvider = ({ children }: { children: React.ReactNode }) => 
         <IconCalendarMonth
           size={18}
           stroke={1.5}
-          color={isModuleActive("services") ? COLORS.primary.grey : COLORS.primary.grey}
+          color={isModuleActive("services") ? COLORS.primary.main : COLORS.primary.grey}
         />
       ),
     },
