@@ -27,13 +27,10 @@ export const LoginPage = () => {
   return (
     <AuthCardContainer>
       <Flex vertical>
-        <Title
-          level={3}
-          className={styles.title}
-        >
+        <Title level={3}>
           {t("auth.login.welcome")}
         </Title>
-        <Text className={styles.text}>
+        <Text>
           {t("auth.login.subtitle")}
         </Text>
       </Flex>
@@ -91,11 +88,11 @@ export const ForgotPasswordPage = () => {
           <Flex align="center" vertical gap={4}>
             <Flex align="center" gap={12}>
               <AuthBackButton />
-              <Title level={3} className={styles.title}>
+              <Title level={3}>
                 {t("auth.forgotPassword.verifyEmail")}
               </Title>
             </Flex>
-            <Text className={styles.text} style={{ textAlign: "center" }}>
+            <Text style={{ textAlign: "center" }}>
               {t("auth.forgotPassword.linkSent")}
             </Text>
           </Flex>
@@ -103,7 +100,7 @@ export const ForgotPasswordPage = () => {
           <Divider />
 
           <Flex align="center" vertical gap={4}>
-            <Text className={styles.text}>
+            <Text>
               {t("auth.forgotPassword.notReceived")}
             </Text>
             <Text
@@ -119,12 +116,12 @@ export const ForgotPasswordPage = () => {
           <Flex vertical gap={4}>
             <Flex align="center" gap={12}>
               <AuthBackButton />
-              <Title level={3} className={styles.title}>
+              <Title level={3}>
                 {t("auth.forgotPassword.recoverPassword")}
               </Title>
             </Flex>
 
-            <Text className={styles.text}>
+            <Text>
               {t("auth.forgotPassword.recoverPassword.description")}
             </Text>
           </Flex>
@@ -155,11 +152,11 @@ export const ResetPasswordPage = () => {
       <Flex vertical gap={4}>
         <Flex align="center" gap={12}>
           <AuthBackButton />
-          <Title level={3} className={styles.title}>
+          <Title level={3}>
             {t("auth.resetPassword.resetPassword")}
           </Title>
         </Flex>
-        <Text className={styles.text}>
+        <Text>
           {t("auth.resetPassword.resetPassword.description")}
         </Text>
       </Flex>

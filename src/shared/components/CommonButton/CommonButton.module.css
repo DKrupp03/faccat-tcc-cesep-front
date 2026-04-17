@@ -1,4 +1,9 @@
 .button {
   border-radius: 8px;
   font-size: 14px;
+  transition: filter 0.2s ease;
+}
+
+.button :global(.ant-btn-icon) svg {
+  color: inherit;
 }

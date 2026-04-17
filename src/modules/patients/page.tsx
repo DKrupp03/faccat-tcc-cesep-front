@@ -7,7 +7,8 @@ const PatientsPage = () => {
 
   useEffect(() => {
     changeActiveModule("patients");
-  }, [changeActiveModule]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return <div>PACIENTES</div>;
 };

@@ -12,8 +12,7 @@ type CommonButtonProps = ButtonProps & {
   | "outline"
   | "success"
   | "danger"
-  | "info"
-  | "edit";
+  | "info";
 }
 
 export const CommonButton: React.FC<CommonButtonProps> = ({
@@ -27,100 +26,72 @@ export const CommonButton: React.FC<CommonButtonProps> = ({
 }) => {
   const variants: {
     [key: string]: {
-      backgroundColor: string;
+      bgColor: string;
+      bgColorHover: string;
       borderColor: string;
+      borderColorHover: string;
       textColor: string;
-      disabledTextColor: string;
-      disabledBackgroundColor: string;
-      disabledBorderColor: string;
-      hoverBg?: string;
-      hoverColor?: string;
-      activeBg?: string;
-      activeColor?: string;
+      textColorHover: string;
     };
   } = {
     primary: {
-      backgroundColor: COLORS.primary.main,
-      borderColor: "transparent",
-      textColor: COLORS.white,
-      disabledTextColor: COLORS.primary.grey,
-      disabledBackgroundColor: COLORS.primary.outline,
-      disabledBorderColor: "transparent",
+      bgColor: outline ? COLORS.white : COLORS.primary.main,
+      bgColorHover: outline ? COLORS.white : COLORS.primary.mainHover,
+      borderColor: outline ? COLORS.primary.main : "trasparent",
+      borderColorHover: outline ? COLORS.primary.mainHover : "trasparent",
+      textColor: outline ? COLORS.primary.main : COLORS.white,
+      textColorHover: outline ? COLORS.primary.mainHover : COLORS.white,
     },
     outline: {
-      backgroundColor: COLORS.white,
-      borderColor: COLORS.primary.outline,
+      bgColor: outline ? COLORS.white : COLORS.primary.outline,
+      bgColorHover: outline ? COLORS.white : COLORS.primary.outlineHover,
+      borderColor: outline ? COLORS.primary.outline : "trasparent",
+      borderColorHover: outline ? COLORS.primary.greyHover : "trasparent",
       textColor: COLORS.primary.grey,
-      disabledTextColor: COLORS.primary.outline,
-      disabledBackgroundColor: "transparent",
-      disabledBorderColor: COLORS.primary.outline,
+      textColorHover: COLORS.primary.greyHover,
     },
     success: {
-      backgroundColor: COLORS.secondary.green,
-      borderColor: "transparent",
-      textColor: COLORS.white,
-      disabledTextColor: COLORS.primary.grey,
-      disabledBackgroundColor: COLORS.primary.outline,
-      disabledBorderColor: "transparent",
+      bgColor: outline ? COLORS.white : COLORS.secondary.green,
+      bgColorHover: outline ? COLORS.white : COLORS.secondary.greenHover,
+      borderColor: outline ? COLORS.secondary.green : "trasparent",
+      borderColorHover: outline ? COLORS.secondary.greenHover : "trasparent",
+      textColor: outline ? COLORS.secondary.green : COLORS.white,
+      textColorHover: outline ? COLORS.secondary.greenHover : COLORS.white,
     },
     danger: {
-      backgroundColor: COLORS.secondary.red,
-      borderColor: "transparent",
-      textColor: COLORS.white,
-      disabledTextColor: COLORS.primary.grey,
-      disabledBackgroundColor: COLORS.primary.outline,
-      disabledBorderColor: "transparent",
+      bgColor: outline ? COLORS.white : COLORS.secondary.red,
+      bgColorHover: outline ? COLORS.white : COLORS.secondary.redHover,
+      borderColor: outline ? COLORS.secondary.red : "trasparent",
+      borderColorHover: outline ? COLORS.secondary.redHover : "trasparent",
+      textColor: outline ? COLORS.secondary.red : COLORS.white,
+      textColorHover: outline ? COLORS.secondary.redHover : COLORS.white,
     },
     info: {
-      backgroundColor: COLORS.secondary.cyan,
-      borderColor: "transparent",
-      textColor: COLORS.white,
-      disabledTextColor: COLORS.primary.grey,
-      disabledBackgroundColor: COLORS.primary.outline,
-      disabledBorderColor: "transparent",
-    },
-    edit: {
-      backgroundColor: COLORS.white,
-      borderColor: "transparent",
-      textColor: COLORS.primary.grey,
-      disabledTextColor: COLORS.primary.outline,
-      disabledBackgroundColor: "transparent",
-      disabledBorderColor: "transparent",
-      hoverBg: COLORS.primary.outline,
-      hoverColor: "transparent",
+      bgColor: outline ? COLORS.white : COLORS.secondary.cyan,
+      bgColorHover: outline ? COLORS.white : COLORS.secondary.cyanHover,
+      borderColor: outline ? COLORS.secondary.cyan : "trasparent",
+      borderColorHover: outline ? COLORS.secondary.cyanHover : "trasparent",
+      textColor: outline ? COLORS.secondary.cyan : COLORS.white,
+      textColorHover: outline ? COLORS.secondary.cyanHover : COLORS.white,
     },
   };
 
-  const variant = variants[outline ? "outline" : buttonVariant];
-
-  const backgroundColor = disabled
-    ? variant.disabledBackgroundColor
-    : variant.backgroundColor;
-  const textColor = disabled ? variant.disabledTextColor : variant.textColor;
-  const borderColor = disabled
-    ? variant.disabledBorderColor
-    : variant.borderColor;
-
-  const hoverBg = backgroundColor;
-  const hoverColor = textColor;
-  const activeBg = backgroundColor;
-  const activeColor = textColor;
-  const hoverBorderColor = COLORS.primary.grey;
+  const variant = variants[buttonVariant];
 
   return (
     <ConfigProvider
       theme={{
         components: {
           Button: {
-            defaultBg: backgroundColor,
-            defaultColor: textColor,
-            defaultBorderColor: borderColor,
-            defaultHoverBg: hoverBg,
-            defaultHoverColor: hoverColor,
-            defaultHoverBorderColor: hoverBorderColor,
-            defaultActiveBg: activeBg,
-            defaultActiveColor: activeColor,
-            defaultActiveBorderColor: "transparent",
+            defaultBg: variant.bgColor,
+            defaultColor: variant.textColor,
+            defaultBorderColor: variant.borderColor,
+            defaultHoverBg: variant.bgColorHover,
+            defaultHoverColor: variant.textColorHover,
+            defaultHoverBorderColor: variant.borderColorHover,
+            defaultActiveBg: variant.bgColorHover,
+            defaultActiveColor: variant.textColorHover,
+            defaultActiveBorderColor: variant.borderColorHover,
           },
         },
       }}

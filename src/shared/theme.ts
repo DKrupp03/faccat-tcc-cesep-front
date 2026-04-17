@@ -1,9 +1,12 @@
 export const COLORS = {
   primary: {
     main: "#5E81F4",
+    mainHover: "#3362FB",
     dark: "#1C1D21",
     grey: "#8181A5",
+    greyHover: "#656583",
     outline: "#F0F0F3",
+    outlineHover: "#EAEAEA",
   },
   background: {
     light: "#F5F5FA",
@@ -13,9 +16,12 @@ export const COLORS = {
   secondary: {
     yellow: "#F4BE5E",
     green: "#7CE7AC",
+    greenHover: "#5BCC8E",
     red: "#FF808B",
+    redHover: "#FB5D6A",
     purple: "#9698D6",
     cyan: "#40E1FA",
+    cyanHover: "#15C0DA",
   },
   white: "#FFFFFF",
   black: "#000000",
@@ -66,6 +72,20 @@ export const antdTheme = {
     Typography: {
       colorTextHeading: COLORS.primary.dark,
       colorText: COLORS.primary.grey,
+    },
+    Menu: {
+      collapsedIconSize: 18,
+      itemHeight: 48,
+      itemMarginInline: 14,
+      itemMarginBlock: 10,
+      itemBorderRadius: 4,
+      itemBg: "transparent",
+      itemColor: COLORS.primary.grey,
+      itemIconColor: COLORS.primary.grey,
+      itemHoverBg: `${COLORS.primary.main}1A`,
+      itemHoverColor: COLORS.primary.grey,
+      itemSelectedBg: `${COLORS.primary.main}1A`,
+      itemSelectedColor: COLORS.primary.main,
     },
   },
 };

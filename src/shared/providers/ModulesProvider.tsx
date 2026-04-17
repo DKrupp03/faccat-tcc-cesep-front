@@ -12,7 +12,6 @@ import { useAuth } from "@/modules/auth/hooks/useAuth";
 import { useNotification } from "../hooks/useNotification";
 import { PATHS, DEFAULT_PATH } from "@/routes/paths";
 import { COLORS } from "@/shared/theme";
-import { type CommonHeaderType } from "../types/common";
 import { ModulesContext, type ModuleType } from "../contexts/ModulesContext";
 
 type ModuleKey = "services" | "therapists" | "patients" | "payments";
@@ -20,11 +19,10 @@ type ModuleKey = "services" | "therapists" | "patients" | "payments";
 export const ModulesProvider = ({ children }: { children: React.ReactNode }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { isAdmin } = useAuth();
+  const { profile } = useAuth();
   const { openNotification } = useNotification();
 
   const [activeModule, setActiveModule] = useState<ModuleKey>();
-  const [headerContent, setHeaderContent] = useState<CommonHeaderType>({});
 
   const changeDocumentTitle = useCallback((title: string) => {
     document.title = `${title} | CESEP`;
@@ -41,7 +39,8 @@ export const ModulesProvider = ({ children }: { children: React.ReactNode }) => 
       name: t("common.modules.services"),
       icon: (
         <IconCalendarMonth
-          size={16}
+          size={18}
+          stroke={1.5}
           color={isModuleActive("services") ? COLORS.primary.main : COLORS.primary.grey}
         />
       ),
@@ -52,11 +51,12 @@ export const ModulesProvider = ({ children }: { children: React.ReactNode }) => 
       name: t("common.modules.therapists"),
       icon: (
         <IconStethoscope
-          size={16}
+          size={18}
+          stroke={1.5}
           color={isModuleActive("therapists") ? COLORS.primary.main : COLORS.primary.grey}
         />
       ),
-      notAllowed: !isAdmin,
+      onlyAdmin: true,
     },
     {
       key: "patients",
@@ -64,7 +64,8 @@ export const ModulesProvider = ({ children }: { children: React.ReactNode }) => 
       name: t("common.modules.patients"),
       icon: (
         <IconUsers
-          size={16}
+          size={18}
+          stroke={1.5}
           color={isModuleActive("patients") ? COLORS.primary.main : COLORS.primary.grey}
         />
       ),
@@ -75,20 +76,17 @@ export const ModulesProvider = ({ children }: { children: React.ReactNode }) => 
       name: t("common.modules.payments"),
       icon: (
         <IconPremiumRights
-          size={16}
+          size={18}
+          stroke={1.5}
           color={isModuleActive("payments") ? COLORS.primary.main : COLORS.primary.grey}
         />
       ),
     },
-  ], [
-    isModuleActive,
-    isAdmin,
-    t,
-  ]);
+  ], [t, isModuleActive]);
 
   const isModuleAllowed = useCallback((key: ModuleKey) => (
-    !modules.find((mod) => mod.key === key)?.notAllowed
-  ), [modules]);
+    !modules.find((mod) => mod.key === key)?.onlyAdmin || profile?.role === "admin"
+  ), [modules, profile]);
 
   const changeActiveModule = useCallback((module: ModuleKey) => {
     if (!isModuleAllowed(module)) {
@@ -116,8 +114,6 @@ export const ModulesProvider = ({ children }: { children: React.ReactNode }) => 
         isModuleActive,
         modules,
         isModuleAllowed,
-        headerContent,
-        setHeaderContent,
       }}
     >
       {children}

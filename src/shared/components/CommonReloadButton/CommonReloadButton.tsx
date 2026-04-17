@@ -19,7 +19,6 @@ export const CommonReloadButton = ({
         onClick={onClick}
         icon={<IconReload size={16} />}
         size="large"
-        outline
       />
     </Tooltip>
   );

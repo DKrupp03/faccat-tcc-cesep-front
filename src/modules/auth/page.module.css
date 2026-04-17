@@ -1,13 +1,3 @@
-.title {
-  margin: 0px !important;
-  color: var(--color-primary-dark) !important;
-  font-weight: 700;
-}
-
-.text {
-  color: var(--color-primary-grey) !important;
-}
-
 .resendText {
   color: var(--color-primary-main);
   font-weight: 700;

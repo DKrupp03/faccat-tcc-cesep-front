@@ -1,4 +1,4 @@
-import { useState, useCallback, useMemo, useEffect } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
@@ -20,10 +20,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [token, setToken] = useState<string | null>(() => authStorage.getToken());
   const [user, setUser] = useState<BasicUser | null>(() => authStorage.getUser());
   const [profile, setProfile] = useState<Profile | null>(null);
-
-  const isAdmin = useMemo(() => (
-    profile?.role === "admin"
-  ), [profile?.role]);
 
   useEffect(() => {
     if (!user) return;
@@ -72,7 +68,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         token,
         user,
         profile,
-        isAdmin,
         isAuthenticated: !!token,
         login,
         logout,

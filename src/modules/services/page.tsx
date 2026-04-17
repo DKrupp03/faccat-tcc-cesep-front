@@ -7,7 +7,8 @@ const ServicesPage = () => {
 
   useEffect(() => {
     changeActiveModule("services");
-  }, [changeActiveModule]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return <div>ATENDIMENTOS</div>;
 };

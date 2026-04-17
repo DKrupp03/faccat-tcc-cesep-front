@@ -1,6 +1,4 @@
-import { createContext, type Dispatch, type SetStateAction } from "react";
-
-import { type CommonHeaderType } from "../types/common";
+import { createContext } from "react";
 
 type ModuleKey = "services" | "therapists" | "patients" | "payments";
 
@@ -9,7 +7,7 @@ export type ModuleType = {
   path: string;
   name: string;
   icon: React.ReactNode;
-  notAllowed?: boolean;
+  onlyAdmin?: boolean;
 };
 
 export type ModulesContextType = {
@@ -19,8 +17,6 @@ export type ModulesContextType = {
   isModuleActive: (module: ModuleKey) => boolean;
   modules: ModuleType[];
   isModuleAllowed: (module: ModuleKey) => boolean;
-  headerContent: CommonHeaderType;
-  setHeaderContent: Dispatch<SetStateAction<CommonHeaderType>>;
 };
 
 export const ModulesContext = createContext<ModulesContextType | null>(null);

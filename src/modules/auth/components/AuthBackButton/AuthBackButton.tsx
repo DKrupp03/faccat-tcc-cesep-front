@@ -15,6 +15,7 @@ export const AuthBackButton = () => {
       size="small"
       className={styles.backButton}
       onClick={() => navigate(PATHS.login)}
+      outline
     >
       <IconChevronLeft color={COLORS.primary.grey} />
     </CommonButton>

@@ -7,7 +7,8 @@ const PaymentosPage = () => {
 
   useEffect(() => {
     changeActiveModule("payments");
-  }, [changeActiveModule]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return <div>PAGAMENTOS</div>;
 };

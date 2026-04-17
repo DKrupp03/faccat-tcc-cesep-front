@@ -50,12 +50,11 @@ export const ForgotPasswordForm = ({
       <Form.Item noStyle shouldUpdate>
         <Form.Item style={{ marginTop: 8, marginBottom: 0 }}>
           <CommonButton
-            type="primary"
+            buttonVariant="primary"
             htmlType="submit"
             block
             size="large"
             loading={loading}
-            style={{ height: 44 }}
           >
             {t("auth.forgotPassword.resetPassword")}
           </CommonButton>

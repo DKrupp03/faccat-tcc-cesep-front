@@ -94,12 +94,11 @@ export const ResetPasswordForm = ({ token }: ResetPasswordFormProps) => {
 
       <Form.Item style={{ marginTop: 8, marginBottom: 0 }}>
         <CommonButton
-          type="primary"
+          buttonVariant="primary"
           htmlType="submit"
           block
           size="large"
           loading={loading}
-          style={{ borderRadius: 8, height: 44 }}
         >
           {t("auth.resetPassword.resetPassword")}
         </CommonButton>
