@@ -2,7 +2,7 @@ import { useEffect } from "react";
 
 import { useModules } from "@/shared/hooks/useModules";
 
-const PaymentosPage = () => {
+const PaymentsPage = () => {
   const { changeActiveModule } = useModules();
 
   useEffect(() => {
@@ -13,4 +13,4 @@ const PaymentosPage = () => {
   return <div>PAGAMENTOS</div>;
 };
 
-export default PaymentosPage;
+export default PaymentsPage;

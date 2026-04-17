@@ -5,8 +5,21 @@
 .card {
   border-radius: 12px;
   width: 100%;
-  padding: 16px;
+  height: 82px;
+  padding: 0px 16px;
   background-color: var(--color-white);
+}
+
+.cardSkeleton :global(.ant-skeleton-paragraph) {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.cardSkeleton :global(.ant-skeleton-title) {
+  width: 100% !important;
+  height: 82px !important;
+  border-radius: 12px;
+  margin: 0 !important;
 }
 
 .iconContainer {

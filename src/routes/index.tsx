@@ -2,8 +2,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 
 import { LoginPage, ForgotPasswordPage, ResetPasswordPage } from "../modules/auth/page";
 import ServicesPage from "@/modules/services/page";
-import TherapistsPage from "@/modules/therapists/page";
-import PatientsPage from "@/modules/patients/page";
+import ProfilesPage from "@/modules/profiles/page";
 import PaymentsPage from "@/modules/payments/page";
 
 import PrivateRoute from "./PrivateRoute";
@@ -26,8 +25,8 @@ const AppRoutes = () => {
 
   const privateRoutes: RouteType[] = [
     { path: PATHS.services, element: <ServicesPage /> },
-    { path: PATHS.therapists, element: <TherapistsPage /> },
-    { path: PATHS.patients, element: <PatientsPage /> },
+    { path: PATHS.therapists, element: <ProfilesPage module="therapists" /> },
+    { path: PATHS.patients, element: <ProfilesPage module="patients" /> },
     { path: PATHS.payments, element: <PaymentsPage /> },
   ];
 

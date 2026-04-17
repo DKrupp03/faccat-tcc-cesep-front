@@ -3,7 +3,7 @@ import type {
   ProfileResponse,
   ProfilesResponse,
   ProfilesPayload,
-} from "../../modules/therapists/types/profile";
+} from "../types/profile";
 
 const ProfilesService = {
   async getProfile(id: number): Promise<ProfileResponse> {

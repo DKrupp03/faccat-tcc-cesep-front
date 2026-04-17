@@ -6,11 +6,11 @@ import { useNotification } from "@/shared/hooks/useNotification";
 import { PATHS, DEFAULT_PATH } from "@/routes/paths";
 
 import { authStorage } from "../utils/authStorage";
-import { type BasicUser } from "../../therapists/types/user";
-import { type Profile } from "@/modules/therapists/types/profile";
+import { type BasicUser } from "../../profiles/types/user";
+import { type Profile } from "@/modules/profiles/types/profile";
 import { AuthService } from "../services/AuthService";
 import { AuthContext } from "../contexts/AuthContext"
-import { useProfilesOperations } from "@/modules/therapists/hooks/useProfilesOperations";
+import { useProfilesOperations } from "@/modules/profiles/hooks/useProfilesOperations";
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const { t } = useTranslation();
@@ -51,16 +51,16 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     try {
       const response = await AuthService.logout();
 
-      if (response.success) {
-        authStorage.clear();
-
-        setToken(null);
-        setUser(null);
-
-        navigate(PATHS.login, { replace: true });
-      } else {
+      if (!response.success) {
         throw new Error(response.error);
       }
+
+      authStorage.clear();
+
+      setToken(null);
+      setUser(null);
+
+      navigate(PATHS.login, { replace: true });
     } catch (error) {
       console.error(error || t("common.errors.unknown"));
     }

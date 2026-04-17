@@ -5,7 +5,7 @@ import type {
   ProfilesPayload,
   ProfilesOrder,
 } from "../types/profile";
-import ProfilesService from "@/shared/services/ProfilesService";
+import ProfilesService from "@/modules/profiles/services/ProfilesService";
 
 export const useProfilesOperations = () => {
   const createProfile = useCallback(() => {

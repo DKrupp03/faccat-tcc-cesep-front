@@ -1,4 +1,4 @@
-import { Flex, Typography } from "antd";
+import { Flex, Typography, Skeleton } from "antd";
 
 import styles from "./CommonHeaderCards.module.css";
 
@@ -12,18 +12,28 @@ type CardType = {
 
 type CommonHeaderCardsProps = {
   cards: CardType[];
+  loading?: boolean;
 };
 
 export const CommonHeaderCards = ({
   cards,
+  loading,
 }: CommonHeaderCardsProps) => {
   return (
     <Flex
       gap={24} justify="center" align="center"
       className={styles.cards}
     >
-      {cards.map((card) => (
+      {cards.map((card, index) => loading ? (
+        <Skeleton
+          key={index}
+          className={styles.cardSkeleton}
+          paragraph={{ rows: 0 }}
+          active
+        />
+      ) : (
         <Flex
+          key={index}
           align="center" gap={24}
           className={styles.card}
         >

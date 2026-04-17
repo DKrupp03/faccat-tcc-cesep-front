@@ -5,3 +5,8 @@ export type CommonResponse = {
   error?: string;
   errors?: ErrorsType;
 };
+
+export type CommonPanelResponse = CommonResponse & {
+  total: number;
+  total_filtered: number;
+};

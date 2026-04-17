@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { Avatar, type AvatarProps } from "antd";
 
-import { type Profile } from "@/modules/therapists/types/profile";
+import { type Profile } from "@/modules/profiles/types/profile";
 
 import styles from "./CommonAvatar.module.css";
 

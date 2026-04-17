@@ -35,17 +35,17 @@ export const ResetPasswordForm = ({ token }: ResetPasswordFormProps) => {
         token,
       );
 
-      if (response.success) {
-        openNotification(
-          "success",
-          t("auth.resetPassword.success"),
-        );
-
-        navigate(PATHS.login, { replace: true });
-      } else {
+      if (!response.success) {
         openNotification("error", response.errors!);
         throw new Error(response.error);
       }
+
+      openNotification(
+        "success",
+        t("auth.resetPassword.success"),
+      );
+
+      navigate(PATHS.login, { replace: true });
     } catch (error) {
       console.error(error || t("common.errors.unknown"));
     } finally {

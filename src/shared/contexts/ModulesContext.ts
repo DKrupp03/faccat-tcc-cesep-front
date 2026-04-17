@@ -1,6 +1,6 @@
 import { createContext } from "react";
 
-type ModuleKey = "services" | "therapists" | "patients" | "payments";
+export type ModuleKey = "services" | "therapists" | "patients" | "payments";
 
 export type ModuleType = {
   key: ModuleKey;

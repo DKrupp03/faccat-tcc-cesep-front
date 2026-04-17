@@ -57,21 +57,21 @@ export const ForgotPasswordPage = () => {
 
     try {
       const response = await AuthService.requestPasswordRecover(emailValue);
-  
-      if (response.success) {
-        setEmail(emailValue);
-        setEmailSent(true);
-  
-        if (isResend) {
-          openNotification(
-            "info",
-            t("auth.forgotPassword.linkSent"),
-            t("auth.forgotPassword.verifyEmail"),
-          );
-        }
-      } else {
+
+      if (!response.success) {
         openNotification("error", response.errors!);
         throw new Error(response.error);
+      }
+  
+      setEmail(emailValue);
+      setEmailSent(true);
+
+      if (isResend) {
+        openNotification(
+          "info",
+          t("auth.forgotPassword.linkSent"),
+          t("auth.forgotPassword.verifyEmail"),
+        );
       }
     } catch (error) {
       console.error(error || t("common.errors.unknown"));

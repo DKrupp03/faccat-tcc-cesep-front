@@ -1,4 +1,4 @@
-import { type BasicUser } from "../../therapists/types/user";
+import { type BasicUser } from "../../profiles/types/user";
 
 const KEYS = {
   token: "X-User-Token",

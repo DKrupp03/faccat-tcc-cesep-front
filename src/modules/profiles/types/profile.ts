@@ -1,4 +1,4 @@
-import type { CommonResponse } from "@/shared/types/common";
+import type { CommonResponse, CommonPanelResponse } from "@/shared/types/common";
 
 export type ProfileGender = "male" | "female" | "other";
 
@@ -66,6 +66,6 @@ export type ProfilesPayload = {
   per_page?: number;
 };
 
-export type ProfilesResponse = CommonResponse & {
+export type ProfilesResponse = CommonPanelResponse & {
   profiles: Profile[];
 };
