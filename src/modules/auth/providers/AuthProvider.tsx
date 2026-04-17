@@ -6,16 +6,17 @@ import { useNotification } from "@/shared/hooks/useNotification";
 import { PATHS, DEFAULT_PATH } from "@/routes/paths";
 
 import { authStorage } from "../utils/authStorage";
-import { type BasicUser } from "../types/user";
-import { type Profile } from "@/modules/auth/types/profile";
+import { type BasicUser } from "../../therapists/types/user";
+import { type Profile } from "@/modules/therapists/types/profile";
 import { AuthService } from "../services/AuthService";
-import ProfilesService from "@/modules/therapists/services/ProfilesService";
-import { AuthContext } from "../contexts/AuthContext";
+import { AuthContext } from "../contexts/AuthContext"
+import { useProfilesOperations } from "@/modules/therapists/hooks/useProfilesOperations";
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { openNotification } = useNotification();
+  const { fetchProfile } = useProfilesOperations();
 
   const [token, setToken] = useState<string | null>(() => authStorage.getToken());
   const [user, setUser] = useState<BasicUser | null>(() => authStorage.getUser());
@@ -25,13 +26,10 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     if (!user) return;
 
     (async () => {
-      const response = await ProfilesService.getProfile(user.profile_id);
-
-      if (response.success) {
-        setProfile(response.profile);
-      }
+      const response = await fetchProfile(user.profile_id);
+      if (response.success) setProfile(response.profile);
     })();
-  }, [user]);
+  }, [user, fetchProfile]);
 
   const login = useCallback(async (email: string, password: string) => {
     try {

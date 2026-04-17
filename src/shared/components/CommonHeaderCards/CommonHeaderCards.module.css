@@ -1,0 +1,17 @@
+.cards {
+  width: 100%;
+}
+
+.card {
+  border-radius: 12px;
+  width: 100%;
+  padding: 16px;
+  background-color: var(--color-white);
+}
+
+.iconContainer {
+  height: 50px;
+  width: 50px;
+  border-radius: 15px;
+  background-color: var(--color-primary-outline);
+}

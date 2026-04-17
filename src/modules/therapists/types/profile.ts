@@ -49,3 +49,23 @@ export type Profile = {
 export type ProfileResponse = CommonResponse & {
   profile: Profile;
 };
+
+export type ProfilesFilter = {
+  active: boolean;
+  role: ProfileRole;
+  name?: string;
+  therapist_id?: number;
+};
+
+export type ProfilesOrder = "name_asc" | "name_esc";
+
+export type ProfilesPayload = {
+  profiles: ProfilesFilter;
+  order_by: ProfilesOrder;
+  page?: number;
+  per_page?: number;
+};
+
+export type ProfilesResponse = CommonResponse & {
+  profiles: Profile[];
+};
