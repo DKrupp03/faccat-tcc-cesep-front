@@ -1,23 +1,5 @@
 .header {
   width: 100%;
   padding: 30px;
-}
-
-.breadcrumbSelectedItem {
-  display: flex;
-  align-items: center;
-  height: 100%;
-  color: var(--color-primary-main) !important;
-}
-
-.breadcrumbItem {
-  display: flex;
-  align-items: center;
-  height: 100%;
-}
-
-.breadcrumbSeparator {
-  height: 100%;
-  color: var(--color-primary-grey) !important;
-  padding: 0px 2px;
+  padding-bottom: 0px;
 }

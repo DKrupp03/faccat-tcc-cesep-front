@@ -74,7 +74,13 @@ export const MainSideMenu = () => {
             >
               {module.icon}
               {!collapsed && (
-                <Text>
+                <Text
+                  style={{
+                    color: isModuleActive(module.key)
+                      ? COLORS.primary.main
+                      : undefined,
+                  }}
+                >
                   {module.name}
                 </Text>
               )}
