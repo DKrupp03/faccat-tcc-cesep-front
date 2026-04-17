@@ -1,6 +1,5 @@
 import { useState, useMemo } from "react";
-import { Flex, Typography, Menu } from "antd";
-import type { MenuProps } from "antd";
+import { Flex, Typography } from "antd";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { IconLogout2 } from "@tabler/icons-react";
@@ -20,22 +19,13 @@ export const MainSideMenu = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { profile, logout } = useAuth();
-  const { activeModule, modules, isModuleAllowed } = useModules();
+  const { isModuleActive, modules, isModuleAllowed } = useModules();
 
   const [collapsed, setCollapsed] = useState<boolean>(true);
 
   const allowedModules = useMemo(() => (
     modules.filter((mod) => isModuleAllowed(mod.key))
   ), [modules, isModuleAllowed]);
-
-  const menuItems: MenuProps["items"] = useMemo(() => (
-    allowedModules.map((mod) => ({
-      key: mod.key,
-      icon: mod.icon,
-      label: mod.name,
-      onClick: () => navigate(mod.path),
-    }))
-  ), [allowedModules, navigate]);
 
   return (
     <Flex
@@ -53,19 +43,45 @@ export const MainSideMenu = () => {
           src={collapsed ? logoMini : logo}
           alt="CESEP"
           className={styles.logo}
+          style={{ height: collapsed ? 40 : 50 }}
         />
       </Flex>
 
-      <div className={styles.itemsContainer}>
-        <Menu
-          mode="inline"
-          inlineCollapsed={collapsed}
-          inlineIndent={16}
-          selectedKeys={activeModule ? [activeModule] : []}
-          items={menuItems}
-          className={styles.items}
-        />
-      </div>
+      <Flex
+        vertical gap={8}
+        className={styles.items}
+      >
+        {allowedModules.map((module) => (
+          <Flex
+            justify="center"
+            style={{
+              borderRight: isModuleActive(module.key)
+                ? `3px solid ${COLORS.primary.main}`
+                : "none",
+            }}
+          >
+            <Flex
+              justify={collapsed ? "center" : "start"} align="center" gap={12}
+              className={styles.item}
+              onClick={() => navigate(module.path)}
+              style={{
+                backgroundColor: isModuleActive(module.key)
+                  ? `${COLORS.primary.main}1A`
+                  : "transparent",
+                width: collapsed ? 48 : "100%",
+                margin: collapsed ? undefined : "0px 18px"
+              }}
+            >
+              {module.icon}
+              {!collapsed && (
+                <Text>
+                  {module.name}
+                </Text>
+              )}
+            </Flex>
+          </Flex>
+        ))}
+      </Flex>
 
       {profile && (
         <Flex
@@ -80,7 +96,7 @@ export const MainSideMenu = () => {
             <>
               <Flex
                 vertical
-                className={styles.nameContainer}
+                className={styles.infos}
               >
                 <Text className={styles.name}>
                   {profile.name}
