@@ -1,0 +1,65 @@
+.card {
+  border-radius: 10px;
+  background-color: var(--color-white);
+  overflow: hidden;
+}
+
+.header {
+  height: 60px;
+  padding: 0px 24px !important;
+}
+
+.table :global(.ant-table-thead th) {
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  padding-block: 8px !important;
+  padding-inline: 8px !important;
+  border-top: 1px solid var(--color-primary-outline) !important;
+  border-bottom: 1px solid var(--color-primary-outline) !important;
+  border-left: none !important;
+  border-right: none !important;
+  border-radius: 0 !important;
+}
+
+.table :global(.ant-table-thead th:first-child) {
+  padding-inline-start: 24px !important;
+}
+
+.table :global(.ant-table-thead th:last-child) {
+  padding-inline-end: 24px !important;
+}
+
+.table :global(.ant-table-thead tr:first-child th:first-child),
+.table :global(.ant-table-thead tr:first-child td:first-child) {
+  border-start-start-radius: 0 !important;
+}
+
+.table :global(.ant-table-thead tr:first-child th:last-child),
+.table :global(.ant-table-thead tr:first-child td:last-child) {
+  border-start-end-radius: 0 !important;
+}
+
+.table :global(.ant-table-thead th::before) {
+  display: none !important;
+}
+
+.table :global(.ant-table-tbody td) {
+  border: none !important;
+  padding-inline: 8px !important;
+}
+
+.table :global(.ant-table-tbody td:first-child) {
+  padding-inline-start: 24px !important;
+}
+
+.table :global(.ant-table-tbody td:last-child) {
+  padding-inline-end: 24px !important;
+}
+
+.table :global(.ant-table-tbody tr:last-child td:first-child) {
+  border-end-start-radius: 10px !important;
+}
+
+.table :global(.ant-table-tbody tr:last-child td:last-child) {
+  border-end-end-radius: 10px !important;
+}

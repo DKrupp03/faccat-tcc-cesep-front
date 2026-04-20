@@ -27,21 +27,6 @@ export const COLORS = {
   black: "#000000",
 };
 
-export const FONT_SIZES = {
-  xxs: 10,
-  xs: 12,
-  sm: 14,
-  base: 16,
-  lg: 18,
-  xl: 20,
-  "2xl": 24,
-  "3xl": 32,
-  "4xl": 36,
-  "5xl": 40,
-  "6xl": 48,
-  "7xl": 56,
-};
-
 export const antdTheme = {
   token: {
     colorPrimary: COLORS.primary.main,
@@ -66,6 +51,12 @@ export const antdTheme = {
     Typography: {
       colorTextHeading: COLORS.primary.dark,
       colorText: COLORS.primary.grey,
+    },
+    Table: {
+      headerBg: COLORS.white,
+      headerColor: COLORS.primary.grey,
+      cellPaddingBlock: 8,
+      cellPaddingInline: 24,
     },
   },
 };

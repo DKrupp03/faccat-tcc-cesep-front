@@ -1,34 +1,34 @@
 import { useMemo } from "react";
 import { Avatar, type AvatarProps } from "antd";
 
-import { type Profile } from "@/modules/profiles/types/profile";
-
 import styles from "./CommonAvatar.module.css";
 
 type CommonAvatarProps = AvatarProps & {
-  profile: Profile;
+  name: string;
+  photoUrl?: string;
 };
 
 export const CommonAvatar = ({
-  profile,
+  name,
+  photoUrl,
   ...props
 }: CommonAvatarProps) => {
   const nameInitials = useMemo(() => {
-    const words = profile.name.trim().split(/\s+/);
+    const words = name.trim().split(/\s+/);
 
     return words
       .slice(0, 2)
       .map((w) => w[0])
       .join("")
       .toUpperCase();
-  }, [profile.name]);
+  }, [name]);
 
   return (
     <Avatar
       size={35}
       shape="square"
       className={styles.avatar}
-      src={profile.photo_url}
+      src={photoUrl}
       {...props}
     >
       {nameInitials}

@@ -95,7 +95,10 @@ export const MainSideMenu = () => {
           className={styles.footer}
         >
           <div className={styles.avatarContainer}>
-            <CommonAvatar profile={profile} />
+            <CommonAvatar
+              name={profile.name}
+              photoUrl={profile.photo_url}
+            />
           </div>
 
           {!collapsed && (

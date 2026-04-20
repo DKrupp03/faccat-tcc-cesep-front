@@ -25,12 +25,22 @@ export const CommonHeaderCards = ({
       className={styles.cards}
     >
       {cards.map((card, index) => loading ? (
-        <Skeleton
+        <Flex
           key={index}
-          className={styles.cardSkeleton}
-          paragraph={{ rows: 0 }}
-          active
-        />
+          align="center" gap={24}
+          className={styles.card}
+        >
+          <Skeleton
+            paragraph={false}
+            className={styles.iconContainerSkeleton}
+            active
+          />
+          <Skeleton
+            title={false}
+            paragraph={{ rows: 2 }}
+            active
+          />
+        </Flex>
       ) : (
         <Flex
           key={index}

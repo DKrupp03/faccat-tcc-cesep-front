@@ -1,4 +1,4 @@
-const auth = {
+const profiles = {
   "therapists": {
     "total": "Total de terapeutas",
     "totalFiltered": "Terapeutas filtrados",
@@ -8,6 +8,16 @@ const auth = {
     "total": "Total de pacientes",
     "totalFiltered": "Pacientes filtrados",
   },
+
+  "columns": {
+    "name": "Nome",
+    "services": "Atendimentos",
+    "therapist": "Terapeuta",
+    "patients": "Pacientes",
+    "paymentStatus": "Status do pagamento",
+    "email": "E-mail",
+    "lastService": "Último atendimento",
+  },
 } as const;
 
-export default auth;
+export default profiles;

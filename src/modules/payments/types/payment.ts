@@ -1,0 +1,1 @@
+export type PaymentStatus = "paid" | "overdue" | "unpaid";

@@ -2,6 +2,7 @@ const common = {
   "mainMenu": "Menu principal",
   "myAccount": "Minha conta",
   "configs": "Configurações",
+  "noData": "Sem dados para exibir.",
   
   "actions": {
     "save": "Salvar",

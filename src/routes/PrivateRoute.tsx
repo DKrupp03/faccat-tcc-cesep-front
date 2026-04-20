@@ -12,16 +12,16 @@ import styles from "./PrivateRoute.module.css";
 const PrivateRoute = ({ children }: { children: React.ReactNode }) => {
   const { isAuthenticated, profile } = useAuth();
 
-  if (isAuthenticated && !profile) {
-    return <CommonFallbackLoading />;
-  }
-
   if (isAuthenticated) {
+    if (!profile) {
+      return <CommonFallbackLoading />;
+    }
+
     return (
       <Flex>
         <MainSideMenu />
         <Flex
-          gap={24} vertical
+          vertical
           className={styles.pageContent}
         >
           <CommonHeader />

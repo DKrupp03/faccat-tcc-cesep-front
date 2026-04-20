@@ -3,23 +3,11 @@
 }
 
 .card {
-  border-radius: 12px;
+  border-radius: 10px;
   width: 100%;
   height: 82px;
   padding: 0px 16px;
   background-color: var(--color-white);
-}
-
-.cardSkeleton :global(.ant-skeleton-paragraph) {
-  margin: 0 !important;
-  padding: 0 !important;
-}
-
-.cardSkeleton :global(.ant-skeleton-title) {
-  width: 100% !important;
-  height: 82px !important;
-  border-radius: 12px;
-  margin: 0 !important;
 }
 
 .iconContainer {
@@ -27,4 +15,15 @@
   width: 50px;
   border-radius: 15px;
   background-color: var(--color-primary-outline);
+}
+
+.iconContainerSkeleton {
+  width: 50px !important;
+}
+
+.iconContainerSkeleton :global(.ant-skeleton-title) {
+  height: 50px !important;
+  width: 50px !important;
+  border-radius: 15px;
+  margin: 0 !important;
 }

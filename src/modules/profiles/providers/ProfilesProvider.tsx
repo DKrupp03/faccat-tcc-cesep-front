@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import type { ModuleKey } from "@/shared/contexts/ModulesContext";
 
 import { ProfilesContext } from "../contexts/ProfilesContext";
-import { useProfilesOperations } from "../hooks/useProfilesOperations";
+import { useProfilesCommon } from "../hooks/useProfilesCommon";
 import type {
   Profile,
   ProfilesFilter,
@@ -21,7 +21,7 @@ export const ProfilesProvider = ({
   children,
 }: ProfilesProviderProps) => {
   const { t } = useTranslation()
-  const { fetchProfiles } = useProfilesOperations();
+  const { fetchProfiles } = useProfilesCommon();
 
   const profileRole = useMemo(() => {
     if (module === "patients") return "patient";

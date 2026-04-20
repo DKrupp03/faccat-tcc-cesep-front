@@ -1,4 +1,6 @@
 import type { CommonResponse, CommonPanelResponse } from "@/shared/types/common";
+import type { BasicUser } from "./user";
+import type { PaymentStatus } from "@/modules/payments/types/payment";
 
 export type ProfileGender = "male" | "female" | "other";
 
@@ -27,23 +29,30 @@ export type Profile = {
   name: string;
   gender: ProfileGender;
   birth: string;
-  address: string | null;
-  occupation: string | null;
-  marital_status: ProfileMaritalStatus | null;
-  education_level: ProfileEducationLevel | null;
-  phone: string | null;
-  cpf: string | null;
-  rg: string | null;
-  crp: string | null;
-  parent: Record<string, unknown> | null;
-  default_value: number | null;
-  extra: string | null;
+  address?: string;
+  occupation?: string;
+  marital_status?: ProfileMaritalStatus;
+  education_level?: ProfileEducationLevel;
+  phone?: string;
+  cpf?: string;
+  rg?: string;
+  crp?: string;
+  parent?: Record<string, unknown>;
+  default_value?: number;
+  extra?: string;
   role: ProfileRole;
   active: boolean;
-  therapist_id: number | null;
-  photo_url: string | null;
+  therapist_id?: number;
+  photo_url?: string;
   created_at: string;
   updated_at: string;
+  therapist?: Profile;
+  patients_count?: number;
+  patient_services_count?: number;
+  therapist_services_count?: number;
+  payment_status?: PaymentStatus;
+  last_service?: string;
+  user: BasicUser;
 };
 
 export type ProfileResponse = CommonResponse & {

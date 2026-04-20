@@ -1,7 +1,10 @@
 .menu {
+  position: sticky;
+  top: 0;
   height: 100vh;
   background-color: var(--color-white);
   transition: width 0.2s ease;
+  flex-shrink: 0;
 }
 
 .header {
