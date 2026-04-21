@@ -66,7 +66,7 @@ export const MainSideMenu = () => {
               onClick={() => navigate(module.path)}
               style={{
                 backgroundColor: isModuleActive(module.key)
-                  ? `${COLORS.primary.main}1A`
+                  ? `${COLORS.white}1A`
                   : "transparent",
                 width: collapsed ? 48 : "100%",
                 margin: collapsed ? undefined : "0px 18px"
@@ -78,7 +78,7 @@ export const MainSideMenu = () => {
                   style={{
                     color: isModuleActive(module.key)
                       ? COLORS.primary.main
-                      : undefined,
+                      : COLORS.primary.outline,
                   }}
                 >
                   {module.name}
@@ -117,8 +117,8 @@ export const MainSideMenu = () => {
     
               <IconLogout2
                 size={18}
-                color={COLORS.primary.grey}
-                className={styles.logoutIcon}
+                color={COLORS.primary.outline}
+                cursor="pointer"
                 onClick={logout}
               />
             </>

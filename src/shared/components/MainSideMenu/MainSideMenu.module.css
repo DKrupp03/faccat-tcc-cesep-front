@@ -2,7 +2,7 @@
   position: sticky;
   top: 0;
   height: 100vh;
-  background-color: var(--color-white);
+  background-color: var(--color-primary-dark);
   transition: width 0.2s ease;
   flex-shrink: 0;
 }
@@ -25,7 +25,8 @@
 }
 
 .item:hover {
-  border: 1px solid var(--color-primary-outline);
+  background-color: #FFFFFF1A !important;
+  transition: 0.5s ease;
 }
 
 .item {
@@ -57,12 +58,8 @@
   white-space: nowrap;
 }
 
-.role {
-  font-size: 12px;
-}
-
 .name {
-  color: var(--color-primary-dark) !important;
+  color: var(--color-primary-outline) !important;
   font-size: 12px;
   font-weight: 600;
   white-space: nowrap;
@@ -70,6 +67,7 @@
   text-overflow: ellipsis;
 }
 
-.logoutIcon {
-  cursor: pointer;
+.role {
+  color: var(--color-primary-grey) !important;
+  font-size: 12px;
 }
