@@ -86,6 +86,7 @@ export const ProfilesProvider = ({
       page,
       orderBy,
       setOrderBy,
+      profileRole,
     }}>
       {children}
     </ProfilesContext.Provider>

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Flex, Tooltip } from "antd";
 import {
@@ -17,6 +17,7 @@ import { CommonButton } from "@/shared/components/CommonButton/CommonButton";
 import { ProfilesProvider } from "./providers/ProfilesProvider";
 import { useProfiles } from "./hooks/useProfiles";
 import { useProfilesCommon } from "./hooks/useProfilesCommon";
+import { ProfilesFilterModal } from "./components/ProfilesFilterModal/ProfilesFilterModal";
 import styles from "./page.module.css";
 
 type ProfilesPageProps = {
@@ -44,6 +45,8 @@ const ProfilesPanel = ({ module }: ProfilesPageProps) => {
   } = useProfiles();
   const { getProfilesColumnFields } = useProfilesCommon();
 
+  const [isFilterOpen, setIsFilterOpen] = useState<boolean>(false);
+
   useEffect(() => {
     if (module) {
       changeActiveModule(module);
@@ -52,67 +55,74 @@ const ProfilesPanel = ({ module }: ProfilesPageProps) => {
   }, [module]);
 
   return (
-    <Flex
-      vertical gap={24}
-      className={styles.panel}
-    >
-      <CommonHeader
-        title={t(`common.modules.${module}`)}
-        options={[]}
-        buttons={[
-          <Tooltip title={t("common.actions.reload")}>
-            <CommonButton
-              onClick={() => {}}
-              icon={<IconReload size={16} />}
-              className={styles.headerIconButtons}
-            />
-          </Tooltip>,
-          <Tooltip title={t("common.actions.filtrate")}>
-            <CommonButton
-              onClick={() => {}}
-              icon={<IconFilter size={16} />}
-              className={styles.headerIconButtons}
-            />
-          </Tooltip>,
-          <Tooltip title={t(`profiles.${module}.actions.create`)}>
-            <CommonButton
-              onClick={() => {}}
-              icon={<IconCirclePlus size={16} />}
-              className={styles.headerIconButtons}
-            />
-          </Tooltip>,
-        ]}
-      />
-      <CommonHeaderCards
-        loading={loading}
-        cards={[
-          {
-            title: t("common.headerCards.total"),
-            text: t(`profiles.${module}.headerCards.total`),
-            value: total,
-            progress: 100,
-          },
-          {
-            title: t("common.headerCards.filtered"),
-            text: t(`profiles.${module}.headerCards.filtered`),
-            value: totalFiltered,
-            progress: totalFiltered / total * 100,
-          },
-          {
-            title: t("common.headerCards.actives"),
-            text: t(`profiles.${module}.headerCards.actives`),
-            value: totalActive,
-            progress: totalActive / total * 100,
-          }
-        ]}
-      />
+    <>
+      <Flex
+        vertical gap={24}
+        className={styles.panel}
+      >
+        <CommonHeader
+          title={t(`common.modules.${module}`)}
+          options={[]}
+          buttons={[
+            <Tooltip title={t("common.actions.reload")}>
+              <CommonButton
+                onClick={() => {}}
+                icon={<IconReload size={16} />}
+                className={styles.headerIconButtons}
+              />
+            </Tooltip>,
+            <Tooltip title={t("common.actions.filtrate")}>
+              <CommonButton
+                onClick={() => setIsFilterOpen(true)}
+                icon={<IconFilter size={16} />}
+                className={styles.headerIconButtons}
+              />
+            </Tooltip>,
+            <Tooltip title={t(`profiles.${module}.actions.create`)}>
+              <CommonButton
+                onClick={() => {}}
+                icon={<IconCirclePlus size={16} />}
+                className={styles.headerIconButtons}
+              />
+            </Tooltip>,
+          ]}
+        />
+        <CommonHeaderCards
+          loading={loading}
+          cards={[
+            {
+              title: t("common.headerCards.total"),
+              text: t(`profiles.${module}.headerCards.total`),
+              value: total,
+              progress: 100,
+            },
+            {
+              title: t("common.headerCards.filtered"),
+              text: t(`profiles.${module}.headerCards.filtered`),
+              value: totalFiltered,
+              progress: totalFiltered / total * 100,
+            },
+            {
+              title: t("common.headerCards.actives"),
+              text: t(`profiles.${module}.headerCards.actives`),
+              value: totalActive,
+              progress: totalActive / total * 100,
+            }
+          ]}
+        />
 
-      <CommonTable
-        titleHeader={t(`common.modules.${module}`)}
-        columns={getProfilesColumnFields(module)}
-        dataSource={profiles}
+        <CommonTable
+          titleHeader={t(`common.modules.${module}`)}
+          columns={getProfilesColumnFields(module)}
+          dataSource={profiles}
+        />
+      </Flex>
+
+      <ProfilesFilterModal
+        isOpen={isFilterOpen}
+        close={() => setIsFilterOpen(false)}
       />
-    </Flex>
+    </>
   );
 };
 

@@ -46,7 +46,7 @@ export const CommonButton: React.FC<CommonButtonProps> = ({
       bgColor: outline ? COLORS.white : COLORS.primary.outline,
       bgColorHover: outline ? COLORS.white : COLORS.primary.outlineHover,
       borderColor: outline ? COLORS.primary.outline : "trasparent",
-      borderColorHover: outline ? COLORS.primary.greyHover : "trasparent",
+      borderColorHover: outline ? COLORS.primary.grey : "trasparent",
       textColor: COLORS.primary.grey,
       textColorHover: COLORS.primary.greyHover,
     },

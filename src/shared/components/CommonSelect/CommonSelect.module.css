@@ -1,0 +1,53 @@
+.wrapper {
+  position: relative;
+}
+
+.select {
+  width: 100%;
+  height: 44px;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.select :global(.ant-select-selector) {
+  align-items: center;
+}
+
+.selectWithPrefix :global(.ant-select-selector) {
+  padding-left: 35px !important;
+}
+
+.prefix {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-primary-grey);
+  z-index: 10;
+  pointer-events: none;
+}
+
+.label {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 14px;
+  color: var(--color-primary-grey);
+  background: white;
+  padding: 0 4px;
+  pointer-events: none;
+  transition: top 0.3s ease, font-size 0.3s ease, left 0.3s ease;
+  z-index: 10;
+  line-height: 1;
+}
+
+.labelWithPrefix {
+  left: 35px;
+}
+
+.labelFloating {
+  top: 0;
+  font-size: 11px;
+  left: 12px;
+}

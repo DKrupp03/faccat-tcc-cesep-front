@@ -61,5 +61,15 @@ export const antdTheme = {
       cellPaddingBlock: 8,
       cellPaddingInline: 24,
     },
+    Modal: {
+      contentPadding: 0,
+    },
+    Select: {
+      colorBorder: COLORS.primary.outline,
+      colorPrimary: COLORS.primary.grey,
+      colorPrimaryHover: COLORS.primary.grey,
+      controlOutlineWidth: 0,
+      fontSize: 14,
+    },
   },
 };

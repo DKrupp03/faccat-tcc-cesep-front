@@ -18,6 +18,8 @@ const common = {
     "edit": "Editar",
     "back": "Voltar",
     "exit": "Sair",
+    "close": "Fechar",
+    "clearFilter": "Limpar filtro",
     "filtrate": "Filtrar",
     "reload": "Recarregar",
   },

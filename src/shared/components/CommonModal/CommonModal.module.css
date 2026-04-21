@@ -1,0 +1,22 @@
+.header {
+  border-bottom: 1px solid var(--color-primary-outline);
+  padding: 20px;
+}
+
+.closeButton {
+  color: var(--color-secondary-red);
+}
+
+.closeButton:hover {
+  color: var(--color-secondary-red-hover);
+  transition: color 0.2s ease;
+}
+
+.footer {
+  border-top: 1px solid var(--color-primary-outline);
+  padding: 20px;
+}
+
+.body {
+  padding: 20px;
+}

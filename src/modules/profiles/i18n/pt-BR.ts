@@ -8,6 +8,7 @@ const profiles = {
 
     "actions": {
       "create": "Criar terapeuta",
+      "filtrate": "Filtrar terapeutas",
     },
   },
 
@@ -16,6 +17,7 @@ const profiles = {
       "total": "Número total de pacientes",
       "filtered": "Número de pacientes filtrados",
       "actives": "Número de pacientes ativos",
+      "filtrate": "Filtrar pacientes",
     },
 
     "actions": {
@@ -27,6 +29,7 @@ const profiles = {
     "name": "Nome",
     "services": "Atendimentos",
     "therapist": "Terapeuta",
+    "patient": "Paciente",
     "patients": "Pacientes",
     "paymentStatus": "Status do pagamento",
     "email": "E-mail",

@@ -64,6 +64,7 @@ export type ProfilesFilter = {
   role: ProfileRole;
   name?: string;
   therapist_id?: number;
+  patient_id?: number;
 };
 
 export type ProfilesOrder = "name_asc" | "name_esc";
