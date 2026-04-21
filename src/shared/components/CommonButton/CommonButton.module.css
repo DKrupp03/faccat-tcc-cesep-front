@@ -7,3 +7,9 @@
 .button :global(.ant-btn-icon) svg {
   color: inherit;
 }
+
+:global(.ant-btn-icon) {
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+}

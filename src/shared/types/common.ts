@@ -9,4 +9,5 @@ export type CommonResponse = {
 export type CommonPanelResponse = CommonResponse & {
   total: number;
   total_filtered: number;
+  total_active?: number;
 };

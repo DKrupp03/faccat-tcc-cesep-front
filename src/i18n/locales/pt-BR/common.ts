@@ -3,6 +3,12 @@ const common = {
   "myAccount": "Minha conta",
   "configs": "Configurações",
   "noData": "Sem dados para exibir.",
+
+  "headerCards": {
+    "total": "Total",
+    "filtered": "Filtrados",
+    "actives": "Ativos",
+  },
   
   "actions": {
     "save": "Salvar",

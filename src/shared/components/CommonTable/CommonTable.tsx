@@ -23,7 +23,7 @@ export const CommonTable = <T extends object = object>({
   return loading ? (
     <Skeleton
       className={styles.card}
-      style={{ padding: "12px 24px" }}
+      style={{ padding: "0px 24px" }}
       paragraph={{ rows: 8 }}
       active
     />

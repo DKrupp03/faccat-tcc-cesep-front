@@ -51,6 +51,9 @@ export const antdTheme = {
     Typography: {
       colorTextHeading: COLORS.primary.dark,
       colorText: COLORS.primary.grey,
+      titleMarginTop: 0,
+      titleMarginBottom: 0,
+      fontWeightStrong: 600,
     },
     Table: {
       headerBg: COLORS.white,

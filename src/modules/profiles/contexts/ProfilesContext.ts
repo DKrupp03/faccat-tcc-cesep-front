@@ -8,6 +8,7 @@ export type ProfilesContextType = {
   profiles: Profile[];
   total: number;
   totalFiltered: number;
+  totalActive: number;
   setProfiles: Dispatch<SetStateAction<Profile[]>>;
   loading: boolean;
   filter: ProfilesFilter;

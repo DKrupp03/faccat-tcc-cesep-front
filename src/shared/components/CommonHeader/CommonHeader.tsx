@@ -1,24 +1,49 @@
-import { useTranslation } from "react-i18next";
 import { Flex, Typography } from "antd";
+import { IconMenu2 } from "@tabler/icons-react";
 
-import { useModules } from "@/shared/hooks/useModules";
+import { CommonButton } from "../CommonButton/CommonButton";
 
 import styles from "./CommonHeader.module.css";
 
 const { Title } = Typography;
 
-export const CommonHeader = () => {
-  const { t } = useTranslation();
-  const { activeModule } = useModules();
+type CommonHeaderProps = {
+  title: string;
+  options?: { label: string; onClick: () => void; }[];
+  buttons?: React.ReactNode[];
+};
 
+export const CommonHeader = ({
+  title,
+  options,
+  buttons,
+}: CommonHeaderProps) => {
   return (
     <Flex
-      justify="start" align="center"
+      justify="space-between" align="center"
       className={styles.header}
     >
-      <Title level={4}>
-        {t(`common.modules.${activeModule}`)}
-      </Title>
+      <Flex align="center" gap={16}>
+        {options && (
+          <CommonButton
+            onClick={() => {}}
+            icon={<IconMenu2 size={16} />}
+            className={styles.optionsButton}
+          />
+        )}
+
+        <Title level={3}>
+          {title}
+        </Title>
+      </Flex>
+
+      {buttons && (
+        <Flex gap={8}>
+          {buttons.map((button) => (
+            button
+          ))}
+        </Flex>
+      )}
     </Flex>
   );
 };

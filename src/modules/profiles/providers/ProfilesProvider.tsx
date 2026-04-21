@@ -36,6 +36,7 @@ export const ProfilesProvider = ({
   const [profiles, setProfiles] = useState<Profile[]>([]);
   const [total, setTotal] = useState<number>(0);
   const [totalFiltered, setTotalFiltered] = useState<number>(0);
+  const [totalActive, setTotalActive] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(false);
   const [filter, setFilter] = useState<ProfilesFilter>(defaultFilter);
   const [page, setPage] = useState<number>(1);
@@ -62,6 +63,7 @@ export const ProfilesProvider = ({
       }
 
       setProfiles(response.profiles);
+      setTotalActive(response.total_active!);
       setTotalFiltered(response.total_filtered);
       setTotal(response.total);
     } catch (error) {
@@ -78,6 +80,7 @@ export const ProfilesProvider = ({
       setProfiles,
       total,
       totalFiltered,
+      totalActive,
       loading,
       filter,
       page,

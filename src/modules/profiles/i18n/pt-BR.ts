@@ -1,12 +1,26 @@
 const profiles = {
   "therapists": {
-    "total": "Total de terapeutas",
-    "totalFiltered": "Terapeutas filtrados",
+    "headerCards": {
+      "total": "Número total de terapeutas",
+      "filtered": "Número de terapeutas filtrados",
+      "actives": "Número de terapeutas ativos",
+    },
+
+    "actions": {
+      "create": "Criar terapeuta",
+    },
   },
 
   "patients": {
-    "total": "Total de pacientes",
-    "totalFiltered": "Pacientes filtrados",
+    "headerCards": {
+      "total": "Número total de pacientes",
+      "filtered": "Número de pacientes filtrados",
+      "actives": "Número de pacientes ativos",
+    },
+
+    "actions": {
+      "create": "Criar paciente",
+    },
   },
 
   "columns": {
