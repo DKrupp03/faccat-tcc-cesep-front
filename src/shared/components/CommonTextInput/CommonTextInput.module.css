@@ -5,20 +5,20 @@
 .input {
   border-radius: 8px;
   height: 44px;
-  color: var(--color-primary-dark);
-  border-color: var(--color-primary-outline);
+  color: var(--color-navy);
+  border-color: var(--color-grey50);
   font-size: 14px;
 }
 
 .input:hover,
 .input:focus,
 .input:focus-within {
-  border-color: var(--color-primary-grey) !important;
+  border-color: var(--color-grey90) !important;
   box-shadow: none !important;
 }
 
 .prefix {
-  color: var(--color-primary-grey);
+  color: var(--color-grey90);
   padding-right: 5px;
 }
 
@@ -28,7 +28,7 @@
   top: 50%;
   transform: translateY(-50%);
   font-size: 14px;
-  color: var(--color-primary-grey);
+  color: var(--color-grey90);
   background: white;
   padding: 0 4px;
   pointer-events: none;

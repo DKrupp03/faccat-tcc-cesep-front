@@ -1,6 +1,6 @@
 .avatar {
-  background-color: var(--color-primary-outline);
-  color: var(--color-primary-dark);
+  background-color: var(--color-grey50);
+  color: var(--color-navy);
 }
 
 .avatar span {
