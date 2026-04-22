@@ -5,13 +5,15 @@ import { COLORS } from "../../theme";
 
 import styles from "./CommonButton.module.css";
 
-type CommonButtonProps = ButtonProps & {
+export type CommonButtonProps = ButtonProps & {
   outline?: boolean;
   circular?: boolean;
   hoverEffect?: boolean;
+  contentAlign?: "flex-start" | "center" | "flex-end";
   buttonVariant?:
   | "primary"
   | "outline"
+  | "noBorder"
   | "success"
   | "danger"
   | "info";
@@ -26,6 +28,8 @@ export const CommonButton: React.FC<CommonButtonProps> = ({
   outline = false,
   disabled = false,
   hoverEffect = true,
+  contentAlign = "center",
+  style,
   ...props
 }) => {
   const variants: {
@@ -51,6 +55,14 @@ export const CommonButton: React.FC<CommonButtonProps> = ({
       bgColorHover: outline ? COLORS.white : COLORS.grey50,
       borderColor: outline ? COLORS.grey30 : "transparent",
       borderColorHover: outline ? COLORS.grey50 : "transparent",
+      textColor: COLORS.grey70,
+      textColorHover: COLORS.grey90,
+    },
+    noBorder: {
+      bgColor: COLORS.white,
+      bgColorHover: COLORS.white,
+      borderColor: "transparent",
+      borderColorHover: COLORS.grey30,
       textColor: COLORS.grey70,
       textColorHover: COLORS.grey90,
     },
@@ -108,6 +120,7 @@ export const CommonButton: React.FC<CommonButtonProps> = ({
         htmlType={htmlType}
         icon={icon}
         className={styles.button}
+        style={{ justifyContent: contentAlign, ...style }}
         {...props}
       >
         {children}

@@ -42,3 +42,17 @@
   flex-shrink: 0;
   border-top: 1px solid var(--color-grey30);
 }
+
+.avatarPopoverHeader {
+  padding: 5px 10px 15px 10px;
+  border-bottom: 1px solid var(--color-grey30);
+}
+
+.avatarPopoverName {
+  color: var(--color-navy);
+  font-weight: 600;
+}
+
+.avatarPopoverRole {
+  font-size: 12px;
+}

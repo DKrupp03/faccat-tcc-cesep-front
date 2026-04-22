@@ -1,6 +1,7 @@
 .button {
   font-size: 14px;
   transition: filter 0.2s ease;
+  box-shadow: none !important;
 }
 
 .button :global(.ant-btn-icon) svg {

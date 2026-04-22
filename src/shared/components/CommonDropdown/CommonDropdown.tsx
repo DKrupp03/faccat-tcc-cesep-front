@@ -1,46 +1,69 @@
-import React, { useMemo } from "react";
-import { Dropdown, Typography, type DropdownProps, type MenuProps } from "antd";
+import React, { useMemo, useCallback, useState } from "react";
+import { Flex, Popover, type PopoverProps } from "antd";
 
-import styles from "./CommonDropdown.module.css";
+import { CommonButton, type CommonButtonProps } from "../CommonButton/CommonButton";
 
-const { Text } = Typography;
-
-type DropdownSize = "small" | "medium" | "large";
-
-type CommonDropdownProps = DropdownProps & {
-  items: MenuProps["items"],
+type CommonDropdownProps = PopoverProps & {
+  prefix?: React.ReactNode;
+  suffix?: React.ReactNode;
+  options?: CommonButtonProps[];
+  width?: number | string;
   children: React.ReactNode;
-  size?: DropdownSize;
 };
 
 export const CommonDropdown = ({
-  items,
+  prefix,
+  suffix,
+  options,
   children,
-  size = "small",
+  width = 200,
   ...props
 }: CommonDropdownProps) => {
-  const styledItems = useMemo(() => (
-    items?.map((item) => {
-      const base = item as { label?: React.ReactNode; danger?: boolean; };
+  const [visible, setVisible] = useState<boolean>(false);
 
-      return {
-        ...item!,
-        label: (
-          <Text className={`${styles.text} ${styles[`text--${size}`]}`}>
-            {base.label}
-          </Text>
-        ),
-      };
-    })
-  ), [items, size]);
+  const handleVisibleChange = useCallback((newVisible: boolean) => {
+    setVisible(newVisible);
+
+    if (newVisible) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+  }, []);
+
+  const content = useMemo(() => (
+    <Flex vertical gap={8} style={{ width }}>
+      {prefix}
+
+      {options && (
+        <Flex vertical gap={4}>
+          {options.map((option) => (
+            <CommonButton {...option}>
+              {option.children}
+            </CommonButton>
+          ))}
+        </Flex>
+      )}
+
+      {suffix}
+    </Flex>
+  ), [
+    prefix,
+    options,
+    suffix,
+    width,
+  ]);
 
   return (
-    <Dropdown
-      menu={{ items: styledItems }}
-      trigger={["click"]}
+    <Popover
+      open={visible}
+      content={content}
+      onOpenChange={handleVisibleChange}
+      arrow={false}
+      trigger="click"
       {...props}
     >
       {children}
-    </Dropdown>
+    </Popover>
   );
 };

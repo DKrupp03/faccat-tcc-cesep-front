@@ -1,18 +1,24 @@
 import { useMemo } from "react";
-import { Flex, Tooltip } from "antd";
+import { useTranslation } from "react-i18next";
+import { Flex, Tooltip, Typography } from "antd";
 import { useNavigate } from "react-router-dom";
+import { IconUserSquareRounded, IconLogout } from "@tabler/icons-react";
 
 import { useAuth } from "@/modules/auth/hooks/useAuth";
 import { useModules } from "@/shared/hooks/useModules";
 import { CommonButton } from "../CommonButton/CommonButton";
 import { CommonAvatar } from "../CommonAvatar/CommonAvatar";
+import { CommonDropdown } from "../CommonDropdown/CommonDropdown";
 import logoMini from "@/shared/assets/logoMini.png";
 
 import styles from "./MainSideMenu.module.css";
 
+const { Text } = Typography;
+
 export const MainSideMenu = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
-  const { profile } = useAuth();
+  const { profile, logout } = useAuth();
   const { isModuleActive, modules, isModuleAllowed } = useModules();
 
   const allowedModules = useMemo(() => (
@@ -65,12 +71,56 @@ export const MainSideMenu = () => {
         justify="center" align="center"
         className={styles.footer}
       >
-        <CommonAvatar
-          photoUrl={profile?.photo_url}
-          style={{ cursor: "pointer" }}
-          size={50}
-          circular
-        />
+        <CommonDropdown
+          placement="right"
+          align={{ offset: [12, -20] }}
+          arrow
+          prefix={
+            <Flex
+              align="center" gap={12}
+              className={styles.avatarPopoverHeader}
+            >
+              <CommonAvatar
+                photoUrl={profile?.photo_url}
+                size={40}
+                circular
+              />
+              <Flex vertical>
+                <Text className={styles.avatarPopoverName}>
+                  {profile?.name}
+                </Text>
+                <Text className={styles.avatarPopoverRole}>
+                  {t(`common.roles.${profile?.role}`)}
+                </Text>
+              </Flex>
+            </Flex>
+          }
+          options={[
+            {
+              onClick: () => {},
+              icon: <IconUserSquareRounded size={18} />,
+              buttonVariant: "noBorder",
+              circular: false,
+              children: t("common.myProfile"),
+              contentAlign: "flex-start",
+            },
+            {
+              onClick: logout,
+              icon: <IconLogout size={18} />,
+              buttonVariant: "noBorder",
+              circular: false,
+              children: t("common.actions.exit"),
+              contentAlign: "flex-start",
+            },
+          ]}
+        >
+          <CommonAvatar
+            photoUrl={profile?.photo_url}
+            style={{ cursor: "pointer" }}
+            size={50}
+            circular
+          />
+        </CommonDropdown>
       </Flex>
     </Flex>
   );

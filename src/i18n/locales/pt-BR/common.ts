@@ -1,6 +1,6 @@
 const common = {
   "mainMenu": "Menu principal",
-  "myAccount": "Minha conta",
+  "myProfile": "Meu perfil",
   "configs": "Configurações",
   "noData": "Sem dados para exibir.",
   
