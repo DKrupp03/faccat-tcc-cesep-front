@@ -17,9 +17,9 @@ export const PaymentStatusBadge = ({
   const { t } = useTranslation();
 
   const backgroundColor = useMemo(() => {
-    if (status === "paid") return COLORS.primary.main;
-    if (status === "unpaid") return COLORS.secondary.yellow;
-    if (status === "overdue") return COLORS.secondary.red;
+    if (status === "paid") return COLORS.blue;
+    if (status === "unpaid") return COLORS.yellow;
+    if (status === "overdue") return COLORS.pink;
   }, [status]);
 
   return (

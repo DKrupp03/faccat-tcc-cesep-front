@@ -23,9 +23,9 @@ export const CommonHeaderCards = ({
   loading,
 }: CommonHeaderCardsProps) => {
   const getProgressColor = (percent?: number): string => {
-    if (!percent || percent < 30) return COLORS.secondary.red;
-    if (percent < 60) return COLORS.secondary.green;
-    return COLORS.primary.main;
+    if (!percent || percent < 30) return COLORS.pink;
+    if (percent < 60) return COLORS.gren;
+    return COLORS.blue;
   };
 
   return (

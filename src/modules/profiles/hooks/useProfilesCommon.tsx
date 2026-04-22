@@ -131,7 +131,7 @@ export const useProfilesCommon = () => {
         render: () => (
           <Flex align="center">
             <IconDots
-              color={COLORS.primary.dark}
+              color={COLORS.navy}
               size={16}
               cursor="pointer"
             />

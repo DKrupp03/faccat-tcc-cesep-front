@@ -56,7 +56,7 @@ export const MainSideMenu = () => {
             justify="center"
             style={{
               borderRight: isModuleActive(module.key)
-                ? `3px solid ${COLORS.primary.main}`
+                ? `3px solid ${COLORS.blue}`
                 : "none",
             }}
           >
@@ -77,8 +77,8 @@ export const MainSideMenu = () => {
                 <Text
                   style={{
                     color: isModuleActive(module.key)
-                      ? COLORS.primary.main
-                      : COLORS.primary.outline,
+                      ? COLORS.blue
+                      : COLORS.grey50,
                   }}
                 >
                   {module.name}
@@ -117,7 +117,7 @@ export const MainSideMenu = () => {
     
               <IconLogout2
                 size={18}
-                color={COLORS.primary.outline}
+                color={COLORS.grey50}
                 cursor="pointer"
                 onClick={logout}
               />
