@@ -36,7 +36,7 @@ export const antdTheme = {
     },
     Typography: {
       colorTextHeading: COLORS.navy,
-      colorText: COLORS.grey90,
+      colorText: COLORS.grey70,
       titleMarginTop: 0,
       titleMarginBottom: 0,
       fontWeightStrong: 600,
@@ -49,6 +49,11 @@ export const antdTheme = {
     },
     Modal: {
       contentPadding: 0,
+    },
+    Button: {
+      controlHeightLG: 50,
+      controlHeight: 40,
+      controlHeightSM: 32,
     },
     Select: {
       colorBorder: COLORS.grey50,

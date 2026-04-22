@@ -1,37 +1,28 @@
-import { useMemo } from "react";
 import { Avatar, type AvatarProps } from "antd";
+import { IconUser } from "@tabler/icons-react";
 
 import styles from "./CommonAvatar.module.css";
 
 type CommonAvatarProps = AvatarProps & {
-  name: string;
   photoUrl?: string;
+  circular?: boolean;
 };
 
 export const CommonAvatar = ({
-  name,
   photoUrl,
+  circular = false,
   ...props
 }: CommonAvatarProps) => {
-  const nameInitials = useMemo(() => {
-    const words = name.trim().split(/\s+/);
-
-    return words
-      .slice(0, 2)
-      .map((w) => w[0])
-      .join("")
-      .toUpperCase();
-  }, [name]);
+  const size = props.size || 35;
 
   return (
     <Avatar
-      size={35}
-      shape="square"
+      size={size}
+      shape={circular ? "circle" : "square"}
       className={styles.avatar}
+      icon={<IconUser size={Number(size) * 0.6} stroke={1.5} />}
       src={photoUrl}
       {...props}
-    >
-      {nameInitials}
-    </Avatar>
+    />
   );
 };

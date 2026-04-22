@@ -4,7 +4,10 @@ import { Flex, Tooltip } from "antd";
 import {
   IconFilter,
   IconReload,
-  IconCirclePlus,
+  IconPlus,
+  IconStethoscope,
+  IconUsers,
+  IconTextSpellcheck,
 } from "@tabler/icons-react";
 
 import { useModules } from "@/shared/hooks/useModules";
@@ -13,6 +16,7 @@ import { CommonHeader } from "@/shared/components/CommonHeader/CommonHeader";
 import { CommonHeaderCards } from "@/shared/components/CommonHeaderCards/CommonHeaderCards";
 import { CommonTable } from "@/shared/components/CommonTable/CommonTable";
 import { CommonButton } from "@/shared/components/CommonButton/CommonButton";
+import { COLORS } from "@/shared/theme";
 
 import { ProfilesProvider } from "./providers/ProfilesProvider";
 import { useProfiles } from "./hooks/useProfiles";
@@ -57,65 +61,72 @@ const ProfilesPanel = ({ module }: ProfilesPageProps) => {
   return (
     <>
       <Flex
-        vertical gap={24}
+        vertical
         className={styles.panel}
       >
         <CommonHeader
           title={t(`common.modules.${module}`)}
-          options={[]}
           buttons={[
             <Tooltip title={t("common.actions.reload")}>
               <CommonButton
                 onClick={() => {}}
-                icon={<IconReload size={16} />}
-                className={styles.headerIconButtons}
+                icon={<IconReload size={18} />}
+                size="large"
+                outline
               />
             </Tooltip>,
             <Tooltip title={t("common.actions.filtrate")}>
               <CommonButton
                 onClick={() => setIsFilterOpen(true)}
-                icon={<IconFilter size={16} />}
-                className={styles.headerIconButtons}
+                icon={<IconFilter size={18} />}
+                size="large"
+                outline
               />
             </Tooltip>,
             <Tooltip title={t(`profiles.${module}.actions.create`)}>
               <CommonButton
                 onClick={() => {}}
-                icon={<IconCirclePlus size={16} />}
-                className={styles.headerIconButtons}
+                icon={<IconPlus size={18} />}
+                size="large"
+                buttonVariant="primary"
               />
             </Tooltip>,
           ]}
         />
-        <CommonHeaderCards
-          loading={loading}
-          cards={[
-            {
-              title: t("common.headerCards.total"),
-              text: t(`profiles.${module}.headerCards.total`),
-              value: total,
-              progress: 100,
-            },
-            {
-              title: t("common.headerCards.filtered"),
-              text: t(`profiles.${module}.headerCards.filtered`),
-              value: totalFiltered,
-              progress: totalFiltered / total * 100,
-            },
-            {
-              title: t("common.headerCards.actives"),
-              text: t(`profiles.${module}.headerCards.actives`),
-              value: totalActive,
-              progress: totalActive / total * 100,
-            }
-          ]}
-        />
 
-        <CommonTable
-          titleHeader={t(`common.modules.${module}`)}
-          columns={getProfilesColumnFields(module)}
-          dataSource={profiles}
-        />
+        <Flex
+          vertical gap={24}
+          className={styles.body}
+        >
+          <CommonHeaderCards
+            loading={loading}
+            cards={[
+              {
+                text: t(`profiles.${module}.headerCards.total`),
+                value: total,
+                icon: module === "therapists"
+                  ? <IconStethoscope size={28} stroke={1.5} color={COLORS.grey70} />
+                  : <IconUsers size={28} stroke={1.5} color={COLORS.grey70} />,
+              },
+              {
+                text: t(`profiles.${module}.headerCards.actives`),
+                value: totalActive,
+                icon: <IconTextSpellcheck size={28} stroke={1.5} color={COLORS.grey70} />,
+              },
+              {
+                text: t(`profiles.${module}.headerCards.filtered`),
+                value: totalFiltered,
+                icon: <IconFilter size={28} stroke={1.5} color={COLORS.grey70} />,
+              },
+            ]}
+          />
+
+          <CommonTable
+            titleHeader={t(`common.modules.${module}`)}
+            columns={getProfilesColumnFields(module)}
+            dataSource={profiles}
+          />
+        </Flex>
       </Flex>
 
       <ProfilesFilterModal

@@ -23,14 +23,22 @@ export const CommonTable = <T extends object = object>({
   return loading ? (
     <Skeleton
       className={styles.card}
-      style={{ padding: "0px 24px" }}
+      style={{ padding: "10px 20px" }}
       paragraph={{ rows: 8 }}
       active
     />
   ) : (
-    <Flex vertical className={styles.card}>
-      <Flex justify="space-between" align="center" className={styles.header}>
-        <Title level={5}>{titleHeader}</Title>
+    <Flex
+      vertical
+      className={styles.card}
+    >
+      <Flex
+        justify="space-between" align="center"
+        className={styles.header}
+      >
+        <Title level={5}>
+          {titleHeader}
+        </Title>
         {header}
       </Flex>
 

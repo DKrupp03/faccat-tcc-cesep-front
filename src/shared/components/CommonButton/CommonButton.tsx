@@ -7,21 +7,25 @@ import styles from "./CommonButton.module.css";
 
 type CommonButtonProps = ButtonProps & {
   outline?: boolean;
+  circular?: boolean;
+  hoverEffect?: boolean;
   buttonVariant?:
   | "primary"
   | "outline"
   | "success"
   | "danger"
   | "info";
-}
+};
 
 export const CommonButton: React.FC<CommonButtonProps> = ({
   children,
   icon,
   htmlType,
   buttonVariant = "outline",
+  circular = true,
   outline = false,
   disabled = false,
+  hoverEffect = true,
   ...props
 }) => {
   const variants: {
@@ -43,12 +47,12 @@ export const CommonButton: React.FC<CommonButtonProps> = ({
       textColorHover: outline ? COLORS.navy : COLORS.white,
     },
     outline: {
-      bgColor: outline ? COLORS.white : COLORS.grey50,
-      bgColorHover: outline ? COLORS.white : COLORS.grey30,
-      borderColor: outline ? COLORS.grey50 : "transparent",
-      borderColorHover: outline ? COLORS.grey90 : "transparent",
-      textColor: COLORS.grey90,
-      textColorHover: COLORS.navy,
+      bgColor: outline ? COLORS.white : COLORS.grey30,
+      bgColorHover: outline ? COLORS.white : COLORS.grey50,
+      borderColor: outline ? COLORS.grey30 : "transparent",
+      borderColorHover: outline ? COLORS.grey50 : "transparent",
+      textColor: COLORS.grey70,
+      textColorHover: COLORS.grey90,
     },
     success: {
       bgColor: outline ? COLORS.white : COLORS.gren,
@@ -86,12 +90,15 @@ export const CommonButton: React.FC<CommonButtonProps> = ({
             defaultBg: variant.bgColor,
             defaultColor: variant.textColor,
             defaultBorderColor: variant.borderColor,
-            defaultHoverBg: variant.bgColorHover,
-            defaultHoverColor: variant.textColorHover,
-            defaultHoverBorderColor: variant.borderColorHover,
-            defaultActiveBg: variant.bgColorHover,
-            defaultActiveColor: variant.textColorHover,
-            defaultActiveBorderColor: variant.borderColorHover,
+            defaultHoverBg: hoverEffect ? variant.bgColorHover : variant.bgColor,
+            defaultHoverColor: hoverEffect ? variant.textColorHover : variant.textColor,
+            defaultHoverBorderColor: hoverEffect ? variant.borderColorHover : variant.borderColor,
+            defaultActiveBg: hoverEffect ? variant.bgColorHover : variant.bgColor,
+            defaultActiveColor: hoverEffect ? variant.textColorHover : variant.textColor,
+            defaultActiveBorderColor: hoverEffect ? variant.borderColorHover : variant.borderColor,
+            borderRadiusSM: circular ? 32 : 4,
+            borderRadius: circular ? 40 : 6,
+            borderRadiusLG: circular ? 50 : 8,
           },
         },
       }}

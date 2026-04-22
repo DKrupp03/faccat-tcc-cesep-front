@@ -13,12 +13,12 @@
 .input:hover,
 .input:focus,
 .input:focus-within {
-  border-color: var(--color-grey90) !important;
+  border-color: var(--color-grey70) !important;
   box-shadow: none !important;
 }
 
 .prefix {
-  color: var(--color-grey90);
+  color: var(--color-grey70);
   padding-right: 5px;
 }
 
@@ -28,7 +28,7 @@
   top: 50%;
   transform: translateY(-50%);
   font-size: 14px;
-  color: var(--color-grey90);
+  color: var(--color-grey70);
   background: white;
   padding: 0 4px;
   pointer-events: none;

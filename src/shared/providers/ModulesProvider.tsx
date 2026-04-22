@@ -1,10 +1,10 @@
 import { useState, useCallback, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import {
-  IconCalendarMonth,
+  IconCalendarEvent,
   IconStethoscope,
   IconUsers,
-  IconPremiumRights,
+  IconReportMoney,
 } from "@tabler/icons-react";
 import { useNavigate } from "react-router-dom";
 
@@ -38,9 +38,9 @@ export const ModulesProvider = ({ children }: { children: React.ReactNode }) => 
       path: PATHS.services,
       name: t("common.modules.services"),
       icon: (
-        <IconCalendarMonth
+        <IconCalendarEvent
           size={18}
-          color={isModuleActive("services") ? COLORS.blue : COLORS.grey50}
+          color={isModuleActive("services") ? COLORS.white : COLORS.grey70}
         />
       ),
     },
@@ -51,7 +51,7 @@ export const ModulesProvider = ({ children }: { children: React.ReactNode }) => 
       icon: (
         <IconStethoscope
           size={18}
-          color={isModuleActive("therapists") ? COLORS.blue : COLORS.grey50}
+          color={isModuleActive("therapists") ? COLORS.white : COLORS.grey70}
         />
       ),
       onlyAdmin: true,
@@ -63,7 +63,7 @@ export const ModulesProvider = ({ children }: { children: React.ReactNode }) => 
       icon: (
         <IconUsers
           size={18}
-          color={isModuleActive("patients") ? COLORS.blue : COLORS.grey50}
+          color={isModuleActive("patients") ? COLORS.white : COLORS.grey70}
         />
       ),
     },
@@ -72,9 +72,9 @@ export const ModulesProvider = ({ children }: { children: React.ReactNode }) => 
       path: PATHS.payments,
       name: t("common.modules.payments"),
       icon: (
-        <IconPremiumRights
+        <IconReportMoney
           size={18}
-          color={isModuleActive("payments") ? COLORS.blue : COLORS.grey50}
+          color={isModuleActive("payments") ? COLORS.white : COLORS.grey70}
         />
       ),
     },
