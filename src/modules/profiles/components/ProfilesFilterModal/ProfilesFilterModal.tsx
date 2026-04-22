@@ -10,7 +10,7 @@ import { CommonSelect } from "@/shared/components/CommonSelect/CommonSelect";
 import { CommonTextInput } from "@/shared/components/CommonTextInput/CommonTextInput";
 
 import { useProfiles } from "../../hooks/useProfiles";
-import { useProfilesCommon } from "../../hooks/useProfilesCommon";
+import { useProfilesOperations } from "../../hooks/useProfilesOperations";
 import type { ProfilesFilter } from "../../types/profile";
 import styles from "./ProfilesFilterModal.module.css";
 
@@ -25,7 +25,7 @@ export const ProfilesFilterModal = ({
 }: ProfilesFilterModalProps) => {
   const { t } = useTranslation();
   const { activeModule } = useModules();
-  const { fetchProfiles } = useProfilesCommon();
+  const { fetchProfiles } = useProfilesOperations();
   const {
     profileRole,
     filtratePanel,

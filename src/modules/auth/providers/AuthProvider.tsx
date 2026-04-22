@@ -10,13 +10,13 @@ import { type BasicUser } from "../../profiles/types/user";
 import { type Profile } from "@/modules/profiles/types/profile";
 import { AuthService } from "../services/AuthService";
 import { AuthContext } from "../contexts/AuthContext"
-import { useProfilesCommon } from "@/modules/profiles/hooks/useProfilesCommon";
+import { useProfilesOperations } from "@/modules/profiles/hooks/useProfilesOperations";
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { openNotification } = useNotification();
-  const { fetchProfile } = useProfilesCommon();
+  const { fetchProfile } = useProfilesOperations();
 
   const [token, setToken] = useState<string | null>(() => authStorage.getToken());
   const [user, setUser] = useState<BasicUser | null>(() => authStorage.getUser());

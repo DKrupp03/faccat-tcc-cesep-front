@@ -2,7 +2,13 @@ import { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { Flex } from "antd";
 import type { ColumnType } from "antd/es/table";
-import { IconDots } from "@tabler/icons-react";
+import {
+  IconDots,
+  IconFilter,
+  IconStethoscope,
+  IconUsers,
+  IconTextSpellcheck,
+} from "@tabler/icons-react";
 
 import type { ModuleKey } from "@/shared/contexts/ModulesContext";
 import { CommonAvatar } from "@/shared/components/CommonAvatar/CommonAvatar";
@@ -11,48 +17,37 @@ import type { PaymentStatus } from "@/modules/payments/types/payment";
 import { formatDateTime } from "@/shared/utils/formatters";
 import { COLORS } from "@/shared/theme";
 
-import type {
-  Profile,
-  ProfilesFilter,
-  ProfilesPayload,
-  ProfilesOrder,
-} from "../types/profile";
-import ProfilesService from "@/modules/profiles/services/ProfilesService";
+import type { Profile } from "../types/profile";
 
 export const useProfilesCommon = () => {
   const { t } = useTranslation();
 
-  const createProfile = useCallback(() => {
-
-  }, []);
-
-  const updateProfile = useCallback(() => {
-
-  }, []);
-
-  const deleteProfile = useCallback(() => {
-
-  }, []);
-
-  const fetchProfile = useCallback(async (profileId: number) => {
-    return await ProfilesService.getProfile(profileId);
-  }, []);
-
-  const fetchProfiles = useCallback(async (
-    filter: ProfilesFilter,
-    orderBy: ProfilesOrder = "name_asc",
-    page?: number,
-    perPage?: number,
+  const getProfilesHeaderCards = useCallback((
+    module: ModuleKey,
+    total: number,
+    totalActive: number,
+    totalFiltered: number,
   ) => {
-    const payload: ProfilesPayload = {
-      profiles: filter,
-      order_by: orderBy,
-      page,
-      per_page: perPage,
-    };
-
-    return await ProfilesService.getProfiles(payload);
-  }, []);
+    return [
+      {
+        text: t(`profiles.${module}.headerCards.total`),
+        value: total,
+        icon: module === "therapists"
+          ? <IconStethoscope size={28} stroke={1.5} color={COLORS.grey70} />
+          : <IconUsers size={28} stroke={1.5} color={COLORS.grey70} />,
+      },
+      {
+        text: t(`profiles.${module}.headerCards.actives`),
+        value: totalActive,
+        icon: <IconTextSpellcheck size={28} stroke={1.5} color={COLORS.grey70} />,
+      },
+      {
+        text: t(`profiles.${module}.headerCards.filtered`),
+        value: totalFiltered,
+        icon: <IconFilter size={28} stroke={1.5} color={COLORS.grey70} />,
+      },
+    ];
+  }, [t]);
 
   const getProfilesColumnFields = useCallback((module: ModuleKey): ColumnType<Profile>[] => {
     return [
@@ -60,10 +55,9 @@ export const useProfilesCommon = () => {
         title: "",
         dataIndex: "photo_url",
         key: "photo_url",
-        render: (value: string, record: Profile) => (
+        render: (value: string) => (
           <CommonAvatar
             size={30}
-            name={record.name}
             photoUrl={value}
           />
         ),
@@ -142,11 +136,7 @@ export const useProfilesCommon = () => {
   }, [t]);
 
   return {
-    createProfile,
-    updateProfile,
-    deleteProfile,
-    fetchProfile,
-    fetchProfiles,
+    getProfilesHeaderCards,
     getProfilesColumnFields,
   };
 };

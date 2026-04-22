@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import type { ModuleKey } from "@/shared/contexts/ModulesContext";
 
 import { ProfilesContext } from "../contexts/ProfilesContext";
-import { useProfilesCommon } from "../hooks/useProfilesCommon";
+import { useProfilesOperations } from "../hooks/useProfilesOperations";
 import type {
   Profile,
   ProfilesFilter,
@@ -21,7 +21,7 @@ export const ProfilesProvider = ({
   children,
 }: ProfilesProviderProps) => {
   const { t } = useTranslation()
-  const { fetchProfiles } = useProfilesCommon();
+  const { fetchProfiles } = useProfilesOperations();
 
   const profileRole = useMemo(() => {
     if (module === "patients") return "patient";
@@ -89,6 +89,13 @@ export const ProfilesProvider = ({
       profileRole,
     }}>
       {children}
+
+      {/**
+      <ProfilesFilterModal
+        isOpen={isFilterOpen}
+        close={() => setIsFilterOpen(false)}
+      />
+      */}
     </ProfilesContext.Provider>
   );
 };
