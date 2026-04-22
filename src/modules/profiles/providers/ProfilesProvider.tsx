@@ -1,15 +1,13 @@
-import { useMemo, useCallback, useState } from "react";
+import { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 
 import type { ModuleKey } from "@/shared/contexts/ModulesContext";
 
 import { ProfilesContext } from "../contexts/ProfilesContext";
 import { useProfilesOperations } from "../hooks/useProfilesOperations";
-import type {
-  Profile,
-  ProfilesFilter,
-  ProfilesOrder,
-} from "../types/profile";
+import { useProfilesStates } from "../hooks/useProfilesStates";
+import type { ProfilesFilter, ProfilesOrder } from "../types/profile";
+import { ProfilesFilterModal } from "../components/ProfilesFilterModal/ProfilesFilterModal";
 
 type ProfilesProviderProps = {
   module: ModuleKey
@@ -22,30 +20,23 @@ export const ProfilesProvider = ({
 }: ProfilesProviderProps) => {
   const { t } = useTranslation()
   const { fetchProfiles } = useProfilesOperations();
-
-  const profileRole = useMemo(() => {
-    if (module === "patients") return "patient";
-    return "therapist";
-  }, [module]);
-
-  const defaultFilter: ProfilesFilter = useMemo(() => ({
-    active: true,
-    role: profileRole,
-  }), [profileRole]);
-
-  const [profiles, setProfiles] = useState<Profile[]>([]);
-  const [total, setTotal] = useState<number>(0);
-  const [totalFiltered, setTotalFiltered] = useState<number>(0);
-  const [totalActive, setTotalActive] = useState<number>(0);
-  const [loading, setLoading] = useState<boolean>(false);
-  const [filter, setFilter] = useState<ProfilesFilter>(defaultFilter);
-  const [page, setPage] = useState<number>(1);
-  const [orderBy, setOrderBy] = useState<ProfilesOrder>("name_asc");
+  const {
+    profileRole,
+    profiles, setProfiles,
+    total, setTotal,
+    totalFiltered, setTotalFiltered,
+    totalActive, setTotalActive,
+    loading, setLoading,
+    filter, setFilter,
+    page, setPage,
+    orderBy, setOrderBy,
+    isFilterOpen, setIsFilterOpen,
+  } = useProfilesStates({ module });
 
   const filtratePanel = useCallback(async (
     newFilter: ProfilesFilter = filter,
     newOrderBy: ProfilesOrder = orderBy,
-    newPage: number = page,
+    newPage: number = 1,
   ) => {
     setFilter(newFilter);
     setOrderBy(newOrderBy);
@@ -87,15 +78,15 @@ export const ProfilesProvider = ({
       orderBy,
       setOrderBy,
       profileRole,
+      setIsFilterOpen,
     }}>
       {children}
 
-      {/**
       <ProfilesFilterModal
         isOpen={isFilterOpen}
         close={() => setIsFilterOpen(false)}
+        filtrate={filtratePanel}
       />
-      */}
     </ProfilesContext.Provider>
   );
 };

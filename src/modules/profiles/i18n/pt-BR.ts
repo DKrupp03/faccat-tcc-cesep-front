@@ -22,6 +22,7 @@ const profiles = {
 
     "actions": {
       "create": "Criar paciente",
+      "filtrate": "Filtrar pacientes",
     },
   },
 

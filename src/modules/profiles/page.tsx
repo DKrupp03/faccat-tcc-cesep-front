@@ -31,6 +31,7 @@ const ProfilesPanel = ({ module }: ProfilesPageProps) => {
     totalActive,
     totalFiltered,
     profiles,
+    setIsFilterOpen,
   } = useProfiles();
 
   useEffect(() => {
@@ -43,7 +44,11 @@ const ProfilesPanel = ({ module }: ProfilesPageProps) => {
   return (
     <>
       <Flex vertical className={styles.panel}>
-        <ProfilesHeader module={activeModule!} />
+        <ProfilesHeader
+          module={activeModule!}
+          openFilter={() => setIsFilterOpen(true)}
+          reload={() => filtratePanel()}
+        />
 
         <Flex vertical gap={24} className={styles.body}>
           <ProfilesHeaderCards

@@ -19,11 +19,16 @@ import { COLORS } from "@/shared/theme";
 
 import type { Profile } from "../types/profile";
 
-export const useProfilesCommon = () => {
+type useProfilesCommonProps = {
+  module: ModuleKey;
+};
+
+export const useProfilesCommon = ({
+  module
+}: useProfilesCommonProps) => {
   const { t } = useTranslation();
 
   const getProfilesHeaderCards = useCallback((
-    module: ModuleKey,
     total: number,
     totalActive: number,
     totalFiltered: number,
@@ -47,9 +52,9 @@ export const useProfilesCommon = () => {
         icon: <IconFilter size={28} stroke={1.5} color={COLORS.grey70} />,
       },
     ];
-  }, [t]);
+  }, [t, module]);
 
-  const getProfilesColumnFields = useCallback((module: ModuleKey): ColumnType<Profile>[] => {
+  const getProfilesColumnFields = useCallback((): ColumnType<Profile>[] => {
     return [
       {
         title: "",
@@ -133,7 +138,7 @@ export const useProfilesCommon = () => {
         )
       },
     ];
-  }, [t]);
+  }, [t, module]);
 
   return {
     getProfilesHeaderCards,

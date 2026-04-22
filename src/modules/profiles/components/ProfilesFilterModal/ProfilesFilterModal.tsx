@@ -17,6 +17,7 @@ import styles from "./ProfilesFilterModal.module.css";
 type ProfilesFilterModalProps = {
   isOpen: boolean;
   close: () => void;
+  filtrate: (newFilter: ProfilesFilter) => void;
 };
 
 export const ProfilesFilterModal = ({
@@ -47,7 +48,7 @@ export const ProfilesFilterModal = ({
   }, [form]);
 
   const handleFiltrate = useCallback(() => {
-    const values = form.getFieldsValue();
+    const values = form.getFieldsValue(true);
     filtratePanel(values, orderBy, 1);
     close();
   }, [form, filtratePanel, orderBy, close]);
@@ -61,21 +62,18 @@ export const ProfilesFilterModal = ({
       <CommonButton
         onClick={handleClose}
         outline
-        size="large"
       >
         {t("common.actions.close")}
       </CommonButton>
       <CommonButton
         onClick={handleClear}
         outline
-        size="large"
       >
         {t("common.actions.clearFilter")}
       </CommonButton>
       <CommonButton
         onClick={handleFiltrate}
         buttonVariant="primary"
-        size="large"
       >
         {t("common.actions.filtrate")}
       </CommonButton>

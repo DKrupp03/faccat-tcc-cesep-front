@@ -18,12 +18,12 @@ export const ProfilesHeaderCards = ({
   totalActive,
   totalFiltered,
 }: ProfilesHeaderCardsProps) => {
-  const { getProfilesHeaderCards } = useProfilesCommon();
+  const { getProfilesHeaderCards } = useProfilesCommon({ module });
 
   return (
     <CommonHeaderCards
       loading={loading}
-      cards={getProfilesHeaderCards(module, total, totalActive, totalFiltered)}
+      cards={getProfilesHeaderCards(total, totalActive, totalFiltered)}
     />
   );
 };

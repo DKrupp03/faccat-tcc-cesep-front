@@ -16,12 +16,12 @@ export const ProfilesTable = ({
   profiles,
 }: ProfilesTableProps) => {
   const { t } = useTranslation();
-  const { getProfilesColumnFields } = useProfilesCommon();
+  const { getProfilesColumnFields } = useProfilesCommon({ module });
 
   return (
     <CommonTable
       titleHeader={t(`common.modules.${module}`)}
-      columns={getProfilesColumnFields(module)}
+      columns={getProfilesColumnFields()}
       dataSource={profiles}
     />
   );

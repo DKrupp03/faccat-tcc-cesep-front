@@ -16,6 +16,7 @@ export type ProfilesContextType = {
   orderBy: ProfilesOrder;
   setOrderBy: Dispatch<SetStateAction<ProfilesOrder>>;
   profileRole: ProfileRole;
+  setIsFilterOpen: Dispatch<SetStateAction<boolean>>;
 };
 
 export const ProfilesContext = createContext<ProfilesContextType | null>(null);

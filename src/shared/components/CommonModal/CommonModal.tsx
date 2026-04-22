@@ -1,6 +1,9 @@
 import { useMemo } from "react";
 import { Flex, Modal, Typography } from "antd";
-import { IconSquareRoundedXFilled } from "@tabler/icons-react";
+import { IconX } from "@tabler/icons-react";
+
+import { CommonButton } from "../CommonButton/CommonButton";
+import { COLORS } from "@/shared/theme";
 
 import styles from "./CommonModal.module.css";
 
@@ -29,11 +32,12 @@ export const CommonModal = ({
       <Title level={5}>
         {title}
       </Title>
-      <IconSquareRoundedXFilled
-        size={28}
-        cursor="pointer"
-        className={styles.closeButton}
+      <CommonButton
         onClick={close}
+        icon={<IconX size={18} color={COLORS.white} stroke={3} />}
+        size="small"
+        buttonVariant="danger"
+        circular
       />
     </Flex>
   ), [title, close]);

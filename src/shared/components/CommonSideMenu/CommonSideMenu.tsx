@@ -53,6 +53,7 @@ export const CommonSideMenu = () => {
                 buttonVariant={isModuleActive(module.key) ? "primary" : "outline"}
                 outline={!isModuleActive(module.key)}
                 hoverEffect={!isModuleActive(module.key)}
+                circular
               />
             </Tooltip>
           </Flex>

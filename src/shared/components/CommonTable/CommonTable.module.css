@@ -2,6 +2,7 @@
   border-radius: 12px;
   background-color: var(--color-white);
   border: 1px solid var(--color-grey30);
+  overflow: hidden;
 }
 
 .header {
@@ -53,12 +54,4 @@
 
 .table :global(.ant-table-tbody td:last-child) {
   padding-inline-end: 24px !important;
-}
-
-.table :global(.ant-table-tbody tr:last-child td:first-child) {
-  border-end-start-radius: 10px !important;
-}
-
-.table :global(.ant-table-tbody tr:last-child td:last-child) {
-  border-end-end-radius: 10px !important;
 }

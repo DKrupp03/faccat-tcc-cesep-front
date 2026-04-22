@@ -8,10 +8,14 @@ import type { ModuleKey } from "@/shared/contexts/ModulesContext";
 
 type ProfilesHeaderProps = {
   module: ModuleKey;
+  openFilter: () => void;
+  reload: () => void;
 };
 
 export const ProfilesHeader = ({
   module,
+  openFilter,
+  reload,
 }: ProfilesHeaderProps) => {
   const { t } = useTranslation();
 
@@ -21,17 +25,19 @@ export const ProfilesHeader = ({
       buttons={[
         <Tooltip title={t("common.actions.reload")}>
           <CommonButton
-            onClick={() => {}}
+            onClick={reload}
             icon={<IconReload size={18} />}
             size="large"
+            circular
             outline
           />
         </Tooltip>,
         <Tooltip title={t("common.actions.filtrate")}>
           <CommonButton
-            onClick={() => {}}
+            onClick={openFilter}
             icon={<IconFilter size={18} />}
             size="large"
+            circular
             outline
           />
         </Tooltip>,
@@ -41,6 +47,7 @@ export const ProfilesHeader = ({
             icon={<IconPlus size={18} />}
             size="large"
             buttonVariant="primary"
+            circular
           />
         </Tooltip>,
       ]}

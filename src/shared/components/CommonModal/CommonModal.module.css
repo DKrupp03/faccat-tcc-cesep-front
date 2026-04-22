@@ -1,19 +1,10 @@
 .header {
-  border-bottom: 1px solid var(--color-grey50);
+  border-bottom: 1px solid var(--color-grey30);
   padding: 20px;
 }
 
-.closeButton {
-  color: var(--color-pink);
-}
-
-.closeButton:hover {
-  color: #E05561;
-  transition: color 0.2s ease;
-}
-
 .footer {
-  border-top: 1px solid var(--color-grey50);
+  border-top: 1px solid var(--color-grey30);
   padding: 20px;
 }
 
