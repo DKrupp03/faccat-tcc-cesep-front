@@ -3,7 +3,7 @@ import { Flex } from "antd";
 
 import { useAuth } from "../modules/auth/hooks/useAuth";
 import { PATHS } from "./paths";
-import { MainSideMenu } from "@/shared/components/MainSideMenu/MainSideMenu";
+import { CommonSideMenu } from "@/shared/components/CommonSideMenu/CommonSideMenu";
 import { CommonFallbackLoading } from "@/shared/components/CommonFallbackLoading/CommonFallbackLoading";
 
 const PrivateRoute = ({ children }: { children: React.ReactNode }) => {
@@ -16,7 +16,7 @@ const PrivateRoute = ({ children }: { children: React.ReactNode }) => {
 
     return (
       <Flex>
-        <MainSideMenu />
+        <CommonSideMenu />
         {children}
       </Flex>
     );

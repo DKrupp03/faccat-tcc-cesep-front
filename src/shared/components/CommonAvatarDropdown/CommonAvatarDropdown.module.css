@@ -1,0 +1,13 @@
+.header {
+  padding: 5px 10px 15px 10px;
+  border-bottom: 1px solid var(--color-grey30);
+}
+
+.name {
+  color: var(--color-navy);
+  font-weight: 600;
+}
+
+.role {
+  font-size: 12px;
+}
