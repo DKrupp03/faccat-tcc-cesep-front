@@ -18,7 +18,7 @@ export const CommonDropdown = ({
   options,
   children,
   width = 200,
-  padding = 4,
+  padding = 6,
   ...props
 }: CommonDropdownProps) => {
   const [visible, setVisible] = useState<boolean>(false);

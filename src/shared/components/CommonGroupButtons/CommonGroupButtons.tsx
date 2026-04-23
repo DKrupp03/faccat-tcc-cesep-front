@@ -35,9 +35,9 @@ const Button: React.FC<ButtonProps> = ({ value, children, ...buttonProps }) => {
       onClick={() => onChange?.(value)}
       className={styles.button}
       style={isActive ? {
-        border: `1px solid ${COLORS.grey50}`,
+        border: `1px solid ${COLORS.grey70}`,
         color: COLORS.grey90,
-        backgroundColor: COLORS.grey30,
+        backgroundColor: COLORS.grey10,
       } : undefined}
       {...buttonProps}
     >
