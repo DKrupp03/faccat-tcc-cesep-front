@@ -24,6 +24,7 @@ export const useProfilesStates = ({
   const defaultFilter: ProfilesFilter = useMemo(() => ({
     active: 1,
     role: profileRole,
+    payment_status: "all",
   }), [profileRole]);
 
   const [profiles, setProfiles] = useState<Profile[]>([]);

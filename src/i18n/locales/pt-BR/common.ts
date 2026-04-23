@@ -1,4 +1,5 @@
 const common = {
+  "all": "Todos",
   "mainMenu": "Menu principal",
   "myProfile": "Meu perfil",
   "configs": "Configurações",

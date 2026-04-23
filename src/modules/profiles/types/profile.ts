@@ -65,6 +65,7 @@ export type ProfilesFilter = {
   name?: string;
   therapist_id?: number;
   patient_id?: number;
+  payment_status?: PaymentStatus | "all";
 };
 
 export type ProfilesOrder = "name_asc" | "name_esc";

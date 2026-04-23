@@ -38,6 +38,13 @@ export const ProfilesFilterModal = ({
 
   const [profilesOptions, setProfilesOptions] = useState<DefaultOptionType[]>([]);
 
+  const paymentStatusOptions = useMemo(() => ([
+    { label: t("common.all"), value: "all" },
+    { label: t("payments.status.paid"), value: "paid" },
+    { label: t("payments.status.unpaid"), value: "unpaid" },
+    { label: t("payments.status.overdue"), value: "overdue" },
+  ]), [t]);
+
   const handleClear = useCallback(() => {
     form.resetFields();
   }, [form]);
@@ -118,11 +125,9 @@ export const ProfilesFilterModal = ({
           </Col>
         </Row>
         <Row gutter={16}>
-          <Col span={24}>
+          <Col span={module === "patients" ? 12 : 24}>
             <Form.Item
-              name={module === "patients"
-                ? "therapist_id"
-                : "patient_id"}
+              name={module === "patients" ? "therapist_id" : "patient_id"}
               noStyle
             >
               <CommonSelect
@@ -134,6 +139,16 @@ export const ProfilesFilterModal = ({
               />
             </Form.Item>
           </Col>
+          {module === "patients" && (
+            <Col span={12}>
+              <Form.Item name="payment_status" noStyle>
+                <CommonSelect
+                  label={t("profiles.columns.paymentStatus")}
+                  options={paymentStatusOptions}
+                />
+              </Form.Item>
+            </Col>
+          )}
         </Row>
         <Row gutter={16}>
           <Col span={24}>
