@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Flex } from "antd";
 import type { ColumnType } from "antd/es/table";
@@ -8,6 +8,8 @@ import {
   IconStethoscope,
   IconUsers,
   IconTextSpellcheck,
+  IconSortAscendingLetters,
+  IconSortDescendingLetters
 } from "@tabler/icons-react";
 
 import type { ModuleKey } from "@/shared/contexts/ModulesContext";
@@ -140,8 +142,22 @@ export const useProfilesCommon = ({
     ];
   }, [t, module]);
 
+  const profilesOrderOptions = useMemo(() => ([
+    {
+      value: "name_asc",
+      label: "Nome crescente",
+      icon: <IconSortAscendingLetters size={18} />,
+    },
+    {
+      value: "name_desc",
+      label: "Nome decrescente",
+      icon: <IconSortDescendingLetters size={18} />,
+    },
+  ]), [t]);
+
   return {
     getProfilesHeaderCards,
     getProfilesColumnFields,
+    profilesOrderOptions,
   };
 };

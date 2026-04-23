@@ -66,6 +66,7 @@ export const CommonSelect: React.FC<CommonSelectProps> = ({
         ref={selectRef}
         size="large"
         className={`${styles.select} ${icon ? styles.selectWithPrefix : ""}`}
+        classNames={{ popup: { root: styles.popup } }}
         onFocus={handleFocus}
         onBlur={handleBlur}
         onChange={handleChange}

@@ -44,11 +44,11 @@ export const CommonButton: React.FC<CommonButtonProps> = ({
   } = {
     primary: {
       bgColor: outline ? COLORS.white : COLORS.blue,
-      bgColorHover: outline ? COLORS.white : COLORS.navy,
+      bgColorHover: outline ? COLORS.white : COLORS.blueHover,
       borderColor: outline ? COLORS.blue : "transparent",
-      borderColorHover: outline ? COLORS.navy : "transparent",
+      borderColorHover: outline ? COLORS.blueHover : "transparent",
       textColor: outline ? COLORS.blue : COLORS.white,
-      textColorHover: outline ? COLORS.navy : COLORS.white,
+      textColorHover: outline ? COLORS.blueHover : COLORS.white,
     },
     outline: {
       bgColor: outline ? COLORS.white : COLORS.grey30,
@@ -68,19 +68,19 @@ export const CommonButton: React.FC<CommonButtonProps> = ({
     },
     success: {
       bgColor: outline ? COLORS.white : COLORS.gren,
-      bgColorHover: outline ? COLORS.white : COLORS.gren,
+      bgColorHover: outline ? COLORS.white : COLORS.grenHover,
       borderColor: outline ? COLORS.gren : "transparent",
-      borderColorHover: outline ? COLORS.gren : "transparent",
+      borderColorHover: outline ? COLORS.grenHover : "transparent",
       textColor: outline ? COLORS.gren : COLORS.white,
-      textColorHover: outline ? COLORS.gren : COLORS.white,
+      textColorHover: outline ? COLORS.grenHover : COLORS.white,
     },
     danger: {
       bgColor: outline ? COLORS.white : COLORS.red,
-      bgColorHover: outline ? COLORS.white : COLORS.red,
+      bgColorHover: outline ? COLORS.white : COLORS.redHover,
       borderColor: outline ? COLORS.red : "transparent",
-      borderColorHover: outline ? COLORS.red : "transparent",
+      borderColorHover: outline ? COLORS.redHover : "transparent",
       textColor: outline ? COLORS.red : COLORS.white,
-      textColorHover: outline ? COLORS.red : COLORS.white,
+      textColorHover: outline ? COLORS.redHover : COLORS.white,
     },
     info: {
       bgColor: outline ? COLORS.white : COLORS.blue,

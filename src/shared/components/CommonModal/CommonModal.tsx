@@ -58,6 +58,8 @@ export const CommonModal = ({
       onCancel={close}
       footer={footerContent}
       closeIcon={false}
+      mask={{ blur: true }}
+      centered
     >
       <Flex className={styles.body}>
         {children}

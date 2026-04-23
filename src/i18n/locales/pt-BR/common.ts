@@ -17,6 +17,12 @@ const common = {
     "clearFilter": "Limpar filtro",
     "filtrate": "Filtrar",
     "reload": "Recarregar",
+    "order": "Ordenar por",
+  },
+
+  "order": {
+    "nameAsc": "Nome crescente",
+    "nameDesc": "Nome decrescente",
   },
 
   "modules": {

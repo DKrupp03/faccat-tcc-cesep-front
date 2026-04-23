@@ -32,6 +32,8 @@ const ProfilesPanel = ({ module }: ProfilesPageProps) => {
     totalFiltered,
     profiles,
     setIsFilterOpen,
+    filter,
+    orderBy,
   } = useProfiles();
 
   useEffect(() => {
@@ -48,6 +50,8 @@ const ProfilesPanel = ({ module }: ProfilesPageProps) => {
           module={activeModule!}
           openFilter={() => setIsFilterOpen(true)}
           reload={() => filtratePanel()}
+          orderBy={orderBy}
+          onChangeOrderBy={(newOrderBy) => filtratePanel(filter, newOrderBy)}
         />
 
         <Flex vertical gap={24} className={styles.body}>

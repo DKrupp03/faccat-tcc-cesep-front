@@ -8,6 +8,7 @@ type CommonDropdownProps = PopoverProps & {
   suffix?: React.ReactNode;
   options?: CommonButtonProps[];
   width?: number | string;
+  padding?: number;
   children: React.ReactNode;
 };
 
@@ -17,6 +18,7 @@ export const CommonDropdown = ({
   options,
   children,
   width = 200,
+  padding = 4,
   ...props
 }: CommonDropdownProps) => {
   const [visible, setVisible] = useState<boolean>(false);
@@ -24,11 +26,11 @@ export const CommonDropdown = ({
   const handleVisibleChange = useCallback((newVisible: boolean) => {
     setVisible(newVisible);
 
-    if (newVisible) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
+    //if (newVisible) {
+    //  document.body.style.overflow = "hidden";
+    //} else {
+    //  document.body.style.overflow = "";
+    //}
   }, []);
 
   const content = useMemo(() => (
@@ -61,9 +63,12 @@ export const CommonDropdown = ({
       onOpenChange={handleVisibleChange}
       arrow={false}
       trigger="click"
+      styles={{ container: { padding } }}
       {...props}
     >
-      {children}
+      <span>
+        {children}
+      </span>
     </Popover>
   );
 };

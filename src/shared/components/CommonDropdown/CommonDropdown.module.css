@@ -1,0 +1,3 @@
+.popover :global(.ant-popover-container) {
+  padding: 4px !important;
+}

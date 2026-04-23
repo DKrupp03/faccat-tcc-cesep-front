@@ -1,6 +1,6 @@
 .button {
   font-size: 14px;
-  transition: filter 0.2s ease;
+  transition: 0.2s ease;
   box-shadow: none !important;
 }
 

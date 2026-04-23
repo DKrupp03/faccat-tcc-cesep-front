@@ -18,6 +18,7 @@ export const CommonAvatarDropdown = () => {
     <CommonDropdown
       placement="right"
       align={{ offset: [12, -20] }}
+      padding={12}
       arrow
       prefix={
         <Flex
