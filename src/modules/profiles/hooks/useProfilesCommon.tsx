@@ -95,7 +95,7 @@ export const useProfilesCommon = ({
           dataIndex: "payment_status",
           key: "payment_status",
           width: "20%",
-          render: (value: PaymentStatus) => <PaymentStatusBadge status={value} />,
+          render: (value?: PaymentStatus) => <PaymentStatusBadge status={value} />,
         },
       ] : [
         {
@@ -145,12 +145,12 @@ export const useProfilesCommon = ({
   const profilesOrderOptions = useMemo(() => ([
     {
       value: "name_asc",
-      label: "Nome crescente",
+      label: t("common.order.nameAsc"),
       icon: <IconSortAscendingLetters size={18} />,
     },
     {
       value: "name_desc",
-      label: "Nome decrescente",
+      label: t("common.order.nameDesc"),
       icon: <IconSortDescendingLetters size={18} />,
     },
   ]), [t]);
