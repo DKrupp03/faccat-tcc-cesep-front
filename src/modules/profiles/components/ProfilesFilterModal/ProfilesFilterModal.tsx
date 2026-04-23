@@ -1,47 +1,42 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Form, Row, Col } from "antd";
+import { Form, Row, Col, Flex } from "antd";
 import type { DefaultOptionType } from 'antd/es/select';
 
-import { useModules } from "@/shared/hooks/useModules";
 import { CommonModal } from "@/shared/components/CommonModal/CommonModal";
+import { CommonGroupButtons } from "@/shared/components/CommonGroupButtons/CommonGroupButtons";
 import { CommonButton } from "@/shared/components/CommonButton/CommonButton";
 import { CommonSelect } from "@/shared/components/CommonSelect/CommonSelect";
 import { CommonTextInput } from "@/shared/components/CommonTextInput/CommonTextInput";
 
-import { useProfiles } from "../../hooks/useProfiles";
+import { useProfilesStates } from "../../hooks/useProfilesStates";
 import { useProfilesOperations } from "../../hooks/useProfilesOperations";
 import type { ProfilesFilter } from "../../types/profile";
+import type { ModuleKey } from "@/shared/contexts/ModulesContext";
 import styles from "./ProfilesFilterModal.module.css";
 
 type ProfilesFilterModalProps = {
+  module: ModuleKey;
   isOpen: boolean;
   close: () => void;
   filtrate: (newFilter: ProfilesFilter) => void;
+  filter: ProfilesFilter;
 };
 
 export const ProfilesFilterModal = ({
+  module,
   isOpen,
   close,
+  filtrate,
+  filter,
 }: ProfilesFilterModalProps) => {
   const { t } = useTranslation();
-  const { activeModule } = useModules();
+  const { defaultFilter } = useProfilesStates({ module });
   const { fetchProfiles } = useProfilesOperations();
-  const {
-    profileRole,
-    filtratePanel,
-    filter,
-    orderBy,
-  } = useProfiles();
 
   const [form] = Form.useForm();
 
   const [profilesOptions, setProfilesOptions] = useState<DefaultOptionType[]>([]);
-
-  const defaultFilter: ProfilesFilter = useMemo(() => ({
-    active: true,
-    role: profileRole,
-  }), [profileRole]);
 
   const handleClear = useCallback(() => {
     form.resetFields();
@@ -49,9 +44,9 @@ export const ProfilesFilterModal = ({
 
   const handleFiltrate = useCallback(() => {
     const values = form.getFieldsValue(true);
-    filtratePanel(values, orderBy, 1);
+    filtrate(values);
     close();
-  }, [form, filtratePanel, orderBy, close]);
+  }, [form, filtrate, close]);
   
   const handleClose = useCallback(() => {
     close();
@@ -82,8 +77,8 @@ export const ProfilesFilterModal = ({
 
   const getProfiles = useCallback(async () => {
     const response = await fetchProfiles({
-      active: true,
-      role: activeModule === "patients" ? "therapist" : "patient",
+      active: 1,
+      role: module === "patients" ? "therapist" : "patient",
     }, "name_asc");
 
     if (response.success) {
@@ -93,7 +88,7 @@ export const ProfilesFilterModal = ({
         ))
       );
     }
-  }, [activeModule, fetchProfiles]);
+  }, [module, fetchProfiles]);
 
   useEffect(() => {
     if (isOpen) {
@@ -104,7 +99,7 @@ export const ProfilesFilterModal = ({
 
   return (
     <CommonModal
-      title={t(`profiles.${activeModule}.actions.filtrate`)}
+      title={t(`profiles.${module}.actions.filtrate`)}
       isOpen={isOpen}
       close={handleClose}
       footer={footerContent}
@@ -117,14 +112,21 @@ export const ProfilesFilterModal = ({
       >
         <Row gutter={16}>
           <Col span={24}>
+            <Form.Item name="name" noStyle>
+              <CommonTextInput label={t("profiles.columns.name")} />
+            </Form.Item>
+          </Col>
+        </Row>
+        <Row gutter={16}>
+          <Col span={24}>
             <Form.Item
-              name={activeModule === "patients"
+              name={module === "patients"
                 ? "therapist_id"
                 : "patient_id"}
               noStyle
             >
               <CommonSelect
-                label={activeModule === "patients"
+                label={module === "patients"
                   ? t("profiles.columns.therapist")
                   : t("profiles.columns.patient")}
                 options={profilesOptions}
@@ -135,9 +137,21 @@ export const ProfilesFilterModal = ({
         </Row>
         <Row gutter={16}>
           <Col span={24}>
-            <Form.Item name="name" noStyle>
-              <CommonTextInput label={t("profiles.columns.name")} />
-            </Form.Item>
+            <Flex justify="start">
+              <Form.Item name="active" noStyle>
+                <CommonGroupButtons>
+                  <CommonGroupButtons.Button value={1}>
+                    {t("profiles.columns.active.active")}
+                  </CommonGroupButtons.Button>
+                  <CommonGroupButtons.Button value={0}>
+                    {t("profiles.columns.active.inactive")}
+                  </CommonGroupButtons.Button>
+                  <CommonGroupButtons.Button value={-1}>
+                    {t("profiles.columns.active.all")}
+                  </CommonGroupButtons.Button>
+                </CommonGroupButtons>
+              </Form.Item>
+            </Flex>
           </Col>
         </Row>
       </Form>

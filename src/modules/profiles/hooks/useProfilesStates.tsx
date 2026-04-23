@@ -22,7 +22,7 @@ export const useProfilesStates = ({
   }, [module]);
 
   const defaultFilter: ProfilesFilter = useMemo(() => ({
-    active: true,
+    active: 1,
     role: profileRole,
   }), [profileRole]);
 
@@ -37,6 +37,7 @@ export const useProfilesStates = ({
   const [isFilterOpen, setIsFilterOpen] = useState<boolean>(false);
 
   return {
+    defaultFilter,
     profileRole,
     profiles, setProfiles,
     total, setTotal,

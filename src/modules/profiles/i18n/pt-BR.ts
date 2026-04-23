@@ -27,6 +27,11 @@ const profiles = {
   },
 
   "columns": {
+    "active": {
+      "active": "Ativos",
+      "inactive": "Inativos",
+      "all": "Todos",
+    },
     "name": "Nome",
     "services": "Atendimentos",
     "therapist": "Terapeuta",

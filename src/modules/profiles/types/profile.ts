@@ -60,7 +60,7 @@ export type ProfileResponse = CommonResponse & {
 };
 
 export type ProfilesFilter = {
-  active: boolean;
+  active: number;
   role: ProfileRole;
   name?: string;
   therapist_id?: number;

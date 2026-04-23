@@ -83,9 +83,11 @@ export const ProfilesProvider = ({
       {children}
 
       <ProfilesFilterModal
+        module={module}
         isOpen={isFilterOpen}
         close={() => setIsFilterOpen(false)}
         filtrate={filtratePanel}
+        filter={filter}
       />
     </ProfilesContext.Provider>
   );
