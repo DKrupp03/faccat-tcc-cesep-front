@@ -43,14 +43,14 @@ export const CommonAvatarDropdown = () => {
       options={[
         {
           onClick: () => {},
-          icon: <IconUserSquareRounded size={18} />,
+          icon: <IconUserSquareRounded size={16} />,
           buttonVariant: "noBorder",
           children: t("common.myProfile"),
           contentAlign: "flex-start",
         },
         {
           onClick: logout,
-          icon: <IconLogout size={18} />,
+          icon: <IconLogout size={16} />,
           buttonVariant: "noBorder",
           children: t("common.actions.exit"),
           contentAlign: "flex-start",

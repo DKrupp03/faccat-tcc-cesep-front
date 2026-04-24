@@ -63,21 +63,21 @@ export const useProfilesCommon = ({
   const getProfilesDropdownOptions = useCallback((active: boolean) => ([
     {
       onClick: () => {},
-      icon: <IconPencil size={18} />,
+      icon: <IconPencil size={16} />,
       buttonVariant: "noBorder" as const,
       children: t("common.actions.edit"),
       contentAlign: "flex-start" as const,
     },
     ...(active ? [{
       onClick: () => {},
-      icon: <IconPower size={18} />,
+      icon: <IconPower size={16} />,
       buttonVariant: "noBorder" as const,
       children: t("common.actions.inactivate"),
       contentAlign: "flex-start" as const,
     }] : []),
     {
       onClick: () => {},
-      icon: <IconTrash size={18} />,
+      icon: <IconTrash size={16} />,
       buttonVariant: "noBorder" as const,
       children: t("common.actions.delete"),
       contentAlign: "flex-start" as const,
@@ -175,12 +175,12 @@ export const useProfilesCommon = ({
     {
       value: "name_asc",
       label: t("common.order.nameAsc"),
-      icon: <IconSortAscendingLetters size={18} />,
+      icon: <IconSortAscendingLetters size={16} />,
     },
     {
       value: "name_desc",
       label: t("common.order.nameDesc"),
-      icon: <IconSortDescendingLetters size={18} />,
+      icon: <IconSortDescendingLetters size={16} />,
     },
   ]), [t]);
 
