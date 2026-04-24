@@ -28,9 +28,9 @@ export const PaymentStatusBadge = ({
   }, [status]);
 
   const icon = useMemo(() => {
-    if (status === "paid") return <IconCircleCheck size={14} color={COLORS.white} />;
-    if (status === "unpaid") return <IconCircleX size={14} color={COLORS.white} />;
-    if (status === "overdue") return <IconAlertCircle size={14} color={COLORS.white} />;
+    if (status === "paid") return <IconCircleCheck size={16} color={COLORS.white} />;
+    if (status === "unpaid") return <IconCircleX size={16} color={COLORS.white} />;
+    if (status === "overdue") return <IconAlertCircle size={16} color={COLORS.white} />;
   }, [status]);
 
   if (!status) return;

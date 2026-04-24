@@ -71,7 +71,7 @@ const ProfilesPanel = ({ module }: ProfilesPageProps) => {
             dataSource={profiles}
             pagination
             page={page}
-            total={total}
+            total={totalFiltered}
             loadMore={(newPage) => filtratePanel(filter, orderBy, newPage)}
             loading={loading}
             loadingMore={loadingMore}

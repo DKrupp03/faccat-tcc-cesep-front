@@ -27,9 +27,9 @@ export const CommonHeaderCards = ({
       {cards.map((card, index) => loading ? (
         <Skeleton
           key={index}
-          paragraph={{ rows: 3 }}
+          paragraph={{ rows: 1 }}
           className={styles.card}
-          title={false}
+          style={{ paddingTop: 5 }}
           active
         />
       ) : (
