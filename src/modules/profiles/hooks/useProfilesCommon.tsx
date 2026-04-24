@@ -56,7 +56,7 @@ export const useProfilesCommon = ({
     ];
   }, [t, module]);
 
-  const getProfilesColumnFields = useCallback((): ColumnType<Profile>[] => {
+  const profilesColumnFields = useMemo((): ColumnType<Profile>[] => {
     return [
       {
         title: "",
@@ -157,7 +157,7 @@ export const useProfilesCommon = ({
 
   return {
     getProfilesHeaderCards,
-    getProfilesColumnFields,
+    profilesColumnFields,
     profilesOrderOptions,
   };
 };

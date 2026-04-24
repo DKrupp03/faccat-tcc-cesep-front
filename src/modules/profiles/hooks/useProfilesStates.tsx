@@ -32,6 +32,7 @@ export const useProfilesStates = ({
   const [totalFiltered, setTotalFiltered] = useState<number>(0);
   const [totalActive, setTotalActive] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(false);
+  const [loadingMore, setLoadingMore] = useState<boolean>(false);
   const [filter, setFilter] = useState<ProfilesFilter>(defaultFilter);
   const [page, setPage] = useState<number>(1);
   const [orderBy, setOrderBy] = useState<ProfilesOrder>("name_asc");
@@ -45,6 +46,7 @@ export const useProfilesStates = ({
     totalFiltered, setTotalFiltered,
     totalActive, setTotalActive,
     loading, setLoading,
+    loadingMore, setLoadingMore,
     filter, setFilter,
     page, setPage,
     orderBy, setOrderBy,

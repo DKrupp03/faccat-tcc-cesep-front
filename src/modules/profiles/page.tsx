@@ -3,6 +3,7 @@ import { Flex } from "antd";
 
 import { useModules } from "@/shared/hooks/useModules";
 import { type ModuleKey } from "@/shared/contexts/ModulesContext";
+
 import { ProfilesProvider } from "./providers/ProfilesProvider";
 import { useProfiles } from "./hooks/useProfiles";
 import { ProfilesHeader } from "./components/ProfilesHeader/ProfilesHeader";
@@ -27,6 +28,7 @@ const ProfilesPanel = ({ module }: ProfilesPageProps) => {
   const {
     filtratePanel,
     loading,
+    loadingMore,
     total,
     totalActive,
     totalFiltered,
@@ -34,6 +36,7 @@ const ProfilesPanel = ({ module }: ProfilesPageProps) => {
     setIsFilterOpen,
     filter,
     orderBy,
+    page,
   } = useProfiles();
 
   useEffect(() => {
@@ -65,7 +68,13 @@ const ProfilesPanel = ({ module }: ProfilesPageProps) => {
 
           <ProfilesTable
             module={activeModule!}
-            profiles={profiles}
+            dataSource={profiles}
+            pagination
+            page={page}
+            total={total}
+            loadMore={(newPage) => filtratePanel(filter, orderBy, newPage)}
+            loading={loading}
+            loadingMore={loadingMore}
           />
         </Flex>
       </Flex>

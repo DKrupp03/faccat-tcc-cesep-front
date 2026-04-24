@@ -37,7 +37,7 @@ export const CommonOrderButton = ({
         setOpen(false);
       },
       style: option.value === value ? {
-        border: `1px solid ${COLORS.grey70}`,
+        border: `1px solid ${COLORS.grey30}`,
         backgroundColor: COLORS.grey10,
         color: COLORS.grey90,
       } : undefined,

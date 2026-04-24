@@ -18,6 +18,7 @@ const common = {
     "filtrate": "Filtrar",
     "reload": "Recarregar",
     "order": "Ordenar por",
+    "loadMore": "Carregar mais",
   },
 
   "order": {

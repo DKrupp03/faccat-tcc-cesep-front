@@ -11,6 +11,7 @@ export type ProfilesContextType = {
   totalActive: number;
   setProfiles: Dispatch<SetStateAction<Profile[]>>;
   loading: boolean;
+  loadingMore: boolean;
   filter: ProfilesFilter;
   page: number;
   orderBy: ProfilesOrder;

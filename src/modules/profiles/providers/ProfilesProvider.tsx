@@ -27,6 +27,7 @@ export const ProfilesProvider = ({
     totalFiltered, setTotalFiltered,
     totalActive, setTotalActive,
     loading, setLoading,
+    loadingMore, setLoadingMore,
     filter, setFilter,
     page, setPage,
     orderBy, setOrderBy,
@@ -42,8 +43,10 @@ export const ProfilesProvider = ({
     setOrderBy(newOrderBy);
     setPage(newPage);
 
-    if (page === 1) {
+    if (newPage === 1) {
       setLoading(true);
+    } else {
+      setLoadingMore(true);
     }
 
     try {
@@ -53,14 +56,19 @@ export const ProfilesProvider = ({
         throw new Error(response.error);
       }
 
-      setProfiles(response.profiles);
-      setTotalActive(response.total_active!);
-      setTotalFiltered(response.total_filtered);
-      setTotal(response.total);
+      if (newPage === 1) {
+        setProfiles(response.profiles);
+        setTotalActive(response.total_active!);
+        setTotalFiltered(response.total_filtered);
+        setTotal(response.total);
+      } else {
+        setProfiles((prev) => [...prev, ...response.profiles]);
+      }
     } catch (error) {
       console.error(error || t("common.errors.unknown"));
     } finally {
       setLoading(false);
+      setLoadingMore(false);
     }
   }, [t]);
 
@@ -73,6 +81,7 @@ export const ProfilesProvider = ({
       totalFiltered,
       totalActive,
       loading,
+      loadingMore,
       filter,
       page,
       orderBy,

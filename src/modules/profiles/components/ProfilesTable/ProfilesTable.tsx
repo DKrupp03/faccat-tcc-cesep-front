@@ -1,28 +1,27 @@
 import { useTranslation } from "react-i18next";
 
 import type { ModuleKey } from "@/shared/contexts/ModulesContext";
-import { CommonTable } from "@/shared/components/CommonTable/CommonTable";
+import { CommonTable, type CommonTableProps } from "@/shared/components/CommonTable/CommonTable";
 
 import { useProfilesCommon } from "../../hooks/useProfilesCommon";
 import type { Profile } from "../../types/profile";
 
-type ProfilesTableProps = {
+type ProfilesTableProps = CommonTableProps<Profile> & {
   module: ModuleKey;
-  profiles: Profile[]
 };
 
 export const ProfilesTable = ({
   module,
-  profiles,
+  ...props
 }: ProfilesTableProps) => {
   const { t } = useTranslation();
-  const { getProfilesColumnFields } = useProfilesCommon({ module });
+  const { profilesColumnFields } = useProfilesCommon({ module });
 
   return (
-    <CommonTable
+    <CommonTable<Profile>
       titleHeader={t(`common.modules.${module}`)}
-      columns={getProfilesColumnFields()}
-      dataSource={profiles}
+      columns={profilesColumnFields}
+      {...props}
     />
   );
 };
