@@ -9,11 +9,15 @@ import {
   IconUsers,
   IconTextSpellcheck,
   IconSortAscendingLetters,
-  IconSortDescendingLetters
+  IconSortDescendingLetters,
+  IconPencil,
+  IconPower,
+  IconTrash,
 } from "@tabler/icons-react";
 
 import type { ModuleKey } from "@/shared/contexts/ModulesContext";
 import { CommonAvatar } from "@/shared/components/CommonAvatar/CommonAvatar";
+import { CommonDropdown } from "@/shared/components/CommonDropdown/CommonDropdown";
 import { PaymentStatusBadge } from "@/modules/payments/components/PaymentStatusBadge/PaymentStatusBadge";
 import type { PaymentStatus } from "@/modules/payments/types/payment";
 import { formatDateTime } from "@/shared/utils/formatters";
@@ -55,6 +59,30 @@ export const useProfilesCommon = ({
       },
     ];
   }, [t, module]);
+
+  const getProfilesDropdownOptions = useCallback((active: boolean) => ([
+    {
+      onClick: () => {},
+      icon: <IconPencil size={18} />,
+      buttonVariant: "noBorder" as const,
+      children: t("common.actions.edit"),
+      contentAlign: "flex-start" as const,
+    },
+    ...(active ? [{
+      onClick: () => {},
+      icon: <IconPower size={18} />,
+      buttonVariant: "noBorder" as const,
+      children: t("common.actions.inactivate"),
+      contentAlign: "flex-start" as const,
+    }] : []),
+    {
+      onClick: () => {},
+      icon: <IconTrash size={18} />,
+      buttonVariant: "noBorder" as const,
+      children: t("common.actions.delete"),
+      contentAlign: "flex-start" as const,
+    },
+  ]), [t]);
 
   const profilesColumnFields = useMemo((): ColumnType<Profile>[] => {
     return [
@@ -129,18 +157,19 @@ export const useProfilesCommon = ({
         title: "",
         dataIndex: "options",
         key: "options",
-        render: () => (
+        render: (_: unknown, record: Profile) => (
           <Flex align="center">
-            <IconDots
-              color={COLORS.navy}
-              size={16}
-              cursor="pointer"
-            />
+            <CommonDropdown
+              options={getProfilesDropdownOptions(record.active)}
+              placement="bottomRight"
+            >
+              <IconDots size={16} cursor="pointer" />
+            </CommonDropdown>
           </Flex>
         )
       },
     ];
-  }, [t, module]);
+  }, [t, module, getProfilesDropdownOptions]);
 
   const profilesOrderOptions = useMemo(() => ([
     {

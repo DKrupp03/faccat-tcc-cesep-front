@@ -1,4 +1,4 @@
-import React, { useMemo, useCallback, useState } from "react";
+import React, { useMemo, useState } from "react";
 import { Flex, Popover, type PopoverProps } from "antd";
 
 import { CommonButton, type CommonButtonProps } from "../CommonButton/CommonButton";
@@ -17,21 +17,11 @@ export const CommonDropdown = ({
   suffix,
   options,
   children,
-  width = 200,
+  width = 150,
   padding = 6,
   ...props
 }: CommonDropdownProps) => {
   const [visible, setVisible] = useState<boolean>(false);
-
-  const handleVisibleChange = useCallback((newVisible: boolean) => {
-    setVisible(newVisible);
-
-    //if (newVisible) {
-    //  document.body.style.overflow = "hidden";
-    //} else {
-    //  document.body.style.overflow = "";
-    //}
-  }, []);
 
   const content = useMemo(() => (
     <Flex vertical gap={8} style={{ width }}>
@@ -40,7 +30,13 @@ export const CommonDropdown = ({
       {options && (
         <Flex vertical gap={4}>
           {options.map((option) => (
-            <CommonButton {...option}>
+            <CommonButton
+              {...option}
+              onClick={(e) => {
+                option.onClick?.(e);
+                setVisible(false);
+              }}
+            >
               {option.children}
             </CommonButton>
           ))}
@@ -60,7 +56,7 @@ export const CommonDropdown = ({
     <Popover
       open={visible}
       content={content}
-      onOpenChange={handleVisibleChange}
+      onOpenChange={setVisible}
       arrow={false}
       trigger="click"
       styles={{ container: { padding } }}

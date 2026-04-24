@@ -17,6 +17,7 @@ const common = {
     "clearFilter": "Limpar filtro",
     "filtrate": "Filtrar",
     "reload": "Recarregar",
+    "inactivate": "Inativar",
     "order": "Ordenar por",
     "loadMore": "Carregar mais",
   },

@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Tooltip } from "antd";
 import { IconArrowsSort } from "@tabler/icons-react";
@@ -24,8 +24,6 @@ export const CommonOrderButton = ({
 }: CommonOrderButton) => {
   const { t } = useTranslation();
   
-  const [open, setOpen] = useState<boolean>(false);
-
   const buttons = useMemo(() => (
     options.map((option) => ({
       children: option.label,
@@ -34,7 +32,6 @@ export const CommonOrderButton = ({
       contentAlign: "flex-start" as const,
       onClick: () => {
         onChange(option.value);
-        setOpen(false);
       },
       style: option.value === value ? {
         border: `1px solid ${COLORS.grey30}`,
@@ -49,8 +46,7 @@ export const CommonOrderButton = ({
       <CommonDropdown
         placement="bottomRight"
         options={buttons}
-        open={open}
-        onOpenChange={setOpen}
+        width={200}
       >
         <CommonButton
           icon={<IconArrowsSort size={18} />}
