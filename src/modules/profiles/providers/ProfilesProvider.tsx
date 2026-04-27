@@ -8,6 +8,7 @@ import { useProfilesOperations } from "../hooks/useProfilesOperations";
 import { useProfilesStates } from "../hooks/useProfilesStates";
 import type { ProfilesFilter, ProfilesOrder } from "../types/profile";
 import { ProfilesFilterModal } from "../components/ProfilesFilterModal/ProfilesFilterModal";
+import { ProfileDrawer } from "../components/ProfileDrawer/ProfileDrawer";
 
 type ProfilesProviderProps = {
   module: ModuleKey
@@ -32,6 +33,8 @@ export const ProfilesProvider = ({
     page, setPage,
     orderBy, setOrderBy,
     isFilterOpen, setIsFilterOpen,
+    isFormOpen, setIsFormOpen,
+    formProfileId, setFormProfileId,
   } = useProfilesStates({ module });
 
   const filtratePanel = useCallback(async (
@@ -72,6 +75,11 @@ export const ProfilesProvider = ({
     }
   }, [t]);
 
+  const openForm = useCallback((profileId?: number) => {
+    setFormProfileId(profileId);
+    setIsFormOpen(true);
+  }, []);
+
   return (
     <ProfilesContext.Provider value={{
       filtratePanel,
@@ -88,6 +96,7 @@ export const ProfilesProvider = ({
       setOrderBy,
       profileRole,
       setIsFilterOpen,
+      openForm,
     }}>
       {children}
 
@@ -97,6 +106,12 @@ export const ProfilesProvider = ({
         close={() => setIsFilterOpen(false)}
         filtrate={filtratePanel}
         filter={filter}
+      />
+
+      <ProfileDrawer
+        profileId={formProfileId}
+        isOpen={isFormOpen}
+        close={() => setIsFormOpen(false)}
       />
     </ProfilesContext.Provider>
   );

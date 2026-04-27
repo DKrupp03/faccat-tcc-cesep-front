@@ -37,6 +37,8 @@ export const useProfilesStates = ({
   const [page, setPage] = useState<number>(1);
   const [orderBy, setOrderBy] = useState<ProfilesOrder>("name_asc");
   const [isFilterOpen, setIsFilterOpen] = useState<boolean>(false);
+  const [isFormOpen, setIsFormOpen] = useState<boolean>(false);
+  const [formProfileId, setFormProfileId] = useState<number>();
 
   return {
     defaultFilter,
@@ -51,5 +53,7 @@ export const useProfilesStates = ({
     page, setPage,
     orderBy, setOrderBy,
     isFilterOpen, setIsFilterOpen,
+    isFormOpen, setIsFormOpen,
+    formProfileId, setFormProfileId,
   };
 };

@@ -1,27 +1,29 @@
 import { useMemo } from "react";
-import { Flex, Modal, Typography } from "antd";
+import { Drawer, Flex, Typography } from "antd";
 
 import { CommonCloseButton } from "../CommonCloseButton/CommonCloseButton";
 
-import styles from "./CommonModal.module.css";
+import styles from "./CommonDrawer.module.css";
 
-type CommonModalProps = {
+type CommonDrawerProps = {
   title: string;
   isOpen: boolean;
   close: () => void;
-  footer: React.ReactNode;
+  header?: React.ReactNode;
+  footer?: React.ReactNode;
   children: React.ReactNode;
 };
 
 const { Title } = Typography;
 
-export const CommonModal = ({
+export const CommonDrawer = ({
   title,
   isOpen,
   close,
+  header,
   footer,
   children,
-}: CommonModalProps) => {
+}: CommonDrawerProps) => {
   const titleContent = useMemo(() => (
     <Flex
       justify="space-between" align="center"
@@ -30,9 +32,12 @@ export const CommonModal = ({
       <Title level={5}>
         {title}
       </Title>
-      <CommonCloseButton onClick={close} />
+      <Flex gap={8}>
+        {header}
+        <CommonCloseButton onClick={close} />
+      </Flex>
     </Flex>
-  ), [title, close]);
+  ), [title, close, header]);
 
   const footerContent = useMemo(() => (
     <Flex
@@ -44,19 +49,17 @@ export const CommonModal = ({
   ), [footer]);
 
   return (
-    <Modal
+    <Drawer
       title={titleContent}
+      onClose={close}
       open={isOpen}
-      onCancel={close}
       footer={footerContent}
-      closeIcon={false}
       mask={{ blur: true }}
-      className={styles.modal}
-      centered
+      closeIcon={false}
     >
       <Flex className={styles.body}>
         {children}
       </Flex>
-    </Modal>
+    </Drawer>
   );
 };
