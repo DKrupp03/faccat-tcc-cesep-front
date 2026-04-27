@@ -1,5 +1,6 @@
 .modal :global(.ant-modal-container) {
   overflow: hidden !important;
+  padding: 0 !important;
 }
 
 .header {

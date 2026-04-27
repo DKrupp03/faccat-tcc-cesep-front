@@ -27,8 +27,10 @@ export type ProfilesContextType = {
   setIsFilterOpen: Dispatch<SetStateAction<boolean>>;
   isFormOpen: boolean;
   setIsFormOpen: Dispatch<SetStateAction<boolean>>;
-  formProfileId: number | undefined;
-  setFormProfileId: Dispatch<SetStateAction<number | undefined>>;
+  profile: Profile | undefined;
+  setProfile: Dispatch<SetStateAction<Profile | undefined>>;
+  editingRole: ProfileRole | undefined;
+  setEditingRole: Dispatch<SetStateAction<ProfileRole | undefined>>;
   module: ModuleKey;
   profileRole: ProfileRole;
   defaultFilter: ProfilesFilter;
@@ -37,7 +39,7 @@ export type ProfilesContextType = {
     newOrderBy?: ProfilesOrder,
     newPage?: number,
   ) => Promise<void>;
-  openForm: (profileId?: number) => void;
+  openForm: (role: ProfileRole, profileId?: number) => void;
 };
 
 export const ProfilesContext = createContext<ProfilesContextType | null>(null);

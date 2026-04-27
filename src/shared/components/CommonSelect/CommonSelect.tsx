@@ -6,6 +6,7 @@ import styles from "./CommonSelect.module.css";
 type CommonSelectProps = SelectProps & {
   icon?: ReactNode;
   label?: string;
+  required?: boolean;
 };
 
 const blurActive = () => {
@@ -20,6 +21,7 @@ export const CommonSelect: React.FC<CommonSelectProps> = ({
   onChange,
   onClear,
   onOpenChange,
+  required = false,
   ...props
 }: CommonSelectProps) => {
   const [focused, setFocused] = useState(false);
@@ -54,7 +56,7 @@ export const CommonSelect: React.FC<CommonSelectProps> = ({
 
   const labelEl = label ? (
     <span className={`${styles.label} ${icon ? styles.labelWithPrefix : ""} ${isFloating ? styles.labelFloating : ""}`}>
-      {label}
+      {label} {required && <span className={styles.required}>*</span>}
     </span>
   ) : null;
 

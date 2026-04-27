@@ -1,7 +1,6 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Form, Row, Col, Flex } from "antd";
-import type { DefaultOptionType } from "antd/es/select";
 
 import { CommonModal } from "@/shared/components/CommonModal/CommonModal";
 import { CommonGroupButtons } from "@/shared/components/CommonGroupButtons/CommonGroupButtons";
@@ -10,12 +9,11 @@ import { CommonSelect } from "@/shared/components/CommonSelect/CommonSelect";
 import { CommonTextInput } from "@/shared/components/CommonTextInput/CommonTextInput";
 
 import { useProfiles } from "../../hooks/useProfiles";
-import { useProfilesOperations } from "../../hooks/useProfilesOperations";
+import { ProfilesSelect } from "../ProfilesSelect/ProfilesSelect";
 import styles from "./ProfilesFilterModal.module.css";
 
 export const ProfilesFilterModal = () => {
   const { t } = useTranslation();
-  const { fetchProfiles } = useProfilesOperations();
   const {
     module,
     isFilterOpen,
@@ -27,8 +25,6 @@ export const ProfilesFilterModal = () => {
 
   const [form] = Form.useForm();
 
-  const [profilesOptions, setProfilesOptions] = useState<DefaultOptionType[]>([]);
-
   const paymentStatusOptions = useMemo(() => ([
     { label: t("common.all"), value: "all" },
     { label: t("payments.status.paid"), value: "paid" },
@@ -39,7 +35,7 @@ export const ProfilesFilterModal = () => {
   const handleClear = useCallback(() => {
     form.resetFields();
   }, [form]);
-  
+
   const handleClose = useCallback(() => {
     setIsFilterOpen(false);
   }, [setIsFilterOpen]);
@@ -73,25 +69,9 @@ export const ProfilesFilterModal = () => {
     </>
   ), [t, handleClose, handleClear, handleFiltrate]);
 
-  const getProfiles = useCallback(async () => {
-    const response = await fetchProfiles({
-      active: 1,
-      role: module === "patients" ? "therapist" : "patient",
-    }, "name_asc");
-
-    if (response.success) {
-      setProfilesOptions(
-        response.profiles.map((p) => (
-          { label: p.name, value: p.id }
-        ))
-      );
-    }
-  }, [module, fetchProfiles]);
-
   useEffect(() => {
     if (isFilterOpen) {
       form.setFieldsValue(filter);
-      getProfiles();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFilterOpen]);
@@ -122,13 +102,7 @@ export const ProfilesFilterModal = () => {
               name={module === "patients" ? "therapist_id" : "patient_id"}
               noStyle
             >
-              <CommonSelect
-                label={module === "patients"
-                  ? t("profiles.columns.therapist")
-                  : t("profiles.columns.patient")}
-                options={profilesOptions}
-                allowClear
-              />
+              <ProfilesSelect role={module === "patients" ? "therapist" : "patient"} />
             </Form.Item>
           </Col>
           {module === "patients" && (

@@ -19,11 +19,13 @@ import { useProfiles } from "../../hooks/useProfiles";
 export const ProfilesHeader = () => {
   const { t } = useTranslation();
   const {
+    profileRole,
     module,
     setIsFilterOpen,
     filtratePanel,
     orderBy,
     filter,
+    openForm,
   } = useProfiles();
 
   const profilesOrderOptions = useMemo(() => ([
@@ -68,7 +70,7 @@ export const ProfilesHeader = () => {
         </Tooltip>,
         <Tooltip title={t(`profiles.${module}.actions.create`)}>
           <CommonButton
-            onClick={() => {}}
+            onClick={() => openForm(profileRole)}
             icon={<IconPlus size={18} />}
             size="large"
             buttonVariant="primary"

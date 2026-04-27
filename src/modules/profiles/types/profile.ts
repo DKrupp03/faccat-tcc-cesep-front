@@ -37,7 +37,7 @@ export type Profile = {
   cpf?: string;
   rg?: string;
   crp?: string;
-  parent?: Record<string, unknown>;
+  parent?: Record<string, NonNullable<unknown>>;
   default_value?: number;
   extra?: string;
   role: ProfileRole;

@@ -11,6 +11,7 @@ type CommonDrawerProps = {
   close: () => void;
   header?: React.ReactNode;
   footer?: React.ReactNode;
+  width?: number | string;
   children: React.ReactNode;
 };
 
@@ -22,6 +23,7 @@ export const CommonDrawer = ({
   close,
   header,
   footer,
+  width = "80%",
   children,
 }: CommonDrawerProps) => {
   const titleContent = useMemo(() => (
@@ -54,6 +56,8 @@ export const CommonDrawer = ({
       onClose={close}
       open={isOpen}
       footer={footerContent}
+      className={styles.drawer}
+      styles={{ wrapper: { width } }}
       mask={{ blur: true }}
       closeIcon={false}
     >

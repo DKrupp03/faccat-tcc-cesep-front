@@ -51,9 +51,6 @@ export const antdTheme = {
       cellPaddingBlock: 8,
       cellPaddingInline: 24,
     },
-    Modal: {
-      contentPadding: 0,
-    },
     Button: {
       controlHeightLG: 50,
       controlHeight: 40,

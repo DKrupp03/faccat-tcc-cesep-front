@@ -1,8 +1,10 @@
 .wrapper {
   position: relative;
+  width: 100%;
 }
 
 .input {
+  width: 100%;
   border-radius: 8px;
   height: 44px;
   color: var(--color-navy);
@@ -15,11 +17,6 @@
 .input:focus-within {
   border-color: var(--color-grey70) !important;
   box-shadow: none !important;
-}
-
-.prefix {
-  color: var(--color-grey70);
-  padding-right: 5px;
 }
 
 .label {
@@ -35,10 +32,6 @@
   transition: top 0.3s ease, font-size 0.3s ease, left 0.3s ease;
   z-index: 10;
   line-height: 1;
-}
-
-.labelWithPrefix {
-  left: 35px;
 }
 
 .labelFloating {

@@ -8,6 +8,7 @@ const profiles = {
 
     "actions": {
       "create": "Criar terapeuta",
+      "edit": "Editar terapeuta",
       "filtrate": "Filtrar terapeutas",
     },
   },
@@ -22,6 +23,7 @@ const profiles = {
 
     "actions": {
       "create": "Criar paciente",
+      "edit": "Editar paciente",
       "filtrate": "Filtrar pacientes",
     },
   },
@@ -40,6 +42,44 @@ const profiles = {
     "paymentStatus": "Status do pagamento",
     "email": "E-mail",
     "lastService": "Último atendimento",
+    "gender": "Gênero",
+    "birth": "Data de nascimento",
+    "cpf": "CPF",
+    "rg": "RG",
+    "crp": "CRP",
+    "phone": "Telefone",
+    "address": "Endereço",
+    "maritalStatus": "Estado civil",
+    "educationLevel": "Nível de escolaridade",
+    "occupation": "Profissão",
+    "defaultValue": "Valor padrão",
+    "extra": "Observações",
+  },
+
+  "genders": {
+    "male": "Masculino",
+    "female": "Feminino",
+    "other": "Outro",
+  },
+
+  "maritalStatus": {
+    "single": "Solteiro(a)",
+    "married": "Casado(a)",
+    "divorced": "Divorciado(a)",
+    "widowed": "Viúvo(a)",
+  },
+
+  "educationLevels": {
+    "elementaryIncomplete": "Ensino Fundamental Incompleto",
+    "elementaryComplete": "Ensino Fundamental Completo",
+    "highSchoolIncomplete": "Ensino Médio Incompleto",
+    "highSchoolComplete": "Ensino Médio Completo",
+    "technical": "Técnico",
+    "higherEducationIncomplete": "Ensino Superior Incompleto",
+    "higherEducationComplete": "Ensino Superior Completo",
+    "postgraduate": "Pós-Graduação",
+    "masters": "Mestrado",
+    "doctorate": "Doutorado",
   },
 } as const;
 

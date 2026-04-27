@@ -8,6 +8,7 @@ type CommonTextInputProps = InputProps & {
   icon?: ReactNode;
   password?: boolean;
   label?: string;
+  required?: boolean;
 };
 
 export const CommonTextInput: React.FC<CommonTextInputProps> = ({
@@ -16,6 +17,7 @@ export const CommonTextInput: React.FC<CommonTextInputProps> = ({
   label,
   onFocus,
   onBlur,
+  required = false,
   ...props
 }: CommonTextInputProps) => {
   const [focused, setFocused] = useState(false);
@@ -39,7 +41,7 @@ export const CommonTextInput: React.FC<CommonTextInputProps> = ({
 
   const labelEl = label ? (
     <span className={`${styles.label} ${icon ? styles.labelWithPrefix : ""} ${isFloating ? styles.labelFloating : ""}`}>
-      {label}
+      {label} {required && <span className={styles.required}>*</span>}
     </span>
   ) : null;
 

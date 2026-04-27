@@ -4,7 +4,8 @@
 
 .input {
   border-radius: 8px;
-  height: 44px;
+  height: auto;
+  min-height: 80px !important;
   color: var(--color-navy);
   border-color: var(--color-grey30);
   font-size: 14px;
@@ -17,34 +18,24 @@
   box-shadow: none !important;
 }
 
-.prefix {
-  color: var(--color-grey70);
-  padding-right: 5px;
-}
-
 .label {
   position: absolute;
   left: 12px;
-  top: 50%;
-  transform: translateY(-50%);
+  top: 14px;
   font-size: 14px;
   color: var(--color-grey70);
   background: white;
   padding: 0 4px;
   pointer-events: none;
-  transition: top 0.3s ease, font-size 0.3s ease, left 0.3s ease;
+  transition: top 0.3s ease, font-size 0.3s ease;
   z-index: 10;
   line-height: 1;
 }
 
-.labelWithPrefix {
-  left: 35px;
-}
-
 .labelFloating {
   top: 0;
+  margin-top: -5px;
   font-size: 11px;
-  left: 12px;
 }
 
 .required {

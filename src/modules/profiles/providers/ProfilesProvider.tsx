@@ -19,7 +19,10 @@ export const ProfilesProvider = ({
   children,
 }: ProfilesProviderProps) => {
   const { t } = useTranslation();
-  const { fetchProfiles } = useProfilesOperations();
+  const {
+    fetchProfiles,
+    fetchProfile,
+  } = useProfilesOperations();
   
   const profileRole: ProfileRole = useMemo(() => {
     if (module === "patients") return "patient";
@@ -43,7 +46,8 @@ export const ProfilesProvider = ({
   const [orderBy, setOrderBy] = useState<ProfilesOrder>("name_asc");
   const [isFilterOpen, setIsFilterOpen] = useState<boolean>(false);
   const [isFormOpen, setIsFormOpen] = useState<boolean>(false);
-  const [formProfileId, setFormProfileId] = useState<number>();
+  const [profile, setProfile] = useState<Profile>();
+  const [editingRole, setEditingRole] = useState<ProfileRole>();
 
   const filtratePanel = useCallback(async (
     newFilter: ProfilesFilter = filter,
@@ -84,10 +88,17 @@ export const ProfilesProvider = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [t]);
 
-  const openForm = useCallback((profileId?: number) => {
-    setFormProfileId(profileId);
+  const openForm = useCallback(async (role: ProfileRole, profileId?: number) => {
+    if (profileId) {
+      const response = await fetchProfile(profileId);
+      if (response.success) setProfile(response.profile);
+    } else {
+      setProfile(undefined);
+    }
+
+    setEditingRole(role);
     setIsFormOpen(true);
-  }, []);
+  }, [fetchProfile]);
 
   return (
     <ProfilesContext.Provider value={{
@@ -102,7 +113,8 @@ export const ProfilesProvider = ({
       orderBy, setOrderBy,
       isFilterOpen, setIsFilterOpen,
       isFormOpen, setIsFormOpen,
-      formProfileId, setFormProfileId,
+      profile, setProfile,
+      editingRole, setEditingRole,
 
       module,
       profileRole,
