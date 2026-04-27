@@ -9,7 +9,7 @@ import { authStorage } from "../utils/authStorage";
 import { type BasicUser } from "../../profiles/types/user";
 import { type Profile } from "@/modules/profiles/types/profile";
 import { AuthService } from "../services/AuthService";
-import { AuthContext } from "../contexts/AuthContext"
+import { AuthContext } from "../contexts/AuthContext";
 import { useProfilesOperations } from "@/modules/profiles/hooks/useProfilesOperations";
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {

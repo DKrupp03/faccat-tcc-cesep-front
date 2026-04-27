@@ -18,7 +18,7 @@ export const ProfilesProvider = ({
   module,
   children,
 }: ProfilesProviderProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   const { fetchProfiles } = useProfilesOperations();
   
   const profileRole: ProfileRole = useMemo(() => {
@@ -81,6 +81,7 @@ export const ProfilesProvider = ({
       setLoading(false);
       setLoadingMore(false);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [t]);
 
   const openForm = useCallback((profileId?: number) => {

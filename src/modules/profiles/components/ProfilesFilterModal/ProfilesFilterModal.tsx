@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Form, Row, Col, Flex } from "antd";
-import type { DefaultOptionType } from 'antd/es/select';
+import type { DefaultOptionType } from "antd/es/select";
 
 import { CommonModal } from "@/shared/components/CommonModal/CommonModal";
 import { CommonGroupButtons } from "@/shared/components/CommonGroupButtons/CommonGroupButtons";
@@ -93,6 +93,7 @@ export const ProfilesFilterModal = () => {
       form.setFieldsValue(filter);
       getProfiles();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFilterOpen]);
 
   return (

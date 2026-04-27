@@ -39,7 +39,7 @@ export const CommonOrderButton = ({
         color: COLORS.grey90,
       } : undefined,
     }))
-  ), [options, value]);
+  ), [options, onChange, value]);
 
   return (
     <Tooltip title={t("common.actions.order")}>

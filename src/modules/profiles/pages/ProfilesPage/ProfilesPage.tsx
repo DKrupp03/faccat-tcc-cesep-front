@@ -32,6 +32,7 @@ const ProfilesPanel = ({ module }: ProfilesPageProps) => {
       changeActiveModule(module);
       filtratePanel();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [module]);
 
   return (
