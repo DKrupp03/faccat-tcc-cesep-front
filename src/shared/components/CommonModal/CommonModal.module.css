@@ -1,10 +1,16 @@
+.modal :global(.ant-modal-container) {
+  overflow: hidden !important;
+}
+
 .header {
   border-bottom: 1px solid var(--color-grey30);
+  background-color: var(--color-grey10);
   padding: 20px;
 }
 
 .footer {
   border-top: 1px solid var(--color-grey30);
+  background-color: var(--color-grey10);
   padding: 20px;
 }
 

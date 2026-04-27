@@ -59,6 +59,7 @@ export const CommonModal = ({
       footer={footerContent}
       closeIcon={false}
       mask={{ blur: true }}
+      className={styles.modal}
       centered
     >
       <Flex className={styles.body}>
