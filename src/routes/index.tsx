@@ -1,9 +1,9 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 
-import { LoginPage, ForgotPasswordPage, ResetPasswordPage } from "../modules/auth/page";
-import ServicesPage from "@/modules/services/page";
-import ProfilesPage from "@/modules/profiles/page";
-import PaymentsPage from "@/modules/payments/page";
+import { LoginPage, ForgotPasswordPage, ResetPasswordPage } from "../modules/auth/pages";
+import { ServicesPage } from "@/modules/services/pages";
+import { ProfilesPage } from "@/modules/profiles/pages";
+import { PaymentsPage } from "@/modules/payments/pages";
 
 import PrivateRoute from "./PrivateRoute";
 import { useAuth } from "../modules/auth/hooks/useAuth";

@@ -4,12 +4,12 @@ import { Flex } from "antd";
 import { useModules } from "@/shared/hooks/useModules";
 import { type ModuleKey } from "@/shared/contexts/ModulesContext";
 
-import { ProfilesProvider } from "./providers/ProfilesProvider";
-import { useProfiles } from "./hooks/useProfiles";
-import { ProfilesHeader } from "./components/ProfilesHeader/ProfilesHeader";
-import { ProfilesHeaderCards } from "./components/ProfilesHeaderCards/ProfilesHeaderCards";
-import { ProfilesTable } from "./components/ProfilesTable/ProfilesTable";
-import styles from "./page.module.css";
+import { ProfilesProvider } from "../../providers/ProfilesProvider";
+import { useProfiles } from "../../hooks/useProfiles";
+import { ProfilesHeader } from "../../components/ProfilesHeader/ProfilesHeader";
+import { ProfilesHeaderCards } from "../../components/ProfilesHeaderCards/ProfilesHeaderCards";
+import { ProfilesTable } from "../../components/ProfilesTable/ProfilesTable";
+import styles from "./ProfilesPage.module.css";
 
 type ProfilesPageProps = {
   module: ModuleKey;
