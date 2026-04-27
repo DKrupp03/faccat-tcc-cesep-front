@@ -24,20 +24,8 @@ const ProfilesPage = ({ module }: ProfilesPageProps) => {
 };
 
 const ProfilesPanel = ({ module }: ProfilesPageProps) => {
-  const { activeModule, changeActiveModule } = useModules();
-  const {
-    filtratePanel,
-    loading,
-    loadingMore,
-    total,
-    totalActive,
-    totalFiltered,
-    profiles,
-    setIsFilterOpen,
-    filter,
-    orderBy,
-    page,
-  } = useProfiles();
+  const { changeActiveModule } = useModules();
+  const { filtratePanel } = useProfiles();
 
   useEffect(() => {
     if (module) {
@@ -49,33 +37,10 @@ const ProfilesPanel = ({ module }: ProfilesPageProps) => {
   return (
     <>
       <Flex vertical className={styles.panel}>
-        <ProfilesHeader
-          module={activeModule!}
-          openFilter={() => setIsFilterOpen(true)}
-          reload={() => filtratePanel()}
-          orderBy={orderBy}
-          onChangeOrderBy={(newOrderBy) => filtratePanel(filter, newOrderBy)}
-        />
-
+        <ProfilesHeader />
         <Flex vertical gap={24} className={styles.body}>
-          <ProfilesHeaderCards
-            module={activeModule!}
-            loading={loading}
-            total={total}
-            totalActive={totalActive}
-            totalFiltered={totalFiltered}
-          />
-
-          <ProfilesTable
-            module={activeModule!}
-            dataSource={profiles}
-            pagination
-            page={page}
-            total={totalFiltered}
-            loadMore={(newPage) => filtratePanel(filter, orderBy, newPage)}
-            loading={loading}
-            loadingMore={loadingMore}
-          />
+          <ProfilesHeaderCards />
+          <ProfilesTable />
         </Flex>
       </Flex>
     </>

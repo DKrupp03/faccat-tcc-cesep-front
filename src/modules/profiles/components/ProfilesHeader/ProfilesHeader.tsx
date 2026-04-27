@@ -1,36 +1,43 @@
+import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Tooltip } from "antd";
 import {
   IconFilter,
   IconReload,
   IconPlus,
+  IconSortAscendingLetters,
+  IconSortDescendingLetters,
 } from "@tabler/icons-react";
 
 import { CommonHeader } from "@/shared/components/CommonHeader/CommonHeader";
 import { CommonButton } from "@/shared/components/CommonButton/CommonButton";
 import { CommonOrderButton } from "@/shared/components/CommonOrderButton/CommonOrderButton";
-import type { ModuleKey } from "@/shared/contexts/ModulesContext";
 import type { ProfilesOrder } from "../../types/profile";
 
-import { useProfilesCommon } from "../../hooks/useProfilesCommon";
+import { useProfiles } from "../../hooks/useProfiles";
 
-type ProfilesHeaderProps = {
-  module: ModuleKey;
-  openFilter: () => void;
-  reload: () => void;
-  orderBy: ProfilesOrder;
-  onChangeOrderBy: (newOrderBy: ProfilesOrder) => void;
-};
-
-export const ProfilesHeader = ({
-  module,
-  openFilter,
-  reload,
-  orderBy,
-  onChangeOrderBy,
-}: ProfilesHeaderProps) => {
+export const ProfilesHeader = () => {
   const { t } = useTranslation();
-  const { profilesOrderOptions } = useProfilesCommon({ module });
+  const {
+    module,
+    setIsFilterOpen,
+    filtratePanel,
+    orderBy,
+    filter,
+  } = useProfiles();
+
+  const profilesOrderOptions = useMemo(() => ([
+    {
+      value: "name_asc",
+      label: t("common.order.nameAsc"),
+      icon: <IconSortAscendingLetters size={16} />,
+    },
+    {
+      value: "name_desc",
+      label: t("common.order.nameDesc"),
+      icon: <IconSortDescendingLetters size={16} />,
+    },
+  ]), [t]);
 
   return (
     <CommonHeader
@@ -38,12 +45,12 @@ export const ProfilesHeader = ({
       buttons={[
         <CommonOrderButton
           value={orderBy}
-          onChange={(newOrderBy) => onChangeOrderBy(newOrderBy as ProfilesOrder)}
+          onChange={(newOrderBy) => filtratePanel(filter, newOrderBy as ProfilesOrder)}
           options={profilesOrderOptions}
         />,
         <Tooltip title={t("common.actions.reload")}>
           <CommonButton
-            onClick={reload}
+            onClick={() => filtratePanel()}
             icon={<IconReload size={18} />}
             size="large"
             circular
@@ -52,7 +59,7 @@ export const ProfilesHeader = ({
         </Tooltip>,
         <Tooltip title={t("common.actions.filtrate")}>
           <CommonButton
-            onClick={openFilter}
+            onClick={() => setIsFilterOpen(true)}
             icon={<IconFilter size={18} />}
             size="large"
             circular

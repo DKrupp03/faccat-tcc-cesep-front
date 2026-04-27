@@ -9,30 +9,21 @@ import { CommonButton } from "@/shared/components/CommonButton/CommonButton";
 import { CommonSelect } from "@/shared/components/CommonSelect/CommonSelect";
 import { CommonTextInput } from "@/shared/components/CommonTextInput/CommonTextInput";
 
-import { useProfilesStates } from "../../hooks/useProfilesStates";
+import { useProfiles } from "../../hooks/useProfiles";
 import { useProfilesOperations } from "../../hooks/useProfilesOperations";
-import type { ProfilesFilter } from "../../types/profile";
-import type { ModuleKey } from "@/shared/contexts/ModulesContext";
 import styles from "./ProfilesFilterModal.module.css";
 
-type ProfilesFilterModalProps = {
-  module: ModuleKey;
-  isOpen: boolean;
-  close: () => void;
-  filtrate: (newFilter: ProfilesFilter) => void;
-  filter: ProfilesFilter;
-};
-
-export const ProfilesFilterModal = ({
-  module,
-  isOpen,
-  close,
-  filtrate,
-  filter,
-}: ProfilesFilterModalProps) => {
+export const ProfilesFilterModal = () => {
   const { t } = useTranslation();
-  const { defaultFilter } = useProfilesStates({ module });
   const { fetchProfiles } = useProfilesOperations();
+  const {
+    module,
+    isFilterOpen,
+    setIsFilterOpen,
+    filtratePanel,
+    filter,
+    defaultFilter,
+  } = useProfiles();
 
   const [form] = Form.useForm();
 
@@ -48,16 +39,16 @@ export const ProfilesFilterModal = ({
   const handleClear = useCallback(() => {
     form.resetFields();
   }, [form]);
+  
+  const handleClose = useCallback(() => {
+    setIsFilterOpen(false);
+  }, [setIsFilterOpen]);
 
   const handleFiltrate = useCallback(() => {
     const values = form.getFieldsValue(true);
-    filtrate(values);
-    close();
-  }, [form, filtrate, close]);
-  
-  const handleClose = useCallback(() => {
-    close();
-  }, [close]);
+    filtratePanel(values);
+    handleClose();
+  }, [form, filtratePanel, handleClose]);
 
   const footerContent = useMemo(() => (
     <>
@@ -98,16 +89,16 @@ export const ProfilesFilterModal = ({
   }, [module, fetchProfiles]);
 
   useEffect(() => {
-    if (isOpen) {
+    if (isFilterOpen) {
       form.setFieldsValue(filter);
       getProfiles();
     }
-  }, [isOpen]);
+  }, [isFilterOpen]);
 
   return (
     <CommonModal
       title={t(`profiles.${module}.actions.filtrate`)}
-      isOpen={isOpen}
+      isOpen={isFilterOpen}
       close={handleClose}
       footer={footerContent}
     >
