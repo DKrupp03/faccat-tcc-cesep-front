@@ -10,6 +10,7 @@ import { useProfilesOperations } from "../../hooks/useProfilesOperations";
 
 type ProfilesSelectProps = Omit<SelectProps, "options"> & {
   role: "patient" | "therapist";
+  required?: boolean;
 };
 
 export const ProfilesSelect: React.FC<ProfilesSelectProps> = ({ role, ...props }) => {

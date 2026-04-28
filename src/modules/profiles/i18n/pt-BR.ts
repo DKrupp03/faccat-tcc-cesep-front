@@ -8,7 +8,9 @@ const profiles = {
 
     "actions": {
       "create": "Criar terapeuta",
+      "created": "Terapeuta criado com sucesso!",
       "edit": "Editar terapeuta",
+      "updated": "Terapeuta atualizado com sucesso!",
       "filtrate": "Filtrar terapeutas",
     },
   },
@@ -23,7 +25,9 @@ const profiles = {
 
     "actions": {
       "create": "Criar paciente",
+      "created": "Paciente criado com sucesso!",
       "edit": "Editar paciente",
+      "updated": "Paciente atualizado com sucesso!",
       "filtrate": "Filtrar pacientes",
     },
   },

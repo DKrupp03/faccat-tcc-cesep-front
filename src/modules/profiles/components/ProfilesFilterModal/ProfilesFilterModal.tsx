@@ -49,12 +49,6 @@ export const ProfilesFilterModal = () => {
   const footerContent = useMemo(() => (
     <>
       <CommonButton
-        onClick={handleClose}
-        outline
-      >
-        {t("common.actions.close")}
-      </CommonButton>
-      <CommonButton
         onClick={handleClear}
         outline
       >
@@ -67,7 +61,7 @@ export const ProfilesFilterModal = () => {
         {t("common.actions.filtrate")}
       </CommonButton>
     </>
-  ), [t, handleClose, handleClear, handleFiltrate]);
+  ), [t, handleClear, handleFiltrate]);
 
   useEffect(() => {
     if (isFilterOpen) {

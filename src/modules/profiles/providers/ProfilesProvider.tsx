@@ -2,6 +2,7 @@ import { useCallback, useState, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
 import type { ModuleKey } from "@/shared/contexts/ModulesContext";
+import { useNotification } from "@/shared/hooks/useNotification";
 
 import { ProfilesContext } from "../contexts/ProfilesContext";
 import { useProfilesOperations } from "../hooks/useProfilesOperations";
@@ -19,9 +20,12 @@ export const ProfilesProvider = ({
   children,
 }: ProfilesProviderProps) => {
   const { t } = useTranslation();
+  const { openNotification } = useNotification();
   const {
     fetchProfiles,
     fetchProfile,
+    createProfile: createProfileOperation,
+    updateProfile: updateProfileOperation,
   } = useProfilesOperations();
   
   const profileRole: ProfileRole = useMemo(() => {
@@ -48,6 +52,7 @@ export const ProfilesProvider = ({
   const [isFormOpen, setIsFormOpen] = useState<boolean>(false);
   const [profile, setProfile] = useState<Profile>();
   const [editingRole, setEditingRole] = useState<ProfileRole>();
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
   const filtratePanel = useCallback(async (
     newFilter: ProfilesFilter = filter,
@@ -77,7 +82,11 @@ export const ProfilesProvider = ({
         setTotalFiltered(response.total_filtered);
         setTotal(response.total);
       } else {
-        setProfiles((prev) => [...prev, ...response.profiles]);
+        setProfiles((prev) => {
+          const existingIds = new Set(prev.map((p) => p.id));
+          const newProfiles = response.profiles.filter((p) => !existingIds.has(p.id));
+          return [...prev, ...newProfiles];
+        });
       }
     } catch (error) {
       console.error(error || t("common.errors.unknown"));
@@ -100,6 +109,66 @@ export const ProfilesProvider = ({
     setIsFormOpen(true);
   }, [fetchProfile]);
 
+  const closeForm = useCallback(() => {
+    setIsFormOpen(false);
+    setProfile(undefined);
+    setEditingRole(undefined);
+  }, []);
+
+  const createProfile = useCallback(async (profile: Partial<Profile>) => {
+    try {
+      const response = await createProfileOperation(profile);
+
+      if (!response.success) {
+        openNotification("error", response.errors!);
+        throw new Error(response.error);
+      }
+
+      setProfiles((prev) => [...prev, response.profile]);
+      setTotal((prev) => prev + 1);
+      setTotalFiltered((prev) => prev + 1);
+      if (response.profile.active) setTotalActive((prev) => prev + 1);
+      closeForm();
+      openNotification("success", t(`profiles.${response.profile.role}s.created`));
+    } catch (error) {
+      console.error(error || t("common.errors.unknown"));
+    } finally {
+      setIsSubmitting(false);
+    }
+  }, [t, createProfileOperation, openNotification, closeForm]);
+
+  const updateProfile = useCallback(async (profile: Partial<Profile>) => {
+    try {
+      const response = await updateProfileOperation(profile);
+
+      if (!response.success) {
+        openNotification("error", response.errors!);
+        throw new Error(response.error);
+      }
+
+      setProfiles((prev) => (
+        prev.map((p) => p.id === response.profile.id ? response.profile : p)
+      ));
+      closeForm();
+      openNotification("success", t(`profiles.${response.profile.role}s.updated`));
+    } catch (error) {
+      console.error(error || t("common.errors.unknown"));
+    } finally {
+      setIsSubmitting(false);
+    }
+  }, [t, updateProfileOperation, openNotification, closeForm]);
+
+  const submitProfile = useCallback(async (profile: Partial<Profile>) => {
+    setIsSubmitting(true);
+    profile.role = editingRole;
+
+    if (profile.id) {
+      await updateProfile(profile);
+    } else {
+      await createProfile(profile);
+    }
+  }, [updateProfile, createProfile, editingRole]);
+
   return (
     <ProfilesContext.Provider value={{
       profiles, setProfiles,
@@ -115,6 +184,7 @@ export const ProfilesProvider = ({
       isFormOpen, setIsFormOpen,
       profile, setProfile,
       editingRole, setEditingRole,
+      isSubmitting, setIsSubmitting,
 
       module,
       profileRole,
@@ -122,6 +192,8 @@ export const ProfilesProvider = ({
 
       filtratePanel,
       openForm,
+      closeForm,
+      submitProfile,
     }}>
       {children}
 

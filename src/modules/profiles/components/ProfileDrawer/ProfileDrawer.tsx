@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { CommonDrawer } from "@/shared/components/CommonDrawer/CommonDrawer";
 
 import { useProfiles } from "../../hooks/useProfiles";
-import { ProfileForm } from "../ProfileForm/ProfileForm";
+import { ProfileForm, ProfileFormOptions } from "../ProfileForm/ProfileForm";
 
 type TabsType = "form"
   | "anamnese"
@@ -35,6 +35,18 @@ export const ProfileDrawer = () => {
     return "";
   }, [t, profile?.id, editingRole]);
 
+  const footer = useMemo(() => {
+    if (tab === "form") {
+      return <ProfileFormOptions />;
+    }
+  }, [tab]);
+
+  const content = useMemo(() => {
+    if (tab === "form") {
+      return <ProfileForm />;
+    }
+  }, [tab]);
+
   const handleClose = useCallback(() => {
     setIsFormOpen(false);
   }, [setIsFormOpen]);
@@ -45,8 +57,9 @@ export const ProfileDrawer = () => {
         isOpen={isFormOpen}
         close={handleClose}
         title={title}
+        footer={footer}
       >
-        {tab === "form" && <ProfileForm />}
+        {content}
       </CommonDrawer>
     </>
   );

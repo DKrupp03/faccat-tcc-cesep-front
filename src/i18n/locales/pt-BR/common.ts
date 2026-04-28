@@ -1,5 +1,7 @@
 const common = {
   "all": "Todos",
+  "active": "Ativo",
+  "inactive": "Inativo",
   "mainMenu": "Menu principal",
   "myProfile": "Meu perfil",
   "configs": "Configurações",
@@ -9,6 +11,7 @@ const common = {
     "save": "Salvar",
     "cancel": "Cancelar",
     "confirm": "Confirmar",
+    "create": "Criar",
     "delete": "Excluir",
     "edit": "Editar",
     "back": "Voltar",

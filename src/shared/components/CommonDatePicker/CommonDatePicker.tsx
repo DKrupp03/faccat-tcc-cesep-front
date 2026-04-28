@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { DatePicker, type DatePickerProps } from "antd";
+import ptBRDatePicker from "antd/es/date-picker/locale/pt_BR";
 import type { BaseInfo } from "@rc-component/picker/es/interface";
 
 import styles from "./CommonDatePicker.module.css";
@@ -46,6 +47,7 @@ export const CommonDatePicker: React.FC<CommonDatePickerProps> = ({
         onFocus={handleFocus}
         onBlur={handleBlur}
         placeholder=""
+        locale={ptBRDatePicker}
         format={{
           format: "DD/MM/YYYY",
           type: "mask",

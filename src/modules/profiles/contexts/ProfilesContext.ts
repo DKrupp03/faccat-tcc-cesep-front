@@ -31,6 +31,8 @@ export type ProfilesContextType = {
   setProfile: Dispatch<SetStateAction<Profile | undefined>>;
   editingRole: ProfileRole | undefined;
   setEditingRole: Dispatch<SetStateAction<ProfileRole | undefined>>;
+  isSubmitting: boolean;
+  setIsSubmitting: Dispatch<SetStateAction<boolean>>;
   module: ModuleKey;
   profileRole: ProfileRole;
   defaultFilter: ProfilesFilter;
@@ -40,6 +42,8 @@ export type ProfilesContextType = {
     newPage?: number,
   ) => Promise<void>;
   openForm: (role: ProfileRole, profileId?: number) => void;
+  closeForm: () => void;
+  submitProfile: (profile: Partial<Profile>) => void;
 };
 
 export const ProfilesContext = createContext<ProfilesContextType | null>(null);

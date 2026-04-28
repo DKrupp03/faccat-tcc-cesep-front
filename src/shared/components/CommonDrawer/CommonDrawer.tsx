@@ -23,7 +23,7 @@ export const CommonDrawer = ({
   close,
   header,
   footer,
-  width = "80%",
+  width = "90%",
   children,
 }: CommonDrawerProps) => {
   const titleContent = useMemo(() => (

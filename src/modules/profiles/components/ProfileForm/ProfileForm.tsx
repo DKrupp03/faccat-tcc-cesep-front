@@ -9,6 +9,7 @@ import { CommonSelect } from "@/shared/components/CommonSelect/CommonSelect";
 import { CommonDatePicker } from "@/shared/components/CommonDatePicker";
 import { CommonAvatar } from "@/shared/components/CommonAvatar/CommonAvatar";
 import { CommonButton } from "@/shared/components/CommonButton/CommonButton";
+import { CommonSwitch } from "@/shared/components/CommonSwitch/CommonSwitch";
 import { phoneMask, cpfMask, rgMask, crpMask, decimalMask } from "@/shared/utils/formatters";
 
 import { useProfiles } from "../../hooks/useProfiles";
@@ -20,12 +21,15 @@ export const ProfileForm = () => {
   const { t } = useTranslation();
   const [form] = Form.useForm<Partial<Profile>>();
   const {
+    isFormOpen,
     editingRole,
     profile,
+    submitProfile,
   } = useProfiles();
 
   const defaultProfile = useMemo(() => ({
     role: editingRole,
+    active: true,
   }), [editingRole]);
 
   const genderOptions = useMemo(() => ([
@@ -55,18 +59,22 @@ export const ProfileForm = () => {
   ]), [t]);
 
   useEffect(() => {
-    if (profile) {
-      form.setFieldsValue(profile);
-    } else {
-      form.setFieldsValue(defaultProfile);
+    if (isFormOpen) {
+      if (profile) {
+        form.setFieldsValue(profile);
+      } else {
+        form.setFieldsValue(defaultProfile);
+      }
     }
-  }, [profile?.id]);
+  }, [isFormOpen, profile]);
 
   return (
     <Form
+      id="profile-form"
       form={form}
       layout="vertical"
       requiredMark={false}
+      onFinish={submitProfile}
       className={styles.form}
     >
       <Flex
@@ -92,10 +100,19 @@ export const ProfileForm = () => {
       </Flex>
 
       <Row gutter={16}>
-        <Col span={24}>
+        <Col span={12}>
           <Form.Item name="name">
             <CommonTextInput
               label={t("profiles.columns.name")}
+              required
+            />
+          </Form.Item>
+        </Col>
+        <Col span={12}>
+          <Form.Item name="email">
+            <CommonTextInput
+              label={t("profiles.columns.email")}
+              disabled={!!profile?.id}
               required
             />
           </Form.Item>
@@ -184,7 +201,10 @@ export const ProfileForm = () => {
             </Col>
             <Col span={6}>
               <Form.Item name="therapist_id">
-                <ProfilesSelect role="therapist" />
+                <ProfilesSelect
+                  role="therapist"
+                  required
+                />
               </Form.Item>
             </Col>
             <Col span={6}>
@@ -201,8 +221,48 @@ export const ProfileForm = () => {
               </Form.Item>
             </Col>
           </Row>
+
+          <Row gutter={16}>
+            <Col span={6}>
+              <Form.Item name="active">
+                <CommonSwitch label={t("common.active")} />
+              </Form.Item>
+            </Col>
+          </Row>
         </>
       )}
     </Form>
+  );
+};
+
+export const ProfileFormOptions = () => {
+  const { t } = useTranslation();
+  const {
+    profile,
+    isSubmitting,
+  } = useProfiles();
+
+  return (
+    <>
+      {profile?.id && (
+        <CommonButton
+          onClick={() => {}}
+          buttonVariant="danger"
+          loading={isSubmitting}
+        >
+          {t("common.actions.delete")}
+        </CommonButton>
+      )}
+      <CommonButton
+        htmlType="submit"
+        form="profile-form"
+        buttonVariant="primary"
+        loading={isSubmitting}
+      >
+        {profile?.id
+          ? t("common.actions.edit")
+          : t("common.actions.create")}
+      </CommonButton>
+    </>
   );
 };

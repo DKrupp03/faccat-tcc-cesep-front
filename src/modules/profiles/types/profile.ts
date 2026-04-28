@@ -29,6 +29,7 @@ export type Profile = {
   name: string;
   gender: ProfileGender;
   birth: string;
+  email: string;
   address?: string;
   occupation?: string;
   marital_status?: ProfileMaritalStatus;
@@ -75,6 +76,11 @@ export type ProfilesPayload = {
   order_by: ProfilesOrder;
   page?: number;
   per_page?: number;
+};
+
+export type ProfileSubmitPayload = {
+  email: string;
+  profile: Partial<Profile>;
 };
 
 export type ProfilesResponse = CommonPanelResponse & {
