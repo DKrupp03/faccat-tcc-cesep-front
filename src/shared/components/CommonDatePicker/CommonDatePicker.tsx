@@ -46,6 +46,10 @@ export const CommonDatePicker: React.FC<CommonDatePickerProps> = ({
         onFocus={handleFocus}
         onBlur={handleBlur}
         placeholder=""
+        format={{
+          format: "DD/MM/YYYY",
+          type: "mask",
+        }}
         {...props}
       />
     </div>

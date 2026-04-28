@@ -9,7 +9,7 @@ import { CommonSelect } from "@/shared/components/CommonSelect/CommonSelect";
 import { CommonDatePicker } from "@/shared/components/CommonDatePicker";
 import { CommonAvatar } from "@/shared/components/CommonAvatar/CommonAvatar";
 import { CommonButton } from "@/shared/components/CommonButton/CommonButton";
-import { phoneMask, cpfMask, rgMask, crpMask } from "@/shared/utils/formatters";
+import { phoneMask, cpfMask, rgMask, crpMask, decimalMask } from "@/shared/utils/formatters";
 
 import { useProfiles } from "../../hooks/useProfiles";
 import type { Profile } from "../../types/profile";
@@ -188,7 +188,7 @@ export const ProfileForm = () => {
               </Form.Item>
             </Col>
             <Col span={6}>
-              <Form.Item name="default_value">
+              <Form.Item name="default_value" normalize={decimalMask}>
                 <CommonTextInput label={t("profiles.columns.defaultValue")} />
               </Form.Item>
             </Col>

@@ -46,3 +46,12 @@ export const crpMask = (value: string) => {
   if (digits.length <= 2) return digits;
   return `${digits.slice(0, 2)}/${digits.slice(2)}`;
 };
+
+export const decimalMask = (value: string) => {
+  const digits = value.replace(/\D/g, "");
+  if (digits.length === 0) return "";
+  const number = parseInt(digits, 10);
+  const intPart = Math.floor(number / 100);
+  const decPart = number % 100;
+  return `${intPart},${String(decPart).padStart(2, "0")}`;
+};

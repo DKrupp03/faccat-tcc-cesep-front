@@ -9,7 +9,10 @@
   height: 44px;
   color: var(--color-navy);
   border-color: var(--color-grey30);
-  font-size: 14px;
+}
+
+.input input {
+  font-size: 14px !important;
 }
 
 .input:hover,
