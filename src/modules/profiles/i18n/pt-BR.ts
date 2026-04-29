@@ -85,6 +85,15 @@ const profiles = {
     "masters": "Mestrado",
     "doctorate": "Doutorado",
   },
+
+  "tabs": {
+    "form": "Formulário",
+    "anamnese": "Anamnese",
+    "medicalRecords": "Prontuário",
+    "services": "Atendimentos",
+    "payments": "Pagamentos",
+    "patients": "Pacientes",
+  },
 } as const;
 
 export default profiles;

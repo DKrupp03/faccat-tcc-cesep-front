@@ -10,9 +10,8 @@ import { useNavigate } from "react-router-dom";
 
 import { useAuth } from "@/modules/auth/hooks/useAuth";
 import { useNotification } from "../hooks/useNotification";
-import { PATHS, DEFAULT_PATH } from "@/routes/paths";
-import { COLORS } from "@/shared/theme";
-import { ModulesContext, type ModuleType } from "../contexts/ModulesContext";
+import { DEFAULT_PATH } from "@/routes/paths";
+import { ModulesContext } from "../contexts/ModulesContext";
 
 type ModuleKey = "services" | "therapists" | "patients" | "payments";
 
@@ -28,64 +27,32 @@ export const ModulesProvider = ({ children }: { children: React.ReactNode }) => 
     document.title = `${title} | CESEP`;
   }, []);
 
-  const isModuleActive = useCallback((key: ModuleKey) => (
-    activeModule === key
-  ), [activeModule]);
-
-  const modules: ModuleType[] = useMemo(() => [
+  const moduleTabs = useMemo(() => [
     {
       key: "services",
-      path: PATHS.services,
       name: t("common.modules.services"),
-      icon: (
-        <IconCalendarEvent
-          size={18}
-          color={isModuleActive("services") ? COLORS.white : COLORS.grey70}
-        />
-      ),
+      icon: <IconCalendarEvent size={18} />,
     },
     {
       key: "therapists",
-      path: PATHS.therapists,
       name: t("common.modules.therapists"),
-      icon: (
-        <IconStethoscope
-          size={18}
-          color={isModuleActive("therapists") ? COLORS.white : COLORS.grey70}
-        />
-      ),
-      onlyAdmin: true,
+      icon: <IconStethoscope size={18} />,
+      hide: profile?.role !== "admin",
     },
     {
       key: "patients",
-      path: PATHS.patients,
       name: t("common.modules.patients"),
-      icon: (
-        <IconUsers
-          size={18}
-          color={isModuleActive("patients") ? COLORS.white : COLORS.grey70}
-        />
-      ),
+      icon: <IconUsers size={18} />,
     },
     {
       key: "payments",
-      path: PATHS.payments,
       name: t("common.modules.payments"),
-      icon: (
-        <IconReportMoney
-          size={18}
-          color={isModuleActive("payments") ? COLORS.white : COLORS.grey70}
-        />
-      ),
+      icon: <IconReportMoney size={18} />,
     },
-  ], [t, isModuleActive]);
-
-  const isModuleAllowed = useCallback((key: ModuleKey) => (
-    !modules.find((mod) => mod.key === key)?.onlyAdmin || profile?.role === "admin"
-  ), [modules, profile]);
+  ], [t, profile?.role]);
 
   const changeActiveModule = useCallback((module: ModuleKey) => {
-    if (!isModuleAllowed(module)) {
+    if (moduleTabs.find((mod) => mod.key === module)?.hide) {
       openNotification("warning", t("auth.errors.notAllowedModule"));
       return navigate(DEFAULT_PATH);
     }
@@ -93,7 +60,7 @@ export const ModulesProvider = ({ children }: { children: React.ReactNode }) => 
     setActiveModule(module);
     changeDocumentTitle(t(`common.modules.${module}`));
   }, [
-    isModuleAllowed,
+    moduleTabs,
     openNotification,
     navigate,
     setActiveModule,
@@ -105,11 +72,9 @@ export const ModulesProvider = ({ children }: { children: React.ReactNode }) => 
     <ModulesContext.Provider
       value={{
         activeModule,
+        moduleTabs,
         changeDocumentTitle,
         changeActiveModule,
-        isModuleActive,
-        modules,
-        isModuleAllowed,
       }}
     >
       {children}

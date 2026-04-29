@@ -129,7 +129,7 @@ export const ProfilesProvider = ({
       setTotalFiltered((prev) => prev + 1);
       if (response.profile.active) setTotalActive((prev) => prev + 1);
       closeForm();
-      openNotification("success", t(`profiles.${response.profile.role}s.created`));
+      openNotification("success", t(`profiles.actions.${response.profile.role}s.created`));
     } catch (error) {
       console.error(error || t("common.errors.unknown"));
     } finally {
@@ -150,7 +150,7 @@ export const ProfilesProvider = ({
         prev.map((p) => p.id === response.profile.id ? response.profile : p)
       ));
       closeForm();
-      openNotification("success", t(`profiles.${response.profile.role}s.updated`));
+      openNotification("success", t(`profiles.actions.${response.profile.role}s.updated`));
     } catch (error) {
       console.error(error || t("common.errors.unknown"));
     } finally {
