@@ -254,13 +254,14 @@ export const ProfileFormOptions = () => {
     profile,
     isSubmitting,
     editingRole,
+    deleteProfile,
   } = useProfiles();
 
   return (
     <>
       {profile?.id && (
         <CommonButton
-          onClick={() => {}}
+          onClick={() => deleteProfile(profile.id)}
           buttonVariant="danger"
           loading={isSubmitting}
         >

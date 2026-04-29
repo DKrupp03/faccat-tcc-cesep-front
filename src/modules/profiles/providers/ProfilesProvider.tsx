@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 
 import type { ModuleKey } from "@/shared/contexts/ModulesContext";
 import { useNotification } from "@/shared/hooks/useNotification";
+import { useModals } from "@/shared/hooks/useModals";
 
 import { ProfilesContext } from "../contexts/ProfilesContext";
 import { useProfilesOperations } from "../hooks/useProfilesOperations";
@@ -21,11 +22,13 @@ export const ProfilesProvider = ({
 }: ProfilesProviderProps) => {
   const { t } = useTranslation();
   const { openNotification } = useNotification();
+  const { openConfirmationModal } = useModals();
   const {
     fetchProfiles,
     fetchProfile,
     createProfile: createProfileOperation,
     updateProfile: updateProfileOperation,
+    deleteProfile: deleteProfileOperation,
   } = useProfilesOperations();
   
   const profileRole: ProfileRole = useMemo(() => {
@@ -182,6 +185,42 @@ export const ProfilesProvider = ({
     }
   }, [updateProfile, createProfile, editingRole, profile]);
 
+  const deleteProfile = useCallback(async (profileId: number) => {
+    openConfirmationModal(
+      t(`profiles.${editingRole}s.actions.delete`),
+      t(`profiles.${editingRole}s.actions.delete.confirmation`),
+      async () => {
+        try {
+          const response = await deleteProfileOperation(profileId);
+
+          if (!response.success) {
+            openNotification("error", response.errors!);
+            throw new Error(response.error);
+          }
+
+          setTotal((prev) => prev + 1);
+          setTotalFiltered((prev) => prev + 1);
+          if (profile?.active) setTotalActive((prev) => prev + 1);
+          setProfiles((prev) => prev.filter((p) => p.id !== profileId));
+          closeForm();
+          openNotification("success", t(`profiles.${editingRole}s.actions.deleted`));
+        } catch (error) {
+          console.error(error || t("common.errors.unknown"));
+        } finally {
+          setIsSubmitting(false);
+        }
+      },
+    );
+  }, [
+    t,
+    openConfirmationModal,
+    deleteProfileOperation,
+    openNotification,
+    closeForm,
+    profile,
+    editingRole,
+  ]);
+
   return (
     <ProfilesContext.Provider value={{
       profiles, setProfiles,
@@ -208,6 +247,7 @@ export const ProfilesProvider = ({
       openForm,
       closeForm,
       submitProfile,
+      deleteProfile,
     }}>
       {children}
 

@@ -27,8 +27,8 @@ export const useProfilesOperations = () => {
     return await ProfilesService.updateProfile(profile);
   }, []);
 
-  const deleteProfile = useCallback(() => {
-
+  const deleteProfile = useCallback(async (profileId: number) => {
+    return await ProfilesService.deleteProfile(profileId);
   }, []);
 
   const fetchProfile = useCallback(async (profileId: number) => {

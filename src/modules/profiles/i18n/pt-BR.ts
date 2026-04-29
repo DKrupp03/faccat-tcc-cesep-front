@@ -12,6 +12,9 @@ const profiles = {
       "edit": "Editar terapeuta",
       "updated": "Terapeuta atualizado com sucesso!",
       "filtrate": "Filtrar terapeutas",
+      "delete": "Excluir terapeuta",
+      "delete.confirmation": "Tem certeza que deseja excluir este terapeuta?",
+      "deleted": "Terapeuta excluído com sucesso!",
     },
   },
 
@@ -29,6 +32,9 @@ const profiles = {
       "edit": "Editar paciente",
       "updated": "Paciente atualizado com sucesso!",
       "filtrate": "Filtrar pacientes",
+      "delete": "Excluir paciente",
+      "delete.confirmation": "Tem certeza que deseja excluir este paciente?",
+      "deleted": "Paciente excluído com sucesso!",
     },
   },
 

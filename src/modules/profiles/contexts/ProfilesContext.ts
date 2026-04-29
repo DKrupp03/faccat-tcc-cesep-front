@@ -46,6 +46,7 @@ export type ProfilesContextType = {
   openForm: (role: ProfileRole, profileId?: number) => void;
   closeForm: () => void;
   submitProfile: (profile: Partial<Profile>) => void;
+  deleteProfile: (profileId: number) => void;
 };
 
 export const ProfilesContext = createContext<ProfilesContextType | null>(null);

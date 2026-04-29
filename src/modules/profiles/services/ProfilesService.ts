@@ -1,4 +1,5 @@
 import api from "@/shared/api/client";
+import type { CommonResponse } from "@/shared/types/common";
 import type {
   ProfileResponse,
   ProfilesResponse,
@@ -30,6 +31,11 @@ const ProfilesService = {
 
   async updateProfile(profile: Partial<Profile>): Promise<ProfileResponse> {
     const response = await api.put(`/profiles/${profile.id}`, { profile });
+    return response.data;
+  },
+
+  async deleteProfile(profileId: number): Promise<CommonResponse> {
+    const response = await api.delete(`/profiles/${profileId}`);
     return response.data;
   },
 };

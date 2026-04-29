@@ -14,9 +14,16 @@ const ModulesProvider = React.lazy(() =>
   })),
 );
 
+const ModalsProvider = React.lazy(() =>
+  import("@/shared/providers/ModalsProvider").then((mod) => ({
+    default: mod.ModalsProvider,
+  })),
+);
+
 const providers = [
   AuthProvider,
   ModulesProvider,
+  ModalsProvider,
 ];
 
 export const GlobalProviders = ({ children }: { children: ReactNode }) => {
