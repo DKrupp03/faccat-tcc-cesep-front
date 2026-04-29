@@ -1,11 +1,10 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import type { SelectProps } from "antd";
 import type { DefaultOptionType } from "antd/es/select";
 
 import { CommonSelect } from "@/shared/components/CommonSelect/CommonSelect";
 
-import { useProfiles } from "../../hooks/useProfiles";
 import { useProfilesOperations } from "../../hooks/useProfilesOperations";
 
 type ProfilesSelectProps = Omit<SelectProps, "options"> & {
@@ -15,13 +14,13 @@ type ProfilesSelectProps = Omit<SelectProps, "options"> & {
 
 export const ProfilesSelect: React.FC<ProfilesSelectProps> = ({ role, ...props }) => {
   const { t } = useTranslation();
-  const { isFilterOpen } = useProfiles();
   const { fetchProfiles } = useProfilesOperations();
 
   const [options, setOptions] = useState<DefaultOptionType[]>([]);
+  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const load = useCallback(async () => {
-    const response = await fetchProfiles({ active: 1, role }, "name_asc");
+  const getProfiles = useCallback(async (name?: string) => {
+    const response = await fetchProfiles({ active: 1, role, name }, "name_asc", 1);
 
     if (response.success) {
       setOptions(response.profiles.map((p) => ({ label: p.name, value: p.id })));
@@ -29,15 +28,22 @@ export const ProfilesSelect: React.FC<ProfilesSelectProps> = ({ role, ...props }
   }, [role, fetchProfiles]);
 
   useEffect(() => {
-    if (isFilterOpen) load();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isFilterOpen]);
+    getProfiles();
+  }, []);
+
+  const handleSearch = useCallback((value: string) => {
+    if (debounceRef.current) clearTimeout(debounceRef.current);
+    debounceRef.current = setTimeout(() => {
+      getProfiles(value || undefined);
+    }, 200);
+  }, [getProfiles]);
 
   return (
     <CommonSelect
-      label={t(`profiles.columns.${role}`)}
+      label={t(`common.columns.${role}`)}
       options={options}
       allowClear
+      showSearch={{ filterOption: false, onSearch: handleSearch }}
       {...props}
     />
   );

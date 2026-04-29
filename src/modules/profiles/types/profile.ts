@@ -39,7 +39,7 @@ export type Profile = {
   rg?: string;
   crp?: string;
   parent?: Record<string, NonNullable<unknown>>;
-  default_value?: number;
+  default_value?: number | string;
   extra?: string;
   role: ProfileRole;
   active: boolean;

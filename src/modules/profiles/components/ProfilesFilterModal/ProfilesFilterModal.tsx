@@ -86,7 +86,7 @@ export const ProfilesFilterModal = () => {
         <Row gutter={16}>
           <Col span={24}>
             <Form.Item name="name" noStyle>
-              <CommonTextInput label={t("profiles.columns.name")} />
+              <CommonTextInput label={t("common.columns.name")} />
             </Form.Item>
           </Col>
         </Row>
@@ -103,7 +103,7 @@ export const ProfilesFilterModal = () => {
             <Col span={12}>
               <Form.Item name="payment_status" noStyle>
                 <CommonSelect
-                  label={t("profiles.columns.paymentStatus")}
+                  label={t("common.columns.paymentStatus")}
                   options={paymentStatusOptions}
                 />
               </Form.Item>
@@ -116,13 +116,13 @@ export const ProfilesFilterModal = () => {
               <Form.Item name="active" noStyle>
                 <CommonGroupButtons>
                   <CommonGroupButtons.Button value={1}>
-                    {t("profiles.columns.active.active")}
+                    {t("common.active.active")}
                   </CommonGroupButtons.Button>
                   <CommonGroupButtons.Button value={0}>
-                    {t("profiles.columns.active.inactive")}
+                    {t("common.active.inactive")}
                   </CommonGroupButtons.Button>
                   <CommonGroupButtons.Button value={-1}>
-                    {t("profiles.columns.active.all")}
+                    {t("common.active.all")}
                   </CommonGroupButtons.Button>
                 </CommonGroupButtons>
               </Form.Item>

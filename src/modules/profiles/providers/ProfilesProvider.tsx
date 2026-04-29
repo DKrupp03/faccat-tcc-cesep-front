@@ -53,6 +53,7 @@ export const ProfilesProvider = ({
   const [profile, setProfile] = useState<Profile>();
   const [editingRole, setEditingRole] = useState<ProfileRole>();
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [loadingProfile, setLoadingProfile] = useState<boolean>(false);
 
   const filtratePanel = useCallback(async (
     newFilter: ProfilesFilter = filter,
@@ -99,8 +100,17 @@ export const ProfilesProvider = ({
 
   const openForm = useCallback(async (role: ProfileRole, profileId?: number) => {
     if (profileId) {
-      const response = await fetchProfile(profileId);
-      if (response.success) setProfile(response.profile);
+      setLoadingProfile(true);
+
+      try {
+        const response = await fetchProfile(profileId);
+
+        if (response.success) {
+          setProfile(response.profile);
+        }
+      } finally {
+        setLoadingProfile(false);
+      }
     } else {
       setProfile(undefined);
     }
@@ -129,7 +139,7 @@ export const ProfilesProvider = ({
       setTotalFiltered((prev) => prev + 1);
       if (response.profile.active) setTotalActive((prev) => prev + 1);
       closeForm();
-      openNotification("success", t(`profiles.actions.${response.profile.role}s.created`));
+      openNotification("success", t(`profiles.${response.profile.role}s.actions.created`));
     } catch (error) {
       console.error(error || t("common.errors.unknown"));
     } finally {
@@ -150,7 +160,7 @@ export const ProfilesProvider = ({
         prev.map((p) => p.id === response.profile.id ? response.profile : p)
       ));
       closeForm();
-      openNotification("success", t(`profiles.actions.${response.profile.role}s.updated`));
+      openNotification("success", t(`profiles.${response.profile.role}s.actions.updated`));
     } catch (error) {
       console.error(error || t("common.errors.unknown"));
     } finally {
@@ -158,16 +168,19 @@ export const ProfilesProvider = ({
     }
   }, [t, updateProfileOperation, openNotification, closeForm]);
 
-  const submitProfile = useCallback(async (profile: Partial<Profile>) => {
+  const submitProfile = useCallback(async (formValues: Partial<Profile>) => {
     setIsSubmitting(true);
-    profile.role = editingRole;
+    formValues.role = editingRole;
+    formValues.default_value = formValues.default_value !== null
+      ? Number(formValues.default_value)
+      : undefined;
 
-    if (profile.id) {
-      await updateProfile(profile);
+    if (profile?.id) {
+      await updateProfile({ ...formValues, id: profile.id });
     } else {
-      await createProfile(profile);
+      await createProfile(formValues);
     }
-  }, [updateProfile, createProfile, editingRole]);
+  }, [updateProfile, createProfile, editingRole, profile]);
 
   return (
     <ProfilesContext.Provider value={{
@@ -185,6 +198,7 @@ export const ProfilesProvider = ({
       profile, setProfile,
       editingRole, setEditingRole,
       isSubmitting, setIsSubmitting,
+      loadingProfile, setLoadingProfile,
 
       module,
       profileRole,

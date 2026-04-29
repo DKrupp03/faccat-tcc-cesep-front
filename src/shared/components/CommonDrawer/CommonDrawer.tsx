@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useRef } from "react";
 import { Drawer, Flex, Typography } from "antd";
 
 import { CommonCloseButton } from "../CommonCloseButton/CommonCloseButton";
@@ -30,6 +30,12 @@ export const CommonDrawer = ({
   children,
   ...props
 }: CommonDrawerProps) => {
+  const contentRef = useRef<HTMLDivElement>(null);
+
+  const handleAfterOpenChange = (open: boolean) => {
+    if (!open) contentRef.current?.scrollTo({ top: 0 });
+  };
+
   const titleContent = useMemo(() => (
     <Flex
       justify="space-between" align="center"
@@ -59,6 +65,7 @@ export const CommonDrawer = ({
       title={titleContent}
       onClose={close}
       open={isOpen}
+      afterOpenChange={handleAfterOpenChange}
       footer={footerContent}
       className={styles.drawer}
       styles={{ wrapper: { width } }}
@@ -74,7 +81,7 @@ export const CommonDrawer = ({
             containerClass={styles.tabsContainer}
           />
         )}
-        <Flex className={styles.content}>
+        <Flex ref={contentRef} className={styles.content}>
           {children}
         </Flex>
       </Flex>

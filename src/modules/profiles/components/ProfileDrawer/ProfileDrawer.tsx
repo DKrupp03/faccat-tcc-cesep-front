@@ -74,18 +74,6 @@ export const ProfileDrawer = () => {
     },
   ]), [t, editingRole, profile?.id]);
 
-  const title = useMemo(() => {
-    if (!profile?.id) {
-      return t(`profiles.${editingRole}s.actions.create`);
-    }
-
-    if (tab === "form") {
-      return t(`profiles.${editingRole}s.actions.edit`);
-    }
-
-    return "";
-  }, [t, profile?.id, editingRole]);
-
   const footer = useMemo(() => {
     if (tab === "form") {
       return <ProfileFormOptions />;
@@ -107,7 +95,7 @@ export const ProfileDrawer = () => {
       <CommonDrawer
         isOpen={isFormOpen}
         close={handleClose}
-        title={title}
+        title={t(`profiles.tabs.${tab}`)}
         footer={footer}
         tabs={tabs}
         activeTab={tab}

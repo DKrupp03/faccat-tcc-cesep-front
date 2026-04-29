@@ -26,7 +26,7 @@ export const CommonTabs = ({ tabs, activeTab, onChangeTab, containerClass }: Com
       className={containerClass}
     >
       {tabs.filter((tab) => !tab.hide).map((tab) => (
-        <Flex justify="center">
+        <Flex justify="center" key={tab.key}>
           <Tooltip title={tab.name} placement="right">
             <CommonButton
               onClick={() => onChangeTab?.(tab.key)}

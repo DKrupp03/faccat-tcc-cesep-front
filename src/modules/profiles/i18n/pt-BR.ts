@@ -32,32 +32,10 @@ const profiles = {
     },
   },
 
-  "columns": {
-    "active": {
-      "active": "Ativos",
-      "inactive": "Inativos",
-      "all": "Todos",
-    },
-    "name": "Nome",
-    "services": "Atendimentos",
-    "therapist": "Terapeuta",
-    "patient": "Paciente",
-    "patients": "Pacientes",
-    "paymentStatus": "Status do pagamento",
-    "email": "E-mail",
-    "lastService": "Último atendimento",
-    "gender": "Gênero",
-    "birth": "Data de nascimento",
-    "cpf": "CPF",
-    "rg": "RG",
-    "crp": "CRP",
-    "phone": "Telefone",
-    "address": "Endereço",
-    "maritalStatus": "Estado civil",
-    "educationLevel": "Nível de escolaridade",
-    "occupation": "Profissão",
-    "defaultValue": "Valor padrão",
-    "extra": "Observações",
+  "active": {
+    "active": "Ativos",
+    "inactive": "Inativos",
+    "all": "Todos",
   },
 
   "genders": {

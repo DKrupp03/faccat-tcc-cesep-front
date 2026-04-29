@@ -1,10 +1,6 @@
 const common = {
   "all": "Todos",
-  "active": "Ativo",
-  "inactive": "Inativo",
-  "mainMenu": "Menu principal",
   "myProfile": "Meu perfil",
-  "configs": "Configurações",
   "noData": "Sem dados para exibir.",
   
   "actions": {
@@ -23,6 +19,12 @@ const common = {
     "inactivate": "Inativar",
     "order": "Ordenar por",
     "loadMore": "Carregar mais",
+  },
+
+  "active": {
+    "active": "Ativos",
+    "inactive": "Inativos",
+    "all": "Todos",
   },
 
   "order": {
@@ -54,6 +56,30 @@ const common = {
     "generic": "Ocorreu um erro. Tente novamente ou contate um administrador.",
     "unknown": "Ocorreu um erro desconhecido.",
     "required": "Campo obrigatório.",
+  },
+
+  "columns": {
+    "active": "Ativo",
+    "name": "Nome",
+    "services": "Atendimentos",
+    "therapist": "Terapeuta",
+    "patient": "Paciente",
+    "patients": "Pacientes",
+    "paymentStatus": "Status do pagamento",
+    "email": "E-mail",
+    "lastService": "Último atendimento",
+    "gender": "Gênero",
+    "birth": "Data de nascimento",
+    "cpf": "CPF",
+    "rg": "RG",
+    "crp": "CRP",
+    "phone": "Telefone",
+    "address": "Endereço",
+    "maritalStatus": "Estado civil",
+    "educationLevel": "Nível de escolaridade",
+    "occupation": "Profissão",
+    "defaultValue": "Valor padrão",
+    "extra": "Observações",
   },
 } as const;
 

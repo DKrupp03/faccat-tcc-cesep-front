@@ -33,6 +33,8 @@ export type ProfilesContextType = {
   setEditingRole: Dispatch<SetStateAction<ProfileRole | undefined>>;
   isSubmitting: boolean;
   setIsSubmitting: Dispatch<SetStateAction<boolean>>;
+  loadingProfile: boolean;
+  setLoadingProfile: Dispatch<SetStateAction<boolean>>;
   module: ModuleKey;
   profileRole: ProfileRole;
   defaultFilter: ProfilesFilter;

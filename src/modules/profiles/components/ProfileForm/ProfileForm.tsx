@@ -1,5 +1,6 @@
 import { useEffect, useMemo } from "react";
-import { Form, Row, Col, Flex } from "antd";
+import { Form, Row, Col, Flex, Skeleton } from "antd";
+import dayjs from "dayjs";
 import { useTranslation } from "react-i18next";
 import { IconTrash, IconUpload } from "@tabler/icons-react";
 
@@ -25,6 +26,7 @@ export const ProfileForm = () => {
     editingRole,
     profile,
     submitProfile,
+    loadingProfile,
   } = useProfiles();
 
   const defaultProfile = useMemo(() => ({
@@ -63,10 +65,20 @@ export const ProfileForm = () => {
       if (profile) {
         form.setFieldsValue(profile);
       } else {
-        form.setFieldsValue(defaultProfile);
+        form.resetFields();
       }
     }
   }, [isFormOpen, profile]);
+
+  if (loadingProfile) {
+    return (
+      <Skeleton
+        className={styles.form}
+        paragraph={{ rows: 8 }}
+        active
+      />
+    );
+  }
 
   return (
     <Form
@@ -75,6 +87,7 @@ export const ProfileForm = () => {
       layout="vertical"
       requiredMark={false}
       onFinish={submitProfile}
+      initialValues={defaultProfile}
       className={styles.form}
     >
       <Flex
@@ -103,7 +116,7 @@ export const ProfileForm = () => {
         <Col span={12}>
           <Form.Item name="name">
             <CommonTextInput
-              label={t("profiles.columns.name")}
+              label={t("common.columns.name")}
               required
             />
           </Form.Item>
@@ -111,7 +124,7 @@ export const ProfileForm = () => {
         <Col span={12}>
           <Form.Item name="email">
             <CommonTextInput
-              label={t("profiles.columns.email")}
+              label={t("common.columns.email")}
               disabled={!!profile?.id}
               required
             />
@@ -123,16 +136,19 @@ export const ProfileForm = () => {
         <Col span={12}>
           <Form.Item name="gender">
             <CommonSelect
-              label={t("profiles.columns.gender")}
+              label={t("common.columns.gender")}
               options={genderOptions}
               required
             />
           </Form.Item>
         </Col>
         <Col span={12}>
-          <Form.Item name="birth">
+          <Form.Item
+            name="birth"
+            getValueProps={(value) => ({ value: value ? dayjs(value) : undefined })}
+          >
             <CommonDatePicker
-              label={t("profiles.columns.birth")}
+              label={t("common.columns.birth")}
               required
             />
           </Form.Item>
@@ -142,12 +158,12 @@ export const ProfileForm = () => {
       <Row gutter={16}>
         <Col span={12}>
           <Form.Item name="phone" normalize={phoneMask}>
-            <CommonTextInput label={t("profiles.columns.phone")} />
+            <CommonTextInput label={t("common.columns.phone")} />
           </Form.Item>
         </Col>
         <Col span={12}>
           <Form.Item name="address">
-            <CommonTextInput label={t("profiles.columns.address")} />
+            <CommonTextInput label={t("common.columns.address")} />
           </Form.Item>
         </Col>
       </Row>
@@ -156,18 +172,18 @@ export const ProfileForm = () => {
         {editingRole !== "patient" && (  
           <Col span={12}>
             <Form.Item name="crp" normalize={crpMask}>
-              <CommonTextInput label={t("profiles.columns.crp")} />
+              <CommonTextInput label={t("common.columns.crp")} />
             </Form.Item>
           </Col>
         )}
         <Col span={editingRole === "patient" ? 12 : 6}>
           <Form.Item name="cpf" normalize={cpfMask}>
-            <CommonTextInput label={t("profiles.columns.cpf")} />
+            <CommonTextInput label={t("common.columns.cpf")} />
           </Form.Item>
         </Col>
         <Col span={editingRole === "patient" ? 12 : 6}>
           <Form.Item name="rg" normalize={rgMask}>
-            <CommonTextInput label={t("profiles.columns.rg")} />
+            <CommonTextInput label={t("common.columns.rg")} />
           </Form.Item>
         </Col>
       </Row>
@@ -178,7 +194,7 @@ export const ProfileForm = () => {
             <Col span={12}>
               <Form.Item name="marital_status">
                 <CommonSelect
-                  label={t("profiles.columns.maritalStatus")}
+                  label={t("common.columns.maritalStatus")}
                   options={maritalStatusOptions}
                 />
               </Form.Item>
@@ -186,7 +202,7 @@ export const ProfileForm = () => {
             <Col span={12}>
               <Form.Item name="education_level">
                 <CommonSelect
-                  label={t("profiles.columns.educationLevel")}
+                  label={t("common.columns.educationLevel")}
                   options={educationLevelOptions}
                 />
               </Form.Item>
@@ -196,20 +212,17 @@ export const ProfileForm = () => {
           <Row gutter={16}>
             <Col span={12}>
               <Form.Item name="occupation">
-                <CommonTextInput label={t("profiles.columns.occupation")} />
+                <CommonTextInput label={t("common.columns.occupation")} />
               </Form.Item>
             </Col>
             <Col span={6}>
               <Form.Item name="therapist_id">
-                <ProfilesSelect
-                  role="therapist"
-                  required
-                />
+                <ProfilesSelect role="therapist" />
               </Form.Item>
             </Col>
             <Col span={6}>
               <Form.Item name="default_value" normalize={decimalMask}>
-                <CommonTextInput label={t("profiles.columns.defaultValue")} />
+                <CommonTextInput label={t("common.columns.defaultValue")} />
               </Form.Item>
             </Col>
           </Row>
@@ -217,7 +230,7 @@ export const ProfileForm = () => {
           <Row gutter={16}>
             <Col span={24}>
               <Form.Item name="extra">
-                <CommonTextArea label={t("profiles.columns.extra")} />
+                <CommonTextArea label={t("common.columns.extra")} />
               </Form.Item>
             </Col>
           </Row>
@@ -225,7 +238,7 @@ export const ProfileForm = () => {
           <Row gutter={16}>
             <Col span={6}>
               <Form.Item name="active">
-                <CommonSwitch label={t("common.active")} />
+                <CommonSwitch label={t("common.columns.active")} />
               </Form.Item>
             </Col>
           </Row>
@@ -240,6 +253,7 @@ export const ProfileFormOptions = () => {
   const {
     profile,
     isSubmitting,
+    editingRole,
   } = useProfiles();
 
   return (
@@ -260,8 +274,8 @@ export const ProfileFormOptions = () => {
         loading={isSubmitting}
       >
         {profile?.id
-          ? t("common.actions.edit")
-          : t("common.actions.create")}
+          ? t(`profiles.${editingRole}s.actions.edit`)
+          : t(`profiles.${editingRole}s.actions.create`)}
       </CommonButton>
     </>
   );
