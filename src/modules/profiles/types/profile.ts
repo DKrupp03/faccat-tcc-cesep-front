@@ -24,6 +24,12 @@ export type ProfileEducationLevel =
   | "masters"
   | "doctorate";
 
+export type Parent = {
+  name: string;
+  phone: string;
+  cpf: string;
+};
+
 export type Profile = {
   id: number;
   name: string;
@@ -38,7 +44,7 @@ export type Profile = {
   cpf?: string;
   rg?: string;
   crp?: string;
-  parent?: Record<string, NonNullable<unknown>>;
+  parent?: Parent;
   default_value?: number | string;
   extra?: string;
   role: ProfileRole;

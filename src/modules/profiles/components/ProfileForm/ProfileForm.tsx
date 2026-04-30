@@ -1,8 +1,8 @@
 import { useEffect } from "react";
-import { Form, Row, Col, Flex, Skeleton, Upload } from "antd";
+import { Form, Row, Col, Flex, Skeleton, Upload, Divider } from "antd";
 import dayjs from "dayjs";
 import { useTranslation } from "react-i18next";
-import { IconTrash, IconUpload } from "@tabler/icons-react";
+import { IconTrash, IconUpload, IconUser } from "@tabler/icons-react";
 
 import { CommonTextInput } from "@/shared/components/CommonTextInput/CommonTextInput";
 import { CommonTextArea } from "@/shared/components/CommonTextArea/CommonTextArea";
@@ -11,7 +11,10 @@ import { CommonDatePicker } from "@/shared/components/CommonDatePicker";
 import { CommonAvatar } from "@/shared/components/CommonAvatar/CommonAvatar";
 import { CommonButton } from "@/shared/components/CommonButton/CommonButton";
 import { CommonSwitch } from "@/shared/components/CommonSwitch/CommonSwitch";
+import { CommonIconHelp } from "@/shared/components/CommonHelpIcon/CommonHelpIcon";
+import { CommonCollapse } from "@/shared/components/CommonCollapse/CommonCollapse";
 import { phoneMask, cpfMask, rgMask, crpMask, decimalMask } from "@/shared/utils/formatters";
+import { COLORS } from "@/shared/theme";
 
 import { useProfileForm } from "../../hooks/useProfileForm";
 import { useProfilesForm } from "../../hooks/useProfilesForm";
@@ -230,12 +233,18 @@ export const ProfileForm = () => {
             </Col>
             <Col span={6}>
               <Form.Item name="therapist_id">
-                <ProfilesSelect role="therapist" />
+                <ProfilesSelect
+                  role="therapist"
+                  showHelp
+                />
               </Form.Item>
             </Col>
             <Col span={6}>
               <Form.Item name="default_value" normalize={decimalMask}>
-                <CommonTextInput label={t("common.columns.defaultValue")} />
+                <CommonTextInput
+                  label={t("common.columns.defaultValue")}
+                  icon={<CommonIconHelp text={t("profiles.help.defaultValue")} />}
+                />
               </Form.Item>
             </Col>
           </Row>
@@ -251,10 +260,40 @@ export const ProfileForm = () => {
           <Row gutter={16}>
             <Col span={6}>
               <Form.Item name="active">
-                <CommonSwitch label={t("common.columns.active")} />
+                <CommonSwitch
+                  label={t("common.columns.active")}
+                  icon={<CommonIconHelp text={t(`profiles.help.active.${editingRole}s`)} />}
+                />
               </Form.Item>
             </Col>
           </Row>
+
+          <Divider className={styles.divider} />
+
+          <div className={styles.responsiblesContainer}>
+            <CommonCollapse
+              title={t("common.columns.parent")}
+              icon={<IconUser size={16} color={COLORS.grey70} />}
+            >
+              <Row gutter={16}>
+                <Col span={12}>
+                  <Form.Item name={["parent", "name"]}>
+                    <CommonTextInput label={t("common.columns.name")} />
+                  </Form.Item>
+                </Col>
+                <Col span={6}>
+                  <Form.Item name={["parent", "cpf"]} normalize={cpfMask}>
+                    <CommonTextInput label={t("common.columns.cpf")} />
+                  </Form.Item>
+                </Col>
+                <Col span={6}>
+                  <Form.Item name={["parent", "phone"]} normalize={phoneMask}>
+                    <CommonTextInput label={t("common.columns.phone")} />
+                  </Form.Item>
+                </Col>
+              </Row>
+            </CommonCollapse>
+          </div>
         </>
       )}
     </Form>

@@ -8,3 +8,11 @@
   padding: 14px;
   margin-bottom: 24px;
 }
+
+.divider {
+  margin-top: 0 !important;
+}
+
+.responsiblesContainer {
+  padding-bottom: 24px;
+}

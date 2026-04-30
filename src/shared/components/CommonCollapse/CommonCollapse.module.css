@@ -1,0 +1,9 @@
+.content {
+  margin-top: 12px;
+}
+
+.iconContainer {
+  padding: 6px;
+  border-radius: 100%;
+  background-color: var(--color-grey30);
+}

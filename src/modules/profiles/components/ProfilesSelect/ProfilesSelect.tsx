@@ -4,15 +4,17 @@ import type { SelectProps } from "antd";
 import type { DefaultOptionType } from "antd/es/select";
 
 import { CommonSelect } from "@/shared/components/CommonSelect/CommonSelect";
+import { CommonIconHelp } from "@/shared/components/CommonHelpIcon/CommonHelpIcon";
 
 import { useProfilesOperations } from "../../hooks/useProfilesOperations";
 
 type ProfilesSelectProps = Omit<SelectProps, "options"> & {
   role: "patient" | "therapist";
   required?: boolean;
+  showHelp?: boolean;
 };
 
-export const ProfilesSelect: React.FC<ProfilesSelectProps> = ({ role, ...props }) => {
+export const ProfilesSelect: React.FC<ProfilesSelectProps> = ({ role, showHelp, ...props }) => {
   const { t } = useTranslation();
   const { fetchProfiles } = useProfilesOperations();
 
@@ -42,6 +44,7 @@ export const ProfilesSelect: React.FC<ProfilesSelectProps> = ({ role, ...props }
     <CommonSelect
       label={t(`common.columns.${role}`)}
       options={options}
+      icon={showHelp ? <CommonIconHelp text={t("profiles.help.defaultValue")} /> : undefined}
       allowClear
       showSearch={{ filterOption: false, onSearch: handleSearch }}
       {...props}

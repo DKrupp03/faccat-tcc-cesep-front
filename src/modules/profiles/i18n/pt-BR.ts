@@ -78,6 +78,15 @@ const profiles = {
     "payments": "Pagamentos",
     "patients": "Pacientes",
   },
+
+  "help": {
+    "therapist": "Terapeuta padrão do paciente para a criação de atendimentos. Pode ser editado posteriormente em cada atendimento.",
+    "defaultValue": "Valor padrão para criação de atendimentos. Pode ser editado posteriormente em cada atendimento.",
+    "active": {
+      "therapists": "Terapeutas inativos não estarão disponíveis para a realização de novas consultas.",
+      "patients": "Pacientes inativos não estarão disponíveis para a realização de novos atendimentos.",
+    }
+  },
 } as const;
 
 export default profiles;

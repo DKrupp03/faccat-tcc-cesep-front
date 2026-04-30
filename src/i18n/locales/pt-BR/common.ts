@@ -80,6 +80,7 @@ const common = {
     "occupation": "Profissão",
     "defaultValue": "Valor padrão",
     "extra": "Observações",
+    "parent": "Responsável",
   },
 } as const;
 
