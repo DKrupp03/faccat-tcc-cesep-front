@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo } from "react";
+import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Form, Row, Col, Flex } from "antd";
 
@@ -8,7 +8,7 @@ import { CommonButton } from "@/shared/components/CommonButton/CommonButton";
 import { CommonSelect } from "@/shared/components/CommonSelect/CommonSelect";
 import { CommonTextInput } from "@/shared/components/CommonTextInput/CommonTextInput";
 
-import { useProfiles } from "../../hooks/useProfiles";
+import { useProfilesFilter } from "../../hooks/useProfilesFilter";
 import { ProfilesSelect } from "../ProfilesSelect/ProfilesSelect";
 import styles from "./ProfilesFilterModal.module.css";
 
@@ -17,13 +17,12 @@ export const ProfilesFilterModal = () => {
   const {
     module,
     isFilterOpen,
-    setIsFilterOpen,
-    filtratePanel,
-    filter,
     defaultFilter,
-  } = useProfiles();
-
-  const [form] = Form.useForm();
+    form,
+    handleClear,
+    handleClose,
+    handleFiltrate,
+  } = useProfilesFilter();
 
   const paymentStatusOptions = useMemo(() => ([
     { label: t("common.all"), value: "all" },
@@ -32,43 +31,16 @@ export const ProfilesFilterModal = () => {
     { label: t("payments.status.overdue"), value: "overdue" },
   ]), [t]);
 
-  const handleClear = useCallback(() => {
-    form.resetFields();
-  }, [form]);
-
-  const handleClose = useCallback(() => {
-    setIsFilterOpen(false);
-  }, [setIsFilterOpen]);
-
-  const handleFiltrate = useCallback(() => {
-    const values = form.getFieldsValue(true);
-    filtratePanel(values);
-    handleClose();
-  }, [form, filtratePanel, handleClose]);
-
   const footerContent = useMemo(() => (
     <>
-      <CommonButton
-        onClick={handleClear}
-        outline
-      >
+      <CommonButton onClick={handleClear} outline>
         {t("common.actions.clearFilter")}
       </CommonButton>
-      <CommonButton
-        onClick={handleFiltrate}
-        buttonVariant="primary"
-      >
+      <CommonButton onClick={handleFiltrate} buttonVariant="primary">
         {t("common.actions.filtrate")}
       </CommonButton>
     </>
   ), [t, handleClear, handleFiltrate]);
-
-  useEffect(() => {
-    if (isFilterOpen) {
-      form.setFieldsValue(filter);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isFilterOpen]);
 
   return (
     <CommonModal

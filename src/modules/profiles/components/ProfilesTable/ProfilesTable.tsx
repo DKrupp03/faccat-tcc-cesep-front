@@ -8,7 +8,8 @@ import { formatDateTime } from "@/shared/utils/formatters";
 import { PaymentStatusBadge } from "@/modules/payments/components/PaymentStatusBadge/PaymentStatusBadge";
 import type { PaymentStatus } from "@/modules/payments/types/payment";
 
-import { useProfiles } from "../../hooks/useProfiles";
+import { useProfilesList } from "../../hooks/useProfilesList";
+import { useProfilesForm } from "../../hooks/useProfilesForm";
 import type { Profile } from "../../types/profile";
 import styles from "./ProfilesTable.module.css";
 
@@ -24,8 +25,8 @@ export const ProfilesTable = () => {
     filtratePanel,
     filter,
     orderBy,
-    openForm,
-  } = useProfiles();
+  } = useProfilesList();
+  const { openForm } = useProfilesForm();
 
   const profilesColumnFields = useMemo((): ColumnType<Profile>[] => {
     return [

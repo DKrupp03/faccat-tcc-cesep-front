@@ -5,7 +5,7 @@ import { IconFilter, IconStethoscope, IconTextSpellcheck, IconUsers } from "@tab
 import { COLORS } from "@/shared/theme";
 import { CommonHeaderCards } from "@/shared/components/CommonHeaderCards/CommonHeaderCards";
 
-import { useProfiles } from "../../hooks/useProfiles";
+import { useProfilesList } from "../../hooks/useProfilesList";
 
 export const ProfilesHeaderCards = () => {
   const { t } = useTranslation();
@@ -15,7 +15,7 @@ export const ProfilesHeaderCards = () => {
     total,
     totalActive,
     totalFiltered,
-  } = useProfiles();
+  } = useProfilesList();
 
   const profilesHeaderCards = useMemo(() => {
     return [

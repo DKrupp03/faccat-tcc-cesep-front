@@ -5,14 +5,15 @@ import type { ModuleKey } from "@/shared/contexts/ModulesContext";
 import { useNotification } from "@/shared/hooks/useNotification";
 import { useModals } from "@/shared/hooks/useModals";
 
-import { ProfilesContext } from "../contexts/ProfilesContext";
+import { ProfilesListContext } from "../contexts/ProfilesListContext";
+import { ProfilesFormContext } from "../contexts/ProfilesFormContext";
 import { useProfilesOperations } from "../hooks/useProfilesOperations";
 import type { Profile, ProfilesFilter, ProfilesOrder, ProfileRole } from "../types/profile";
 import { ProfilesFilterModal } from "../components/ProfilesFilterModal/ProfilesFilterModal";
 import { ProfileDrawer } from "../components/ProfileDrawer/ProfileDrawer";
 
 type ProfilesProviderProps = {
-  module: ModuleKey
+  module: ModuleKey;
   children: React.ReactNode;
 };
 
@@ -30,7 +31,7 @@ export const ProfilesProvider = ({
     updateProfile: updateProfileOperation,
     deleteProfile: deleteProfileOperation,
   } = useProfilesOperations();
-  
+
   const profileRole: ProfileRole = useMemo(() => {
     if (module === "patients") return "patient";
     return "therapist";
@@ -42,6 +43,7 @@ export const ProfilesProvider = ({
     payment_status: "all",
   }), [profileRole]);
 
+  // List state
   const [profiles, setProfiles] = useState<Profile[]>([]);
   const [total, setTotal] = useState<number>(0);
   const [totalFiltered, setTotalFiltered] = useState<number>(0);
@@ -52,6 +54,8 @@ export const ProfilesProvider = ({
   const [page, setPage] = useState<number>(1);
   const [orderBy, setOrderBy] = useState<ProfilesOrder>("name_asc");
   const [isFilterOpen, setIsFilterOpen] = useState<boolean>(false);
+
+  // Form state
   const [isFormOpen, setIsFormOpen] = useState<boolean>(false);
   const [profile, setProfile] = useState<Profile>();
   const [editingRole, setEditingRole] = useState<ProfileRole>();
@@ -101,6 +105,9 @@ export const ProfilesProvider = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [t]);
 
+  const openFilter = useCallback(() => setIsFilterOpen(true), []);
+  const closeFilter = useCallback(() => setIsFilterOpen(false), []);
+
   const openForm = useCallback(async (role: ProfileRole, profileId?: number) => {
     if (profileId) {
       setLoadingProfile(true);
@@ -128,9 +135,9 @@ export const ProfilesProvider = ({
     setEditingRole(undefined);
   }, []);
 
-  const createProfile = useCallback(async (profile: Partial<Profile>) => {
+  const createProfile = useCallback(async (profileData: Partial<Profile>) => {
     try {
-      const response = await createProfileOperation(profile);
+      const response = await createProfileOperation(profileData);
 
       if (!response.success) {
         openNotification("error", response.errors!);
@@ -150,9 +157,9 @@ export const ProfilesProvider = ({
     }
   }, [t, createProfileOperation, openNotification, closeForm]);
 
-  const updateProfile = useCallback(async (profile: Partial<Profile>) => {
+  const updateProfile = useCallback(async (profileData: Partial<Profile>) => {
     try {
-      const response = await updateProfileOperation(profile);
+      const response = await updateProfileOperation(profileData);
 
       if (!response.success) {
         openNotification("error", response.errors!);
@@ -198,9 +205,9 @@ export const ProfilesProvider = ({
             throw new Error(response.error);
           }
 
-          setTotal((prev) => prev + 1);
-          setTotalFiltered((prev) => prev + 1);
-          if (profile?.active) setTotalActive((prev) => prev + 1);
+          setTotal((prev) => prev - 1);
+          setTotalFiltered((prev) => prev - 1);
+          if (profile?.active) setTotalActive((prev) => prev - 1);
           setProfiles((prev) => prev.filter((p) => p.id !== profileId));
           closeForm();
           openNotification("success", t(`profiles.${editingRole}s.actions.deleted`));
@@ -221,38 +228,72 @@ export const ProfilesProvider = ({
     editingRole,
   ]);
 
+  const listContextValue = useMemo(() => ({
+    module,
+    profileRole,
+    profiles,
+    total,
+    totalFiltered,
+    totalActive,
+    loading,
+    loadingMore,
+    filter,
+    defaultFilter,
+    page,
+    orderBy,
+    isFilterOpen,
+    filtratePanel,
+    openFilter,
+    closeFilter,
+  }), [
+    module,
+    profileRole,
+    profiles,
+    total,
+    totalFiltered,
+    totalActive,
+    loading,
+    loadingMore,
+    filter,
+    defaultFilter,
+    page,
+    orderBy,
+    isFilterOpen,
+    filtratePanel,
+    openFilter,
+    closeFilter,
+  ]);
+
+  const formContextValue = useMemo(() => ({
+    isFormOpen,
+    profile,
+    editingRole,
+    isSubmitting,
+    loadingProfile,
+    openForm,
+    closeForm,
+    submitProfile,
+    deleteProfile,
+  }), [
+    isFormOpen,
+    profile,
+    editingRole,
+    isSubmitting,
+    loadingProfile,
+    openForm,
+    closeForm,
+    submitProfile,
+    deleteProfile,
+  ]);
+
   return (
-    <ProfilesContext.Provider value={{
-      profiles, setProfiles,
-      total, setTotal,
-      totalFiltered, setTotalFiltered,
-      totalActive, setTotalActive,
-      loading, setLoading,
-      loadingMore, setLoadingMore,
-      filter, setFilter,
-      page, setPage,
-      orderBy, setOrderBy,
-      isFilterOpen, setIsFilterOpen,
-      isFormOpen, setIsFormOpen,
-      profile, setProfile,
-      editingRole, setEditingRole,
-      isSubmitting, setIsSubmitting,
-      loadingProfile, setLoadingProfile,
+    <ProfilesListContext.Provider value={listContextValue}>
+      <ProfilesFormContext.Provider value={formContextValue}>
+        {children}
 
-      module,
-      profileRole,
-      defaultFilter,
-
-      filtratePanel,
-      openForm,
-      closeForm,
-      submitProfile,
-      deleteProfile,
-    }}>
-      {children}
-
-      <ProfilesFilterModal />
-      <ProfileDrawer />
-    </ProfilesContext.Provider>
+        <ProfilesFilterModal />
+        <ProfileDrawer />
+      </ProfilesFormContext.Provider>
+    </ProfilesListContext.Provider>
   );
 };

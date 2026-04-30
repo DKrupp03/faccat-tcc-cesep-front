@@ -1,4 +1,4 @@
-import { useCallback, useState, useMemo } from "react";
+import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import {
   IconEdit,
@@ -11,26 +11,12 @@ import {
 
 import { CommonDrawer } from "@/shared/components/CommonDrawer/CommonDrawer";
 
-import { useProfiles } from "../../hooks/useProfiles";
+import { useProfileDrawer } from "../../hooks/useProfileDrawer";
 import { ProfileForm, ProfileFormOptions } from "../ProfileForm/ProfileForm";
-
-type TabsType = "form"
-  | "anamnese"
-  | "medicalRecords"
-  | "services"
-  | "payments"
-  | "patients";
 
 export const ProfileDrawer = () => {
   const { t } = useTranslation();
-  const {
-    isFormOpen,
-    setIsFormOpen,
-    profile,
-    editingRole,
-  } = useProfiles();
-
-  const [tab, setTab] = useState<TabsType>("form");
+  const { isFormOpen, profile, editingRole, tab, handleClose, handleChangeTab } = useProfileDrawer();
 
   const tabs = useMemo(() => ([
     {
@@ -75,35 +61,25 @@ export const ProfileDrawer = () => {
   ]), [t, editingRole, profile?.id]);
 
   const footer = useMemo(() => {
-    if (tab === "form") {
-      return <ProfileFormOptions />;
-    }
+    if (tab === "form") return <ProfileFormOptions />;
   }, [tab]);
 
   const content = useMemo(() => {
-    if (tab === "form") {
-      return <ProfileForm />;
-    }
+    if (tab === "form") return <ProfileForm />;
   }, [tab]);
 
-  const handleClose = useCallback(() => {
-    setIsFormOpen(false);
-  }, [setIsFormOpen]);
-
   return (
-    <>
-      <CommonDrawer
-        isOpen={isFormOpen}
-        close={handleClose}
-        title={t(`profiles.tabs.${tab}`)}
-        footer={footer}
-        tabs={tabs}
-        activeTab={tab}
-        onChangeTab={(key) => setTab(key as TabsType)}
-        showTabs
-      >
-        {content}
-      </CommonDrawer>
-    </>
+    <CommonDrawer
+      isOpen={isFormOpen}
+      close={handleClose}
+      title={t(`profiles.tabs.${tab}`)}
+      footer={footer}
+      tabs={tabs}
+      activeTab={tab}
+      onChangeTab={handleChangeTab}
+      showTabs
+    >
+      {content}
+    </CommonDrawer>
   );
 };

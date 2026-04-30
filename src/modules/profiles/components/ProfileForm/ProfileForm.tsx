@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useEffect } from "react";
 import { Form, Row, Col, Flex, Skeleton, Upload } from "antd";
 import dayjs from "dayjs";
 import { useTranslation } from "react-i18next";
@@ -13,7 +13,8 @@ import { CommonButton } from "@/shared/components/CommonButton/CommonButton";
 import { CommonSwitch } from "@/shared/components/CommonSwitch/CommonSwitch";
 import { phoneMask, cpfMask, rgMask, crpMask, decimalMask } from "@/shared/utils/formatters";
 
-import { useProfiles } from "../../hooks/useProfiles";
+import { useProfileForm } from "../../hooks/useProfileForm";
+import { useProfilesForm } from "../../hooks/useProfilesForm";
 import type { Profile } from "../../types/profile";
 import { ProfilesSelect } from "../ProfilesSelect/ProfilesSelect";
 import styles from "./ProfileForm.module.css";
@@ -25,40 +26,27 @@ export const ProfileForm = () => {
     isFormOpen,
     editingRole,
     profile,
-    submitProfile,
     loadingProfile,
-  } = useProfiles();
+    setUploadedPhoto,
+    setChangedPhoto,
+    photoUrl,
+    handleSubmit,
+  } = useProfileForm();
 
-  const [uploadedPhoto, setUploadedPhoto] = useState<File>();
-  const [changedPhoto, setChangedPhoto] = useState<boolean>(false);
-
-  const photoUrl = useMemo(() => {
-    if (changedPhoto) {
-      return uploadedPhoto ? URL.createObjectURL(uploadedPhoto) : undefined;
-    }
-
-    return profile?.photo_url;
-  }, [profile?.photo_url, changedPhoto, uploadedPhoto]);
-
-  const defaultProfile = useMemo(() => ({
-    role: editingRole,
-    active: true,
-  }), [editingRole]);
-
-  const genderOptions = useMemo(() => ([
+  const genderOptions = [
     { value: "male", label: t("profiles.genders.male") },
     { value: "female", label: t("profiles.genders.female") },
     { value: "other", label: t("profiles.genders.other") },
-  ]), [t]);
+  ];
 
-  const maritalStatusOptions = useMemo(() => ([
+  const maritalStatusOptions = [
     { value: "single", label: t("profiles.maritalStatus.single") },
     { value: "married", label: t("profiles.maritalStatus.married") },
     { value: "divorced", label: t("profiles.maritalStatus.divorced") },
     { value: "widowed", label: t("profiles.maritalStatus.widowed") },
-  ]), [t]);
+  ];
 
-  const educationLevelOptions = useMemo(() => ([
+  const educationLevelOptions = [
     { value: "elementary_incomplete", label: t("profiles.educationLevels.elementaryIncomplete") },
     { value: "elementary_complete", label: t("profiles.educationLevels.elementaryComplete") },
     { value: "high_school_incomplete", label: t("profiles.educationLevels.highSchoolIncomplete") },
@@ -69,31 +57,17 @@ export const ProfileForm = () => {
     { value: "postgraduate", label: t("profiles.educationLevels.postgraduate") },
     { value: "masters", label: t("profiles.educationLevels.masters") },
     { value: "doctorate", label: t("profiles.educationLevels.doctorate") },
-  ]), [t]);
-
-  const handleSubmit = useCallback((values: Partial<Profile>) => {
-    if (changedPhoto) {
-      if (uploadedPhoto) {
-        values.photo = uploadedPhoto;
-      } else {
-        values.remove_photo = true;
-      }
-    }
-    submitProfile(values);
-  }, [submitProfile, changedPhoto, uploadedPhoto]);
+  ];
 
   useEffect(() => {
     if (isFormOpen) {
-      setUploadedPhoto(undefined);
-      setChangedPhoto(false);
-
       if (profile) {
         form.setFieldsValue(profile);
       } else {
         form.resetFields();
       }
     }
-  }, [isFormOpen, profile]);
+  }, [isFormOpen, profile, form]);
 
   if (loadingProfile) {
     return (
@@ -112,7 +86,7 @@ export const ProfileForm = () => {
       layout="vertical"
       requiredMark={false}
       onFinish={handleSubmit}
-      initialValues={defaultProfile}
+      initialValues={{ role: editingRole, active: true }}
       className={styles.form}
     >
       <Flex
@@ -208,7 +182,7 @@ export const ProfileForm = () => {
       </Row>
 
       <Row gutter={16}>
-        {editingRole !== "patient" && (  
+        {editingRole !== "patient" && (
           <Col span={12}>
             <Form.Item name="crp" normalize={crpMask}>
               <CommonTextInput label={t("common.columns.crp")} />
@@ -289,12 +263,7 @@ export const ProfileForm = () => {
 
 export const ProfileFormOptions = () => {
   const { t } = useTranslation();
-  const {
-    profile,
-    isSubmitting,
-    editingRole,
-    deleteProfile,
-  } = useProfiles();
+  const { profile, isSubmitting, editingRole, deleteProfile } = useProfilesForm();
 
   return (
     <>

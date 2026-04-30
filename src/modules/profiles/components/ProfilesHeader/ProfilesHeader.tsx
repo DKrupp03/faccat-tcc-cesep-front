@@ -14,19 +14,13 @@ import { CommonButton } from "@/shared/components/CommonButton/CommonButton";
 import { CommonOrderButton } from "@/shared/components/CommonOrderButton/CommonOrderButton";
 import type { ProfilesOrder } from "../../types/profile";
 
-import { useProfiles } from "../../hooks/useProfiles";
+import { useProfilesList } from "../../hooks/useProfilesList";
+import { useProfilesForm } from "../../hooks/useProfilesForm";
 
 export const ProfilesHeader = () => {
   const { t } = useTranslation();
-  const {
-    profileRole,
-    module,
-    setIsFilterOpen,
-    filtratePanel,
-    orderBy,
-    filter,
-    openForm,
-  } = useProfiles();
+  const { profileRole, module, openFilter, filtratePanel, orderBy, filter } = useProfilesList();
+  const { openForm } = useProfilesForm();
 
   const profilesOrderOptions = useMemo(() => ([
     {
@@ -61,7 +55,7 @@ export const ProfilesHeader = () => {
         </Tooltip>,
         <Tooltip title={t("common.actions.filtrate")}>
           <CommonButton
-            onClick={() => setIsFilterOpen(true)}
+            onClick={openFilter}
             icon={<IconFilter size={18} />}
             size="large"
             circular

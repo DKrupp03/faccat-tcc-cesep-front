@@ -5,7 +5,7 @@ import { useModules } from "@/shared/hooks/useModules";
 import { type ModuleKey } from "@/shared/contexts/ModulesContext";
 
 import { ProfilesProvider } from "../../providers/ProfilesProvider";
-import { useProfiles } from "../../hooks/useProfiles";
+import { useProfilesList } from "../../hooks/useProfilesList";
 import { ProfilesHeader } from "../../components/ProfilesHeader/ProfilesHeader";
 import { ProfilesHeaderCards } from "../../components/ProfilesHeaderCards/ProfilesHeaderCards";
 import { ProfilesTable } from "../../components/ProfilesTable/ProfilesTable";
@@ -25,7 +25,7 @@ const ProfilesPage = ({ module }: ProfilesPageProps) => {
 
 const ProfilesPanel = ({ module }: ProfilesPageProps) => {
   const { changeActiveModule } = useModules();
-  const { filtratePanel } = useProfiles();
+  const { filtratePanel } = useProfilesList();
 
   useEffect(() => {
     if (module) {
