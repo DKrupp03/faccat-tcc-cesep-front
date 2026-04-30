@@ -1,5 +1,5 @@
-import { useEffect, useMemo } from "react";
-import { Form, Row, Col, Flex, Skeleton } from "antd";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { Form, Row, Col, Flex, Skeleton, Upload } from "antd";
 import dayjs from "dayjs";
 import { useTranslation } from "react-i18next";
 import { IconTrash, IconUpload } from "@tabler/icons-react";
@@ -28,6 +28,17 @@ export const ProfileForm = () => {
     submitProfile,
     loadingProfile,
   } = useProfiles();
+
+  const [uploadedPhoto, setUploadedPhoto] = useState<File>();
+  const [changedPhoto, setChangedPhoto] = useState<boolean>(false);
+
+  const photoUrl = useMemo(() => {
+    if (changedPhoto) {
+      return uploadedPhoto ? URL.createObjectURL(uploadedPhoto) : undefined;
+    }
+
+    return profile?.photo_url;
+  }, [profile?.photo_url, changedPhoto, uploadedPhoto]);
 
   const defaultProfile = useMemo(() => ({
     role: editingRole,
@@ -60,8 +71,22 @@ export const ProfileForm = () => {
     { value: "doctorate", label: t("profiles.educationLevels.doctorate") },
   ]), [t]);
 
+  const handleSubmit = useCallback((values: Partial<Profile>) => {
+    if (changedPhoto) {
+      if (uploadedPhoto) {
+        values.photo = uploadedPhoto;
+      } else {
+        values.remove_photo = true;
+      }
+    }
+    submitProfile(values);
+  }, [submitProfile, changedPhoto, uploadedPhoto]);
+
   useEffect(() => {
     if (isFormOpen) {
+      setUploadedPhoto(undefined);
+      setChangedPhoto(false);
+
       if (profile) {
         form.setFieldsValue(profile);
       } else {
@@ -86,7 +111,7 @@ export const ProfileForm = () => {
       form={form}
       layout="vertical"
       requiredMark={false}
-      onFinish={submitProfile}
+      onFinish={handleSubmit}
       initialValues={defaultProfile}
       className={styles.form}
     >
@@ -97,15 +122,29 @@ export const ProfileForm = () => {
         <CommonAvatar
           size={60}
           circular
+          photoUrl={photoUrl}
         />
+        <Upload
+          showUploadList={false}
+          accept="image/*"
+          beforeUpload={(file) => {
+            setChangedPhoto(true);
+            setUploadedPhoto(file);
+            return false;
+          }}
+        >
+          <CommonButton
+            onClick={() => {}}
+            icon={<IconUpload size={18} />}
+            buttonVariant="primary"
+            circular
+          />
+        </Upload>
         <CommonButton
-          onClick={() => {}}
-          icon={<IconUpload size={18} />}
-          buttonVariant="primary"
-          circular
-        />
-        <CommonButton
-          onClick={() => {}}
+          onClick={() => {
+            setChangedPhoto(true);
+            setUploadedPhoto(undefined);
+          }}
           icon={<IconTrash size={18} />}
           buttonVariant="danger"
           circular

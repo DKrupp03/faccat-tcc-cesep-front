@@ -44,7 +44,9 @@ export type Profile = {
   role: ProfileRole;
   active: boolean;
   therapist_id?: number;
+  photo?: File;
   photo_url?: string;
+  remove_photo?: boolean;
   created_at: string;
   updated_at: string;
   therapist?: Profile;
