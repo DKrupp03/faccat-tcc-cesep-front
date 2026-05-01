@@ -107,8 +107,11 @@ export const ProfileFormProvider = ({ children }: ProfileFormProviderProps) => {
         throw new Error(response.error);
       }
 
+      if (currentProfile?.id === response.profile.id) {
+        setCurrentProfile(response.profile);
+      }
+
       afterSaveCallbackRef.current?.({ action: "update", profile: response.profile });
-      setCurrentProfile(response.profile);
       closeForm();
       openNotification("success", t(`profiles.${response.profile.role}s.actions.updated`));
     } catch (error) {
@@ -116,7 +119,13 @@ export const ProfileFormProvider = ({ children }: ProfileFormProviderProps) => {
     } finally {
       setIsSubmitting(false);
     }
-  }, [t, updateProfileOperation, openNotification, closeForm]);
+  }, [
+    t,
+    updateProfileOperation,
+    openNotification,
+    closeForm,
+    currentProfile,
+  ]);
 
   const submitProfile = useCallback(async (formValues: Partial<Profile>) => {
     setIsSubmitting(true);
