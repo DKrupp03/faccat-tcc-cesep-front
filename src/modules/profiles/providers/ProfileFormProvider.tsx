@@ -32,7 +32,11 @@ export const unregisterAfterSaveCallback = () => {
 
 export const ProfileFormProvider = ({ children }: ProfileFormProviderProps) => {
   const { t } = useTranslation();
-  const { setProfile: setCurrentProfile } = useAuth();
+  const {
+    logout,
+    profile: currentProfile,
+    setProfile: setCurrentProfile,
+  } = useAuth();
   const { openNotification } = useNotification();
   const { openConfirmationModal } = useModals();
   const {
@@ -141,8 +145,15 @@ export const ProfileFormProvider = ({ children }: ProfileFormProviderProps) => {
             throw new Error(response.error);
           }
 
-          afterSaveCallbackRef.current?.({ action: "delete", profileId, wasActive: profile?.active ?? false });
           closeForm();
+
+          if (currentProfile?.id === profileId) return logout();
+
+          afterSaveCallbackRef.current?.({
+            action: "delete",
+            profileId,
+            wasActive: profile?.active ?? false,
+          });
           openNotification("success", t(`profiles.${editingRole}s.actions.deleted`));
         } catch (error) {
           console.error(error || t("common.errors.unknown"));
@@ -151,7 +162,16 @@ export const ProfileFormProvider = ({ children }: ProfileFormProviderProps) => {
         }
       },
     );
-  }, [t, openConfirmationModal, deleteProfileOperation, openNotification, closeForm, editingRole]);
+  }, [
+    t,
+    openConfirmationModal,
+    deleteProfileOperation,
+    openNotification,
+    closeForm,
+    editingRole,
+    currentProfile?.id,
+    logout,
+  ]);
 
   const formContextValue = useMemo(() => ({
     isFormOpen,

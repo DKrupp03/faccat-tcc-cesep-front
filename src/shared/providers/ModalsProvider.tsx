@@ -54,7 +54,9 @@ export const ModalsProvider = ({ children }: { children: React.ReactNode }) => {
           </>
         }
       >
-        {confirmationModal?.description}
+        {confirmationModal?.description && (
+          <span dangerouslySetInnerHTML={{ __html: confirmationModal.description }} />
+        )}
       </CommonModal>
     </ModalsContext.Provider>
   );
