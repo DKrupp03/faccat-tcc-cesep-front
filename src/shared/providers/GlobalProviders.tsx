@@ -20,10 +20,17 @@ const ModalsProvider = React.lazy(() =>
   })),
 );
 
+const ProfileFormProvider = React.lazy(() =>
+  import("@/modules/profiles/providers/ProfileFormProvider").then((mod) => ({
+    default: mod.ProfileFormProvider,
+  })),
+);
+
 const providers = [
   AuthProvider,
   ModulesProvider,
   ModalsProvider,
+  ProfileFormProvider,
 ];
 
 export const GlobalProviders = ({ children }: { children: ReactNode }) => {

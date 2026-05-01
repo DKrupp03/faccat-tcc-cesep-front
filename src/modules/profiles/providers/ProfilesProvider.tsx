@@ -1,16 +1,13 @@
-import { useCallback, useState, useMemo } from "react";
+import { useCallback, useState, useMemo, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 
 import type { ModuleKey } from "@/shared/contexts/ModulesContext";
-import { useNotification } from "@/shared/hooks/useNotification";
-import { useModals } from "@/shared/hooks/useModals";
 
 import { ProfilesListContext } from "../contexts/ProfilesListContext";
-import { ProfilesFormContext } from "../contexts/ProfilesFormContext";
 import { useProfilesOperations } from "../hooks/useProfilesOperations";
-import type { Profile, ProfilesFilter, ProfilesOrder, ProfileRole } from "../types/profile";
+import type { ProfilesFilter, ProfilesOrder, ProfileRole } from "../types/profile";
 import { ProfilesFilterModal } from "../components/ProfilesFilterModal/ProfilesFilterModal";
-import { ProfileDrawer } from "../components/ProfileDrawer/ProfileDrawer";
+import { registerAfterSaveCallback, unregisterAfterSaveCallback, type AfterSavePayload } from "./ProfileFormProvider";
 
 type ProfilesProviderProps = {
   module: ModuleKey;
@@ -22,15 +19,7 @@ export const ProfilesProvider = ({
   children,
 }: ProfilesProviderProps) => {
   const { t } = useTranslation();
-  const { openNotification } = useNotification();
-  const { openConfirmationModal } = useModals();
-  const {
-    fetchProfiles,
-    fetchProfile,
-    createProfile: createProfileOperation,
-    updateProfile: updateProfileOperation,
-    deleteProfile: deleteProfileOperation,
-  } = useProfilesOperations();
+  const { fetchProfiles } = useProfilesOperations();
 
   const profileRole: ProfileRole = useMemo(() => {
     if (module === "patients") return "patient";
@@ -43,8 +32,7 @@ export const ProfilesProvider = ({
     payment_status: "all",
   }), [profileRole]);
 
-  // List state
-  const [profiles, setProfiles] = useState<Profile[]>([]);
+  const [profiles, setProfiles] = useState<import("../types/profile").Profile[]>([]);
   const [total, setTotal] = useState<number>(0);
   const [totalFiltered, setTotalFiltered] = useState<number>(0);
   const [totalActive, setTotalActive] = useState<number>(0);
@@ -54,13 +42,6 @@ export const ProfilesProvider = ({
   const [page, setPage] = useState<number>(1);
   const [orderBy, setOrderBy] = useState<ProfilesOrder>("name_asc");
   const [isFilterOpen, setIsFilterOpen] = useState<boolean>(false);
-
-  // Form state
-  const [isFormOpen, setIsFormOpen] = useState<boolean>(false);
-  const [profile, setProfile] = useState<Profile>();
-  const [editingRole, setEditingRole] = useState<ProfileRole>();
-  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-  const [loadingProfile, setLoadingProfile] = useState<boolean>(false);
 
   const filtratePanel = useCallback(async (
     newFilter: ProfilesFilter = filter,
@@ -105,128 +86,29 @@ export const ProfilesProvider = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [t]);
 
-  const openFilter = useCallback(() => setIsFilterOpen(true), []);
-  const closeFilter = useCallback(() => setIsFilterOpen(false), []);
-
-  const openForm = useCallback(async (role: ProfileRole, profileId?: number) => {
-    if (profileId) {
-      setLoadingProfile(true);
-
-      try {
-        const response = await fetchProfile(profileId);
-
-        if (response.success) {
-          setProfile(response.profile);
-        }
-      } finally {
-        setLoadingProfile(false);
-      }
-    } else {
-      setProfile(undefined);
-    }
-
-    setEditingRole(role);
-    setIsFormOpen(true);
-  }, [fetchProfile]);
-
-  const closeForm = useCallback(() => {
-    setIsFormOpen(false);
-    setProfile(undefined);
-    setEditingRole(undefined);
-  }, []);
-
-  const createProfile = useCallback(async (profileData: Partial<Profile>) => {
-    try {
-      const response = await createProfileOperation(profileData);
-
-      if (!response.success) {
-        openNotification("error", response.errors!);
-        throw new Error(response.error);
-      }
-
-      setProfiles((prev) => [...prev, response.profile]);
+  const profileFormCallback = useCallback((payload: AfterSavePayload) => {
+    if (payload.action === "create") {
+      setProfiles((prev) => [...prev, payload.profile]);
       setTotal((prev) => prev + 1);
       setTotalFiltered((prev) => prev + 1);
-      if (response.profile.active) setTotalActive((prev) => prev + 1);
-      closeForm();
-      openNotification("success", t(`profiles.${response.profile.role}s.actions.created`));
-    } catch (error) {
-      console.error(error || t("common.errors.unknown"));
-    } finally {
-      setIsSubmitting(false);
+      if (payload.profile.active) setTotalActive((prev) => prev + 1);
+    } else if (payload.action === "update") {
+      setProfiles((prev) => prev.map((p) => p.id === payload.profile.id ? payload.profile : p));
+    } else if (payload.action === "delete") {
+      setProfiles((prev) => prev.filter((p) => p.id !== payload.profileId));
+      setTotal((prev) => prev - 1);
+      setTotalFiltered((prev) => prev - 1);
+      if (payload.wasActive) setTotalActive((prev) => prev - 1);
     }
-  }, [t, createProfileOperation, openNotification, closeForm]);
+  }, []);
 
-  const updateProfile = useCallback(async (profileData: Partial<Profile>) => {
-    try {
-      const response = await updateProfileOperation(profileData);
+  useEffect(() => {
+    registerAfterSaveCallback(profileFormCallback);
+    return () => unregisterAfterSaveCallback();
+  }, [profileFormCallback]);
 
-      if (!response.success) {
-        openNotification("error", response.errors!);
-        throw new Error(response.error);
-      }
-
-      setProfiles((prev) => (
-        prev.map((p) => p.id === response.profile.id ? response.profile : p)
-      ));
-      closeForm();
-      openNotification("success", t(`profiles.${response.profile.role}s.actions.updated`));
-    } catch (error) {
-      console.error(error || t("common.errors.unknown"));
-    } finally {
-      setIsSubmitting(false);
-    }
-  }, [t, updateProfileOperation, openNotification, closeForm]);
-
-  const submitProfile = useCallback(async (formValues: Partial<Profile>) => {
-    setIsSubmitting(true);
-    formValues.role = editingRole;
-    formValues.default_value = formValues.default_value !== null
-      ? Number(formValues.default_value)
-      : undefined;
-
-    if (profile?.id) {
-      await updateProfile({ ...formValues, id: profile.id });
-    } else {
-      await createProfile(formValues);
-    }
-  }, [updateProfile, createProfile, editingRole, profile]);
-
-  const deleteProfile = useCallback(async (profileId: number) => {
-    openConfirmationModal(
-      t(`profiles.${editingRole}s.actions.delete`),
-      t(`profiles.${editingRole}s.actions.delete.confirmation`),
-      async () => {
-        try {
-          const response = await deleteProfileOperation(profileId);
-
-          if (!response.success) {
-            openNotification("error", response.errors!);
-            throw new Error(response.error);
-          }
-
-          setTotal((prev) => prev - 1);
-          setTotalFiltered((prev) => prev - 1);
-          if (profile?.active) setTotalActive((prev) => prev - 1);
-          setProfiles((prev) => prev.filter((p) => p.id !== profileId));
-          closeForm();
-          openNotification("success", t(`profiles.${editingRole}s.actions.deleted`));
-        } catch (error) {
-          console.error(error || t("common.errors.unknown"));
-        } finally {
-          setIsSubmitting(false);
-        }
-      },
-    );
-  }, [
-    t,
-    openConfirmationModal,
-    deleteProfileOperation,
-    openNotification,
-    closeForm,
-    profile,
-    editingRole,
-  ]);
+  const openFilter = useCallback(() => setIsFilterOpen(true), []);
+  const closeFilter = useCallback(() => setIsFilterOpen(false), []);
 
   const listContextValue = useMemo(() => ({
     module,
@@ -264,36 +146,11 @@ export const ProfilesProvider = ({
     closeFilter,
   ]);
 
-  const formContextValue = useMemo(() => ({
-    isFormOpen,
-    profile,
-    editingRole,
-    isSubmitting,
-    loadingProfile,
-    openForm,
-    closeForm,
-    submitProfile,
-    deleteProfile,
-  }), [
-    isFormOpen,
-    profile,
-    editingRole,
-    isSubmitting,
-    loadingProfile,
-    openForm,
-    closeForm,
-    submitProfile,
-    deleteProfile,
-  ]);
-
   return (
     <ProfilesListContext.Provider value={listContextValue}>
-      <ProfilesFormContext.Provider value={formContextValue}>
-        {children}
+      {children}
 
-        <ProfilesFilterModal />
-        <ProfileDrawer />
-      </ProfilesFormContext.Provider>
+      <ProfilesFilterModal />
     </ProfilesListContext.Provider>
   );
 };

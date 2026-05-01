@@ -72,6 +72,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         token,
         user,
         profile,
+        setProfile,
         isAuthenticated: !!token,
         login,
         logout,

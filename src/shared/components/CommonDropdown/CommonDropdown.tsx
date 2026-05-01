@@ -8,6 +8,7 @@ type CommonDropdownProps = PopoverProps & {
   suffix?: React.ReactNode;
   options?: CommonButtonProps[];
   width?: number | string;
+  minWidth?: number | string;
   padding?: number;
   children: React.ReactNode;
 };
@@ -17,14 +18,15 @@ export const CommonDropdown = ({
   suffix,
   options,
   children,
-  width = 150,
+  width,
+  minWidth,
   padding = 6,
   ...props
 }: CommonDropdownProps) => {
   const [visible, setVisible] = useState<boolean>(false);
 
   const content = useMemo(() => (
-    <Flex vertical gap={8} style={{ width }}>
+    <Flex vertical gap={8} style={{ width, minWidth }}>
       {prefix}
 
       {options && (

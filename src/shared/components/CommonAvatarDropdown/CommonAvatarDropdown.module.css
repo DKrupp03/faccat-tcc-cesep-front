@@ -6,6 +6,7 @@
 .name {
   color: var(--color-navy);
   font-weight: 600;
+  white-space: nowrap;
 }
 
 .role {

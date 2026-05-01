@@ -3,6 +3,7 @@ import { Flex, Typography } from "antd";
 import { IconUserSquareRounded, IconLogout } from "@tabler/icons-react";
 
 import { useAuth } from "@/modules/auth/hooks/useAuth";
+import { useProfilesForm } from "@/modules/profiles/hooks/useProfilesForm";
 import { CommonAvatar } from "../CommonAvatar/CommonAvatar";
 import { CommonDropdown } from "../CommonDropdown/CommonDropdown";
 
@@ -13,12 +14,14 @@ const { Text } = Typography;
 export const CommonAvatarDropdown = () => {
   const { t } = useTranslation();
   const { profile, logout } = useAuth();
+  const { openForm } = useProfilesForm();
 
   return (
     <CommonDropdown
       placement="right"
       align={{ offset: [12, -20] }}
       padding={12}
+      minWidth={150}
       arrow
       prefix={
         <Flex
@@ -42,7 +45,11 @@ export const CommonAvatarDropdown = () => {
       }
       options={[
         {
-          onClick: () => {},
+          onClick: () => {
+            if (profile) {
+              openForm(profile.role, profile.id);
+            }
+          },
           icon: <IconUserSquareRounded size={16} />,
           buttonVariant: "noBorder",
           children: t("common.myProfile"),

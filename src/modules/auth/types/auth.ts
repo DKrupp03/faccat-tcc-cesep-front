@@ -12,7 +12,8 @@ export type AuthContextType = {
   token: string | null;
   user: BasicUser | null;
   profile: Profile | null;
-isAuthenticated: boolean;
+  setProfile: (profile: Profile) => void;
+  isAuthenticated: boolean;
   login: (email: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
 };
