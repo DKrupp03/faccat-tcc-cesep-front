@@ -37,7 +37,7 @@ export const ModulesProvider = ({ children }: { children: React.ReactNode }) => 
       key: "therapists",
       name: t("common.modules.therapists"),
       icon: <IconStethoscope size={18} />,
-      hide: profile?.role !== "admin",
+      hide: !profile?.admin,
     },
     {
       key: "patients",
@@ -49,7 +49,7 @@ export const ModulesProvider = ({ children }: { children: React.ReactNode }) => 
       name: t("common.modules.payments"),
       icon: <IconReportMoney size={18} />,
     },
-  ], [t, profile?.role]);
+  ], [t, profile?.admin]);
 
   const changeActiveModule = useCallback((module: ModuleKey) => {
     if (moduleTabs.find((mod) => mod.key === module)?.hide) {

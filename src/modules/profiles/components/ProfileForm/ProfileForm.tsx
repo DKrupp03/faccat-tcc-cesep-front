@@ -89,7 +89,11 @@ export const ProfileForm = () => {
       layout="vertical"
       requiredMark={false}
       onFinish={handleSubmit}
-      initialValues={{ role: editingRole, active: true }}
+      initialValues={{
+        role: editingRole,
+        active: true,
+        admin: false,
+      }}
       className={styles.form}
     >
       <Flex
@@ -256,18 +260,36 @@ export const ProfileForm = () => {
               </Form.Item>
             </Col>
           </Row>
+        </>
+      )}
 
-          <Row gutter={16}>
-            <Col span={6}>
-              <Form.Item name="active">
-                <CommonSwitch
-                  label={t("common.columns.active")}
-                  icon={<CommonIconHelp text={t(`profiles.help.active.${editingRole}s`)} />}
-                />
-              </Form.Item>
-            </Col>
-          </Row>
+      <Row gutter={16}>
+        <Col span={6}>
+          <Form.Item name="active">
+            <CommonSwitch
+              label={t("common.columns.active")}
+              disabled={!profile?.id}
+              icon={<CommonIconHelp text={t(`profiles.help.active.${editingRole}s`)} />}
+            />
+          </Form.Item>
+        </Col>
+      </Row>
 
+      {editingRole === "therapist" && (
+        <Row gutter={16} className={styles.switch}>
+          <Col span={6}>
+            <Form.Item name="admin">
+              <CommonSwitch
+                label={t("common.columns.admin")}
+                icon={<CommonIconHelp text={t("profiles.help.admin")} />}
+              />
+            </Form.Item>
+          </Col>
+        </Row>
+      )}
+
+      {editingRole === "patient" && (
+        <>
           <Divider className={styles.divider} />
 
           <div className={styles.responsiblesContainer}>

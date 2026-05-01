@@ -59,6 +59,7 @@ const common = {
   },
 
   "columns": {
+    "admin": "Administrador",
     "active": "Ativo",
     "name": "Nome",
     "services": "Atendimentos",

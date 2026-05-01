@@ -35,7 +35,7 @@ export const CommonAvatarDropdown = () => {
               {profile?.name}
             </Text>
             <Text className={styles.role}>
-              {profile?.role ? t(`common.roles.${profile.role}`) : undefined}
+              {profile ? (profile.admin ? t("common.roles.admin") : t(`common.roles.${profile.role}`)) : undefined}
             </Text>
           </Flex>
         </Flex>

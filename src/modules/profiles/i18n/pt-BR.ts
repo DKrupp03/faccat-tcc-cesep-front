@@ -80,6 +80,7 @@ const profiles = {
   },
 
   "help": {
+    "admin": "Administradores tem acesso à todas informações do sistema. Terapeutas comuns tem acesso apenas às informações dos seus próprios pacientes e atendimentos.",
     "therapist": "Terapeuta padrão do paciente para a criação de atendimentos. Pode ser editado posteriormente em cada atendimento.",
     "defaultValue": "Valor padrão para criação de atendimentos. Pode ser editado posteriormente em cada atendimento.",
     "active": {

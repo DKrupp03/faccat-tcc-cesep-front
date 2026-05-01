@@ -4,7 +4,7 @@ import type { PaymentStatus } from "@/modules/payments/types/payment";
 
 export type ProfileGender = "male" | "female" | "other";
 
-export type ProfileRole = "admin" | "therapist" | "patient";
+export type ProfileRole = "therapist" | "patient";
 
 export type ProfileMaritalStatus =
   | "single"
@@ -48,6 +48,7 @@ export type Profile = {
   default_value?: number | string;
   extra?: string;
   role: ProfileRole;
+  admin: boolean;
   active: boolean;
   therapist_id?: number;
   photo?: File;
