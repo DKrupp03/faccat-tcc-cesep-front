@@ -8,6 +8,7 @@ const auth = {
     "login": "Login",
     "forgotPassword": "Recuperar senha",
     "resetPassword": "Redefinir senha",
+    "setPassword": "Definir senha",
   },
 
   "login": {
@@ -34,6 +35,15 @@ const auth = {
     "insertNewPassword": "Insira a sua nova senha",
     "insertPasswordConfirmation": "Insira a confirmação de senha",
     "success": "Sua senha foi redefinida!",
+  },
+
+  "setPassword": {
+    "setPassword": "Defina sua senha",
+    "setPassword.description": "Crie uma senha para acessar o sistema pela primeira vez.",
+    "passwordConfirmation": "Confirmação de senha",
+    "insertNewPassword": "Insira a sua nova senha",
+    "insertPasswordConfirmation": "Insira a confirmação de senha",
+    "success": "Senha definida com sucesso!",
   },
 
   "errors": {
