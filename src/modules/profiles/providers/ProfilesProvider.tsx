@@ -1,13 +1,13 @@
-import { useCallback, useState, useMemo, useEffect } from "react";
+import { useCallback, useState, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
 import type { ModuleKey } from "@/shared/contexts/ModulesContext";
 
 import { ProfilesListContext } from "../contexts/ProfilesListContext";
-import { useProfilesOperations } from "../hooks/useProfilesOperations";
-import type { ProfilesFilter, ProfilesOrder, ProfileRole } from "../types/profile";
+import { ProfileFormProvider } from "./ProfileFormProvider";
 import { ProfilesFilterModal } from "../components/ProfilesFilterModal/ProfilesFilterModal";
-import { registerAfterSaveCallback, unregisterAfterSaveCallback, type AfterSavePayload } from "./ProfileFormProvider";
+import { useProfilesOperations } from "../hooks/useProfilesOperations";
+import type { ProfilesFilter, ProfilesOrder, ProfileRole, Profile } from "../types/profile";
 
 type ProfilesProviderProps = {
   module: ModuleKey;
@@ -86,71 +86,53 @@ export const ProfilesProvider = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [t]);
 
-  const profileFormCallback = useCallback((payload: AfterSavePayload) => {
-    if (payload.action === "create") {
-      setProfiles((prev) => [...prev, payload.profile]);
+  const profileFormCallback = useCallback((
+    operation: "create" | "update" | "delete",
+    profile: Profile
+  ) => {
+    if (operation === "create") {
+      setProfiles((prev) => [...prev, profile]);
       setTotal((prev) => prev + 1);
       setTotalFiltered((prev) => prev + 1);
-      if (payload.profile.active) setTotalActive((prev) => prev + 1);
-    } else if (payload.action === "update") {
-      setProfiles((prev) => prev.map((p) => p.id === payload.profile.id ? payload.profile : p));
-    } else if (payload.action === "delete") {
-      setProfiles((prev) => prev.filter((p) => p.id !== payload.profileId));
+      if (profile.active) setTotalActive((prev) => prev + 1);
+    } else if (operation === "update") {
+      setProfiles((prev) => prev.map((p) => p.id === profile.id ? profile : p));
+    } else if (operation === "delete") {
+      setProfiles((prev) => prev.filter((p) => p.id !== profile.id));
       setTotal((prev) => prev - 1);
       setTotalFiltered((prev) => prev - 1);
-      if (payload.wasActive) setTotalActive((prev) => prev - 1);
+      if (profile.active) setTotalActive((prev) => prev - 1);
     }
   }, []);
-
-  useEffect(() => {
-    registerAfterSaveCallback(profileFormCallback);
-    return () => unregisterAfterSaveCallback();
-  }, [profileFormCallback]);
 
   const openFilter = useCallback(() => setIsFilterOpen(true), []);
   const closeFilter = useCallback(() => setIsFilterOpen(false), []);
 
-  const listContextValue = useMemo(() => ({
-    module,
-    profileRole,
-    profiles,
-    total,
-    totalFiltered,
-    totalActive,
-    loading,
-    loadingMore,
-    filter,
-    defaultFilter,
-    page,
-    orderBy,
-    isFilterOpen,
-    filtratePanel,
-    openFilter,
-    closeFilter,
-  }), [
-    module,
-    profileRole,
-    profiles,
-    total,
-    totalFiltered,
-    totalActive,
-    loading,
-    loadingMore,
-    filter,
-    defaultFilter,
-    page,
-    orderBy,
-    isFilterOpen,
-    filtratePanel,
-    openFilter,
-    closeFilter,
-  ]);
-
   return (
-    <ProfilesListContext.Provider value={listContextValue}>
-      {children}
-
-      <ProfilesFilterModal />
+    <ProfilesListContext.Provider
+      value={{
+        module,
+        profileRole,
+        profiles,
+        total,
+        totalFiltered,
+        totalActive,
+        loading,
+        loadingMore,
+        filter,
+        defaultFilter,
+        page,
+        orderBy,
+        isFilterOpen,
+        filtratePanel,
+        openFilter,
+        closeFilter,
+      }}
+    >
+      <ProfileFormProvider afterSaveCallback={profileFormCallback}>
+        {children}
+        <ProfilesFilterModal />
+      </ProfileFormProvider>
     </ProfilesListContext.Provider>
   );
 };

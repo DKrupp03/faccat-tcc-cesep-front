@@ -71,6 +71,7 @@ export const CommonDrawer = ({
       styles={{ wrapper: { width } }}
       mask={{ blur: true }}
       closeIcon={false}
+      destroyOnHidden
     >
       <Flex className={styles.body}>
         {showTabs && (

@@ -1,9 +1,11 @@
 import { useCallback } from "react";
 import { Flex } from "antd";
 import { useNavigate } from "react-router-dom";
+
 import { useModules } from "@/shared/hooks/useModules";
 import { CommonTabs } from "../CommonTabs/CommonTabs";
 import { CommonAvatarDropdown } from "../CommonAvatarDropdown/CommonAvatarDropdown";
+import { ProfileFormProvider } from "@/modules/profiles/providers/ProfileFormProvider";
 import logoMini from "@/shared/assets/logoMini.png";
 
 import styles from "./CommonSideMenu.module.css";
@@ -49,7 +51,9 @@ export const CommonSideMenu = () => {
         justify="center" align="center"
         className={styles.footer}
       >
-        <CommonAvatarDropdown />
+        <ProfileFormProvider>
+          <CommonAvatarDropdown />
+        </ProfileFormProvider>
       </Flex>
     </Flex>
   );

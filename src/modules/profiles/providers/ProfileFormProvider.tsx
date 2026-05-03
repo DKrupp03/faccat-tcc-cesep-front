@@ -1,4 +1,4 @@
-import { useCallback, useState, useMemo } from "react";
+import { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { useAuth } from "@/modules/auth/hooks/useAuth";
@@ -11,26 +11,17 @@ import type { Profile, ProfileRole } from "../types/profile";
 import { ProfileDrawer } from "../components/ProfileDrawer/ProfileDrawer";
 
 type ProfileFormProviderProps = {
+  afterSaveCallback?: (
+    operation: "create" | "update" | "delete",
+    profile: Profile,
+  ) => void;
   children: React.ReactNode;
 };
 
-export type AfterSavePayload =
-  | { action: "create"; profile: Profile }
-  | { action: "update"; profile: Profile }
-  | { action: "delete"; profileId: number; wasActive: boolean };
-
-// Callback registrado pelo ProfilesProvider para atualizar a lista in-place após salvar
-const afterSaveCallbackRef: { current: ((payload: AfterSavePayload) => void) | null } = { current: null };
-
-export const registerAfterSaveCallback = (cb: (payload: AfterSavePayload) => void) => {
-  afterSaveCallbackRef.current = cb;
-};
-
-export const unregisterAfterSaveCallback = () => {
-  afterSaveCallbackRef.current = null;
-};
-
-export const ProfileFormProvider = ({ children }: ProfileFormProviderProps) => {
+export const ProfileFormProvider = ({
+  afterSaveCallback,
+  children
+}: ProfileFormProviderProps) => {
   const { t } = useTranslation();
   const {
     logout,
@@ -88,7 +79,7 @@ export const ProfileFormProvider = ({ children }: ProfileFormProviderProps) => {
         throw new Error(response.error);
       }
 
-      afterSaveCallbackRef.current?.({ action: "create", profile: response.profile });
+      afterSaveCallback?.("create", response.profile);
       closeForm();
       openNotification("success", t(`profiles.${response.profile.role}s.actions.created`));
     } catch (error) {
@@ -96,7 +87,13 @@ export const ProfileFormProvider = ({ children }: ProfileFormProviderProps) => {
     } finally {
       setIsSubmitting(false);
     }
-  }, [t, createProfileOperation, openNotification, closeForm]);
+  }, [
+    t,
+    createProfileOperation,
+    afterSaveCallback,
+    openNotification,
+    closeForm,
+  ]);
 
   const updateProfile = useCallback(async (profileData: Partial<Profile>) => {
     try {
@@ -111,7 +108,7 @@ export const ProfileFormProvider = ({ children }: ProfileFormProviderProps) => {
         setCurrentProfile(response.profile);
       }
 
-      afterSaveCallbackRef.current?.({ action: "update", profile: response.profile });
+      afterSaveCallback?.("update", response.profile);
       closeForm();
       openNotification("success", t(`profiles.${response.profile.role}s.actions.updated`));
     } catch (error) {
@@ -122,6 +119,7 @@ export const ProfileFormProvider = ({ children }: ProfileFormProviderProps) => {
   }, [
     t,
     updateProfileOperation,
+    afterSaveCallback,
     openNotification,
     closeForm,
     currentProfile,
@@ -158,11 +156,7 @@ export const ProfileFormProvider = ({ children }: ProfileFormProviderProps) => {
 
           if (currentProfile?.id === profileId) return logout();
 
-          afterSaveCallbackRef.current?.({
-            action: "delete",
-            profileId,
-            wasActive: profile?.active ?? false,
-          });
+          afterSaveCallback?.("delete", profile!);
           openNotification("success", t(`profiles.${editingRole}s.actions.deleted`));
         } catch (error) {
           console.error(error || t("common.errors.unknown"));
@@ -175,6 +169,7 @@ export const ProfileFormProvider = ({ children }: ProfileFormProviderProps) => {
     t,
     openConfirmationModal,
     deleteProfileOperation,
+    afterSaveCallback,
     openNotification,
     closeForm,
     editingRole,
@@ -182,32 +177,21 @@ export const ProfileFormProvider = ({ children }: ProfileFormProviderProps) => {
     logout,
   ]);
 
-  const formContextValue = useMemo(() => ({
-    isFormOpen,
-    profile,
-    editingRole,
-    isSubmitting,
-    loadingProfile,
-    openForm,
-    closeForm,
-    submitProfile,
-    deleteProfile,
-  }), [
-    isFormOpen,
-    profile,
-    editingRole,
-    isSubmitting,
-    loadingProfile,
-    openForm,
-    closeForm,
-    submitProfile,
-    deleteProfile,
-  ]);
-
   return (
-    <ProfilesFormContext.Provider value={formContextValue}>
+    <ProfilesFormContext.Provider
+      value={{
+        isFormOpen,
+        profile,
+        editingRole,
+        isSubmitting,
+        loadingProfile,
+        openForm,
+        closeForm,
+        submitProfile,
+        deleteProfile,
+      }}
+    >
       {children}
-
       <ProfileDrawer />
     </ProfilesFormContext.Provider>
   );
