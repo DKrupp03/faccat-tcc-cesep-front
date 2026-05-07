@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useState, useEffect } from "react";
 
 import { useProfilesForm } from "./useProfilesForm";
 
@@ -8,6 +8,10 @@ export const useProfileDrawer = () => {
   const { isFormOpen, profile, editingRole, closeForm } = useProfilesForm();
 
   const [tab, setTab] = useState<ProfileDrawerTab>("form");
+
+  useEffect(() => {
+    setTab("form");
+  }, [editingRole]);
 
   const handleClose = useCallback(() => closeForm(), [closeForm]);
 

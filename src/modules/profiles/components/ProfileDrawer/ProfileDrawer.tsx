@@ -11,8 +11,10 @@ import {
 
 import { CommonDrawer } from "@/shared/components/CommonDrawer/CommonDrawer";
 
+import { ProfilesListProvider } from "../../providers/ProfilesListProvider";
 import { useProfileDrawer } from "../../hooks/useProfileDrawer";
 import { ProfileForm, ProfileFormOptions } from "../ProfileForm/ProfileForm";
+import { ProfilePatients, ProfilePatientsOptions } from "../ProfilePatients/ProfilePatients";
 
 export const ProfileDrawer = () => {
   const { t } = useTranslation();
@@ -62,13 +64,15 @@ export const ProfileDrawer = () => {
 
   const footer = useMemo(() => {
     if (tab === "form") return <ProfileFormOptions />;
+    if (tab === "patients") return <ProfilePatientsOptions />;
   }, [tab]);
 
   const content = useMemo(() => {
     if (tab === "form") return <ProfileForm />;
-  }, [tab]);
+    if (tab === "patients" && editingRole === "therapist") return <ProfilePatients />;
+  }, [tab, editingRole]);
 
-  return (
+  const drawer = useMemo(() => (
     <CommonDrawer
       isOpen={isFormOpen}
       close={handleClose}
@@ -81,5 +85,27 @@ export const ProfileDrawer = () => {
     >
       {content}
     </CommonDrawer>
-  );
+  ), [
+    isFormOpen,
+    handleClose,
+    t,
+    tab,
+    footer,
+    tabs,
+    handleChangeTab,
+    content,
+  ]);
+
+  if (editingRole === "therapist") {
+    return (
+      <ProfilesListProvider
+        module="patients"
+        fixedParams={{ therapist_id: profile?.id }}
+      >
+        {drawer}
+      </ProfilesListProvider>
+    );
+  }
+
+  return drawer;
 };

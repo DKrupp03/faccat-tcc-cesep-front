@@ -24,6 +24,7 @@ export type ProfilesListContextType = {
   ) => Promise<void>;
   openFilter: () => void;
   closeFilter: () => void;
+  profileFormCallback: (operation: "create" | "update" | "delete", profile: Profile) => void;
 };
 
 export const ProfilesListContext = createContext<ProfilesListContextType | null>(null);
