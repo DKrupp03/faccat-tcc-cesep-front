@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { Form, Row, Col, Flex, Skeleton, Upload, Divider } from "antd";
 import dayjs from "dayjs";
 import { useTranslation } from "react-i18next";
@@ -25,6 +25,7 @@ import styles from "./ProfileForm.module.css";
 export const ProfileForm = () => {
   const { t } = useTranslation();
   const [form] = Form.useForm<Partial<Profile>>();
+  const { therapistId } = useProfilesForm();
   const {
     isFormOpen,
     editingRole,
@@ -62,6 +63,10 @@ export const ProfileForm = () => {
     { value: "doctorate", label: t("profiles.educationLevels.doctorate") },
   ];
 
+  const regularTherapist = useMemo(() => (
+    !profile?.id && editingRole === "patient" && !!therapistId
+  ), [profile?.id, editingRole, therapistId]);
+
   useEffect(() => {
     if (isFormOpen) {
       if (profile) {
@@ -93,6 +98,7 @@ export const ProfileForm = () => {
         role: editingRole,
         active: true,
         admin: false,
+        ...(regularTherapist && { therapist_id: therapistId })
       }}
       className={styles.form}
     >

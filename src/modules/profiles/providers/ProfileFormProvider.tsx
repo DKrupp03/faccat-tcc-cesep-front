@@ -15,11 +15,13 @@ type ProfileFormProviderProps = {
     operation: "create" | "update" | "delete",
     profile: Profile,
   ) => void;
+  therapistId?: number;
   children: React.ReactNode;
 };
 
 export const ProfileFormProvider = ({
   afterSaveCallback,
+  therapistId,
   children
 }: ProfileFormProviderProps) => {
   const { t } = useTranslation();
@@ -185,6 +187,7 @@ export const ProfileFormProvider = ({
         editingRole,
         isSubmitting,
         loadingProfile,
+        therapistId,
         openForm,
         closeForm,
         submitProfile,

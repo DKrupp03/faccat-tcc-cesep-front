@@ -5,6 +5,7 @@ import type { Profile, ProfileRole, ProfilesFilter, ProfilesOrder } from "../typ
 
 export type ProfilesListContextType = {
   module: ModuleKey;
+  therapistId?: number;
   profileRole: ProfileRole;
   profiles: Profile[];
   total: number;

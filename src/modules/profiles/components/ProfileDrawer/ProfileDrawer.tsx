@@ -68,8 +68,8 @@ export const ProfileDrawer = () => {
 
   const content = useMemo(() => {
     if (tab === "form") return <ProfileForm />;
-    if (tab === "patients") return <ProfilePatients />;
-  }, [tab]);
+    if (tab === "patients") return <ProfilePatients therapistId={profile?.id as number} />;
+  }, [tab, profile?.id]);
 
   const footer = useMemo(() => {
     if (tab === "form") return <ProfileFormOptions />;
@@ -105,7 +105,7 @@ export const ProfileDrawer = () => {
     return (
       <ProfilesListProvider
         module="patients"
-        fixedParams={{ therapist_id: profile?.id }}
+        therapistId={profile?.id}
       >
         {drawer}
       </ProfilesListProvider>

@@ -8,6 +8,7 @@ export type ProfilesFormContextType = {
   editingRole: ProfileRole | undefined;
   isSubmitting: boolean;
   loadingProfile: boolean;
+  therapistId?: number;
   openForm: (role: ProfileRole, profileId?: number) => void;
   closeForm: () => void;
   submitProfile: (values: Partial<Profile>) => void;

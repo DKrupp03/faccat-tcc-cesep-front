@@ -55,7 +55,7 @@ export const CommonDrawer = ({
 
   const footerContent = useMemo(() => (
     <Flex
-      justify="end" gap={12}
+      justify="end" align="center" gap={12}
       className={styles.footer}
     >
       {footer}

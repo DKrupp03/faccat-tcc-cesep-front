@@ -5,7 +5,11 @@ import { useProfilesList } from "../../hooks/useProfilesList";
 import { ProfilesTable } from "../ProfilesTable/ProfilesTable";
 import { ProfilesHeader } from "../ProfilesHeader/ProfilesHeader";
 
-export const ProfilePatients = () => {
+type ProfilePatientsProps = {
+  therapistId: number;
+};
+
+export const ProfilePatients = ({ therapistId }: ProfilePatientsProps) => {
   const { filtratePanel, profileFormCallback } = useProfilesList();
 
   useEffect(() => {
@@ -14,7 +18,10 @@ export const ProfilePatients = () => {
   }, []);
 
   return (
-    <ProfileFormProvider afterSaveCallback={profileFormCallback}>
+    <ProfileFormProvider
+      afterSaveCallback={profileFormCallback}
+      therapistId={therapistId}
+    >
       <ProfilesTable />
     </ProfileFormProvider>
   );

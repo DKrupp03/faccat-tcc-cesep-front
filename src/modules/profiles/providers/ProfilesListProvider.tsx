@@ -10,13 +10,13 @@ import type { ProfilesFilter, ProfilesOrder, ProfileRole, Profile } from "../typ
 
 type ProfilesListProviderProps = {
   module: ModuleKey;
-  fixedParams?: Partial<ProfilesFilter>;
+  therapistId?: number;
   children: React.ReactNode;
 };
 
 export const ProfilesListProvider = ({
   module,
-  fixedParams,
+  therapistId,
   children,
 }: ProfilesListProviderProps) => {
   const { t } = useTranslation();
@@ -31,8 +31,8 @@ export const ProfilesListProvider = ({
     active: 1,
     role: profileRole,
     payment_status: "all",
-    ...fixedParams,
-  }), [profileRole, fixedParams]);
+    therapist_id: therapistId,
+  }), [profileRole, therapistId]);
 
   const [profiles, setProfiles] = useState<Profile[]>([]);
   const [total, setTotal] = useState<number>(0);
@@ -50,7 +50,10 @@ export const ProfilesListProvider = ({
     newOrderBy: ProfilesOrder = orderBy,
     newPage: number = 1,
   ) => {
-    const effectiveFilter = fixedParams ? { ...newFilter, ...fixedParams } : newFilter;
+    const effectiveFilter = therapistId
+      ? { ...newFilter, therapist_id: therapistId }
+      : newFilter;
+
     setFilter(effectiveFilter);
     setOrderBy(newOrderBy);
     setPage(newPage);
@@ -87,7 +90,7 @@ export const ProfilesListProvider = ({
       setLoadingMore(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [t, fixedParams]);
+  }, [t, therapistId]);
 
   const profileFormCallback = useCallback((
     operation: "create" | "update" | "delete",
@@ -117,6 +120,7 @@ export const ProfilesListProvider = ({
     <ProfilesListContext.Provider
       value={{
         module,
+        therapistId,
         profileRole,
         profiles,
         total,

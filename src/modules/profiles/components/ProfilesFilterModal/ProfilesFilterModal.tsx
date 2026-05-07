@@ -9,11 +9,13 @@ import { CommonSelect } from "@/shared/components/CommonSelect/CommonSelect";
 import { CommonTextInput } from "@/shared/components/CommonTextInput/CommonTextInput";
 
 import { useProfilesFilter } from "../../hooks/useProfilesFilter";
+import { useProfilesList } from "../../hooks/useProfilesList";
 import { ProfilesSelect } from "../ProfilesSelect/ProfilesSelect";
 import styles from "./ProfilesFilterModal.module.css";
 
 export const ProfilesFilterModal = () => {
   const { t } = useTranslation();
+  const { therapistId } = useProfilesList();
   const {
     module,
     isFilterOpen,
@@ -68,7 +70,10 @@ export const ProfilesFilterModal = () => {
               name={module === "patients" ? "therapist_id" : "patient_id"}
               noStyle
             >
-              <ProfilesSelect role={module === "patients" ? "therapist" : "patient"} />
+              <ProfilesSelect
+                role={module === "patients" ? "therapist" : "patient"}
+                disabled={!!therapistId}
+              />
             </Form.Item>
           </Col>
           {module === "patients" && (
