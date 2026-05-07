@@ -25,7 +25,7 @@ export const CommonDrawer = ({
   close,
   header,
   footer,
-  width = "90%",
+  width = "85%",
   showTabs = false,
   children,
   ...props

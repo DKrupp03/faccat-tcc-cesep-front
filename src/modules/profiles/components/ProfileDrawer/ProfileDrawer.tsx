@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useState, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import {
   IconEdit,
@@ -15,10 +15,17 @@ import { ProfilesListProvider } from "../../providers/ProfilesListProvider";
 import { useProfileDrawer } from "../../hooks/useProfileDrawer";
 import { ProfileForm, ProfileFormOptions } from "../ProfileForm/ProfileForm";
 import { ProfilePatients, ProfilePatientsOptions } from "../ProfilePatients/ProfilePatients";
+import type { ProfileRole } from "../../types/profile";
 
 export const ProfileDrawer = () => {
   const { t } = useTranslation();
   const { isFormOpen, profile, editingRole, tab, handleClose, handleChangeTab } = useProfileDrawer();
+
+  const [openPatientForm, setOpenPatientForm] = useState<(() => void) | undefined>();
+
+  const handlePatientsOpenFormReady = useCallback((openForm: (role: ProfileRole) => void) => {
+    setOpenPatientForm(() => () => openForm("patient"));
+  }, []);
 
   const tabs = useMemo(() => ([
     {
@@ -63,13 +70,19 @@ export const ProfileDrawer = () => {
   ]), [t, editingRole, profile?.id]);
 
   const header = useMemo(() => {
-    if (tab === "patients") return <ProfilePatientsOptions />;
-  }, [tab]);
+    if (tab === "patients") return <ProfilePatientsOptions onCreateClick={openPatientForm} />;
+  }, [tab, openPatientForm]);
 
   const content = useMemo(() => {
     if (tab === "form") return <ProfileForm />;
-    if (tab === "patients") return <ProfilePatients therapistId={profile?.id as number} />;
-  }, [tab, profile?.id]);
+
+    if (tab === "patients") return (
+      <ProfilePatients
+        therapistId={profile?.id as number}
+        onOpenFormReady={handlePatientsOpenFormReady}
+      />
+    );
+  }, [tab, profile?.id, handlePatientsOpenFormReady]);
 
   const footer = useMemo(() => {
     if (tab === "form") return <ProfileFormOptions />;

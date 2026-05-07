@@ -16,7 +16,11 @@ import type { ProfilesOrder } from "../../types/profile";
 import { useProfilesList } from "../../hooks/useProfilesList";
 import { useProfilesForm } from "../../hooks/useProfilesForm";
 
-export const ProfilesHeader = () => {
+type ProfilesHeaderProps = {
+  onCreateClick?: () => void;
+};
+
+export const ProfilesHeader = ({ onCreateClick }: ProfilesHeaderProps = {}) => {
   const { t } = useTranslation();
   const { profileRole, module, openFilter, filtratePanel, orderBy, filter } = useProfilesList();
   const { openForm } = useProfilesForm();
@@ -61,7 +65,7 @@ export const ProfilesHeader = () => {
       </Tooltip>
       <Tooltip title={t(`profiles.${module}.actions.create`)}>
         <CommonButton
-          onClick={() => openForm(profileRole)}
+          onClick={onCreateClick ?? (() => openForm(profileRole))}
           icon={<IconPlus size={18} />}
           size="large"
           buttonVariant="primary"
