@@ -44,8 +44,10 @@ export const CommonDrawer = ({
       <Title level={5}>
         {title}
       </Title>
-      <Flex gap={8}>
-        {header}
+      <Flex align="center" gap={12}>
+        <Flex gap={8}>
+          {header}
+        </Flex>
         <CommonCloseButton onClick={close} />
       </Flex>
     </Flex>

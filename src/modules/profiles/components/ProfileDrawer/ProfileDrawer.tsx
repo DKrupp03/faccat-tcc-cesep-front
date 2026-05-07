@@ -62,21 +62,25 @@ export const ProfileDrawer = () => {
     },
   ]), [t, editingRole, profile?.id]);
 
-  const footer = useMemo(() => {
-    if (tab === "form") return <ProfileFormOptions />;
+  const header = useMemo(() => {
     if (tab === "patients") return <ProfilePatientsOptions />;
   }, [tab]);
 
   const content = useMemo(() => {
     if (tab === "form") return <ProfileForm />;
-    if (tab === "patients" && editingRole === "therapist") return <ProfilePatients />;
-  }, [tab, editingRole]);
+    if (tab === "patients") return <ProfilePatients />;
+  }, [tab]);
+
+  const footer = useMemo(() => {
+    if (tab === "form") return <ProfileFormOptions />;
+  }, [tab]);
 
   const drawer = useMemo(() => (
     <CommonDrawer
       isOpen={isFormOpen}
       close={handleClose}
       title={t(`profiles.tabs.${tab}`)}
+      header={header}
       footer={footer}
       tabs={tabs}
       activeTab={tab}
@@ -90,6 +94,7 @@ export const ProfileDrawer = () => {
     handleClose,
     t,
     tab,
+    header,
     footer,
     tabs,
     handleChangeTab,

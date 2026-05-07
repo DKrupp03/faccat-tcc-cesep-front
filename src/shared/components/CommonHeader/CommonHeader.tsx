@@ -6,12 +6,12 @@ const { Title } = Typography;
 
 type CommonHeaderProps = {
   title: string;
-  buttons?: React.ReactNode[];
+  children?: React.ReactNode;
 };
 
 export const CommonHeader = ({
   title,
-  buttons,
+  children,
 }: CommonHeaderProps) => {
   return (
     <Flex
@@ -22,13 +22,9 @@ export const CommonHeader = ({
         {title}
       </Title>
 
-      {buttons && (
-        <Flex gap={8}>
-          {buttons.map((button) => (
-            button
-          ))}
-        </Flex>
-      )}
+      <Flex gap={8}>
+        {children}
+      </Flex>
     </Flex>
   );
 };

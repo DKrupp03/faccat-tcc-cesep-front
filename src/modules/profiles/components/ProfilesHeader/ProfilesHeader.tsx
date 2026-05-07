@@ -9,7 +9,6 @@ import {
   IconSortDescendingLetters,
 } from "@tabler/icons-react";
 
-import { CommonHeader } from "@/shared/components/CommonHeader/CommonHeader";
 import { CommonButton } from "@/shared/components/CommonButton/CommonButton";
 import { CommonOrderButton } from "@/shared/components/CommonOrderButton/CommonOrderButton";
 import type { ProfilesOrder } from "../../types/profile";
@@ -36,42 +35,39 @@ export const ProfilesHeader = () => {
   ]), [t]);
 
   return (
-    <CommonHeader
-      title={t(`common.modules.${module}`)}
-      buttons={[
-        <CommonOrderButton
-          value={orderBy}
-          onChange={(newOrderBy) => filtratePanel(filter, newOrderBy as ProfilesOrder)}
-          options={profilesOrderOptions}
-        />,
-        <Tooltip title={t("common.actions.reload")}>
-          <CommonButton
-            onClick={() => filtratePanel()}
-            icon={<IconReload size={18} />}
-            size="large"
-            circular
-            outline
-          />
-        </Tooltip>,
-        <Tooltip title={t("common.actions.filtrate")}>
-          <CommonButton
-            onClick={openFilter}
-            icon={<IconFilter size={18} />}
-            size="large"
-            circular
-            outline
-          />
-        </Tooltip>,
-        <Tooltip title={t(`profiles.${module}.actions.create`)}>
-          <CommonButton
-            onClick={() => openForm(profileRole)}
-            icon={<IconPlus size={18} />}
-            size="large"
-            buttonVariant="primary"
-            circular
-          />
-        </Tooltip>,
-      ]}
-    />
+    <>
+      <CommonOrderButton
+        value={orderBy}
+        onChange={(newOrderBy) => filtratePanel(filter, newOrderBy as ProfilesOrder)}
+        options={profilesOrderOptions}
+      />
+      <Tooltip title={t("common.actions.reload")}>
+        <CommonButton
+          onClick={() => filtratePanel()}
+          icon={<IconReload size={18} />}
+          size="large"
+          circular
+          outline
+        />
+      </Tooltip>
+      <Tooltip title={t("common.actions.filtrate")}>
+        <CommonButton
+          onClick={openFilter}
+          icon={<IconFilter size={18} />}
+          size="large"
+          circular
+          outline
+        />
+      </Tooltip>
+      <Tooltip title={t(`profiles.${module}.actions.create`)}>
+        <CommonButton
+          onClick={() => openForm(profileRole)}
+          icon={<IconPlus size={18} />}
+          size="large"
+          buttonVariant="primary"
+          circular
+        />
+      </Tooltip>
+    </>
   );
 };

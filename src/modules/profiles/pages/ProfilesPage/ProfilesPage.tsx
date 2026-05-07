@@ -1,8 +1,10 @@
 import { useEffect } from "react";
 import { Flex } from "antd";
+import { useTranslation } from "react-i18next";
 
 import { useModules } from "@/shared/hooks/useModules";
 import { type ModuleKey } from "@/shared/contexts/ModulesContext";
+import { CommonHeader } from "@/shared/components/CommonHeader/CommonHeader";
 
 import { ProfilesProvider } from "../../providers/ProfilesProvider";
 import { useProfilesList } from "../../hooks/useProfilesList";
@@ -24,6 +26,7 @@ const ProfilesPage = ({ module }: ProfilesPageProps) => {
 };
 
 const ProfilesPanel = ({ module }: ProfilesPageProps) => {
+  const { t } = useTranslation();
   const { changeActiveModule } = useModules();
   const { filtratePanel } = useProfilesList();
 
@@ -38,7 +41,10 @@ const ProfilesPanel = ({ module }: ProfilesPageProps) => {
   return (
     <>
       <Flex vertical className={styles.panel}>
-        <ProfilesHeader />
+        <CommonHeader title={t(`common.modules.${module}`)}>
+          <ProfilesHeader />
+        </CommonHeader>
+
         <Flex vertical gap={24} className={styles.body}>
           <ProfilesHeaderCards />
           <ProfilesTable />
