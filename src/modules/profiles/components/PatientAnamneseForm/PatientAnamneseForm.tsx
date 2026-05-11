@@ -7,6 +7,7 @@ import type { AnamneseType } from "../../types/anamnese";
 import { GeneralDataForm } from "./components/GeneralDataForm/GeneralDataForm";
 import { IdentificationDataForm } from "./components/IdentificationDataForm/IdentificationDataForm";
 import { FamilyForm } from "./components/FamilyForm/FamilyForm";
+import { ReasonForm } from "./components/ReasonForm/ReasonForm";
 import styles from "./PatientAnamneseForm.module.css";
 
 export const PatientAnamneseForm = () => {
@@ -53,6 +54,9 @@ export const PatientAnamneseForm = () => {
       <Divider />
 
       <FamilyForm />
+      <Divider />
+
+      <ReasonForm />
       <Divider />
     </Form>
   );

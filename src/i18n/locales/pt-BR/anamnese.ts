@@ -49,6 +49,14 @@ const anamnese = {
     "liveWith": "Com quem reside?",
     "genome": "Genograma (recomendável – com três gerações)",
   },
+
+  "reason": {
+    "title": "Motivo",
+    "mainComplaint": "Queixa principal",
+    "evolution": "Evolução da queixa",
+    "effects": "Efeitos da queixa sobre o funcionamento presente",
+    "feeling": "Como o paciente se sente em relação à queixa",
+  },
 } as const;
 
 export default anamnese;

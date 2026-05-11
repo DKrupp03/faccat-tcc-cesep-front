@@ -41,7 +41,7 @@ export type AnemneseFamilyType = {
 export type AnemneseReasonType = {
   mainComplaint: string;
   evolution: string;
-  effect: string;
+  effects: string;
   feeling: string;
 };
 
