@@ -1,27 +1,22 @@
-import { Form, Skeleton, Divider } from "antd";
-import { useTranslation } from "react-i18next";
-
+import { useEffect } from "react";
+import { Form } from "antd";
 
 import { useProfileForm } from "../../hooks/useProfileForm";
-import type{ AnamneseDataType } from "../../types/anamnese";
+import type { AnamneseType } from "../../types/anamnese";
+import { GeneralDataForm } from "./components/GeneralDataForm/GeneralDataForm";
 import styles from "./PatientAnamneseForm.module.css";
 
 export const PatientAnamneseForm = () => {
-  const { t } = useTranslation();
-  const [form] = Form.useForm<Partial<AnamneseDataType>>();
-  const {
-    loadingProfile,
-  } = useProfileForm();
+  const [form] = Form.useForm<Partial<AnamneseType>>();
+  const { profile } = useProfileForm();
 
-  if (loadingProfile) {
-    return (
-      <Skeleton
-        className={styles.form}
-        paragraph={{ rows: 8 }}
-        active
-      />
-    );
-  }
+  useEffect(() => {
+    if (profile?.anamnese) {
+      form.setFieldsValue(profile.anamnese);
+    } else {
+      form.resetFields();
+    }
+  }, [profile?.anamnese]);
 
   return (
     <Form
@@ -30,10 +25,15 @@ export const PatientAnamneseForm = () => {
       layout="vertical"
       requiredMark={false}
       onFinish={() => {}}
-      initialValues={{}}
+      initialValues={{
+        anamnese_type: "child",
+        patient_id: profile?.id,
+        therapist_id: profile?.therapist_id,
+        created_at: new Date().toISOString(),
+      }}
       className={styles.form}
     >
-      anamnese
+      <GeneralDataForm />
     </Form>
   );
 };

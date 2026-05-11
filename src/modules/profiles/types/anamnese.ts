@@ -221,10 +221,13 @@ export type AnamneseDataType = {
 };
 
 export type AnamneseType = {
+  id: number;
   anamnese_type: AnamneseProfileType;
   anamnese_data: AnamneseDataType;
   observations: string;
-  patient: Profile;
-  therapist: Profile;
+  patient_id: number;
+  therapist_id: number;
   created_at: string;
+  patient?: Profile;
+  therapist?: Profile;
 };

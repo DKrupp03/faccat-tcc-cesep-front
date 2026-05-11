@@ -10,11 +10,17 @@ import { useProfilesOperations } from "../../hooks/useProfilesOperations";
 
 type ProfilesSelectProps = Omit<SelectProps, "options"> & {
   role: "patient" | "therapist";
+  label?: string;
   required?: boolean;
   showHelp?: boolean;
 };
 
-export const ProfilesSelect: React.FC<ProfilesSelectProps> = ({ role, showHelp, ...props }) => {
+export const ProfilesSelect: React.FC<ProfilesSelectProps> = ({
+  role,
+  showHelp,
+  label,
+  ...props
+}) => {
   const { t } = useTranslation();
   const { fetchProfiles } = useProfilesOperations();
 
@@ -42,7 +48,7 @@ export const ProfilesSelect: React.FC<ProfilesSelectProps> = ({ role, showHelp, 
 
   return (
     <CommonSelect
-      label={t(`common.columns.${role}`)}
+      label={label || t(`common.columns.${role}`)}
       options={options}
       icon={showHelp ? <CommonIconHelp text={t("profiles.help.defaultValue")} /> : undefined}
       allowClear

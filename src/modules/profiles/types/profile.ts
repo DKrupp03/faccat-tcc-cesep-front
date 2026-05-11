@@ -1,6 +1,7 @@
 import type { CommonResponse, CommonPanelResponse } from "@/shared/types/common";
 import type { BasicUser } from "./user";
 import type { PaymentStatus } from "@/modules/payments/types/payment";
+import type { AnamneseType } from "./anamnese";
 
 export type ProfileGender = "male" | "female" | "other";
 
@@ -63,6 +64,7 @@ export type Profile = {
   payment_status?: PaymentStatus;
   last_service?: string;
   user: BasicUser;
+  anamnese?: AnamneseType;
 };
 
 export type ProfileResponse = CommonResponse & {
