@@ -1,6 +1,17 @@
-import type { Profile, ProfileEducationLevel, ProfileMaritalStatus } from "./profile";
+import type { Profile, ProfileGender, ProfileEducationLevel, ProfileMaritalStatus } from "./profile";
 
 export type AnamneseProfileType = "child" | "adolescent" | "adult";
+
+export type AnamneseIdentificationDataType = {
+  name: string;
+  informant: string;
+  birth: string;
+  age: number;
+  gender: ProfileGender;
+  educationLevel: ProfileEducationLevel;
+  maritalStatus: ProfileMaritalStatus;
+  relationStatus: "single" | "dating";
+};
 
 export type AnemneseFamilyType = {
   responsibles: {
@@ -201,6 +212,7 @@ export type AnamneseForInterviewerType = {
 };
 
 export type AnamneseDataType = {
+  identificationData: AnamneseIdentificationDataType;
   family: AnemneseFamilyType;
   reason: AnemneseReasonType;
   previousHistory: AnamnesePreviousHistoryType;

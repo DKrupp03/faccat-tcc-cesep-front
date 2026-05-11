@@ -15,6 +15,7 @@ type CommonCollapseProps = {
   initialOpen?: boolean;
   extra?: React.ReactNode;
   extraPlacement?: "start" | "end";
+  expandIconPlacement?: "start" | "end";
   hideExpandButton?: boolean;
 };
 
@@ -26,9 +27,10 @@ export const CommonCollapse = ({
   shouldShowAddButton,
   onClickAdd,
   children,
-  initialOpen = false,
+  initialOpen = true,
   extra,
   extraPlacement = "end",
+  expandIconPlacement = "end",
   hideExpandButton = false,
 }: CommonCollapseProps) => {
   const [isCollapseOpen, setIsCollapseOpen] = useState(
@@ -60,7 +62,7 @@ export const CommonCollapse = ({
       activeKey={isCollapseOpen ? "1" : undefined}
       onChange={handleChangeCollapse}
       expandIcon={expandButton}
-      expandIconPosition="end"
+      expandIconPlacement={expandIconPlacement}
       collapsible="icon"
       items={[{
         key: 1,

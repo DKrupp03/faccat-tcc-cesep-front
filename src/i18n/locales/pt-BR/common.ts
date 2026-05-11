@@ -2,6 +2,7 @@ const common = {
   "all": "Todos",
   "myProfile": "Meu perfil",
   "noData": "Sem dados para exibir.",
+  "years": "Anos",
   
   "actions": {
     "save": "Salvar",
