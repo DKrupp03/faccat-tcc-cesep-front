@@ -1,12 +1,14 @@
 import { useMemo } from "react";
 import { Form, Row, Col } from "antd";
 import { useTranslation } from "react-i18next";
+import { IconInfoCircle } from "@tabler/icons-react";
 import dayjs from "dayjs";
 
 import { CommonSelect } from "@/shared/components/CommonSelect/CommonSelect";
 import { CommonDatePicker } from "@/shared/components/CommonDatePicker";
 import { CommonCollapse } from "@/shared/components/CommonCollapse/CommonCollapse";
 import { CommonTextInput } from "@/shared/components/CommonTextInput/CommonTextInput";
+import { COLORS } from "@/shared/theme";
 
 import { getGenderOptions, getMaritalStatusOptions, getEducationLevelOptions } from "@/modules/profiles/utils/form";
 
@@ -25,7 +27,11 @@ export const IdentificationDataForm = () => {
   ]), [t]);
 
   return (
-    <CommonCollapse title={t("anamnese.identificationData.title")} expandIconPlacement="start">
+    <CommonCollapse
+      title={t("anamnese.identificationData.title")}
+      icon={<IconInfoCircle size={16} color={COLORS.grey70} />}
+      initialOpen={false}
+    >
       <Row gutter={16}>
         <Col span={12}>
           <Form.Item name={["anamnese_data", "identificationData", "name"]}>

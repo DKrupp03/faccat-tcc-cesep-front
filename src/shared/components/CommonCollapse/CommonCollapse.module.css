@@ -1,9 +1,13 @@
-.content {
-  margin-top: 12px;
-}
-
 .iconContainer {
   padding: 6px;
   border-radius: 100%;
   background-color: var(--color-grey30);
+}
+
+.collapse :global(.ant-collapse-header) {
+  height: 24px !important;
+}
+
+.collapseWithIcon :global(.ant-collapse-header) {
+  height: 32px !important;
 }

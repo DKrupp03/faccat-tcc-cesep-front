@@ -3,6 +3,8 @@ const common = {
   "myProfile": "Meu perfil",
   "noData": "Sem dados para exibir.",
   "years": "Anos",
+  "yes": "Sim",
+  "no": "Não",
   
   "actions": {
     "save": "Salvar",

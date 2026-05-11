@@ -30,6 +30,7 @@ export type AnemneseFamilyType = {
     age: number;
   }[];
   spouse: {
+    has: 0 | 1;
     name: string;
     age: number;
   };
@@ -46,13 +47,13 @@ export type AnemneseReasonType = {
 
 export type AnamnesePreviousHistoryType = {
   gestation: {
-    planned: boolean;
-    desired: boolean;
-    prenatal: boolean;
+    planned: 0 | 1;
+    desired: 0 | 1;
+    prenatal: 0 | 1;
     motherConditions: string;
   };
   abortions: {
-    happened: boolean;
+    happened: 0 | 1;
     howMany: number;
     cause: string;
   };

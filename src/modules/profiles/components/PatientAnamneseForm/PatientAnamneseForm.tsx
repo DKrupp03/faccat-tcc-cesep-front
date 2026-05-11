@@ -1,11 +1,12 @@
 import { useEffect } from "react";
-import { Form } from "antd";
+import { Form, Divider } from "antd";
 import dayjs from "dayjs";
 
 import { useProfileForm } from "../../hooks/useProfileForm";
 import type { AnamneseType } from "../../types/anamnese";
 import { GeneralDataForm } from "./components/GeneralDataForm/GeneralDataForm";
 import { IdentificationDataForm } from "./components/IdentificationDataForm/IdentificationDataForm";
+import { FamilyForm } from "./components/FamilyForm/FamilyForm";
 import styles from "./PatientAnamneseForm.module.css";
 
 export const PatientAnamneseForm = () => {
@@ -46,7 +47,13 @@ export const PatientAnamneseForm = () => {
       className={styles.form}
     >
       <GeneralDataForm />
+      <Divider />
+
       <IdentificationDataForm />
+      <Divider />
+
+      <FamilyForm />
+      <Divider />
     </Form>
   );
 };

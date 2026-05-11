@@ -59,6 +59,7 @@ export const CommonCollapse = ({
   return (
     <Collapse
       ghost
+      className={icon ? styles.collapseWithIcon : styles.collapse}
       activeKey={isCollapseOpen ? "1" : undefined}
       onChange={handleChangeCollapse}
       expandIcon={expandButton}
@@ -110,6 +111,7 @@ export const CommonCollapse = ({
           },
           body: {
             padding: 0,
+            paddingTop: 16,
           },
         },
       }]}

@@ -56,6 +56,9 @@ export const antdTheme = {
       controlHeight: 40,
       controlHeightSM: 32,
     },
+    Form: {
+      itemMarginBottom: 16,
+    },
     Select: {
       colorBorder: COLORS.grey30,
       colorPrimary: COLORS.grey70,
