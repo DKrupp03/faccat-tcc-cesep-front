@@ -15,6 +15,7 @@ import { ProfilesListProvider } from "../../providers/ProfilesListProvider";
 import { useProfileDrawer } from "../../hooks/useProfileDrawer";
 import { ProfileForm, ProfileFormOptions } from "../ProfileForm/ProfileForm";
 import { ProfilePatients, ProfilePatientsOptions } from "../ProfilePatients/ProfilePatients";
+import { PatientAnamneseForm } from "../PatientAnamneseForm/PatientAnamneseForm";
 import type { ProfileRole } from "../../types/profile";
 
 export const ProfileDrawer = () => {
@@ -82,6 +83,8 @@ export const ProfileDrawer = () => {
         onOpenFormReady={handlePatientsOpenFormReady}
       />
     );
+
+    if (tab === "anamnese") return <PatientAnamneseForm />;
   }, [tab, profile?.id, handlePatientsOpenFormReady]);
 
   const footer = useMemo(() => {
