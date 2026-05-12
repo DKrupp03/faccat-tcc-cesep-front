@@ -1,6 +1,9 @@
 import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { Form, Divider } from "antd";
 import dayjs from "dayjs";
+
+import { CommonButton } from "@/shared/components/CommonButton/CommonButton";
 
 import { useProfileForm } from "../../hooks/useProfileForm";
 import type { AnamneseType } from "../../types/anamnese";
@@ -144,3 +147,20 @@ export const PatientAnamneseForm = () => {
   );
 };
 
+export const PatientAnamneseFormOptions = () => {
+  const { t } = useTranslation();
+  const { profile } = useProfileForm();
+
+  return (
+    <>
+      <CommonButton
+        htmlType="submit"
+        form="anamnese-form"
+        buttonVariant="primary"
+        // loading={isSubmitting}
+      >
+        {t("common.actions.save")}
+      </CommonButton>
+    </>
+  );
+};
