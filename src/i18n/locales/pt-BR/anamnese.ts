@@ -43,6 +43,7 @@ const anamnese = {
     },
     "spouse": {
       "title": "Cônjuge",
+      "has": "Possui?",
       "name": "Nome",
       "age": "Idade",
     },
@@ -56,6 +57,42 @@ const anamnese = {
     "evolution": "Evolução da queixa",
     "effects": "Efeitos da queixa sobre o funcionamento presente",
     "feeling": "Como o paciente se sente em relação à queixa",
+  },
+
+  "previousHistory": {
+    "title": "História prévia",
+    "adultInfo": {
+      "notableEvents": "Gestação (eventos marcantes)",
+      "development": "Desenvolvimento (aspectos marcantes, anormalidades)",
+      "schoolJourney": "Percurso escolar",
+      "socialRelations": "Relações sociais",
+      "hospitalizations": "Hospitalizações/cirurgias",
+    },
+    "gestation": {
+      "title": "Gestação",
+      "planned": "Planejada?",
+      "desired": "Desejada?",
+      "prenatal": "Pré-Natal?",
+      "motherConditions": "Condições de saúde da mãe",
+    },
+    "abortions": {
+      "title": "Abortos",
+      "happened": "Ocorreu?",
+      "howMany": "Quantos?",
+      "cause": "Causa?",
+    },
+    "childbirth": {
+      "title": "Parto",
+      "type": "Tipo",
+      "types": {
+        "normal": "Normal",
+        "cesarian": "Cesárea",
+      },
+      "weeks": "Quantas semanas?",
+      "apgar": "Apgar",
+      "parentsReaction": "Reação dos pais ao ver o bebê",
+      "postpartumDepression": "Investigar depressão pós-parto (se ocorreu)",
+    },
   },
 } as const;
 

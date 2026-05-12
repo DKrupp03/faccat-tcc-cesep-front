@@ -55,3 +55,25 @@ export const decimalMask = (value: string) => {
   const decPart = number % 100;
   return `${intPart},${String(decPart).padStart(2, "0")}`;
 };
+
+export const apgarMask = (value: string) => {
+  const digits = value.replace(/\D/g, "").slice(0, 4);
+  if (digits.length === 0) return "";
+
+  // first slot: "10" consumes 2 digits, anything else consumes 1
+  const firstIsTen = digits.slice(0, 2) === "10";
+  const firstEnd = firstIsTen ? 2 : 1;
+  const first = digits.slice(0, firstEnd);
+
+  if (digits.length <= firstEnd) return `(${first}`;
+
+  const remaining = digits.slice(firstEnd);
+  const secondIsTen = remaining.slice(0, 2) === "10";
+  const secondEnd = secondIsTen ? 2 : 1;
+  const second = remaining.slice(0, secondEnd);
+  const secondComplete = second.length === secondEnd;
+
+  return secondComplete
+    ? `(${first}) → (${second})`
+    : `(${first}) → (${second}`;
+};

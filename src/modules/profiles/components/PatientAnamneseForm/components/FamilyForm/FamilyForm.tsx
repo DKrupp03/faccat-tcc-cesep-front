@@ -11,7 +11,7 @@ import { CommonGroupButtons } from "@/shared/components/CommonGroupButtons/Commo
 import { COLORS } from "@/shared/theme";
 
 import { getMaritalStatusOptions, getEducationLevelOptions } from "@/modules/profiles/utils/form";
-import style from "./FamilyForm.module.css";
+import { SectionsCard } from "../SectionsCard/SectionsCard";
 
 const { Text } = Typography;
 
@@ -31,7 +31,7 @@ export const FamilyForm = () => {
     >
       {anamneseType !== "adult" && (
         <Flex gap={16}>
-          <div className={style.card} style={{ marginTop: 4 }}>
+          <SectionsCard style={{ marginTop: 4 }}>
             <Form.List name={["anamnese_data", "family", "responsibles"]}>
               {(fields, { add, remove }) => (
                 <CommonCollapse
@@ -91,13 +91,13 @@ export const FamilyForm = () => {
                 </CommonCollapse>
               )}
             </Form.List>
-          </div>
+          </SectionsCard>
         </Flex>
       )}
 
       <Flex gap={16}>
         {anamneseType !== "adult" && (
-          <div className={style.card}>
+          <SectionsCard>
             <Form.List name={["anamnese_data", "family", "brothers"]}>
               {(fields, { add, remove }) => (
                 <CommonCollapse
@@ -136,10 +136,10 @@ export const FamilyForm = () => {
                 </CommonCollapse>
               )}
             </Form.List>
-          </div>
+          </SectionsCard>
         )}
 
-        <div className={style.card}>
+        <SectionsCard>
           <Form.List name={["anamnese_data", "family", "children"]}>
             {(fields, { add, remove }) => (
               <CommonCollapse
@@ -178,17 +178,17 @@ export const FamilyForm = () => {
               </CommonCollapse>
             )}
           </Form.List>
-        </div>
+        </SectionsCard>
       </Flex>
 
       {anamneseType === "adult" && (
-        <div className={style.card}>
+        <SectionsCard>
           <CommonCollapse title={t("anamnese.family.spouse.title")}>
             <Row gutter={16}>
-              <Col span={4}>
-                <Flex align="center" className={style.rowHeight}>
+              <Col span={5}>
+                <Flex align="center" style={{ height: 44 }}>
                   <Form.Item name={["anamnese_data", "family", "spouse", "has"]} noStyle>
-                    <CommonGroupButtons>
+                    <CommonGroupButtons label={t("anamnese.family.spouse.has")}>
                       <CommonGroupButtons.Button value={1}>
                         {t("common.yes")}
                       </CommonGroupButtons.Button>
@@ -204,14 +204,14 @@ export const FamilyForm = () => {
                   <CommonTextInput label={t("anamnese.family.spouse.name")} />
                 </Form.Item>
               </Col>
-              <Col span={10}>
+              <Col span={9}>
                 <Form.Item name={["anamnese_data", "family", "spouse", "age"]}>
                   <CommonTextInput label={t("anamnese.family.spouse.age")} />
                 </Form.Item>
               </Col>
             </Row>
           </CommonCollapse>
-        </div>
+        </SectionsCard>
       )}
 
       <Row gutter={16}>

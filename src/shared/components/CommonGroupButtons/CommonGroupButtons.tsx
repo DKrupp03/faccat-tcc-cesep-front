@@ -1,11 +1,13 @@
 /* eslint-disable react-refresh/only-export-components */
 import React, { createContext, useContext } from "react";
-import { Flex } from "antd";
+import { Flex, Typography } from "antd";
 
 import { CommonButton, type CommonButtonProps } from "../CommonButton/CommonButton";
 import { COLORS } from "@/shared/theme";
 
 import styles from "./CommonGroupButtons.module.css";
+
+const { Text } = Typography;
 
 type GroupContextValue = {
   value?: string | number;
@@ -18,6 +20,7 @@ type GroupProps = {
   value?: string | number;
   onChange?: (value: string | number) => void;
   children: React.ReactNode;
+  label?: string;
 };
 
 type ButtonProps = Omit<CommonButtonProps, "outline" | "onClick"> & {
@@ -47,13 +50,18 @@ const Button: React.FC<ButtonProps> = ({ value, children, ...buttonProps }) => {
   );
 };
 
-const CommonGroupButtonsBase: React.FC<GroupProps> = ({ value, onChange, children }) => {
+const CommonGroupButtonsBase: React.FC<GroupProps> = ({ value, onChange, children, label }) => {
   return (
-    <GroupContext.Provider value={{ value, onChange }}>
-      <Flex className={styles.group}>
-        {children}
-      </Flex>
-    </GroupContext.Provider>
+    <Flex align="center" gap={16} className={styles.container}>
+      {label && (
+        <Text className={styles.label}>{label}</Text>
+      )}
+      <GroupContext.Provider value={{ value, onChange }}>
+        <Flex className={styles.group}>
+          {children}
+        </Flex>
+      </GroupContext.Provider>
+    </Flex>
   );
 };
 
