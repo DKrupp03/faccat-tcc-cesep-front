@@ -10,6 +10,8 @@ import { FamilyForm } from "./components/FamilyForm/FamilyForm";
 import { ReasonForm } from "./components/ReasonForm/ReasonForm";
 import { PreviousHistoryForm } from "./components/PreviousHistoryForm/PreviousHistoryForm";
 import { DevelopmentForm } from "./components/DevelopmentForm/DevelopmentForm";
+import { SchoolHistoryForm } from "./components/SchoolHistoryForm/SchoolHistoryForm";
+import { OccupationHistoryForm } from "./components/OccupationHistoryForm/OccupationHistoryForm";
 import { PubertyForm } from "./components/PubertyForm/PubertyForm";
 import { AdulthoodForm } from "./components/AdulthoodForm/AdulthoodForm";
 import { MatureAgeForm } from "./components/MatureAgeForm/MatureAgeForm";
@@ -73,6 +75,16 @@ export const PatientAnamneseForm = () => {
         <>
           <DevelopmentForm />
           <Divider />
+
+          <SchoolHistoryForm />
+          <Divider />
+
+          {anamneseType === "adolescent" && (
+            <>
+              <OccupationHistoryForm />
+              <Divider />
+            </>
+          )}
         </>
       )}
 

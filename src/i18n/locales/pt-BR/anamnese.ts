@@ -136,6 +136,19 @@ const anamnese = {
     "adversities": "Crises, adversidades e outras situações críticas e estressantes ao longo da vida (como foi o enfrentamento?)",
     "aging": "Aspectos do envelhecimento e perdas ao longo da vida",
   },
+
+  "schoolHistory": {
+    "title": "História escolar",
+    "entry": "Como foi a entrada na escola?",
+    "difficulties": "Dificuldades",
+    "repetition": "Repetência (quantas vezes? Em qual série/ano?)",
+    "interpersonalRelationships": "Relações interpessoais na escola",
+  },
+
+  "occupationHistory": {
+    "title": "História ocupacional",
+    "jobInfos": "Caso o(a) adolescente trabalhe, obter informações sobre seu trabalho",
+  },
 } as const;
 
 export default anamnese;
