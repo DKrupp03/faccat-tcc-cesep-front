@@ -21,6 +21,8 @@ import { FamilyHistoryForm } from "./components/FamilyHistoryForm/FamilyHistoryF
 import { DomesticEnvironmentForm } from "./components/DomesticEnvironmentForm/DomesticEnvironmentForm";
 import { SocialRelationsForm } from "./components/SocialRelationsForm/SocialRelationsForm";
 import { AdolescentIssuesForm } from "./components/AdolescentIssuesForm/AdolescentIssuesForm";
+import { WeeklyRoutineForm } from "./components/WeeklyRoutineForm/WeeklyRoutineForm";
+import { ForInterviewerForm } from "./components/ForInterviewerForm/ForInterviewerForm";
 import styles from "./PatientAnamneseForm.module.css";
 
 export const PatientAnamneseForm = () => {
@@ -132,6 +134,12 @@ export const PatientAnamneseForm = () => {
           <Divider />
         </>
       )}
+
+      <WeeklyRoutineForm />
+      <Divider />
+
+      <ForInterviewerForm />
+      <Divider />
     </Form>
   );
 };

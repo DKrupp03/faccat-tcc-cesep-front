@@ -239,6 +239,17 @@ const anamnese = {
     "drugs": "Já fez uso de álcool, cigarro ou outras drogas? Quais? Com que frequência?",
     "parentsReaction": "Como os pais/responsáveis reagem diante dessas questões?",
   },
+
+  "weeklyRoutine": {
+    "title": "Rotina durante a semana e final de semana",
+    "label": "Descrição",
+  },
+
+  "forInterviewer": {
+    "title": "Para o entrevistador",
+    "relevantInfos": "Outras informações relevantes",
+    "impressions": "Relate suas impressões sobre a entrevista",
+  },
 } as const;
 
 export default anamnese;
