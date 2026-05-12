@@ -109,6 +109,33 @@ const anamnese = {
     "help": "No que precisa de ajuda?",
     "event": "Há algum evento que você ache importante relatar? (quedas, falecimentos, mudanças significativas, etc). Como foi? Quando isso aconteceu?",
   },
+
+  "puberty": {
+    "title": "Puberdade e adolescência",
+    "socialRelations": "Relações sociais",
+    "schoolHistory": "História escolar",
+    "problems": "Problemas específicos da adolescência",
+  },
+
+  "adulthood": {
+    "title": "Idade adulta",
+    "studies": "Estuda? O quê?",
+    "occupationChoice": "Escolha profissional",
+    "currentSituation": "Ocupação e situação atual",
+    "colleaguesRelationships": "Relação com colegas, chefias e ambiente de trabalho",
+    "numberOfJobs": "Número de empregos e duração (explorar motivo(s) da(s) troca(s)",
+    "jobSatisfaction": "Satisfação com o trabalho atual",
+    "intimateRelationships": "Relacionamentos íntimos, qualidade da relação, sexualidade, satisfação",
+    "friends": "Círculo de amizade (fora do trabalho)",
+    "relateAbility": "Capacidade de se relacionar, interesses sociais e intelectuais",
+  },
+
+  "matureAge": {
+    "title": "Idade madura",
+    "physicalChanges": "Alterações físicas importantes (como se sente?)",
+    "adversities": "Crises, adversidades e outras situações críticas e estressantes ao longo da vida (como foi o enfrentamento?)",
+    "aging": "Aspectos do envelhecimento e perdas ao longo da vida",
+  },
 } as const;
 
 export default anamnese;

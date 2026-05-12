@@ -10,6 +10,9 @@ import { FamilyForm } from "./components/FamilyForm/FamilyForm";
 import { ReasonForm } from "./components/ReasonForm/ReasonForm";
 import { PreviousHistoryForm } from "./components/PreviousHistoryForm/PreviousHistoryForm";
 import { DevelopmentForm } from "./components/DevelopmentForm/DevelopmentForm";
+import { PubertyForm } from "./components/PubertyForm/PubertyForm";
+import { AdulthoodForm } from "./components/AdulthoodForm/AdulthoodForm";
+import { MatureAgeForm } from "./components/MatureAgeForm/MatureAgeForm";
 import styles from "./PatientAnamneseForm.module.css";
 
 export const PatientAnamneseForm = () => {
@@ -69,6 +72,19 @@ export const PatientAnamneseForm = () => {
       {anamneseType !== "adult" && (
         <>
           <DevelopmentForm />
+          <Divider />
+        </>
+      )}
+
+      {anamneseType === "adult" && (
+        <>
+          <PubertyForm />
+          <Divider />
+
+          <AdulthoodForm />
+          <Divider />
+
+          <MatureAgeForm />
           <Divider />
         </>
       )}
