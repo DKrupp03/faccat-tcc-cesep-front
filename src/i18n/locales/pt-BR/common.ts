@@ -5,7 +5,7 @@ const common = {
   "years": "Anos",
   "yes": "Sim",
   "no": "Não",
-  
+
   "actions": {
     "save": "Salvar",
     "cancel": "Cancelar",
@@ -85,6 +85,37 @@ const common = {
     "defaultValue": "Valor padrão",
     "extra": "Observações",
     "parent": "Responsável",
+  },
+
+  "genders": {
+    "male": "Masculino",
+    "female": "Feminino",
+    "other": "Outro",
+  },
+
+  "maritalStatus": {
+    "single": "Solteiro(a)",
+    "married": "Casado(a)",
+    "divorced": "Divorciado(a)",
+    "widowed": "Viúvo(a)",
+  },
+
+  "educationLevels": {
+    "elementaryIncomplete": "Ensino Fundamental Incompleto",
+    "elementaryComplete": "Ensino Fundamental Completo",
+    "highSchoolIncomplete": "Ensino Médio Incompleto",
+    "highSchoolComplete": "Ensino Médio Completo",
+    "technical": "Técnico",
+    "higherEducationIncomplete": "Ensino Superior Incompleto",
+    "higherEducationComplete": "Ensino Superior Completo",
+    "postgraduate": "Pós-Graduação",
+    "masters": "Mestrado",
+    "doctorate": "Doutorado",
+  },
+
+  "help": {
+    "defaultValue": "Valor padrão para criação de atendimentos. Pode ser editado posteriormente em cada atendimento.",
+    "therapist": "Terapeuta padrão do paciente para a criação de atendimentos. Pode ser editado posteriormente em cada atendimento.",
   },
 } as const;
 

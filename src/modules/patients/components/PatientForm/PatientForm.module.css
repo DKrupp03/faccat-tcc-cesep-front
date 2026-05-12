@@ -1,0 +1,18 @@
+.form {
+  width: 100%;
+}
+
+.avatarContainer {
+  background-color: var(--color-grey10);
+  border-radius: 10px;
+  padding: 14px;
+  margin-bottom: 24px;
+}
+
+.divider {
+  margin-top: 0 !important;
+}
+
+.responsiblesContainer {
+  padding-bottom: 24px;
+}

@@ -1,4 +1,4 @@
-import { type BasicUser } from "../../profiles/types/user";
+import { type BasicUser } from "@/shared/types/user";
 
 const KEYS = {
   token: "X-User-Token",

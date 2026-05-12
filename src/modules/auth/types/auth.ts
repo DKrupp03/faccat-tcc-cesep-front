@@ -1,7 +1,6 @@
 import { type CommonResponse } from "@/shared/types/common";
-
-import type { BasicUser } from "../../profiles/types/user";
-import type { Profile } from "@/modules/profiles/types/profile";
+import type { BasicUser } from "@/shared/types/user";
+import type { Therapist } from "@/modules/therapists/types/therapist";
 
 export type SignInResponse = CommonResponse & {
   token: string;
@@ -11,8 +10,8 @@ export type SignInResponse = CommonResponse & {
 export type AuthContextType = {
   token: string | null;
   user: BasicUser | null;
-  profile: Profile | null;
-  setProfile: (profile: Profile) => void;
+  profile: Therapist | null;
+  setProfile: (profile: Therapist) => void;
   isAuthenticated: boolean;
   login: (email: string, password: string) => Promise<void>;
   logout: () => Promise<void>;

@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useModules } from "@/shared/hooks/useModules";
 import { CommonTabs } from "../CommonTabs/CommonTabs";
 import { CommonAvatarDropdown } from "../CommonAvatarDropdown/CommonAvatarDropdown";
-import { ProfileFormProvider } from "@/modules/profiles/providers/ProfileFormProvider";
+import { TherapistFormProvider } from "@/modules/therapists/providers/TherapistFormProvider";
 import logoMini from "@/shared/assets/logoMini.png";
 
 import styles from "./CommonSideMenu.module.css";
@@ -51,9 +51,9 @@ export const CommonSideMenu = () => {
         justify="center" align="center"
         className={styles.footer}
       >
-        <ProfileFormProvider>
+        <TherapistFormProvider>
           <CommonAvatarDropdown />
-        </ProfileFormProvider>
+        </TherapistFormProvider>
       </Flex>
     </Flex>
   );

@@ -3,7 +3,7 @@ import { Flex, Typography } from "antd";
 import { IconUserSquareRounded, IconLogout } from "@tabler/icons-react";
 
 import { useAuth } from "@/modules/auth/hooks/useAuth";
-import { useProfilesForm } from "@/modules/profiles/hooks/useProfilesForm";
+import { useTherapistForm } from "@/modules/therapists/hooks/useTherapistForm";
 import { CommonAvatar } from "../CommonAvatar/CommonAvatar";
 import { CommonDropdown } from "../CommonDropdown/CommonDropdown";
 
@@ -14,7 +14,7 @@ const { Text } = Typography;
 export const CommonAvatarDropdown = () => {
   const { t } = useTranslation();
   const { profile, logout } = useAuth();
-  const { openForm } = useProfilesForm();
+  const { openForm } = useTherapistForm();
 
   return (
     <CommonDropdown
@@ -38,7 +38,7 @@ export const CommonAvatarDropdown = () => {
               {profile?.name}
             </Text>
             <Text className={styles.role}>
-              {profile ? (profile.admin ? t("common.roles.admin") : t(`common.roles.${profile.role}`)) : undefined}
+              {profile ? (profile.admin ? t("common.roles.admin") : t("common.roles.therapist")) : undefined}
             </Text>
           </Flex>
         </Flex>
@@ -47,7 +47,7 @@ export const CommonAvatarDropdown = () => {
         {
           onClick: () => {
             if (profile) {
-              openForm(profile.role, profile.id);
+              openForm(profile.id);
             }
           },
           icon: <IconUserSquareRounded size={16} />,

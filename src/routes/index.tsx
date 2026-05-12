@@ -2,7 +2,8 @@ import { Routes, Route, Navigate } from "react-router-dom";
 
 import { LoginPage, ForgotPasswordPage, ResetPasswordPage, SetPasswordPage } from "../modules/auth/pages";
 import { ServicesPage } from "@/modules/services/pages";
-import { ProfilesPage } from "@/modules/profiles/pages";
+import { TherapistsPage } from "@/modules/therapists/pages";
+import { PatientsPage } from "@/modules/patients/pages";
 import { PaymentsPage } from "@/modules/payments/pages";
 
 import PrivateRoute from "./PrivateRoute";
@@ -26,8 +27,8 @@ const AppRoutes = () => {
 
   const privateRoutes: RouteType[] = [
     { path: PATHS.services, element: <ServicesPage /> },
-    { path: PATHS.therapists, element: <ProfilesPage module="therapists" /> },
-    { path: PATHS.patients, element: <ProfilesPage module="patients" /> },
+    { path: PATHS.therapists, element: <TherapistsPage /> },
+    { path: PATHS.patients, element: <PatientsPage /> },
     { path: PATHS.payments, element: <PaymentsPage /> },
   ];
 
