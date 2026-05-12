@@ -142,10 +142,10 @@ export type AnamneseClinicalHistoryType = {
     interruptionReason: string;
   };
   familiars: {
-    happenedDiagnosis: string;
+    happenedDiagnosis: 0 | 1;
     whichDiagnosis: string;
     kinshipDiagnosis: string;
-    happenedSymptom: string;
+    happenedSymptom: 0 | 1;
     whichSymptom: string;
     kinshipSymptom: string;
   };

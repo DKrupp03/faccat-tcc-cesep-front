@@ -15,6 +15,7 @@ import { OccupationHistoryForm } from "./components/OccupationHistoryForm/Occupa
 import { PubertyForm } from "./components/PubertyForm/PubertyForm";
 import { AdulthoodForm } from "./components/AdulthoodForm/AdulthoodForm";
 import { MatureAgeForm } from "./components/MatureAgeForm/MatureAgeForm";
+import { ClinicalHistoryForm } from "./components/ClinicalHistoryForm/ClinicalHistoryForm";
 import styles from "./PatientAnamneseForm.module.css";
 
 export const PatientAnamneseForm = () => {
@@ -85,6 +86,9 @@ export const PatientAnamneseForm = () => {
               <Divider />
             </>
           )}
+
+          <ClinicalHistoryForm />
+          <Divider />
         </>
       )}
 

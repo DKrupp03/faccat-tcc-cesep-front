@@ -158,10 +158,10 @@ export const PreviousHistoryForm = () => {
                   <Flex align="center" style={{ height: 44 }}>
                     <Form.Item name={["anamnese_data", "previousHistory", "childbirth", "type"]} noStyle>
                       <CommonGroupButtons label={t("anamnese.previousHistory.childbirth.type")}>
-                        <CommonGroupButtons.Button value={1}>
+                        <CommonGroupButtons.Button value={"normal"}>
                           {t("anamnese.previousHistory.childbirth.types.normal")}
                         </CommonGroupButtons.Button>
-                        <CommonGroupButtons.Button value={0}>
+                        <CommonGroupButtons.Button value={"cesarian"}>
                           {t("anamnese.previousHistory.childbirth.types.cesarian")}
                         </CommonGroupButtons.Button>
                       </CommonGroupButtons>

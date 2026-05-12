@@ -149,6 +149,36 @@ const anamnese = {
     "title": "História ocupacional",
     "jobInfos": "Caso o(a) adolescente trabalhe, obter informações sobre seu trabalho",
   },
+
+  "clinicalHistory": {
+    "title": "História clínica",
+    "illnesses": "Doenças que já teve/tem",
+    "medicine": {
+      "title": "Medicamentos",
+      "which": "Fez ou faz uso de medicamento? Qual?",
+      "dosage": "Dosagem e forma de administração",
+      "since": "Desde quando?",
+      "interruptionReason": "Se foi interrompido, qual o motivo?",
+    },
+    "hospitalizations": "Hospitalizações/cirurgias",
+    "chemicalSubstances": "Exposição a substâncias químicas ou raio X?",
+    "specialists": {
+      "title": "Terapeutas",
+      "happened": "Já teve/tem contato com algum especialista (psiquiatra, neurologista, etc.)? Qual/quais?",
+      "professionalsNames": "Caso o paciente esteja em atendimento com algum desses profissionais no momento, solicite o nome e o contato de cada um",
+      "reason": "Por qual motivo?",
+      "since": "Desde quando?",
+      "interruptionReason": "Se foi interrompido, qual o motivo?",
+    },
+    "familiars": {
+      "title": "Família",
+      "happenedDiagnosis": "Algum familiar já foi diagnosticado com algum transtorno psiquiátrico/doença neurológica?",
+      "whichDiagnosis": "Qual?",
+      "kinshipDiagnosis": "Qual o parentesco com o paciente?",
+      "happenedSymptom": "Algum familiar já apresentou algum sintoma que considere importante mencionar?",
+      "kinshipSymptom": "Qual o parentesco?",
+    },
+  },
 } as const;
 
 export default anamnese;
