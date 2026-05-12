@@ -12,6 +12,7 @@ export type PatientFormContextType = {
   closeForm: () => void;
   submitPatient: (values: Partial<Patient>) => void;
   deletePatient: (patientId: number) => void;
+  updatePatientAttribute: (changes: Partial<Patient>) => void;
 };
 
 export const PatientFormContext = createContext<PatientFormContextType | null>(null);

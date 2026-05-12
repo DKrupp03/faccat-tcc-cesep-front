@@ -167,6 +167,10 @@ export const PatientFormProvider = ({
     patient,
   ]);
 
+  const updatePatientAttribute = useCallback((changes: Partial<Patient>) => {
+    setPatient((prev) => ({ ...prev!, ...changes }));
+  }, []);
+
   return (
     <PatientFormContext.Provider
       value={{
@@ -179,6 +183,7 @@ export const PatientFormProvider = ({
         closeForm,
         submitPatient,
         deletePatient,
+        updatePatientAttribute,
       }}
     >
       {children}

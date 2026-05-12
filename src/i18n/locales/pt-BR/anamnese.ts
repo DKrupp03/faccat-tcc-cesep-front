@@ -1,4 +1,8 @@
 const anamnese = {
+  "actions": {
+    "saved": "Anamnese salva com sucesso!",
+  },
+  
   "generalData": {
     "type": "Tipo da anamnese",
     "types": {

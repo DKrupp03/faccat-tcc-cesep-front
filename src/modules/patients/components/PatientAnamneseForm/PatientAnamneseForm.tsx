@@ -1,12 +1,9 @@
-import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { Form, Divider } from "antd";
-import dayjs from "dayjs";
 
 import { CommonButton } from "@/shared/components/CommonButton/CommonButton";
 
-import { usePatientForm } from "../../hooks/usePatientForm";
-import type { AnamneseType } from "../../types/anamnese";
+import { usePatientAnamnese } from "../../hooks/usePatientAnamnese";
 import { GeneralDataForm } from "./components/GeneralDataForm/GeneralDataForm";
 import { IdentificationDataForm } from "./components/IdentificationDataForm/IdentificationDataForm";
 import { FamilyForm } from "./components/FamilyForm/FamilyForm";
@@ -29,18 +26,12 @@ import { ForInterviewerForm } from "./components/ForInterviewerForm/ForInterview
 import styles from "./PatientAnamneseForm.module.css";
 
 export const PatientAnamneseForm = () => {
-  const { patient } = usePatientForm();
-
-  const [form] = Form.useForm<Partial<AnamneseType>>();
-  const anamneseType = Form.useWatch("anamnese_type", form);
-
-  useEffect(() => {
-    if (patient?.anamnese) {
-      form.setFieldsValue(patient.anamnese);
-    } else {
-      form.resetFields();
-    }
-  }, [patient?.anamnese]);
+  const {
+    form,
+    anamneseType,
+    initialAnamnese,
+    handleSubmitAnamnese,
+  } = usePatientAnamnese();
 
   return (
     <Form
@@ -48,23 +39,8 @@ export const PatientAnamneseForm = () => {
       form={form}
       layout="vertical"
       requiredMark={false}
-      onFinish={() => {}}
-      initialValues={{
-        anamnese_type: "child",
-        patient_id: patient?.id,
-        therapist_id: patient?.therapist_id,
-        created_at: new Date().toISOString(),
-        anamnese_data: {
-          identificationData: {
-            name: patient?.name,
-            birth: patient?.birth,
-            age: patient?.birth ? String(dayjs().diff(dayjs(patient.birth), "year")) : undefined,
-            gender: patient?.gender,
-            educationLevel: patient?.education_level,
-            maritalStatus: patient?.marital_status,
-          },
-        },
-      }}
+      onFinish={handleSubmitAnamnese}
+      initialValues={initialAnamnese}
       className={styles.form}
     >
       <GeneralDataForm />
@@ -149,6 +125,7 @@ export const PatientAnamneseForm = () => {
 
 export const PatientAnamneseFormOptions = () => {
   const { t } = useTranslation();
+  const { isSubmitting } = usePatientAnamnese();
 
   return (
     <>
@@ -156,6 +133,7 @@ export const PatientAnamneseFormOptions = () => {
         htmlType="submit"
         form="anamnese-form"
         buttonVariant="primary"
+        loading={isSubmitting}
       >
         {t("common.actions.save")}
       </CommonButton>

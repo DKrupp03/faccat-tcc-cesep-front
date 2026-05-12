@@ -1,8 +1,10 @@
+import type { CommonResponse } from "@/shared/types/common";
 import type {
   ProfileGender,
   ProfileEducationLevel,
   ProfileMaritalStatus,
 } from "@/shared/types/profile";
+
 import type { Therapist } from "@/modules/therapists/types/therapist";
 import type { Patient } from "./patient";
 
@@ -246,4 +248,8 @@ export type AnamneseType = {
   created_at: string;
   patient?: Patient;
   therapist?: Therapist;
+};
+
+export type AnamneseResponse = CommonResponse & {
+  anamnese: AnamneseType;
 };
