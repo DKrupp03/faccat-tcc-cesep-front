@@ -13,19 +13,19 @@ export const DevelopmentForm = () => {
 
   return (
     <CommonCollapse
-      title={t("anamnese.development.title")}
+      title={t("patients.anamnese.development.title")}
       icon={<IconTrendingUp size={16} color={COLORS.grey70} />}
       initialOpen={false}
     >
       <Row gutter={16}>
         <Col span={12}>
           <Form.Item name={["anamnese_data", "development", "breastFeeding"]}>
-            <CommonTextInput label={t("anamnese.development.breastFeeding")} />
+            <CommonTextInput label={t("patients.anamnese.development.breastFeeding")} />
           </Form.Item>
         </Col>
         <Col span={12}>
           <Form.Item name={["anamnese_data", "development", "crawlingWalking"]}>
-            <CommonTextInput label={t("anamnese.development.crawlingWalking")} />
+            <CommonTextInput label={t("patients.anamnese.development.crawlingWalking")} />
           </Form.Item>
         </Col>
       </Row>
@@ -33,12 +33,12 @@ export const DevelopmentForm = () => {
       <Row gutter={16}>
         <Col span={12}>
           <Form.Item name={["anamnese_data", "development", "sphincterControl"]}>
-            <CommonTextInput label={t("anamnese.development.sphincterControl")} />
+            <CommonTextInput label={t("patients.anamnese.development.sphincterControl")} />
           </Form.Item>
         </Col>
         <Col span={12}>
           <Form.Item name={["anamnese_data", "development", "language"]}>
-            <CommonTextInput label={t("anamnese.development.language")} />
+            <CommonTextInput label={t("patients.anamnese.development.language")} />
           </Form.Item>
         </Col>
       </Row>
@@ -48,8 +48,8 @@ export const DevelopmentForm = () => {
           <Form.Item name={["anamnese_data", "development", "socialRelations"]}>
             <CommonTextInput
               label={anamneseType === "child"
-                ? t("anamnese.development.socialRelations")
-                : t("anamnese.development.socialRelationsBeginning")}
+                ? t("patients.anamnese.development.socialRelations")
+                : t("patients.anamnese.development.socialRelationsBeginning")}
             />
           </Form.Item>
         </Col>
@@ -58,7 +58,7 @@ export const DevelopmentForm = () => {
       <Row gutter={16}>
         <Col span={24}>
           <Form.Item name={["anamnese_data", "development", "losses"]}>
-            <CommonTextInput label={t("anamnese.development.losses")} />
+            <CommonTextInput label={t("patients.anamnese.development.losses")} />
           </Form.Item>
         </Col>
       </Row>
@@ -68,19 +68,19 @@ export const DevelopmentForm = () => {
           <Row gutter={16}>
             <Col span={12}>
               <Form.Item name={["anamnese_data", "development", "dependence"]}>
-                <CommonTextInput label={t("anamnese.development.dependence")} />
+                <CommonTextInput label={t("patients.anamnese.development.dependence")} />
               </Form.Item>
             </Col>
             <Col span={12}>
               <Form.Item name={["anamnese_data", "development", "alone"]}>
-                <CommonTextInput label={t("anamnese.development.alone")} />
+                <CommonTextInput label={t("patients.anamnese.development.alone")} />
               </Form.Item>
             </Col>
           </Row>
           <Row gutter={16}>
             <Col span={24}>
               <Form.Item name={["anamnese_data", "development", "help"]}>
-                <CommonTextInput label={t("anamnese.development.help")} />
+                <CommonTextInput label={t("patients.anamnese.development.help")} />
               </Form.Item>
             </Col>
           </Row>
@@ -90,7 +90,7 @@ export const DevelopmentForm = () => {
       <Row gutter={16}>
         <Col span={24}>
           <Form.Item name={["anamnese_data", "development", "event"]}>
-            <CommonTextInput label={t("anamnese.development.event")} />
+            <CommonTextInput label={t("patients.anamnese.development.event")} />
           </Form.Item>
         </Col>
       </Row>

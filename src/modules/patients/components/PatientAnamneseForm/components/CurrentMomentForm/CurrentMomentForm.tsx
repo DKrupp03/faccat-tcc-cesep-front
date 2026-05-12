@@ -15,37 +15,37 @@ export const CurrentMomentForm = () => {
 
   return (
     <CommonCollapse
-      title={t("anamnese.currentMoment.title")}
+      title={t("patients.anamnese.currentMoment.title")}
       icon={<IconCalendarEvent size={16} color={COLORS.grey70} />}
       initialOpen={false}
     >
       <SectionsCard>
-        <CommonCollapse title={t("anamnese.currentMoment.basicFunctions.title")}>
+        <CommonCollapse title={t("patients.anamnese.currentMoment.basicFunctions.title")}>
           <Row gutter={16}>
             <Col span={24}>
               <Form.Item name={["anamnese_data", "currentMoment", "basicFunctions", "sleep"]}>
-                <CommonTextInput label={t("anamnese.currentMoment.basicFunctions.sleep")} />
+                <CommonTextInput label={t("patients.anamnese.currentMoment.basicFunctions.sleep")} />
               </Form.Item>
             </Col>
           </Row>
           <Row gutter={16}>
             <Col span={24}>
               <Form.Item name={["anamnese_data", "currentMoment", "basicFunctions", "food"]}>
-                <CommonTextInput label={t("anamnese.currentMoment.basicFunctions.food")} />
+                <CommonTextInput label={t("patients.anamnese.currentMoment.basicFunctions.food")} />
               </Form.Item>
             </Col>
           </Row>
           <Row gutter={16}>
             <Col span={24}>
               <Form.Item name={["anamnese_data", "currentMoment", "basicFunctions", "hygiene"]}>
-                <CommonTextInput label={t("anamnese.currentMoment.basicFunctions.hygiene")} />
+                <CommonTextInput label={t("patients.anamnese.currentMoment.basicFunctions.hygiene")} />
               </Form.Item>
             </Col>
           </Row>
           <Row gutter={16}>
             <Col span={24}>
               <Form.Item name={["anamnese_data", "currentMoment", "basicFunctions", "socialConditions"]}>
-                <CommonTextInput label={t("anamnese.currentMoment.basicFunctions.socialConditions")} />
+                <CommonTextInput label={t("patients.anamnese.currentMoment.basicFunctions.socialConditions")} />
               </Form.Item>
             </Col>
           </Row>
@@ -53,7 +53,7 @@ export const CurrentMomentForm = () => {
             <Row gutter={16}>
               <Col span={24}>
                 <Form.Item name={["anamnese_data", "currentMoment", "basicFunctions", "foodDificulties"]}>
-                  <CommonTextInput label={t("anamnese.currentMoment.basicFunctions.foodDificulties")} />
+                  <CommonTextInput label={t("patients.anamnese.currentMoment.basicFunctions.foodDificulties")} />
                 </Form.Item>
               </Col>
             </Row>
@@ -63,16 +63,16 @@ export const CurrentMomentForm = () => {
 
       {anamneseType === "adolescent" && (
         <SectionsCard>
-          <CommonCollapse title={t("anamnese.currentMoment.religion.title")}>
+          <CommonCollapse title={t("patients.anamnese.currentMoment.religion.title")}>
             <Row gutter={16}>
               <Col span={12}>
                 <Form.Item name={["anamnese_data", "currentMoment", "religion", "family"]}>
-                  <CommonTextInput label={t("anamnese.currentMoment.religion.family")} />
+                  <CommonTextInput label={t("patients.anamnese.currentMoment.religion.family")} />
                 </Form.Item>
               </Col>
               <Col span={12}>
                 <Form.Item name={["anamnese_data", "currentMoment", "religion", "adolescent"]}>
-                  <CommonTextInput label={t("anamnese.currentMoment.religion.adolescent")} />
+                  <CommonTextInput label={t("patients.anamnese.currentMoment.religion.adolescent")} />
                 </Form.Item>
               </Col>
             </Row>

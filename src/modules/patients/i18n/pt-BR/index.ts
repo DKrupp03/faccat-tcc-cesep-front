@@ -1,4 +1,7 @@
+import anamnese from "./anamnese";
+
 const patients = {
+  anamnese,
   "headerCards": {
     "total": "Número total de pacientes",
     "filtered": "Número de pacientes filtrados",

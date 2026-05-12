@@ -11,14 +11,14 @@ export const ForInterviewerForm = () => {
 
   return (
     <CommonCollapse
-      title={t("anamnese.forInterviewer.title")}
+      title={t("patients.anamnese.forInterviewer.title")}
       icon={<IconMicrophone2 size={16} color={COLORS.grey70} />}
       initialOpen={false}
     >
       <Row gutter={16}>
         <Col span={24}>
           <Form.Item name={["anamnese_data", "forInterviewer", "relevantInfos"]}>
-            <CommonTextArea label={t("anamnese.forInterviewer.relevantInfos")} />
+            <CommonTextArea label={t("patients.anamnese.forInterviewer.relevantInfos")} />
           </Form.Item>
         </Col>
       </Row>
@@ -26,7 +26,7 @@ export const ForInterviewerForm = () => {
       <Row gutter={16}>
         <Col span={24}>
           <Form.Item name={["anamnese_data", "forInterviewer", "impressions"]}>
-            <CommonTextArea label={t("anamnese.forInterviewer.impressions")} />
+            <CommonTextArea label={t("patients.anamnese.forInterviewer.impressions")} />
           </Form.Item>
         </Col>
       </Row>

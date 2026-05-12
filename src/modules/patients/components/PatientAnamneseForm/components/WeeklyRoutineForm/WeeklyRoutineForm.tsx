@@ -11,14 +11,14 @@ export const WeeklyRoutineForm = () => {
 
   return (
     <CommonCollapse
-      title={t("anamnese.weeklyRoutine.title")}
+      title={t("patients.anamnese.weeklyRoutine.title")}
       icon={<IconClock24 size={16} color={COLORS.grey70} />}
       initialOpen={false}
     >
       <Row gutter={16}>
         <Col span={24}>
           <Form.Item name={["anamnese_data", "weeklyRoutine"]}>
-            <CommonTextArea label={t("anamnese.weeklyRoutine.label")} />
+            <CommonTextArea label={t("patients.anamnese.weeklyRoutine.label")} />
           </Form.Item>
         </Col>
       </Row>

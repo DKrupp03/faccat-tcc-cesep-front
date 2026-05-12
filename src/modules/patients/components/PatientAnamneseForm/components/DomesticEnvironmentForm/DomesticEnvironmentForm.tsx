@@ -14,19 +14,19 @@ export const DomesticEnvironmentForm = () => {
 
   return (
     <CommonCollapse
-      title={t("anamnese.domesticEnvironment.title")}
+      title={t("patients.anamnese.domesticEnvironment.title")}
       icon={<IconHome size={16} color={COLORS.grey70} />}
       initialOpen={false}
     >
       <Row gutter={16}>
         <Col span={12}>
           <Form.Item name={["anamnese_data", "domesticEnvironment", "house"]}>
-            <CommonTextInput label={t("anamnese.domesticEnvironment.house")} />
+            <CommonTextInput label={t("patients.anamnese.domesticEnvironment.house")} />
           </Form.Item>
         </Col>
         <Col span={12}>
           <Form.Item name={["anamnese_data", "domesticEnvironment", "whereSleep"]}>
-            <CommonTextInput label={t("anamnese.domesticEnvironment.whereSleep")} />
+            <CommonTextInput label={t("patients.anamnese.domesticEnvironment.whereSleep")} />
           </Form.Item>
         </Col>
       </Row>
@@ -35,13 +35,13 @@ export const DomesticEnvironmentForm = () => {
         {anamneseType === "adolescent" && (
           <Col span={12}>
             <Form.Item name={["anamnese_data", "domesticEnvironment", "privacy"]}>
-              <CommonTextInput label={t("anamnese.domesticEnvironment.privacy")} />
+              <CommonTextInput label={t("patients.anamnese.domesticEnvironment.privacy")} />
             </Form.Item>
           </Col>
         )}
         <Col span={anamneseType === "adolescent" ? 12 : 24}>
           <Form.Item name={["anamnese_data", "domesticEnvironment", "whereLike"]}>
-            <CommonTextInput label={t("anamnese.domesticEnvironment.whereLike")} />
+            <CommonTextInput label={t("patients.anamnese.domesticEnvironment.whereLike")} />
           </Form.Item>
         </Col>
       </Row>
@@ -49,7 +49,7 @@ export const DomesticEnvironmentForm = () => {
       <Row gutter={16}>
         <Col span={24}>
           <Form.Item name={["anamnese_data", "domesticEnvironment", "tasks"]}>
-            <CommonTextArea label={t("anamnese.domesticEnvironment.tasks")} />
+            <CommonTextArea label={t("patients.anamnese.domesticEnvironment.tasks")} />
           </Form.Item>
         </Col>
       </Row>

@@ -11,14 +11,14 @@ export const MatureAgeForm = () => {
 
   return (
     <CommonCollapse
-      title={t("anamnese.matureAge.title")}
+      title={t("patients.anamnese.matureAge.title")}
       icon={<IconOld size={16} color={COLORS.grey70} />}
       initialOpen={false}
     >
       <Row gutter={16}>
         <Col span={24}>
           <Form.Item name={["anamnese_data", "matureAge", "physicalChanges"]}>
-            <CommonTextInput label={t("anamnese.matureAge.physicalChanges")} />
+            <CommonTextInput label={t("patients.anamnese.matureAge.physicalChanges")} />
           </Form.Item>
         </Col>
       </Row>
@@ -26,7 +26,7 @@ export const MatureAgeForm = () => {
       <Row gutter={16}>
         <Col span={24}>
           <Form.Item name={["anamnese_data", "matureAge", "adversities"]}>
-            <CommonTextInput label={t("anamnese.matureAge.adversities")} />
+            <CommonTextInput label={t("patients.anamnese.matureAge.adversities")} />
           </Form.Item>
         </Col>
       </Row>
@@ -34,7 +34,7 @@ export const MatureAgeForm = () => {
       <Row gutter={16}>
         <Col span={24}>
           <Form.Item name={["anamnese_data", "matureAge", "aging"]}>
-            <CommonTextInput label={t("anamnese.matureAge.aging")} />
+            <CommonTextInput label={t("patients.anamnese.matureAge.aging")} />
           </Form.Item>
         </Col>
       </Row>

@@ -13,28 +13,28 @@ export const ReasonForm = () => {
 
   return (
     <CommonCollapse
-      title={t("anamnese.reason.title")}
+      title={t("patients.anamnese.reason.title")}
       icon={<IconQuestionMark size={16} color={COLORS.grey70} />}
       initialOpen={false}
     >
       <Row gutter={16}>
         <Col span={24}>
           <Form.Item name={["anamnese_data", "reason", "mainComplaint"]}>
-            <CommonTextInput label={t("anamnese.reason.mainComplaint")} />
+            <CommonTextInput label={t("patients.anamnese.reason.mainComplaint")} />
           </Form.Item>
         </Col>
       </Row>
       <Row gutter={16}>
         <Col span={24}>
           <Form.Item name={["anamnese_data", "reason", "evolution"]}>
-            <CommonTextInput label={t("anamnese.reason.evolution")} />
+            <CommonTextInput label={t("patients.anamnese.reason.evolution")} />
           </Form.Item>
         </Col>
       </Row>
       <Row gutter={16}>
         <Col span={24}>
           <Form.Item name={["anamnese_data", "reason", "effects"]}>
-            <CommonTextInput label={t("anamnese.reason.effects")} />
+            <CommonTextInput label={t("patients.anamnese.reason.effects")} />
           </Form.Item>
         </Col>
       </Row>
@@ -42,7 +42,7 @@ export const ReasonForm = () => {
         <Row gutter={16}>
           <Col span={24}>
             <Form.Item name={["anamnese_data", "reason", "feeling"]}>
-              <CommonTextInput label={t("anamnese.reason.feeling")} />
+              <CommonTextInput label={t("patients.anamnese.reason.feeling")} />
             </Form.Item>
           </Col>
         </Row>

@@ -2,7 +2,7 @@ const anamnese = {
   "actions": {
     "saved": "Anamnese salva com sucesso!",
   },
-  
+
   "generalData": {
     "type": "Tipo da anamnese",
     "types": {
@@ -184,7 +184,7 @@ const anamnese = {
     },
   },
 
-  "currentMoment":  {
+  "currentMoment": {
     "title": "Momento atual",
     "basicFunctions": {
       "title": "Funções básicas",

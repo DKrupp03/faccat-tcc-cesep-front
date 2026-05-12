@@ -14,9 +14,9 @@ export const GeneralDataForm = () => {
   const { patient } = usePatientForm();
 
   const anamneseTypeOptions = useMemo(() => ([
-    { value: "child", label: t("anamnese.generalData.types.child") },
-    { value: "adolescent", label: t("anamnese.generalData.types.adolescent") },
-    { value: "adult", label: t("anamnese.generalData.types.adult") },
+    { value: "child", label: t("patients.anamnese.generalData.types.child") },
+    { value: "adolescent", label: t("patients.anamnese.generalData.types.adolescent") },
+    { value: "adult", label: t("patients.anamnese.generalData.types.adult") },
   ]), [t]);
 
   return (
@@ -24,7 +24,7 @@ export const GeneralDataForm = () => {
       <Col span={12}>
         <Form.Item name="anamnese_type">
           <CommonSelect
-            label={t("anamnese.generalData.type")}
+            label={t("patients.anamnese.generalData.type")}
             options={anamneseTypeOptions}
             required
           />
@@ -34,7 +34,7 @@ export const GeneralDataForm = () => {
         <Form.Item name="therapist_id">
           <ProfilesSelect
             role="therapist"
-            label={t("anamnese.generalData.therapist")}
+            label={t("patients.anamnese.generalData.therapist")}
             disabled={!!patient?.anamnese}
             allowClear={false}
             required
@@ -47,7 +47,7 @@ export const GeneralDataForm = () => {
           getValueProps={(value) => ({ value: value ? dayjs(value) : undefined })}
         >
           <CommonDatePicker
-            label={t("anamnese.generalData.date")}
+            label={t("patients.anamnese.generalData.date")}
             disabled
             required
           />

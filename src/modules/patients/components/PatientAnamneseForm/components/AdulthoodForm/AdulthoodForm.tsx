@@ -11,19 +11,19 @@ export const AdulthoodForm = () => {
 
   return (
     <CommonCollapse
-      title={t("anamnese.adulthood.title")}
+      title={t("patients.anamnese.adulthood.title")}
       icon={<IconRating18Plus size={16} color={COLORS.grey70} />}
       initialOpen={false}
     >
       <Row gutter={16}>
         <Col span={12}>
           <Form.Item name={["anamnese_data", "adulthood", "studies"]}>
-            <CommonTextInput label={t("anamnese.adulthood.studies")} />
+            <CommonTextInput label={t("patients.anamnese.adulthood.studies")} />
           </Form.Item>
         </Col>
         <Col span={12}>
           <Form.Item name={["anamnese_data", "adulthood", "occupationChoice"]}>
-            <CommonTextInput label={t("anamnese.adulthood.occupationChoice")} />
+            <CommonTextInput label={t("patients.anamnese.adulthood.occupationChoice")} />
           </Form.Item>
         </Col>
       </Row>
@@ -31,12 +31,12 @@ export const AdulthoodForm = () => {
       <Row gutter={16}>
         <Col span={12}>
           <Form.Item name={["anamnese_data", "adulthood", "currentSituation"]}>
-            <CommonTextInput label={t("anamnese.adulthood.currentSituation")} />
+            <CommonTextInput label={t("patients.anamnese.adulthood.currentSituation")} />
           </Form.Item>
         </Col>
         <Col span={12}>
           <Form.Item name={["anamnese_data", "adulthood", "colleaguesRelationships"]}>
-            <CommonTextInput label={t("anamnese.adulthood.colleaguesRelationships")} />
+            <CommonTextInput label={t("patients.anamnese.adulthood.colleaguesRelationships")} />
           </Form.Item>
         </Col>
       </Row>
@@ -44,7 +44,7 @@ export const AdulthoodForm = () => {
       <Row gutter={16}>
         <Col span={24}>
           <Form.Item name={["anamnese_data", "adulthood", "numberOfJobs"]}>
-            <CommonTextInput label={t("anamnese.adulthood.numberOfJobs")} />
+            <CommonTextInput label={t("patients.anamnese.adulthood.numberOfJobs")} />
           </Form.Item>
         </Col>
       </Row>
@@ -52,7 +52,7 @@ export const AdulthoodForm = () => {
       <Row gutter={16}>
         <Col span={24}>
           <Form.Item name={["anamnese_data", "adulthood", "jobSatisfaction"]}>
-            <CommonTextInput label={t("anamnese.adulthood.jobSatisfaction")} />
+            <CommonTextInput label={t("patients.anamnese.adulthood.jobSatisfaction")} />
           </Form.Item>
         </Col>
       </Row>
@@ -60,7 +60,7 @@ export const AdulthoodForm = () => {
       <Row gutter={16}>
         <Col span={24}>
           <Form.Item name={["anamnese_data", "adulthood", "intimateRelationships"]}>
-            <CommonTextInput label={t("anamnese.adulthood.intimateRelationships")} />
+            <CommonTextInput label={t("patients.anamnese.adulthood.intimateRelationships")} />
           </Form.Item>
         </Col>
       </Row>
@@ -68,7 +68,7 @@ export const AdulthoodForm = () => {
       <Row gutter={16}>
         <Col span={24}>
           <Form.Item name={["anamnese_data", "adulthood", "friends"]}>
-            <CommonTextInput label={t("anamnese.adulthood.friends")} />
+            <CommonTextInput label={t("patients.anamnese.adulthood.friends")} />
           </Form.Item>
         </Col>
       </Row>
@@ -76,7 +76,7 @@ export const AdulthoodForm = () => {
       <Row gutter={16}>
         <Col span={24}>
           <Form.Item name={["anamnese_data", "adulthood", "relateAbility"]}>
-            <CommonTextInput label={t("anamnese.adulthood.relateAbility")} />
+            <CommonTextInput label={t("patients.anamnese.adulthood.relateAbility")} />
           </Form.Item>
         </Col>
       </Row>

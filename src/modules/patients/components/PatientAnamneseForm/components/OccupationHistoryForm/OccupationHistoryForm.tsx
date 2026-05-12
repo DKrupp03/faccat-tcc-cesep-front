@@ -11,14 +11,14 @@ export const OccupationHistoryForm = () => {
 
   return (
     <CommonCollapse
-      title={t("anamnese.occupationHistory.title")}
+      title={t("patients.anamnese.occupationHistory.title")}
       icon={<IconBriefcase2 size={16} color={COLORS.grey70} />}
       initialOpen={false}
     >
       <Row gutter={16}>
         <Col span={24}>
           <Form.Item name={["anamnese_data", "occupationHistory", "jobInfos"]}>
-            <CommonTextArea label={t("anamnese.occupationHistory.jobInfos")} />
+            <CommonTextArea label={t("patients.anamnese.occupationHistory.jobInfos")} />
           </Form.Item>
         </Col>
       </Row>

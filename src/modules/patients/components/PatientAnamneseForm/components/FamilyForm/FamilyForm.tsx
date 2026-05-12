@@ -25,7 +25,7 @@ export const FamilyForm = () => {
 
   return (
     <CommonCollapse
-      title={t("anamnese.family.title")}
+      title={t("patients.anamnese.family.title")}
       icon={<IconUsers size={16} color={COLORS.grey70} />}
       initialOpen={false}
     >
@@ -35,7 +35,7 @@ export const FamilyForm = () => {
             <Form.List name={["anamnese_data", "family", "responsibles"]}>
               {(fields, { add, remove }) => (
                 <CommonCollapse
-                  title={t("anamnese.family.responsibles.title")}
+                  title={t("patients.anamnese.family.responsibles.title")}
                   onClickAdd={() => add({})}
                   shouldShowAddButton
                 >
@@ -43,12 +43,12 @@ export const FamilyForm = () => {
                     <Row key={field.key} gutter={16}>
                       <Col span={6}>
                         <Form.Item name={[field.name, "responsible"]}>
-                          <CommonTextInput label={t("anamnese.family.responsibles.responsible")} />
+                          <CommonTextInput label={t("patients.anamnese.family.responsibles.responsible")} />
                         </Form.Item>
                       </Col>
                       <Col span={3}>
                         <Form.Item name={[field.name, "age"]}>
-                          <CommonTextInput label={t("anamnese.family.responsibles.age")} />
+                          <CommonTextInput label={t("patients.anamnese.family.responsibles.age")} />
                         </Form.Item>
                       </Col>
                       <Col span={3}>
@@ -86,7 +86,7 @@ export const FamilyForm = () => {
                     </Row>
                   ))}
                   {fields.length === 0 && (
-                    <Text>{t("anamnese.family.responsibles.none")}</Text>
+                    <Text>{t("patients.anamnese.family.responsibles.none")}</Text>
                   )}
                 </CommonCollapse>
               )}
@@ -101,7 +101,7 @@ export const FamilyForm = () => {
             <Form.List name={["anamnese_data", "family", "brothers"]}>
               {(fields, { add, remove }) => (
                 <CommonCollapse
-                  title={t("anamnese.family.brothers.title")}
+                  title={t("patients.anamnese.family.brothers.title")}
                   onClickAdd={() => add({})}
                   shouldShowAddButton
                 >
@@ -109,12 +109,12 @@ export const FamilyForm = () => {
                     <Row key={field.key} gutter={16}>
                       <Col span={11}>
                         <Form.Item name={[field.name, "name"]}>
-                          <CommonTextInput label={t("anamnese.family.brothers.name")} />
+                          <CommonTextInput label={t("patients.anamnese.family.brothers.name")} />
                         </Form.Item>
                       </Col>
                       <Col span={11}>
                         <Form.Item name={[field.name, "age"]}>
-                          <CommonTextInput label={t("anamnese.family.brothers.age")} />
+                          <CommonTextInput label={t("patients.anamnese.family.brothers.age")} />
                         </Form.Item>
                       </Col>
                       <Col span={2}>
@@ -131,7 +131,7 @@ export const FamilyForm = () => {
                     </Row>
                   ))}
                   {fields.length === 0 && (
-                    <Text>{t("anamnese.family.brothers.none")}</Text>
+                    <Text>{t("patients.anamnese.family.brothers.none")}</Text>
                   )}
                 </CommonCollapse>
               )}
@@ -143,7 +143,7 @@ export const FamilyForm = () => {
           <Form.List name={["anamnese_data", "family", "children"]}>
             {(fields, { add, remove }) => (
               <CommonCollapse
-                title={t("anamnese.family.children.title")}
+                title={t("patients.anamnese.family.children.title")}
                 onClickAdd={() => add({})}
                 shouldShowAddButton
               >
@@ -151,12 +151,12 @@ export const FamilyForm = () => {
                   <Row key={field.key} gutter={16}>
                     <Col span={anamneseType === "adult" ? 12 : 11}>
                       <Form.Item name={[field.name, "name"]}>
-                        <CommonTextInput label={t("anamnese.family.children.name")} />
+                        <CommonTextInput label={t("patients.anamnese.family.children.name")} />
                       </Form.Item>
                     </Col>
                     <Col span={11}>
                       <Form.Item name={[field.name, "age"]}>
-                        <CommonTextInput label={t("anamnese.family.children.age")} />
+                        <CommonTextInput label={t("patients.anamnese.family.children.age")} />
                       </Form.Item>
                     </Col>
                     <Col span={anamneseType === "adult" ? 1 : 2}>
@@ -173,7 +173,7 @@ export const FamilyForm = () => {
                   </Row>
                 ))}
                 {fields.length === 0 && (
-                  <Text>{t("anamnese.family.children.none")}</Text>
+                  <Text>{t("patients.anamnese.family.children.none")}</Text>
                 )}
               </CommonCollapse>
             )}
@@ -183,12 +183,12 @@ export const FamilyForm = () => {
 
       {anamneseType === "adult" && (
         <SectionsCard>
-          <CommonCollapse title={t("anamnese.family.spouse.title")}>
+          <CommonCollapse title={t("patients.anamnese.family.spouse.title")}>
             <Row gutter={16}>
               <Col span={5}>
                 <Flex align="center" style={{ height: 44 }}>
                   <Form.Item name={["anamnese_data", "family", "spouse", "has"]} noStyle>
-                    <CommonGroupButtons label={t("anamnese.family.spouse.has")}>
+                    <CommonGroupButtons label={t("patients.anamnese.family.spouse.has")}>
                       <CommonGroupButtons.Button value={1}>
                         {t("common.yes")}
                       </CommonGroupButtons.Button>
@@ -201,12 +201,12 @@ export const FamilyForm = () => {
               </Col>
               <Col span={10}>
                 <Form.Item name={["anamnese_data", "family", "spouse", "name"]}>
-                  <CommonTextInput label={t("anamnese.family.spouse.name")} />
+                  <CommonTextInput label={t("patients.anamnese.family.spouse.name")} />
                 </Form.Item>
               </Col>
               <Col span={9}>
                 <Form.Item name={["anamnese_data", "family", "spouse", "age"]}>
-                  <CommonTextInput label={t("anamnese.family.spouse.age")} />
+                  <CommonTextInput label={t("patients.anamnese.family.spouse.age")} />
                 </Form.Item>
               </Col>
             </Row>
@@ -217,7 +217,7 @@ export const FamilyForm = () => {
       <Row gutter={16}>
         <Col span={24}>
           <Form.Item name={["anamnese_data", "family", "liveWith"]}>
-            <CommonTextInput label={t("anamnese.family.liveWith")} />
+            <CommonTextInput label={t("patients.anamnese.family.liveWith")} />
           </Form.Item>
         </Col>
       </Row>
@@ -225,7 +225,7 @@ export const FamilyForm = () => {
       <Row gutter={16}>
         <Col span={24}>
           <Form.Item name={["anamnese_data", "family", "genome"]}>
-            <CommonTextArea label={t("anamnese.family.genome")} />
+            <CommonTextArea label={t("patients.anamnese.family.genome")} />
           </Form.Item>
         </Col>
       </Row>

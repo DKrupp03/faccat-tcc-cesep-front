@@ -22,13 +22,13 @@ export const IdentificationDataForm = () => {
   const educationLevelOptions = getEducationLevelOptions(t);
 
   const relationStatusOptions = useMemo(() => ([
-    { value: "single", label: t("anamnese.identificationData.relationStatus.single") },
-    { value: "dating", label: t("anamnese.identificationData.relationStatus.dating") },
+    { value: "single", label: t("patients.anamnese.identificationData.relationStatus.single") },
+    { value: "dating", label: t("patients.anamnese.identificationData.relationStatus.dating") },
   ]), [t]);
 
   return (
     <CommonCollapse
-      title={t("anamnese.identificationData.title")}
+      title={t("patients.anamnese.identificationData.title")}
       icon={<IconInfoCircle size={16} color={COLORS.grey70} />}
       initialOpen={false}
     >
@@ -40,7 +40,7 @@ export const IdentificationDataForm = () => {
         </Col>
         <Col span={12}>
           <Form.Item name={["anamnese_data", "identificationData", "informant"]}>
-            <CommonTextInput label={t("anamnese.identificationData.informant")} />
+            <CommonTextInput label={t("patients.anamnese.identificationData.informant")} />
           </Form.Item>
         </Col>
       </Row>
@@ -55,7 +55,7 @@ export const IdentificationDataForm = () => {
         </Col>
         <Col span={6}>
           <Form.Item name={["anamnese_data", "identificationData", "age"]}>
-            <CommonTextInput label={t("anamnese.identificationData.age")} />
+            <CommonTextInput label={t("patients.anamnese.identificationData.age")} />
           </Form.Item>
         </Col>
         <Col span={12}>
@@ -90,7 +90,7 @@ export const IdentificationDataForm = () => {
           <Col span={12}>
             <Form.Item name={["anamnese_data", "identificationData", "relationStatus"]}>
               <CommonSelect
-                label={t("anamnese.identificationData.relationStatus.label")}
+                label={t("patients.anamnese.identificationData.relationStatus.label")}
                 options={relationStatusOptions}
               />
             </Form.Item>

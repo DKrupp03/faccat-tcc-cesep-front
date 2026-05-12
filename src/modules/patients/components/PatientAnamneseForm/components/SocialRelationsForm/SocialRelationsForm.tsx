@@ -11,14 +11,14 @@ export const SocialRelationsForm = () => {
 
   return (
     <CommonCollapse
-      title={t("anamnese.socialRelations.title")}
+      title={t("patients.anamnese.socialRelations.title")}
       icon={<IconHeartHandshake size={16} color={COLORS.grey70} />}
       initialOpen={false}
     >
       <Row gutter={16}>
         <Col span={24}>
           <Form.Item name={["anamnese_data", "socialRelations", "friendships"]}>
-            <CommonTextArea label={t("anamnese.socialRelations.friendships")} />
+            <CommonTextArea label={t("patients.anamnese.socialRelations.friendships")} />
           </Form.Item>
         </Col>
       </Row>
@@ -26,7 +26,7 @@ export const SocialRelationsForm = () => {
       <Row gutter={16}>
         <Col span={24}>
           <Form.Item name={["anamnese_data", "socialRelations", "loveRelationships"]}>
-            <CommonTextArea label={t("anamnese.socialRelations.loveRelationships")} />
+            <CommonTextArea label={t("patients.anamnese.socialRelations.loveRelationships")} />
           </Form.Item>
         </Col>
       </Row>
@@ -34,7 +34,7 @@ export const SocialRelationsForm = () => {
       <Row gutter={16}>
         <Col span={24}>
           <Form.Item name={["anamnese_data", "socialRelations", "behaviorChanges"]}>
-            <CommonTextArea label={t("anamnese.socialRelations.behaviorChanges")} />
+            <CommonTextArea label={t("patients.anamnese.socialRelations.behaviorChanges")} />
           </Form.Item>
         </Col>
       </Row>

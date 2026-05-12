@@ -11,19 +11,19 @@ export const SchoolHistoryForm = () => {
 
   return (
     <CommonCollapse
-      title={t("anamnese.schoolHistory.title")}
+      title={t("patients.anamnese.schoolHistory.title")}
       icon={<IconSchool size={16} color={COLORS.grey70} />}
       initialOpen={false}
     >
       <Row gutter={16}>
         <Col span={12}>
           <Form.Item name={["anamnese_data", "schoolHistory", "entry"]}>
-            <CommonTextInput label={t("anamnese.schoolHistory.entry")} />
+            <CommonTextInput label={t("patients.anamnese.schoolHistory.entry")} />
           </Form.Item>
         </Col>
         <Col span={12}>
           <Form.Item name={["anamnese_data", "schoolHistory", "difficulties"]}>
-            <CommonTextInput label={t("anamnese.schoolHistory.difficulties")} />
+            <CommonTextInput label={t("patients.anamnese.schoolHistory.difficulties")} />
           </Form.Item>
         </Col>
       </Row>
@@ -31,12 +31,12 @@ export const SchoolHistoryForm = () => {
       <Row gutter={16}>
         <Col span={12}>
           <Form.Item name={["anamnese_data", "schoolHistory", "repetition"]}>
-            <CommonTextInput label={t("anamnese.schoolHistory.repetition")} />
+            <CommonTextInput label={t("patients.anamnese.schoolHistory.repetition")} />
           </Form.Item>
         </Col>
         <Col span={12}>
           <Form.Item name={["anamnese_data", "schoolHistory", "interpersonalRelationships"]}>
-            <CommonTextInput label={t("anamnese.schoolHistory.interpersonalRelationships")} />
+            <CommonTextInput label={t("patients.anamnese.schoolHistory.interpersonalRelationships")} />
           </Form.Item>
         </Col>
       </Row>

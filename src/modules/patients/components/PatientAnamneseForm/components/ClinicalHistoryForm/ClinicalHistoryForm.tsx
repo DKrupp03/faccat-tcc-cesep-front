@@ -17,41 +17,41 @@ export const ClinicalHistoryForm = () => {
 
   return (
     <CommonCollapse
-      title={t("anamnese.clinicalHistory.title")}
+      title={t("patients.anamnese.clinicalHistory.title")}
       icon={<IconPill size={16} color={COLORS.grey70} />}
       initialOpen={false}
     >
       <Row gutter={16}>
         <Col span={24}>
           <Form.Item name={["anamnese_data", "clinicalHistory", "illnesses"]}>
-            <CommonTextArea label={t("anamnese.clinicalHistory.illnesses")} />
+            <CommonTextArea label={t("patients.anamnese.clinicalHistory.illnesses")} />
           </Form.Item>
         </Col>
       </Row>
 
       <SectionsCard>
-        <CommonCollapse title={t("anamnese.clinicalHistory.medicine.title")}>
+        <CommonCollapse title={t("patients.anamnese.clinicalHistory.medicine.title")}>
           <Row gutter={16}>
             <Col span={12}>
               <Form.Item name={["anamnese_data", "clinicalHistory", "medicine", "which"]}>
-                <CommonTextInput label={t("anamnese.clinicalHistory.medicine.which")} />
+                <CommonTextInput label={t("patients.anamnese.clinicalHistory.medicine.which")} />
               </Form.Item>
             </Col>
             <Col span={12}>
               <Form.Item name={["anamnese_data", "clinicalHistory", "medicine", "dosage"]}>
-                <CommonTextInput label={t("anamnese.clinicalHistory.medicine.dosage")} />
+                <CommonTextInput label={t("patients.anamnese.clinicalHistory.medicine.dosage")} />
               </Form.Item>
             </Col>
           </Row>
           <Row gutter={16}>
             <Col span={12}>
               <Form.Item name={["anamnese_data", "clinicalHistory", "medicine", "since"]}>
-                <CommonTextInput label={t("anamnese.clinicalHistory.medicine.since")} />
+                <CommonTextInput label={t("patients.anamnese.clinicalHistory.medicine.since")} />
               </Form.Item>
             </Col>
             <Col span={12}>
               <Form.Item name={["anamnese_data", "clinicalHistory", "medicine", "interruptionReason"]}>
-                <CommonTextInput label={t("anamnese.clinicalHistory.medicine.interruptionReason")} />
+                <CommonTextInput label={t("patients.anamnese.clinicalHistory.medicine.interruptionReason")} />
               </Form.Item>
             </Col>
           </Row>
@@ -61,48 +61,48 @@ export const ClinicalHistoryForm = () => {
       <Row gutter={16}>
         <Col span={12}>
           <Form.Item name={["anamnese_data", "clinicalHistory", "hospitalizations"]}>
-            <CommonTextInput label={t("anamnese.clinicalHistory.hospitalizations")} />
+            <CommonTextInput label={t("patients.anamnese.clinicalHistory.hospitalizations")} />
           </Form.Item>
         </Col>
         <Col span={12}>
           <Form.Item name={["anamnese_data", "clinicalHistory", "chemicalSubstances"]}>
-            <CommonTextInput label={t("anamnese.clinicalHistory.chemicalSubstances")} />
+            <CommonTextInput label={t("patients.anamnese.clinicalHistory.chemicalSubstances")} />
           </Form.Item>
         </Col>
       </Row>
 
       <SectionsCard>
-        <CommonCollapse title={t("anamnese.clinicalHistory.specialists.title")}>
+        <CommonCollapse title={t("patients.anamnese.clinicalHistory.specialists.title")}>
           <Row gutter={16}>
             <Col span={24}>
               <Form.Item name={["anamnese_data", "clinicalHistory", "specialists", "happened"]}>
-                <CommonTextArea label={t("anamnese.clinicalHistory.specialists.happened")} />
+                <CommonTextArea label={t("patients.anamnese.clinicalHistory.specialists.happened")} />
               </Form.Item>
             </Col>
           </Row>
           <Row gutter={16}>
             <Col span={24}>
               <Form.Item name={["anamnese_data", "clinicalHistory", "specialists", "professionalsNames"]}>
-                <CommonTextArea label={t("anamnese.clinicalHistory.specialists.professionalsNames")} />
+                <CommonTextArea label={t("patients.anamnese.clinicalHistory.specialists.professionalsNames")} />
               </Form.Item>
             </Col>
           </Row>
           <Row gutter={16}>
             <Col span={12}>
               <Form.Item name={["anamnese_data", "clinicalHistory", "specialists", "reason"]}>
-                <CommonTextInput label={t("anamnese.clinicalHistory.specialists.reason")} />
+                <CommonTextInput label={t("patients.anamnese.clinicalHistory.specialists.reason")} />
               </Form.Item>
             </Col>
             <Col span={12}>
               <Form.Item name={["anamnese_data", "clinicalHistory", "specialists", "since"]}>
-                <CommonTextInput label={t("anamnese.clinicalHistory.specialists.since")} />
+                <CommonTextInput label={t("patients.anamnese.clinicalHistory.specialists.since")} />
               </Form.Item>
             </Col>
           </Row>
           <Row gutter={16}>
             <Col span={24}>
               <Form.Item name={["anamnese_data", "clinicalHistory", "specialists", "interruptionReason"]}>
-                <CommonTextInput label={t("anamnese.clinicalHistory.specialists.interruptionReason")} />
+                <CommonTextInput label={t("patients.anamnese.clinicalHistory.specialists.interruptionReason")} />
               </Form.Item>
             </Col>
           </Row>
@@ -111,12 +111,12 @@ export const ClinicalHistoryForm = () => {
 
       {anamneseType === "adolescent" && (
         <SectionsCard>
-          <CommonCollapse title={t("anamnese.clinicalHistory.familiars.title")}>
+          <CommonCollapse title={t("patients.anamnese.clinicalHistory.familiars.title")}>
             <Row gutter={16}>
               <Col span={16}>
                 <Flex align="center" style={{ height: 44 }}>
                   <Form.Item name={["anamnese_data", "clinicalHistory", "familiars", "happenedDiagnosis"]} noStyle>
-                    <CommonGroupButtons label={t("anamnese.clinicalHistory.familiars.happenedDiagnosis")}>
+                    <CommonGroupButtons label={t("patients.anamnese.clinicalHistory.familiars.happenedDiagnosis")}>
                       <CommonGroupButtons.Button value={1}>
                         {t("common.yes")}
                       </CommonGroupButtons.Button>
@@ -131,12 +131,12 @@ export const ClinicalHistoryForm = () => {
             <Row gutter={16} style={{ marginTop: 16 }}>
               <Col span={12}>
                 <Form.Item name={["anamnese_data", "clinicalHistory", "familiars", "whichDiagnosis"]}>
-                  <CommonTextInput label={t("anamnese.clinicalHistory.familiars.whichDiagnosis")} />
+                  <CommonTextInput label={t("patients.anamnese.clinicalHistory.familiars.whichDiagnosis")} />
                 </Form.Item>
               </Col>
               <Col span={12}>
                 <Form.Item name={["anamnese_data", "clinicalHistory", "familiars", "kinshipDiagnosis"]}>
-                  <CommonTextInput label={t("anamnese.clinicalHistory.familiars.kinshipDiagnosis")} />
+                  <CommonTextInput label={t("patients.anamnese.clinicalHistory.familiars.kinshipDiagnosis")} />
                 </Form.Item>
               </Col>
             </Row>
@@ -144,7 +144,7 @@ export const ClinicalHistoryForm = () => {
               <Col span={16}>
                 <Flex align="center" style={{ height: 44 }}>
                   <Form.Item name={["anamnese_data", "clinicalHistory", "familiars", "happenedSymptom"]} noStyle>
-                    <CommonGroupButtons label={t("anamnese.clinicalHistory.familiars.happenedSymptom")}>
+                    <CommonGroupButtons label={t("patients.anamnese.clinicalHistory.familiars.happenedSymptom")}>
                       <CommonGroupButtons.Button value={1}>
                         {t("common.yes")}
                       </CommonGroupButtons.Button>
@@ -159,7 +159,7 @@ export const ClinicalHistoryForm = () => {
             <Row gutter={16} style={{ marginTop: 16 }}>
               <Col span={12}>
                 <Form.Item name={["anamnese_data", "clinicalHistory", "familiars", "kinshipSymptom"]}>
-                  <CommonTextInput label={t("anamnese.clinicalHistory.familiars.kinshipSymptom")} />
+                  <CommonTextInput label={t("patients.anamnese.clinicalHistory.familiars.kinshipSymptom")} />
                 </Form.Item>
               </Col>
             </Row>
