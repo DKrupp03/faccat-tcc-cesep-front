@@ -17,6 +17,7 @@ import { AdulthoodForm } from "./components/AdulthoodForm/AdulthoodForm";
 import { MatureAgeForm } from "./components/MatureAgeForm/MatureAgeForm";
 import { ClinicalHistoryForm } from "./components/ClinicalHistoryForm/ClinicalHistoryForm";
 import { CurrentMomentForm } from "./components/CurrentMomentForm/CurrentMomentForm";
+import { FamilyHistoryForm } from "./components/FamilyHistoryForm/FamilyHistoryForm";
 import styles from "./PatientAnamneseForm.module.css";
 
 export const PatientAnamneseForm = () => {
@@ -108,6 +109,13 @@ export const PatientAnamneseForm = () => {
 
       <CurrentMomentForm />
       <Divider />
+
+      {anamneseType !== "adult" && (
+        <>
+          <FamilyHistoryForm />
+          <Divider />
+        </>
+      )}
     </Form>
   );
 };

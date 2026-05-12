@@ -1,6 +1,6 @@
 import { Form, Row, Col, Flex } from "antd";
 import { useTranslation } from "react-i18next";
-import { IconPillFilled } from "@tabler/icons-react";
+import { IconPill } from "@tabler/icons-react";
 
 import { CommonCollapse } from "@/shared/components/CommonCollapse/CommonCollapse";
 import { CommonTextInput } from "@/shared/components/CommonTextInput/CommonTextInput";
@@ -18,7 +18,7 @@ export const ClinicalHistoryForm = () => {
   return (
     <CommonCollapse
       title={t("anamnese.clinicalHistory.title")}
-      icon={<IconPillFilled size={16} color={COLORS.grey70} />}
+      icon={<IconPill size={16} color={COLORS.grey70} />}
       initialOpen={false}
     >
       <Row gutter={16}>

@@ -172,14 +172,11 @@ export type AnamneseFamilyHistoryType = {
   brothersBirth: string;
   membersConflicts: string;
   parentsDependency: string;
-  familiars: {
-    happenedDiagnosis: string;
-    whichDiagnosis: string;
-    kinshipDiagnosis: string;
-    happenedSymptom: string;
-    whichSymptom: string;
-    kinshipSymptom: string;
-  };
+  happenedDiagnosis: 0 | 1;
+  whichDiagnosis: string;
+  kinshipDiagnosis: string;
+  happenedSymptom: 0 | 1;
+  kinshipSymptom: string;
 };
 
 export type AnamneseDomesticEnvironmentType = {

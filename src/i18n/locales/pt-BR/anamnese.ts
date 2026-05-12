@@ -196,6 +196,21 @@ const anamnese = {
       "adolescent": "O(A) adolescente compartilha dessa religião/crença?",
     },
   },
+
+  "familyHistory": {
+    "title": "História familiar",
+    "responsiblesRelation": "Como é a relação do paciente com os pais/responsáveis?",
+    "brothersRelation": "Como é a relação com irmãos e família extensa?",
+    "frustrationsDealing": "Como o paciente lida com frustrações, imposição de regras, normas e limites em casa?",
+    "brothersBirth": "Qual foi o impacto com o nascimento dos irmãos?",
+    "membersConflicts": "Conflitos entre membros da família/conflitos intergeracionais",
+    "parentsDependency": "Dependência/independência dos pais",
+    "happenedDiagnosis": "Algum familiar já foi diagnosticado com algum transtorno psiquiátrico/doença neurológica? ",
+    "whichDiagnosis": "Qual?",
+    "kinshipDiagnosis": "Qual o parentesco com o paciente?",
+    "happenedSymptom": "Algum familiar já apresentou algum sintoma que considere importante mencionar?",
+    "kinshipSymptom": "Qual o parentesco?",
+  },
 } as const;
 
 export default anamnese;
