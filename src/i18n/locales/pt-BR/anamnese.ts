@@ -179,6 +179,23 @@ const anamnese = {
       "kinshipSymptom": "Qual o parentesco?",
     },
   },
+
+  "currentMoment":  {
+    "title": "Momento atual",
+    "basicFunctions": {
+      "title": "Funções básicas",
+      "sleep": "Sono",
+      "food": "Alimentação",
+      "hygiene": "Hábitos de higiene",
+      "socialConditions": "Condição econômica/social/cultural",
+      "foodDificulties": "Dificuldades em se alimentar/falta de alimentos?",
+    },
+    "religion": {
+      "title": "Religião/crenças",
+      "family": "A família possui alguma religião/crença?",
+      "adolescent": "O(A) adolescente compartilha dessa religião/crença?",
+    },
+  },
 } as const;
 
 export default anamnese;

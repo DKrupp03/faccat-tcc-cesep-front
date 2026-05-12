@@ -155,7 +155,7 @@ export type AnamneseCurrentMomentType = {
   basicFunctions: {
     sleep: string;
     food: string;
-    higiene: string;
+    hygiene: string;
     socialConditions: string;
     foodDificulties: string;
   };
