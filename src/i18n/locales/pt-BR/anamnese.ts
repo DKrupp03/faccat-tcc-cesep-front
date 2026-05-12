@@ -94,6 +94,21 @@ const anamnese = {
       "postpartumDepression": "Investigar depressão pós-parto (se ocorreu)",
     },
   },
+
+  "development": {
+    "title": "Desenvolvimento",
+    "breastFeeding": "Amamentação (mamou? Até quando? Como foi a introdução de alimentos?)",
+    "crawlingWalking": "Engatinhar/caminhar (engatinhou? Quando caminhou? Com ou sem ajuda?)",
+    "sphincterControl": "Controle esfincteriano (fraldas, até quando? Urinava na cama?)",
+    "language": "Linguagem (primeiras palavras, quando começou?)",
+    "socialRelations": "Relações sociais com amigos e colegas",
+    "socialRelationsBeginning": "Início das relações sociais",
+    "losses": "Perdas/separações/distanciamentos (estranha ficar longe dos responsáveis? Como se adapta a ambientes diferentes?)",
+    "dependence": "Dependência/independência",
+    "alone": "O que faz sozinho?",
+    "help": "No que precisa de ajuda?",
+    "event": "Há algum evento que você ache importante relatar? (quedas, falecimentos, mudanças significativas, etc). Como foi? Quando isso aconteceu?",
+  },
 } as const;
 
 export default anamnese;

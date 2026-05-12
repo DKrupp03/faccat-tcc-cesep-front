@@ -9,11 +9,14 @@ import { IdentificationDataForm } from "./components/IdentificationDataForm/Iden
 import { FamilyForm } from "./components/FamilyForm/FamilyForm";
 import { ReasonForm } from "./components/ReasonForm/ReasonForm";
 import { PreviousHistoryForm } from "./components/PreviousHistoryForm/PreviousHistoryForm";
+import { DevelopmentForm } from "./components/DevelopmentForm/DevelopmentForm";
 import styles from "./PatientAnamneseForm.module.css";
 
 export const PatientAnamneseForm = () => {
-  const [form] = Form.useForm<Partial<AnamneseType>>();
   const { profile } = useProfileForm();
+
+  const [form] = Form.useForm<Partial<AnamneseType>>();
+  const anamneseType = Form.useWatch("anamnese_type", form);
 
   useEffect(() => {
     if (profile?.anamnese) {
@@ -62,6 +65,13 @@ export const PatientAnamneseForm = () => {
 
       <PreviousHistoryForm />
       <Divider />
+
+      {anamneseType !== "adult" && (
+        <>
+          <DevelopmentForm />
+          <Divider />
+        </>
+      )}
     </Form>
   );
 };
