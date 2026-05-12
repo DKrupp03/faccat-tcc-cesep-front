@@ -211,6 +211,34 @@ const anamnese = {
     "happenedSymptom": "Algum familiar já apresentou algum sintoma que considere importante mencionar?",
     "kinshipSymptom": "Qual o parentesco?",
   },
+
+  "domesticEnvironment": {
+    "title": "Ambiente doméstico",
+    "house": "Como é a casa?",
+    "whereSleep": "Onde o paciente dorme? Tem seu próprio quarto?",
+    "whereLike": "Onde o paciente gosta de estar? Com quem?",
+    "tasks": "O paciente realiza tarefas em casa (arrumar o quarto, ajudar na limpeza, etc.)?",
+    "privacy": "O adolescente tem privacidade?",
+  },
+
+  "socialRelations": {
+    "title": "Relações sociais",
+    "friendships": "Círculo de amizades e capacidade para se relacionar",
+    "loveRelationships": "Relações amorosas/afetivas/sexuais? Como lida com isso? Já demonstrou interesse? Orientação sexual?",
+    "behaviorChanges": "Houve mudanças importantes no comportamento do adolescente? Em que período?",
+  },
+
+  "adolescentIssues": {
+    "title": "Questões específicas da adolescência",
+    "inferiorityFeelings": "Sentimentos de inferioridade (Já se sentiu rejeitado por alguém? Quem? Em qual situação?)",
+    "eatingDisorders": "Transtornos alimentares",
+    "suicide": "Tentativas de suicídio, ideação e/ou automutilação",
+    "seeThings": "Já viu/ouviu coisas que os outros não enxergaram/escutaram?",
+    "rebellion": "Tem/teve comportamentos de rebeldia? Quais?",
+    "homeScapes": "Já fugiu de casa alguma vez?",
+    "drugs": "Já fez uso de álcool, cigarro ou outras drogas? Quais? Com que frequência?",
+    "parentsReaction": "Como os pais/responsáveis reagem diante dessas questões?",
+  },
 } as const;
 
 export default anamnese;
