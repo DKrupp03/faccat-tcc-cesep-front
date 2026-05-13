@@ -14,12 +14,21 @@ export type MedicalRecordsPayload = {
   per_page?: number;
 };
 
+export type MedicalRecordAttachment = {
+  id: number;
+  name: string;
+  url: string;
+};
+
 export type MedicalRecordType = {
   id: number;
   title: string;
   date: string;
   observations: string;
   service_id?: number;
+  attachments?: MedicalRecordAttachment[];
+  new_attachments?: File[];
+  remove_attachment_ids?: number[];
   // service: ServiceType;
 };
 

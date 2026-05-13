@@ -1,6 +1,6 @@
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Form, Row, Col, Skeleton } from "antd";
+import { Form, Row, Col, Skeleton, Divider } from "antd";
 import dayjs from "dayjs";
 
 import { CommonDrawer } from "@/shared/components/CommonDrawer/CommonDrawer";
@@ -8,6 +8,7 @@ import { CommonTextInput } from "@/shared/components/CommonTextInput/CommonTextI
 import { CommonTextArea } from "@/shared/components/CommonTextArea/CommonTextArea";
 import { CommonDatePicker } from "@/shared/components/CommonDatePicker";
 import { CommonButton } from "@/shared/components/CommonButton/CommonButton";
+import { CommonDocuments } from "@/shared/components/CommonDocuments/CommonDocuments";
 
 import { useMedicalRecords } from "../../hooks/useMedicalRecords";
 import type { MedicalRecordType } from "../../types/medicalRecord";
@@ -26,6 +27,9 @@ export const MedicalRecordForm = () => {
     closeForm,
   } = useMedicalRecords();
 
+  const [newFiles, setNewFiles] = useState<File[]>([]);
+  const [removedIds, setRemovedIds] = useState<number[]>([]);
+
   useEffect(() => {
     if (isFormOpen) {
       if (medicalRecord) {
@@ -33,8 +37,22 @@ export const MedicalRecordForm = () => {
       } else {
         form.resetFields();
       }
+      setNewFiles([]);
+      setRemovedIds([])
     }
   }, [isFormOpen, medicalRecord, form]);
+
+  const visibleDocuments = useMemo(() => (
+    (medicalRecord?.attachments ?? []).filter((doc) => !removedIds.includes(doc.id))
+  ), [medicalRecord?.attachments, removedIds]);
+
+  const handleFinish = (values: Partial<MedicalRecordType>) => {
+    submitMedicalRecord({
+      ...values,
+      new_attachments: newFiles,
+      remove_attachment_ids: removedIds,
+    });
+  };
 
   const title = useMemo(() => (
     medicalRecord?.id
@@ -86,7 +104,7 @@ export const MedicalRecordForm = () => {
           form={form}
           layout="vertical"
           requiredMark={false}
-          onFinish={submitMedicalRecord}
+          onFinish={handleFinish}
           className={styles.form}
         >
           <Row gutter={16}>
@@ -130,6 +148,21 @@ export const MedicalRecordForm = () => {
                   required
                 />
               </Form.Item>
+            </Col>
+          </Row>
+
+          <Divider className={styles.divider} />
+
+          <Row gutter={16}>
+            <Col span={24}>
+              <CommonDocuments
+                label={t("common.documents.title")}
+                documents={visibleDocuments}
+                pendingFiles={newFiles}
+                onUpload={(files) => setNewFiles((prev) => [...prev, ...files])}
+                onRemove={(id) => setRemovedIds((prev) => [...prev, Number(id)])}
+                onRemovePending={(idx) => setNewFiles((prev) => prev.filter((_, i) => i !== idx))}
+              />
             </Col>
           </Row>
         </Form>

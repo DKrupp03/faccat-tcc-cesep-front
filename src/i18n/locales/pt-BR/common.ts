@@ -121,6 +121,16 @@ const common = {
     "defaultValue": "Valor padrão para criação de atendimentos. Pode ser editado posteriormente em cada atendimento.",
     "therapist": "Terapeuta padrão do paciente para a criação de atendimentos. Pode ser editado posteriormente em cada atendimento.",
   },
+
+  "documents": {
+    "title": "Documentos",
+    "upload": "Anexar",
+    "open": "Abrir em nova aba",
+    "download": "Baixar",
+    "remove": "Remover",
+    "empty": "Nenhum documento anexado.",
+    "pending": "Pendente",
+  },
 } as const;
 
 export default common;

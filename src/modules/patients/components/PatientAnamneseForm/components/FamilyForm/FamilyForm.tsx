@@ -80,7 +80,7 @@ export const FamilyForm = () => {
                         <Flex align="center" style={{ height: 44 }}>
                           <CommonButton
                             onClick={() => remove(field.name)}
-                            icon={<IconTrash size={18} />}
+                            icon={<IconTrash size={16} />}
                             buttonVariant="danger"
                             size="small"
                             circular
@@ -128,7 +128,7 @@ export const FamilyForm = () => {
                         <Flex align="center" style={{ height: 44 }}>
                           <CommonButton
                             onClick={() => remove(field.name)}
-                            icon={<IconTrash size={18} />}
+                            icon={<IconTrash size={16} />}
                             buttonVariant="danger"
                             size="small"
                             circular
@@ -173,7 +173,7 @@ export const FamilyForm = () => {
                       <Flex align="center" style={{ height: 44 }}>
                         <CommonButton
                           onClick={() => remove(field.name)}
-                          icon={<IconTrash size={18} />}
+                          icon={<IconTrash size={16} />}
                           buttonVariant="danger"
                           size="small"
                           circular
