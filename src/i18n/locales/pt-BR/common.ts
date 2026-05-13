@@ -85,6 +85,10 @@ const common = {
     "defaultValue": "Valor padrão",
     "extra": "Observações",
     "parent": "Responsável",
+    "service": "Atendimento",
+    "date": "Data",
+    "title": "Título",
+    "observations": "Observações",
   },
 
   "genders": {

@@ -1,5 +1,6 @@
 const anamnese = {
   "actions": {
+    "save": "Salvar anamnese",
     "saved": "Anamnese salva com sucesso!",
   },
 

@@ -1,6 +1,6 @@
-import type { CommonResponse } from "@/shared/types/common";
+import type { CommonResponse, CommonPanelResponse } from "@/shared/types/common";
 
-export type MedicalRecordsOrder = "date_start_desc" | "date_start_asc";
+export type MedicalRecordsOrder = "date_desc" | "date_asc";
 
 export type MedicalRecordsFilter = {
   date_start?: string;
@@ -19,6 +19,7 @@ export type MedicalRecordType = {
   title: string;
   date: string;
   observations: string;
+  service_id?: number;
   // service: ServiceType;
 };
 
@@ -26,6 +27,6 @@ export type MedicalRecordResponse = CommonResponse & {
   medical_record: MedicalRecordType;
 };
 
-export type MedicalRecordsResponse = CommonResponse & {
+export type MedicalRecordsResponse = CommonPanelResponse & {
   medical_records: MedicalRecordType[];
 };

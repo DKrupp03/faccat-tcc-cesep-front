@@ -11,8 +11,10 @@ import {
 import { CommonDrawer } from "@/shared/components/CommonDrawer/CommonDrawer";
 
 import { usePatientDrawer } from "../../hooks/usePatientDrawer";
+import { MedicalRecordsProvider } from "../../providers/MedicalRecordsProvider";
 import { PatientForm, PatientFormOptions } from "../PatientForm/PatientForm";
 import { PatientAnamneseForm, PatientAnamneseFormOptions } from "../PatientAnamneseForm/PatientAnamneseForm";
+import { MedicalRecords, MedicalRecordsOptions } from "../MedicalRecords/MedicalRecords";
 
 export const PatientDrawer = () => {
   const { t } = useTranslation();
@@ -50,9 +52,14 @@ export const PatientDrawer = () => {
     },
   ]), [t, patient?.id]);
 
+  const header = useMemo(() => {
+    if (tab === "medicalRecords") return <MedicalRecordsOptions />;
+  }, [tab]);
+
   const content = useMemo(() => {
     if (tab === "form") return <PatientForm />;
     if (tab === "anamnese") return <PatientAnamneseForm />;
+    if (tab === "medicalRecords") return <MedicalRecords />;
   }, [tab]);
 
   const footer = useMemo(() => {
@@ -61,17 +68,20 @@ export const PatientDrawer = () => {
   }, [tab]);
 
   return (
-    <CommonDrawer
-      isOpen={isFormOpen}
-      close={handleClose}
-      title={t(`patients.tabs.${tab}`)}
-      footer={footer}
-      tabs={tabs}
-      activeTab={tab}
-      onChangeTab={handleChangeTab}
-      showTabs
-    >
-      {content}
-    </CommonDrawer>
+    <MedicalRecordsProvider patientId={patient?.id}>
+      <CommonDrawer
+        isOpen={isFormOpen}
+        close={handleClose}
+        title={t(`patients.tabs.${tab}`)}
+        header={header}
+        footer={footer}
+        tabs={tabs}
+        activeTab={tab}
+        onChangeTab={handleChangeTab}
+        showTabs
+      >
+        {content}
+      </CommonDrawer>
+    </MedicalRecordsProvider>
   );
 };

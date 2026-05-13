@@ -16,7 +16,7 @@ const MedicalRecordsService = {
     return response.data;
   },
 
-  async getPatients(
+  async getMedicalRecords(
     patientId: number,
     params: MedicalRecordsPayload,
   ): Promise<MedicalRecordsResponse> {

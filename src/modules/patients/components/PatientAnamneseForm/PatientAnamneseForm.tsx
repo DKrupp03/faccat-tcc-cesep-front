@@ -135,7 +135,7 @@ export const PatientAnamneseFormOptions = () => {
         buttonVariant="primary"
         loading={isSubmitting}
       >
-        {t("common.actions.save")}
+        {t("patients.anamnese.actions.save")}
       </CommonButton>
     </>
   );

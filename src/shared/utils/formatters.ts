@@ -1,3 +1,13 @@
+export const formatDate = (value?: string) => {
+  if (!value) return "";
+
+  return new Date(value).toLocaleDateString("pt-BR", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+  });
+};
+
 export const formatDateTime = (value?: string) => {
   if (!value) return "";
 
