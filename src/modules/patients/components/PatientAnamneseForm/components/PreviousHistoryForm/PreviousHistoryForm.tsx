@@ -6,7 +6,7 @@ import { CommonCollapse } from "@/shared/components/CommonCollapse/CommonCollaps
 import { CommonTextInput } from "@/shared/components/CommonTextInput/CommonTextInput";
 import { CommonGroupButtons } from "@/shared/components/CommonGroupButtons/CommonGroupButtons";
 import { COLORS } from "@/shared/theme";
-import { apgarMask } from "@/shared/utils/formatters";
+import { apgarMask, integerMask } from "@/shared/utils/formatters";
 
 import { SectionsCard } from "../SectionsCard/SectionsCard";
 
@@ -138,7 +138,10 @@ export const PreviousHistoryForm = () => {
                   </Flex>
                 </Col>
                 <Col span={8}>
-                  <Form.Item name={["anamnese_data", "previousHistory", "abortions", "howMany"]}>
+                  <Form.Item
+                    name={["anamnese_data", "previousHistory", "abortions", "howMany"]}
+                    normalize={integerMask}
+                  >
                     <CommonTextInput label={t("patients.anamnese.previousHistory.abortions.howMany")} />
                   </Form.Item>
                 </Col>
@@ -169,7 +172,10 @@ export const PreviousHistoryForm = () => {
                   </Flex>
                 </Col>
                 <Col span={8}>
-                  <Form.Item name={["anamnese_data", "previousHistory", "childbirth", "weeks"]}>
+                  <Form.Item
+                    name={["anamnese_data", "previousHistory", "childbirth", "weeks"]}
+                    normalize={integerMask}
+                  >
                     <CommonTextInput label={t("patients.anamnese.previousHistory.childbirth.weeks")} />
                   </Form.Item>
                 </Col>

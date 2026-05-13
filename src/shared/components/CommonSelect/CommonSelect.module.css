@@ -17,6 +17,12 @@
   padding-left: 35px !important;
 }
 
+.selectWithPrefix :global(.ant-select-selection-item),
+.selectWithPrefix :global(.ant-select-content),
+.selectWithPrefix :global(.ant-select-selection-placeholder) {
+  left: 27px !important;
+}
+
 .prefix {
   position: absolute;
   left: 12px;

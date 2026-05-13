@@ -8,6 +8,7 @@ import { CommonSelect } from "@/shared/components/CommonSelect/CommonSelect";
 import { CommonDatePicker } from "@/shared/components/CommonDatePicker";
 import { CommonCollapse } from "@/shared/components/CommonCollapse/CommonCollapse";
 import { CommonTextInput } from "@/shared/components/CommonTextInput/CommonTextInput";
+import { integerMask } from "@/shared/utils/formatters";
 import { COLORS } from "@/shared/theme";
 
 import { getGenderOptions, getMaritalStatusOptions, getEducationLevelOptions } from "@/modules/patients/utils/form";
@@ -54,7 +55,10 @@ export const IdentificationDataForm = () => {
           </Form.Item>
         </Col>
         <Col span={6}>
-          <Form.Item name={["anamnese_data", "identificationData", "age"]}>
+          <Form.Item
+            name={["anamnese_data", "identificationData", "age"]}
+            normalize={integerMask}
+          >
             <CommonTextInput label={t("patients.anamnese.identificationData.age")} />
           </Form.Item>
         </Col>

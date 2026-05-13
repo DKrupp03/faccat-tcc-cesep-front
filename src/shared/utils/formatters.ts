@@ -57,6 +57,10 @@ export const crpMask = (value: string) => {
   return `${digits.slice(0, 2)}/${digits.slice(2)}`;
 };
 
+export const integerMask = (value: string) => {
+  return value.replace(/\D/g, "");
+};
+
 export const decimalMask = (value: string) => {
   const digits = value.replace(/\D/g, "");
   if (digits.length === 0) return "";

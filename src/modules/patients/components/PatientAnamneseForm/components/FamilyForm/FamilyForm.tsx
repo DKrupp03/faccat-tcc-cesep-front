@@ -8,6 +8,7 @@ import { CommonSelect } from "@/shared/components/CommonSelect/CommonSelect";
 import { CommonButton } from "@/shared/components/CommonButton/CommonButton";
 import { CommonTextArea } from "@/shared/components/CommonTextArea/CommonTextArea";
 import { CommonGroupButtons } from "@/shared/components/CommonGroupButtons/CommonGroupButtons";
+import { integerMask } from "@/shared/utils/formatters";
 import { COLORS } from "@/shared/theme";
 
 import { getMaritalStatusOptions, getEducationLevelOptions } from "@/modules/patients/utils/form";
@@ -47,7 +48,10 @@ export const FamilyForm = () => {
                         </Form.Item>
                       </Col>
                       <Col span={3}>
-                        <Form.Item name={[field.name, "age"]}>
+                        <Form.Item
+                          name={[field.name, "age"]}
+                          normalize={integerMask}
+                        >
                           <CommonTextInput label={t("patients.anamnese.family.responsibles.age")} />
                         </Form.Item>
                       </Col>
@@ -113,7 +117,10 @@ export const FamilyForm = () => {
                         </Form.Item>
                       </Col>
                       <Col span={11}>
-                        <Form.Item name={[field.name, "age"]}>
+                        <Form.Item
+                          name={[field.name, "age"]}
+                          normalize={integerMask}
+                        >
                           <CommonTextInput label={t("patients.anamnese.family.brothers.age")} />
                         </Form.Item>
                       </Col>
@@ -155,7 +162,10 @@ export const FamilyForm = () => {
                       </Form.Item>
                     </Col>
                     <Col span={11}>
-                      <Form.Item name={[field.name, "age"]}>
+                      <Form.Item
+                        name={[field.name, "age"]}
+                        normalize={integerMask}
+                      >
                         <CommonTextInput label={t("patients.anamnese.family.children.age")} />
                       </Form.Item>
                     </Col>
@@ -205,7 +215,10 @@ export const FamilyForm = () => {
                 </Form.Item>
               </Col>
               <Col span={9}>
-                <Form.Item name={["anamnese_data", "family", "spouse", "age"]}>
+                <Form.Item
+                  name={["anamnese_data", "family", "spouse", "age"]}
+                  normalize={integerMask}
+                >
                   <CommonTextInput label={t("patients.anamnese.family.spouse.age")} />
                 </Form.Item>
               </Col>

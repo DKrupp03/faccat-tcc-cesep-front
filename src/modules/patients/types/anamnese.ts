@@ -67,7 +67,6 @@ export type AnamnesePreviousHistoryType = {
   };
   childbirth: {
     type: "normal" | "cesarian";
-    howMany: number;
     cause: string;
     weeks: number;
     apgar: string;

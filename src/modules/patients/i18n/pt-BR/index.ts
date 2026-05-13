@@ -25,7 +25,7 @@ const patients = {
   "tabs": {
     "form": "Formulário",
     "anamnese": "Anamnese",
-    "medicalRecords": "Prontuário",
+    "medicalRecords": "Prontuários",
     "services": "Atendimentos",
     "payments": "Pagamentos",
   },
