@@ -8,14 +8,12 @@ import {
 
 import { CommonDrawer } from "@/shared/components/CommonDrawer/CommonDrawer";
 
-import { PatientsListProvider } from "@/modules/patients/providers/PatientsListProvider";
-import { PatientFormProvider } from "@/modules/patients/providers/PatientFormProvider";
-import { usePatientsList } from "@/modules/patients/hooks/usePatientsList";
+import { PatientsProvider } from "@/modules/patients/providers/PatientsProvider";
 import { useTherapistDrawer } from "../../hooks/useTherapistDrawer";
 import { TherapistForm, TherapistFormOptions } from "../TherapistForm/TherapistForm";
 import { TherapistPatients, TherapistPatientsOptions } from "../TherapistPatients/TherapistPatients";
 
-const TherapistDrawerPanel = () => {
+const TherapistDrawerContent = () => {
   const { t } = useTranslation();
   const { isFormOpen, therapist, tab, handleClose, handleChangeTab } = useTherapistDrawer();
 
@@ -69,26 +67,12 @@ const TherapistDrawerPanel = () => {
   );
 };
 
-const TherapistDrawerWithPatientsContext = () => {
-  const { therapist } = useTherapistDrawer();
-  const { patientFormCallback } = usePatientsList();
-
-  return (
-    <PatientFormProvider
-      therapistId={therapist?.id}
-      afterSaveCallback={patientFormCallback}
-    >
-      <TherapistDrawerPanel />
-    </PatientFormProvider>
-  );
-};
-
 export const TherapistDrawer = () => {
   const { therapist } = useTherapistDrawer();
 
   return (
-    <PatientsListProvider therapistId={therapist?.id}>
-      <TherapistDrawerWithPatientsContext />
-    </PatientsListProvider>
+    <PatientsProvider therapistId={therapist?.id}>
+      <TherapistDrawerContent />
+    </PatientsProvider>
   );
 };

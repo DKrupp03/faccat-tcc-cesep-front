@@ -3,20 +3,21 @@ import { PatientFormProvider } from "./PatientFormProvider";
 import { usePatientsList } from "../hooks/usePatientsList";
 
 type PatientsProviderProps = {
+  therapistId?: number;
   children: React.ReactNode;
 };
 
-export const PatientsProvider = ({ children }: PatientsProviderProps) => (
-  <PatientsListProvider>
-    <PatientsProviderInner>{children}</PatientsProviderInner>
+export const PatientsProvider = ({ therapistId, children }: PatientsProviderProps) => (
+  <PatientsListProvider therapistId={therapistId}>
+    <PatientsProviderInner therapistId={therapistId}>{children}</PatientsProviderInner>
   </PatientsListProvider>
 );
 
-const PatientsProviderInner = ({ children }: { children: React.ReactNode }) => {
+const PatientsProviderInner = ({ therapistId, children }: { therapistId?: number; children: React.ReactNode }) => {
   const { patientFormCallback } = usePatientsList();
 
   return (
-    <PatientFormProvider afterSaveCallback={patientFormCallback}>
+    <PatientFormProvider therapistId={therapistId} afterSaveCallback={patientFormCallback}>
       {children}
     </PatientFormProvider>
   );
