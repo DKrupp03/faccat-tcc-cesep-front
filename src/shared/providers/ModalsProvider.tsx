@@ -43,6 +43,7 @@ export const ModalsProvider = ({ children }: { children: React.ReactNode }) => {
         title={confirmationModal?.title ?? ""}
         isOpen={!!confirmationModal}
         close={closeConfirmationModal}
+        zIndex={9999}
         footer={
           <>
             <CommonButton onClick={closeConfirmationModal} outline>

@@ -118,8 +118,9 @@ export const PatientFormProvider = ({
   const submitPatient = useCallback(async (formValues: Partial<Patient>) => {
     setIsSubmitting(true);
     formValues.role = "patient";
-    formValues.default_value = formValues.default_value !== null
-      ? Number(formValues.default_value)
+    const rawDefaultValue = formValues.default_value;
+    formValues.default_value = (rawDefaultValue != null && rawDefaultValue !== "")
+      ? Number(String(rawDefaultValue).replace(",", "."))
       : undefined;
 
     if (patient?.id) {

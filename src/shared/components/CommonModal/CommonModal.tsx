@@ -11,6 +11,7 @@ type CommonModalProps = {
   close: () => void;
   footer: React.ReactNode;
   children: React.ReactNode;
+  zIndex?: number;
 };
 
 const { Title } = Typography;
@@ -21,6 +22,7 @@ export const CommonModal = ({
   close,
   footer,
   children,
+  zIndex,
 }: CommonModalProps) => {
   const titleContent = useMemo(() => (
     <Flex
@@ -52,6 +54,7 @@ export const CommonModal = ({
       closeIcon={false}
       mask={{ blur: true }}
       className={styles.modal}
+      zIndex={zIndex}
       centered
     >
       <Flex className={styles.body}>
