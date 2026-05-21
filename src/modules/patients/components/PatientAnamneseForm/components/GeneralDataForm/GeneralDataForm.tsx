@@ -3,6 +3,7 @@ import { Form, Row, Col } from "antd";
 import { useTranslation } from "react-i18next";
 import dayjs from "dayjs";
 
+import { useAuth } from "@/modules/auth/hooks/useAuth";
 import { CommonSelect } from "@/shared/components/CommonSelect/CommonSelect";
 import { CommonDatePicker } from "@/shared/components/CommonDatePicker";
 import { ProfilesSelect } from "@/shared/components/ProfilesSelect/ProfilesSelect";
@@ -11,6 +12,7 @@ import { usePatientForm } from "@/modules/patients/hooks/usePatientForm";
 
 export const GeneralDataForm = () => {
   const { t } = useTranslation();
+  const { profile } = useAuth();
   const { patient } = usePatientForm();
 
   const anamneseTypeOptions = useMemo(() => ([
@@ -35,7 +37,7 @@ export const GeneralDataForm = () => {
           <ProfilesSelect
             role="therapist"
             label={t("patients.anamnese.generalData.therapist")}
-            disabled={!!patient?.anamnese}
+            disabled={!!patient?.anamnese || !profile?.admin}
             allowClear={false}
             required
           />

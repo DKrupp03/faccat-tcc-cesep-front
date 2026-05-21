@@ -4,6 +4,7 @@ import dayjs from "dayjs";
 import { useTranslation } from "react-i18next";
 import { IconTrash, IconUpload, IconUser } from "@tabler/icons-react";
 
+import { useAuth } from "@/modules/auth/hooks/useAuth";
 import { CommonTextInput } from "@/shared/components/CommonTextInput/CommonTextInput";
 import { CommonTextArea } from "@/shared/components/CommonTextArea/CommonTextArea";
 import { CommonSelect } from "@/shared/components/CommonSelect/CommonSelect";
@@ -25,7 +26,7 @@ import styles from "./PatientForm.module.css";
 
 export const PatientForm = () => {
   const { t } = useTranslation();
-  const [form] = Form.useForm<Partial<Patient>>();
+  const { profile } = useAuth();
   const { therapistId } = usePatientForm();
   const {
     isFormOpen,
@@ -37,6 +38,8 @@ export const PatientForm = () => {
     handleSubmit,
   } = usePatientFormState();
 
+  const [form] = Form.useForm<Partial<Patient>>();
+  
   const genderOptions = getGenderOptions(t);
   const maritalStatusOptions = getMaritalStatusOptions(t);
   const educationLevelOptions = getEducationLevelOptions(t);
@@ -213,6 +216,7 @@ export const PatientForm = () => {
           <Form.Item name="therapist_id">
             <ProfilesSelect
               role="therapist"
+              disabled={!profile?.admin}
               showHelp
             />
           </Form.Item>

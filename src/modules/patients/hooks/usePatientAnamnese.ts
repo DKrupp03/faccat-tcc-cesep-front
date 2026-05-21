@@ -73,5 +73,6 @@ export const usePatientAnamnese = () => {
     initialAnamnese,
     handleSubmitAnamnese,
     isSubmitting,
+    patient,
   };
 };
