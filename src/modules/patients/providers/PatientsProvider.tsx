@@ -9,11 +9,13 @@ type PatientsProviderProps = {
 
 export const PatientsProvider = ({ therapistId, children }: PatientsProviderProps) => (
   <PatientsListProvider therapistId={therapistId}>
-    <PatientsProviderInner therapistId={therapistId}>{children}</PatientsProviderInner>
+    <PatientsProviderInner therapistId={therapistId}>
+      {children}
+    </PatientsProviderInner>
   </PatientsListProvider>
 );
 
-const PatientsProviderInner = ({ therapistId, children }: { therapistId?: number; children: React.ReactNode }) => {
+const PatientsProviderInner = ({ therapistId, children }: PatientsProviderProps) => {
   const { patientFormCallback } = usePatientsList();
 
   return (

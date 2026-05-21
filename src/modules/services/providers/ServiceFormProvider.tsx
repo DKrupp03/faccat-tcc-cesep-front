@@ -14,11 +14,13 @@ type ServiceFormProviderProps = {
     operation: "create" | "update" | "delete",
     service: Service,
   ) => void;
+  therapistId?: number;
   children: React.ReactNode;
 };
 
 export const ServiceFormProvider = ({
   afterSaveCallback,
+  therapistId,
   children,
 }: ServiceFormProviderProps) => {
   const { t } = useTranslation();
@@ -145,6 +147,7 @@ export const ServiceFormProvider = ({
   return (
     <ServiceFormContext.Provider
       value={{
+        therapistId,
         isFormOpen,
         service,
         isSubmitting,

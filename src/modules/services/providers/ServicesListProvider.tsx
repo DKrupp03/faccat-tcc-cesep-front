@@ -7,14 +7,17 @@ import { useServicesOperations } from "../hooks/useServicesOperations";
 import type { Service, ServicesFilter, ServicesOrder } from "../types/service";
 
 type ServicesListProviderProps = {
+  therapistId?: number;
   children: React.ReactNode;
 };
 
-export const ServicesListProvider = ({ children }: ServicesListProviderProps) => {
+export const ServicesListProvider = ({ therapistId, children }: ServicesListProviderProps) => {
   const { t } = useTranslation();
   const { fetchServices } = useServicesOperations();
 
-  const defaultFilter: ServicesFilter = useMemo(() => ({}), []);
+  const defaultFilter: ServicesFilter = useMemo(() => ({
+    therapist_id: therapistId,
+  }), [therapistId]);
 
   const [services, setServices] = useState<Service[]>([]);
   const [total, setTotal] = useState<number>(0);
@@ -31,7 +34,11 @@ export const ServicesListProvider = ({ children }: ServicesListProviderProps) =>
     newOrderBy: ServicesOrder = orderBy,
     newPage: number = 1,
   ) => {
-    setFilter(newFilter);
+    const effectiveFilter = therapistId
+      ? { ...newFilter, therapist_id: therapistId }
+      : newFilter;
+
+    setFilter(effectiveFilter);
     setOrderBy(newOrderBy);
     setPage(newPage);
 
@@ -42,7 +49,7 @@ export const ServicesListProvider = ({ children }: ServicesListProviderProps) =>
     }
 
     try {
-      const response = await fetchServices(newFilter, newOrderBy, newPage);
+      const response = await fetchServices(effectiveFilter, newOrderBy, newPage);
 
       if (!response.success) {
         throw new Error(response.error);
@@ -66,7 +73,7 @@ export const ServicesListProvider = ({ children }: ServicesListProviderProps) =>
       setLoadingMore(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [t]);
+  }, [t, therapistId]);
 
   const serviceFormCallback = useCallback((
     operation: "create" | "update" | "delete",
@@ -91,6 +98,7 @@ export const ServicesListProvider = ({ children }: ServicesListProviderProps) =>
   return (
     <ServicesListContext.Provider
       value={{
+        therapistId,
         services,
         total,
         totalFiltered,

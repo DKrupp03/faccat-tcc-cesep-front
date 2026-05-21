@@ -3,20 +3,23 @@ import { ServiceFormProvider } from "./ServiceFormProvider";
 import { useServicesList } from "../hooks/useServicesList";
 
 type ServicesProviderProps = {
+  therapistId?: number;
   children: React.ReactNode;
 };
 
-export const ServicesProvider = ({ children }: ServicesProviderProps) => (
-  <ServicesListProvider>
-    <ServicesProviderInner>{children}</ServicesProviderInner>
+export const ServicesProvider = ({ therapistId, children }: ServicesProviderProps) => (
+  <ServicesListProvider therapistId={therapistId}>
+    <ServicesProviderInner therapistId={therapistId}>
+      {children}
+    </ServicesProviderInner>
   </ServicesListProvider>
 );
 
-const ServicesProviderInner = ({ children }: { children: React.ReactNode }) => {
+const ServicesProviderInner = ({ therapistId, children }: ServicesProviderProps) => {
   const { serviceFormCallback } = useServicesList();
 
   return (
-    <ServiceFormProvider afterSaveCallback={serviceFormCallback}>
+    <ServiceFormProvider therapistId={therapistId} afterSaveCallback={serviceFormCallback}>
       {children}
     </ServiceFormProvider>
   );

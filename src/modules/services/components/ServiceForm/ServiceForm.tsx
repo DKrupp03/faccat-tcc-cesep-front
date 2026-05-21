@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { Form, Row, Col, Skeleton } from "antd";
 import dayjs from "dayjs";
 
+import { useAuth } from "@/modules/auth/hooks/useAuth";
 import { CommonSelect } from "@/shared/components/CommonSelect/CommonSelect";
 import { CommonDatePicker } from "@/shared/components/CommonDatePicker";
 import { CommonTextArea } from "@/shared/components/CommonTextArea/CommonTextArea";
@@ -16,13 +17,16 @@ import styles from "./ServiceForm.module.css";
 
 export const ServiceForm = () => {
   const { t } = useTranslation();
-  const [form] = Form.useForm<Partial<Service>>();
+  const { profile } = useAuth();
   const {
     isFormOpen,
     service,
     loadingService,
     submitService,
+    therapistId,
   } = useServiceForm();
+
+  const [form] = Form.useForm<Partial<Service>>();
 
   const serviceTypeOptions = useMemo(() => getServiceTypeOptions(t), [t]);
   const statusOptions = useMemo(() => getStatusOptions(t), [t]);
@@ -54,7 +58,10 @@ export const ServiceForm = () => {
       layout="vertical"
       requiredMark={false}
       onFinish={submitService}
-      initialValues={{ status: "scheduled" }}
+      initialValues={{
+        status: "scheduled",
+        therapist_id: therapistId,
+      }}
       className={styles.form}
     >
       <Row gutter={16}>
@@ -71,6 +78,7 @@ export const ServiceForm = () => {
           <Form.Item name="therapist_id">
             <ProfilesSelect
               role="therapist"
+              disabled={!profile?.admin}
               allowClear={false}
               required
             />

@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import { useEffect } from "react";
 import { Form, Row, Col, Flex, Skeleton, Upload, Divider } from "antd";
 import dayjs from "dayjs";
 import { useTranslation } from "react-i18next";
@@ -44,10 +44,6 @@ export const PatientForm = () => {
   const maritalStatusOptions = getMaritalStatusOptions(t);
   const educationLevelOptions = getEducationLevelOptions(t);
 
-  const regularTherapist = useMemo(() => (
-    !patient?.id && !!therapistId
-  ), [patient?.id, therapistId]);
-
   useEffect(() => {
     if (isFormOpen) {
       if (patient) {
@@ -78,7 +74,7 @@ export const PatientForm = () => {
       initialValues={{
         role: "patient",
         active: true,
-        ...(regularTherapist && { therapist_id: therapistId }),
+        therapist_id: therapistId,
       }}
       className={styles.form}
     >

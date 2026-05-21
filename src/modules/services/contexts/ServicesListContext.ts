@@ -3,6 +3,7 @@ import { createContext } from "react";
 import type { Service, ServicesFilter, ServicesOrder } from "../types/service";
 
 export type ServicesListContextType = {
+  therapistId?: number;
   services: Service[];
   total: number;
   totalFiltered: number;

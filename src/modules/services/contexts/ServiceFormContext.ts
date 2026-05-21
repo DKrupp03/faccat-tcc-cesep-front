@@ -3,6 +3,7 @@ import { createContext } from "react";
 import type { Service } from "../types/service";
 
 export type ServiceFormContextType = {
+  therapistId?: number;
   isFormOpen: boolean;
   service: Service | undefined;
   isSubmitting: boolean;
