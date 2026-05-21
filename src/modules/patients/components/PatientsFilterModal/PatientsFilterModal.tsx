@@ -2,7 +2,6 @@ import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Form, Row, Col, Flex } from "antd";
 
-import { useAuth } from "@/modules/auth/hooks/useAuth";
 import { CommonModal } from "@/shared/components/CommonModal/CommonModal";
 import { CommonGroupButtons } from "@/shared/components/CommonGroupButtons/CommonGroupButtons";
 import { CommonButton } from "@/shared/components/CommonButton/CommonButton";
@@ -16,7 +15,6 @@ import styles from "./PatientsFilterModal.module.css";
 
 export const PatientsFilterModal = () => {
   const { t } = useTranslation();
-  const { profile } = useAuth();
   const { therapistId } = usePatientsList();
   const {
     isFilterOpen,
@@ -70,7 +68,7 @@ export const PatientsFilterModal = () => {
             <Form.Item name="therapist_id" noStyle>
               <ProfilesSelect
                 role="therapist"
-                disabled={!!therapistId || !profile?.admin}
+                disabled={!!therapistId}
               />
             </Form.Item>
           </Col>

@@ -3,7 +3,6 @@ import { useTranslation } from "react-i18next";
 import { Form, Row, Col } from "antd";
 import dayjs from "dayjs";
 
-import { useAuth } from "@/modules/auth/hooks/useAuth";
 import { CommonModal } from "@/shared/components/CommonModal/CommonModal";
 import { CommonButton } from "@/shared/components/CommonButton/CommonButton";
 import { CommonDatePicker } from "@/shared/components/CommonDatePicker";
@@ -17,7 +16,6 @@ import styles from "./ServicesFilterModal.module.css";
 
 export const ServicesFilterModal = () => {
   const { t } = useTranslation();
-  const { profile } = useAuth();
   const { therapistId } = useServicesList();
   const {
     isFilterOpen,
@@ -93,7 +91,7 @@ export const ServicesFilterModal = () => {
             <Form.Item name="therapist_id" noStyle>
               <ProfilesSelect
                 role="therapist"
-                disabled={!!therapistId || !profile?.admin}
+                disabled={!!therapistId}
               />
             </Form.Item>
           </Col>

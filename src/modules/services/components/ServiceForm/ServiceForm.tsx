@@ -3,7 +3,6 @@ import { useTranslation } from "react-i18next";
 import { Form, Row, Col, Skeleton } from "antd";
 import dayjs from "dayjs";
 
-import { useAuth } from "@/modules/auth/hooks/useAuth";
 import { CommonSelect } from "@/shared/components/CommonSelect/CommonSelect";
 import { CommonDatePicker } from "@/shared/components/CommonDatePicker";
 import { CommonTextArea } from "@/shared/components/CommonTextArea/CommonTextArea";
@@ -17,7 +16,6 @@ import styles from "./ServiceForm.module.css";
 
 export const ServiceForm = () => {
   const { t } = useTranslation();
-  const { profile } = useAuth();
   const {
     isFormOpen,
     service,
@@ -78,7 +76,7 @@ export const ServiceForm = () => {
           <Form.Item name="therapist_id">
             <ProfilesSelect
               role="therapist"
-              disabled={!profile?.admin}
+              disabled={!!therapistId}
               allowClear={false}
               required
             />

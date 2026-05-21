@@ -133,7 +133,7 @@ export const PatientAnamneseFormOptions = () => {
 
   return (
     <>
-      {!!patient?.anamnese && (
+      {!patient?.anamnese && (
         <CommonIconHelp text={t("patients.anamnese.actions.not_created")} />
       )}
 
