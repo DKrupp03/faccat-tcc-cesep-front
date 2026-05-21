@@ -60,12 +60,20 @@ export const ServiceForm = () => {
       <Row gutter={16}>
         <Col span={12}>
           <Form.Item name="patient_id">
-            <ProfilesSelect role="patient" required />
+            <ProfilesSelect
+              role="patient"
+              allowClear={false}
+              required
+            />
           </Form.Item>
         </Col>
         <Col span={12}>
           <Form.Item name="therapist_id">
-            <ProfilesSelect role="therapist" required />
+            <ProfilesSelect
+              role="therapist"
+              allowClear={false}
+              required
+            />
           </Form.Item>
         </Col>
       </Row>

@@ -89,6 +89,9 @@ const common = {
     "date": "Data",
     "title": "Título",
     "observations": "Observações",
+    "service_type": "Tipo de atendimento",
+    "datetime_start": "Início",
+    "datetime_end": "Término",
   },
 
   "genders": {
