@@ -51,7 +51,12 @@ export const usePatientAnamnese = () => {
       }
 
       updatePatientAttribute({ anamnese: response.anamnese });
-      openNotification("success", t("patients.anamnese.actions.saved"));
+      openNotification(
+        "success",
+        values.id
+          ? t("patients.anamnese.actions.updated")
+          : t("patients.anamnese.actions.created"),
+      );
     } catch (error) {
       console.error(error || t("common.errors.unknown"));
     } finally {

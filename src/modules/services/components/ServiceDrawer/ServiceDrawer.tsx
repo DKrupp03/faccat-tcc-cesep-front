@@ -1,5 +1,6 @@
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { useTranslation } from "react-i18next";
+import { Skeleton } from "antd";
 import {
   IconEdit,
   IconReportMoney,
@@ -7,9 +8,50 @@ import {
 } from "@tabler/icons-react";
 
 import { CommonDrawer } from "@/shared/components/CommonDrawer/CommonDrawer";
+import { MedicalRecordsProvider } from "@/modules/patients/providers/MedicalRecordsProvider";
+import { useMedicalRecords } from "@/modules/patients/hooks/useMedicalRecords";
+import {
+  MedicalRecordForm,
+  MedicalRecordFormOptions,
+} from "@/modules/patients/components/MedicalRecordForm/MedicalRecordForm";
 
 import { useServiceDrawer } from "../../hooks/useServiceDrawer";
+import type { Service } from "../../types/service";
 import { ServiceForm, ServiceFormOptions } from "../ServiceForm/ServiceForm";
+
+type MedicalRecordSyncProps = {
+  service: Service;
+};
+
+const MedicalRecordSync = ({ service }: MedicalRecordSyncProps) => {
+  const { openForm } = useMedicalRecords();
+
+  useEffect(() => {
+    openForm(service.medical_record?.id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [service.id]);
+
+  return null;
+};
+
+type MedicalRecordTabContentProps = {
+  serviceId: number;
+};
+
+const MedicalRecordTabContent = ({ serviceId }: MedicalRecordTabContentProps) => {
+  const { loadingMedicalRecord } = useMedicalRecords();
+
+  if (loadingMedicalRecord) {
+    return <Skeleton paragraph={{ rows: 6 }} active />;
+  }
+
+  return (
+    <MedicalRecordForm
+      lockedFields={["service_id"]}
+      defaultValues={{ service_id: serviceId }}
+    />
+  );
+};
 
 export const ServiceDrawer = () => {
   const { t } = useTranslation();
@@ -37,24 +79,35 @@ export const ServiceDrawer = () => {
 
   const content = useMemo(() => {
     if (tab === "form") return <ServiceForm />;
-  }, [tab]);
+    if (tab === "medicalRecord" && service?.id) {
+      return <MedicalRecordTabContent serviceId={service.id} />;
+    }
+  }, [tab, service]);
 
   const footer = useMemo(() => {
     if (tab === "form") return <ServiceFormOptions />;
+    if (tab === "medicalRecord") return <MedicalRecordFormOptions showDelete={false} />;
   }, [tab]);
 
   return (
-    <CommonDrawer
-      isOpen={isFormOpen}
-      close={handleClose}
-      title={t(`services.tabs.${tab}`)}
-      footer={footer}
-      tabs={tabs}
-      activeTab={tab}
-      onChangeTab={handleChangeTab}
-      showTabs
+    <MedicalRecordsProvider
+      patientId={service?.patient_id}
+      renderFormDrawer={false}
+      keepFormOpenOnSubmit
     >
-      {content}
-    </CommonDrawer>
+      {service?.id && <MedicalRecordSync service={service} />}
+      <CommonDrawer
+        isOpen={isFormOpen}
+        close={handleClose}
+        title={t(`services.tabs.${tab}`)}
+        footer={footer}
+        tabs={tabs}
+        activeTab={tab}
+        onChangeTab={handleChangeTab}
+        showTabs
+      >
+        {content}
+      </CommonDrawer>
+    </MedicalRecordsProvider>
   );
 };

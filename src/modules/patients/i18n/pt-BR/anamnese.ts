@@ -1,6 +1,9 @@
 const anamnese = {
   "actions": {
-    "not_created": "Anamnese ainda não foi realizada",
+    "create": "Criar anamnese",
+    "created": "Anamnese criada com sucesso!",
+    "edit": "Editar anamnese",
+    "updated": "Anamnese atualizada com sucesso!",
     "save": "Salvar anamnese",
     "saved": "Anamnese salva com sucesso!",
   },

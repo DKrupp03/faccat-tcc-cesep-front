@@ -2,7 +2,6 @@ import { useTranslation } from "react-i18next";
 import { Form, Divider } from "antd";
 
 import { CommonButton } from "@/shared/components/CommonButton/CommonButton";
-import { CommonIconHelp } from "@/shared/components/CommonHelpIcon/CommonHelpIcon";
 
 import { usePatientAnamnese } from "../../hooks/usePatientAnamnese";
 import { GeneralDataForm } from "./components/GeneralDataForm/GeneralDataForm";
@@ -133,17 +132,15 @@ export const PatientAnamneseFormOptions = () => {
 
   return (
     <>
-      {!patient?.anamnese && (
-        <CommonIconHelp text={t("patients.anamnese.actions.not_created")} />
-      )}
-
       <CommonButton
         htmlType="submit"
         form="anamnese-form"
         buttonVariant="primary"
         loading={isSubmitting}
       >
-        {t("patients.anamnese.actions.save")}
+        {patient?.anamnese
+          ? t("patients.anamnese.actions.edit")
+          : t("patients.anamnese.actions.create")}
       </CommonButton>
     </>
   );

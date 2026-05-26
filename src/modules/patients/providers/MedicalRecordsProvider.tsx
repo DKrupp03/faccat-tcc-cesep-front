@@ -1,12 +1,17 @@
 import { useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { Skeleton } from "antd";
 
 import { useNotification } from "@/shared/hooks/useNotification";
 import { useModals } from "@/shared/hooks/useModals";
+import { CommonDrawer } from "@/shared/components/CommonDrawer/CommonDrawer";
 
 import { MedicalRecordsContext } from "../contexts/MedicalRecordsContext";
 import { MedicalRecordsFilterModal } from "../components/MedicalRecordsFilterModal/MedicalRecordsFilterModal";
-import { MedicalRecordForm } from "../components/MedicalRecordForm/MedicalRecordForm";
+import {
+  MedicalRecordForm,
+  MedicalRecordFormOptions,
+} from "../components/MedicalRecordForm/MedicalRecordForm";
 import MedicalRecordsService from "../services/MedicalRecordsService";
 import type {
   MedicalRecordType,
@@ -17,11 +22,15 @@ import type {
 
 type MedicalRecordsProviderProps = {
   patientId?: number;
+  renderFormDrawer?: boolean;
+  keepFormOpenOnSubmit?: boolean;
   children: React.ReactNode;
 };
 
 export const MedicalRecordsProvider = ({
   patientId,
+  renderFormDrawer = true,
+  keepFormOpenOnSubmit = false,
   children,
 }: MedicalRecordsProviderProps) => {
   const { t } = useTranslation();
@@ -155,13 +164,17 @@ export const MedicalRecordsProvider = ({
         openNotification("success", t("patients.medicalRecords.actions.created"));
       }
 
-      closeForm();
+      if (keepFormOpenOnSubmit) {
+        setMedicalRecord(saved);
+      } else {
+        closeForm();
+      }
     } catch (error) {
       console.error(error || t("common.errors.unknown"));
     } finally {
       setIsSubmitting(false);
     }
-  }, [t, patientId, medicalRecord, openNotification, closeForm]);
+  }, [t, patientId, medicalRecord, openNotification, closeForm, keepFormOpenOnSubmit]);
 
   const deleteMedicalRecord = useCallback(async (medicalRecordId: number) => {
     if (!patientId) return;
@@ -192,6 +205,10 @@ export const MedicalRecordsProvider = ({
     );
   }, [t, patientId, openConfirmationModal, openNotification, closeForm]);
 
+  const formTitle = medicalRecord?.id
+    ? t("patients.medicalRecords.actions.edit")
+    : t("patients.medicalRecords.actions.create");
+
   return (
     <MedicalRecordsContext.Provider
       value={{
@@ -221,7 +238,21 @@ export const MedicalRecordsProvider = ({
     >
       {children}
       <MedicalRecordsFilterModal />
-      <MedicalRecordForm />
+      {renderFormDrawer && (
+        <CommonDrawer
+          title={formTitle}
+          isOpen={isFormOpen}
+          close={closeForm}
+          footer={<MedicalRecordFormOptions />}
+          width="50%"
+        >
+          {loadingMedicalRecord ? (
+            <Skeleton paragraph={{ rows: 6 }} active />
+          ) : (
+            <MedicalRecordForm />
+          )}
+        </CommonDrawer>
+      )}
     </MedicalRecordsContext.Provider>
   );
 };
