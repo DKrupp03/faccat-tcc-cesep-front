@@ -16,7 +16,7 @@ import styles from "./ServicesFilterModal.module.css";
 
 export const ServicesFilterModal = () => {
   const { t } = useTranslation();
-  const { therapistId } = useServicesList();
+  const { therapistId, patientId } = useServicesList();
   const {
     isFilterOpen,
     defaultFilter,
@@ -84,7 +84,11 @@ export const ServicesFilterModal = () => {
         <Row gutter={16}>
           <Col span={12}>
             <Form.Item name="patient_id" noStyle>
-              <ProfilesSelect role="patient" />
+              <ProfilesSelect
+                role="patient"
+                therapistId={therapistId}
+                disabled={!!patientId}
+              />
             </Form.Item>
           </Col>
           <Col span={12}>

@@ -22,6 +22,7 @@ export const ServiceForm = () => {
     loadingService,
     submitService,
     therapistId,
+    patientId,
   } = useServiceForm();
 
   const [form] = Form.useForm<Partial<Service>>();
@@ -59,6 +60,7 @@ export const ServiceForm = () => {
       initialValues={{
         status: "scheduled",
         therapist_id: therapistId,
+        patient_id: patientId,
       }}
       className={styles.form}
     >
@@ -67,6 +69,8 @@ export const ServiceForm = () => {
           <Form.Item name="patient_id">
             <ProfilesSelect
               role="patient"
+              therapistId={therapistId}
+              disabled={!!patientId}
               allowClear={false}
               required
             />

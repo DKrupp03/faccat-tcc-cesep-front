@@ -8,16 +8,18 @@ import type { Service, ServicesFilter, ServicesOrder } from "../types/service";
 
 type ServicesListProviderProps = {
   therapistId?: number;
+  patientId?: number;
   children: React.ReactNode;
 };
 
-export const ServicesListProvider = ({ therapistId, children }: ServicesListProviderProps) => {
+export const ServicesListProvider = ({ therapistId, patientId, children }: ServicesListProviderProps) => {
   const { t } = useTranslation();
   const { fetchServices } = useServicesOperations();
 
   const defaultFilter: ServicesFilter = useMemo(() => ({
     therapist_id: therapistId,
-  }), [therapistId]);
+    patient_id: patientId,
+  }), [therapistId, patientId]);
 
   const [services, setServices] = useState<Service[]>([]);
   const [total, setTotal] = useState<number>(0);
@@ -34,9 +36,9 @@ export const ServicesListProvider = ({ therapistId, children }: ServicesListProv
     newOrderBy: ServicesOrder = orderBy,
     newPage: number = 1,
   ) => {
-    const effectiveFilter = therapistId
-      ? { ...newFilter, therapist_id: therapistId }
-      : newFilter;
+    let effectiveFilter = newFilter;
+    if (therapistId) effectiveFilter = { ...effectiveFilter, therapist_id: therapistId };
+    if (patientId) effectiveFilter = { ...effectiveFilter, patient_id: patientId };
 
     setFilter(effectiveFilter);
     setOrderBy(newOrderBy);
@@ -73,7 +75,7 @@ export const ServicesListProvider = ({ therapistId, children }: ServicesListProv
       setLoadingMore(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [t, therapistId]);
+  }, [t, therapistId, patientId]);
 
   const serviceFormCallback = useCallback((
     operation: "create" | "update" | "delete",
@@ -99,6 +101,7 @@ export const ServicesListProvider = ({ therapistId, children }: ServicesListProv
     <ServicesListContext.Provider
       value={{
         therapistId,
+        patientId,
         services,
         total,
         totalFiltered,

@@ -13,12 +13,16 @@ type ProfilesSelectProps = Omit<SelectProps, "options"> & {
   label?: string;
   required?: boolean;
   showHelp?: boolean;
+  therapistId?: number;
+  patientId?: number;
 };
 
 export const ProfilesSelect: React.FC<ProfilesSelectProps> = ({
   role,
   showHelp,
   label,
+  therapistId,
+  patientId,
   ...props
 }) => {
   const { t } = useTranslation();
@@ -27,16 +31,16 @@ export const ProfilesSelect: React.FC<ProfilesSelectProps> = ({
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const getProfiles = useCallback(async (name?: string) => {
-    const response = await ProfilesSelectService.getProfiles(role, name);
+    const response = await ProfilesSelectService.getProfiles(role, { name, therapistId, patientId });
 
     if (response.success) {
       setOptions(response.profiles.map((p) => ({ label: p.name, value: p.id })));
     }
-  }, [role]);
+  }, [role, therapistId, patientId]);
 
   useEffect(() => {
     getProfiles();
-  }, []);
+  }, [getProfiles]);
 
   const handleSearch = useCallback((value: string) => {
     if (debounceRef.current) clearTimeout(debounceRef.current);

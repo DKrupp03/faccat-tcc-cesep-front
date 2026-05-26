@@ -9,9 +9,11 @@ import {
 import { CommonDrawer } from "@/shared/components/CommonDrawer/CommonDrawer";
 
 import { PatientsProvider } from "@/modules/patients/providers/PatientsProvider";
+import { ServicesProvider } from "@/modules/services/providers/ServicesProvider";
 import { useTherapistDrawer } from "../../hooks/useTherapistDrawer";
 import { TherapistForm, TherapistFormOptions } from "../TherapistForm/TherapistForm";
 import { TherapistPatients, TherapistPatientsOptions } from "../TherapistPatients/TherapistPatients";
+import { TherapistServices, TherapistServicesOptions } from "../TherapistServices/TherapistServices";
 
 const TherapistDrawerContent = () => {
   const { t } = useTranslation();
@@ -39,11 +41,13 @@ const TherapistDrawerContent = () => {
 
   const header = useMemo(() => {
     if (tab === "patients") return <TherapistPatientsOptions />;
+    if (tab === "services") return <TherapistServicesOptions />;
   }, [tab]);
 
   const content = useMemo(() => {
     if (tab === "form") return <TherapistForm />;
     if (tab === "patients") return <TherapistPatients />;
+    if (tab === "services") return <TherapistServices />;
   }, [tab]);
 
   const footer = useMemo(() => {
@@ -72,7 +76,9 @@ export const TherapistDrawer = () => {
 
   return (
     <PatientsProvider therapistId={therapist?.id}>
-      <TherapistDrawerContent />
+      <ServicesProvider therapistId={therapist?.id}>
+        <TherapistDrawerContent />
+      </ServicesProvider>
     </PatientsProvider>
   );
 };

@@ -4,6 +4,7 @@ import type { Service } from "../types/service";
 
 export type ServiceFormContextType = {
   therapistId?: number;
+  patientId?: number;
   isFormOpen: boolean;
   service: Service | undefined;
   isSubmitting: boolean;

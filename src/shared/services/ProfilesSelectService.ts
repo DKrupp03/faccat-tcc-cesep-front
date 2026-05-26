@@ -11,11 +11,23 @@ type ProfilesSelectResponse = CommonPanelResponse & {
   profiles: ProfilesSelectOption[];
 };
 
+type ProfilesSelectFilters = {
+  name?: string;
+  therapistId?: number;
+  patientId?: number;
+};
+
 const ProfilesSelectService = {
-  async getProfiles(role: ProfileRole, name?: string): Promise<ProfilesSelectResponse> {
+  async getProfiles(role: ProfileRole, filters: ProfilesSelectFilters = {}): Promise<ProfilesSelectResponse> {
     const response = await api.get("/profiles", {
       params: {
-        profiles: { active: 1, role, name },
+        profiles: {
+          active: 1,
+          role,
+          name: filters.name,
+          therapist_id: filters.therapistId,
+          patient_id: filters.patientId,
+        },
         order_by: "name_asc",
         page: 1,
       },

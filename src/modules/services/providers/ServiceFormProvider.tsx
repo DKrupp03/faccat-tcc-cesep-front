@@ -15,12 +15,14 @@ type ServiceFormProviderProps = {
     service: Service,
   ) => void;
   therapistId?: number;
+  patientId?: number;
   children: React.ReactNode;
 };
 
 export const ServiceFormProvider = ({
   afterSaveCallback,
   therapistId,
+  patientId,
   children,
 }: ServiceFormProviderProps) => {
   const { t } = useTranslation();
@@ -148,6 +150,7 @@ export const ServiceFormProvider = ({
     <ServiceFormContext.Provider
       value={{
         therapistId,
+        patientId,
         isFormOpen,
         service,
         isSubmitting,
