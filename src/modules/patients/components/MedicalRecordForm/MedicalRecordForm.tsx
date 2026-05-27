@@ -102,7 +102,7 @@ export const MedicalRecordForm = ({
               label={t("patients.medicalRecords.columns.service")}
               required
               disabled={isServiceLocked}
-              allowClear={!isServiceLocked}
+              allowClear={false}
             />
           </Form.Item>
         </Col>
