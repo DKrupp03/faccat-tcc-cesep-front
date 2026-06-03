@@ -1,6 +1,12 @@
 import { createContext } from "react";
+import type { Dayjs } from "dayjs";
 
-import type { Service, ServicesFilter, ServicesOrder } from "../types/service";
+import type {
+  Service,
+  ServicesFilter,
+  ServicesOrder,
+  ServicesPanelView,
+} from "../types/service";
 
 export type ServicesListContextType = {
   therapistId?: number;
@@ -14,12 +20,16 @@ export type ServicesListContextType = {
   defaultFilter: ServicesFilter;
   page: number;
   orderBy: ServicesOrder;
+  panelView: ServicesPanelView;
+  calendarMonth: Dayjs;
   isFilterOpen: boolean;
   filtratePanel: (
     newFilter?: ServicesFilter,
     newOrderBy?: ServicesOrder,
     newPage?: number,
   ) => Promise<void>;
+  changePanelView: (view: ServicesPanelView) => void;
+  changeCalendarMonth: (month: Dayjs) => void;
   openFilter: () => void;
   closeFilter: () => void;
   serviceFormCallback: (operation: "create" | "update" | "delete", service: Service) => void;

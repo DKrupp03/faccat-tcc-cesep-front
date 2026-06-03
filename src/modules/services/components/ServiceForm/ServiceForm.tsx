@@ -70,6 +70,7 @@ export const ServiceForm = () => {
             <ProfilesSelect
               role="patient"
               therapistId={therapistId}
+              selectedProfile={service?.patient}
               disabled={!!patientId}
               allowClear={false}
               required
@@ -80,6 +81,7 @@ export const ServiceForm = () => {
           <Form.Item name="therapist_id">
             <ProfilesSelect
               role="therapist"
+              selectedProfile={service?.therapist}
               disabled={!!therapistId}
               allowClear={false}
               required

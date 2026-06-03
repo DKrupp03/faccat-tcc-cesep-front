@@ -16,7 +16,8 @@ import styles from "./ServicesFilterModal.module.css";
 
 export const ServicesFilterModal = () => {
   const { t } = useTranslation();
-  const { therapistId, patientId } = useServicesList();
+  const { therapistId, patientId, panelView } = useServicesList();
+  const isCalendar = panelView === "calendar";
   const {
     isFilterOpen,
     defaultFilter,
@@ -64,6 +65,7 @@ export const ServicesFilterModal = () => {
                 label={t("services.filter.dateStart")}
                 showTime={{ format: "HH:mm" }}
                 format="DD/MM/YYYY HH:mm"
+                disabled={isCalendar}
               />
             </Form.Item>
           </Col>
@@ -77,6 +79,7 @@ export const ServicesFilterModal = () => {
                 label={t("services.filter.dateEnd")}
                 showTime={{ format: "HH:mm" }}
                 format="DD/MM/YYYY HH:mm"
+                disabled={isCalendar}
               />
             </Form.Item>
           </Col>

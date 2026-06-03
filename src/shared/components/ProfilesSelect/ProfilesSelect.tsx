@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback, useRef, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import type { SelectProps } from "antd";
 import type { DefaultOptionType } from "antd/es/select";
@@ -8,6 +8,11 @@ import { CommonIconHelp } from "@/shared/components/CommonHelpIcon/CommonHelpIco
 import ProfilesSelectService from "@/shared/services/ProfilesSelectService";
 import type { ProfileRole } from "@/shared/types/profile";
 
+type SelectedProfile = {
+  id: number;
+  name: string;
+};
+
 type ProfilesSelectProps = Omit<SelectProps, "options"> & {
   role: ProfileRole;
   label?: string;
@@ -15,6 +20,7 @@ type ProfilesSelectProps = Omit<SelectProps, "options"> & {
   showHelp?: boolean;
   therapistId?: number;
   patientId?: number;
+  selectedProfile?: SelectedProfile;
 };
 
 export const ProfilesSelect: React.FC<ProfilesSelectProps> = ({
@@ -23,6 +29,7 @@ export const ProfilesSelect: React.FC<ProfilesSelectProps> = ({
   label,
   therapistId,
   patientId,
+  selectedProfile,
   ...props
 }) => {
   const { t } = useTranslation();
@@ -49,10 +56,20 @@ export const ProfilesSelect: React.FC<ProfilesSelectProps> = ({
     }, 200);
   }, [getProfiles]);
 
+  // Garante que o perfil já selecionado apareça com o nome, mesmo que não
+  // esteja na página atual de opções carregadas (paginação da busca).
+  const mergedOptions = useMemo(() => {
+    if (selectedProfile && !options.some((option) => option.value === selectedProfile.id)) {
+      return [{ label: selectedProfile.name, value: selectedProfile.id }, ...options];
+    }
+
+    return options;
+  }, [options, selectedProfile]);
+
   return (
     <CommonSelect
       label={label || t(`common.columns.${role}`)}
-      options={options}
+      options={mergedOptions}
       icon={showHelp ? <CommonIconHelp text={t("common.help.defaultValue")} /> : undefined}
       allowClear
       showSearch={{ filterOption: false, onSearch: handleSearch }}

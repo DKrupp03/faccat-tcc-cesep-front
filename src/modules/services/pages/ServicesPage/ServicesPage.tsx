@@ -11,6 +11,7 @@ import { useServicesList } from "../../hooks/useServicesList";
 import { ServicesHeader } from "../../components/ServicesHeader/ServicesHeader";
 import { ServicesHeaderCards } from "../../components/ServicesHeaderCards/ServicesHeaderCards";
 import { ServicesTable } from "../../components/ServicesTable/ServicesTable";
+import { ServicesCalendar } from "../../components/ServicesCalendar/ServicesCalendar";
 import styles from "./ServicesPage.module.css";
 
 const ServicesPage = () => {
@@ -30,7 +31,7 @@ const ServicesPage = () => {
 const ServicesPanel = () => {
   const { t } = useTranslation();
   const { changeActiveModule } = useModules();
-  const { filtratePanel } = useServicesList();
+  const { filtratePanel, panelView } = useServicesList();
 
   useEffect(() => {
     changeActiveModule("services");
@@ -46,7 +47,7 @@ const ServicesPanel = () => {
 
       <Flex vertical gap={24} className={styles.body}>
         <ServicesHeaderCards />
-        <ServicesTable />
+        {panelView === "calendar" ? <ServicesCalendar /> : <ServicesTable />}
       </Flex>
     </Flex>
   );

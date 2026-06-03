@@ -24,6 +24,17 @@ export const formatDateTime = (value?: string) => {
     ).replace(",", " -");
 };
 
+export const formatMonthYear = (value?: string | Date) => {
+  if (!value) return "";
+
+  const formatted = new Date(value).toLocaleDateString("pt-BR", {
+    month: "long",
+    year: "numeric",
+  });
+
+  return formatted.charAt(0).toUpperCase() + formatted.slice(1);
+};
+
 export const phoneMask = (value: string) => {
   const digits = value.replace(/\D/g, "").slice(0, 11);
   if (digits.length === 0) return "";

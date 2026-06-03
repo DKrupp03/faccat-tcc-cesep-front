@@ -36,6 +36,18 @@ const services = {
     "dateEnd": "Data final",
   },
 
+  "view": {
+    "panel": "Painel",
+    "calendar": "Calendário",
+    "list": "Lista",
+  },
+
+  "calendar": {
+    "previousMonth": "Mês anterior",
+    "nextMonth": "Próximo mês",
+    "today": "Hoje",
+  },
+
   "order": {
     "dateDesc": "Data (mais recente)",
     "dateAsc": "Data (mais antigo)",

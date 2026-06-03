@@ -1,10 +1,16 @@
 import { useCallback, useState, useMemo } from "react";
 import { useTranslation } from "react-i18next";
+import dayjs, { type Dayjs } from "dayjs";
 
 import { ServicesListContext } from "../contexts/ServicesListContext";
 import { ServicesFilterModal } from "../components/ServicesFilterModal/ServicesFilterModal";
 import { useServicesOperations } from "../hooks/useServicesOperations";
-import type { Service, ServicesFilter, ServicesOrder } from "../types/service";
+import type {
+  Service,
+  ServicesFilter,
+  ServicesOrder,
+  ServicesPanelView,
+} from "../types/service";
 
 type ServicesListProviderProps = {
   therapistId?: number;
@@ -29,35 +35,54 @@ export const ServicesListProvider = ({ therapistId, patientId, children }: Servi
   const [filter, setFilter] = useState<ServicesFilter>(defaultFilter);
   const [page, setPage] = useState<number>(1);
   const [orderBy, setOrderBy] = useState<ServicesOrder>("datetime_start_desc");
+  const [panelView, setPanelView] = useState<ServicesPanelView>("calendar");
+  const [calendarMonth, setCalendarMonth] = useState<Dayjs>(dayjs());
   const [isFilterOpen, setIsFilterOpen] = useState<boolean>(false);
 
-  const filtratePanel = useCallback(async (
-    newFilter: ServicesFilter = filter,
-    newOrderBy: ServicesOrder = orderBy,
-    newPage: number = 1,
+  const fetchForView = useCallback(async (
+    view: ServicesPanelView,
+    month: Dayjs,
+    newFilter: ServicesFilter,
+    newOrderBy: ServicesOrder,
+    newPage: number,
   ) => {
     let effectiveFilter = newFilter;
     if (therapistId) effectiveFilter = { ...effectiveFilter, therapist_id: therapistId };
     if (patientId) effectiveFilter = { ...effectiveFilter, patient_id: patientId };
 
+    const isCalendar = view === "calendar";
+
+    if (isCalendar) {
+      effectiveFilter = {
+        ...effectiveFilter,
+        date_start: month.startOf("month").toISOString(),
+        date_end: month.endOf("month").toISOString(),
+      };
+    }
+
     setFilter(effectiveFilter);
     setOrderBy(newOrderBy);
     setPage(newPage);
 
-    if (newPage === 1) {
+    // O calendário busca o mês inteiro (sem paginação); a lista pagina.
+    if (isCalendar || newPage === 1) {
       setLoading(true);
     } else {
       setLoadingMore(true);
     }
 
     try {
-      const response = await fetchServices(effectiveFilter, newOrderBy, newPage);
+      const response = await fetchServices(
+        effectiveFilter,
+        newOrderBy,
+        isCalendar ? undefined : newPage,
+      );
 
       if (!response.success) {
         throw new Error(response.error);
       }
 
-      if (newPage === 1) {
+      if (isCalendar || newPage === 1) {
         setServices(response.services);
         setTotal(response.total);
         setTotalFiltered(response.total_filtered);
@@ -74,8 +99,32 @@ export const ServicesListProvider = ({ therapistId, patientId, children }: Servi
       setLoading(false);
       setLoadingMore(false);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [t, therapistId, patientId]);
+  }, [t, therapistId, patientId, fetchServices]);
+
+  const filtratePanel = useCallback((
+    newFilter: ServicesFilter = filter,
+    newOrderBy: ServicesOrder = orderBy,
+    newPage: number = 1,
+  ) => fetchForView(panelView, calendarMonth, newFilter, newOrderBy, newPage),
+  [fetchForView, panelView, calendarMonth, filter, orderBy]);
+
+  const changeCalendarMonth = useCallback((month: Dayjs) => {
+    setCalendarMonth(month);
+    fetchForView("calendar", month, filter, orderBy, 1);
+  }, [fetchForView, filter, orderBy]);
+
+  const changePanelView = useCallback((view: ServicesPanelView) => {
+    if (view === panelView) return;
+
+    setPanelView(view);
+
+    if (view === "list") {
+      // O calendário "possui" o range de datas; ao voltar para a lista, limpa-o.
+      fetchForView("list", calendarMonth, { ...filter, date_start: undefined, date_end: undefined }, orderBy, 1);
+    } else {
+      fetchForView("calendar", calendarMonth, filter, orderBy, 1);
+    }
+  }, [fetchForView, panelView, calendarMonth, filter, orderBy]);
 
   const serviceFormCallback = useCallback((
     operation: "create" | "update" | "delete",
@@ -111,8 +160,12 @@ export const ServicesListProvider = ({ therapistId, patientId, children }: Servi
         defaultFilter,
         page,
         orderBy,
+        panelView,
+        calendarMonth,
         isFilterOpen,
         filtratePanel,
+        changePanelView,
+        changeCalendarMonth,
         openFilter,
         closeFilter,
         serviceFormCallback,

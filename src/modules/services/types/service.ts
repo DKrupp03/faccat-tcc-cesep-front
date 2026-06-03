@@ -44,6 +44,8 @@ export type Service = {
 
 export type ServicesOrder = "datetime_start_desc" | "datetime_start_asc";
 
+export type ServicesPanelView = "calendar" | "list";
+
 export type ServicesFilter = {
   date_start?: string;
   date_end?: string;

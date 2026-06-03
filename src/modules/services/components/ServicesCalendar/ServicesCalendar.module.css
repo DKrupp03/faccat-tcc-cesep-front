@@ -1,0 +1,82 @@
+.wrapper {
+  width: 100%;
+  background-color: var(--color-white);
+  border: 1px solid var(--color-grey30);
+  border-radius: 8px;
+  padding: 16px 20px 20px;
+}
+
+.header {
+  padding-bottom: 16px;
+}
+
+.monthLabel {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--color-navy);
+}
+
+.events {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.event {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 8px;
+  border-radius: 6px;
+  border-left: 3px solid var(--status-color);
+  background-color: color-mix(in srgb, var(--status-color) 14%, transparent);
+  cursor: pointer;
+  overflow: hidden;
+  transition: background-color 0.2s ease;
+}
+
+.event:hover {
+  background-color: color-mix(in srgb, var(--status-color) 26%, transparent);
+}
+
+.event svg {
+  flex-shrink: 0;
+}
+
+.time {
+  flex-shrink: 0;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-grey90);
+}
+
+.name {
+  flex: 1;
+  min-width: 0;
+  font-size: 12px;
+  color: var(--color-grey90);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Ajustes finos no Calendar do Antd, escopados ao painel */
+.wrapper :global(.ant-picker-calendar) {
+  background-color: transparent;
+}
+
+.wrapper :global(.ant-picker-calendar-date-content) {
+  height: 92px;
+}
+
+.wrapper :global(.ant-picker-calendar-date-content)::-webkit-scrollbar {
+  width: 4px;
+}
+
+.wrapper :global(.ant-picker-calendar-date-content)::-webkit-scrollbar-thumb {
+  background-color: var(--color-grey50);
+  border-radius: 4px;
+}

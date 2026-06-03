@@ -14,11 +14,18 @@ import { CommonOrderButton } from "@/shared/components/CommonOrderButton/CommonO
 
 import { useServicesList } from "../../hooks/useServicesList";
 import { useServiceForm } from "../../hooks/useServiceForm";
+import { ServicesPanelsButton } from "../ServicesPanelsButton/ServicesPanelsButton";
 import type { ServicesOrder } from "../../types/service";
 
 export const ServicesHeader = () => {
   const { t } = useTranslation();
-  const { openFilter, filtratePanel, orderBy, filter } = useServicesList();
+  const {
+    openFilter,
+    filtratePanel,
+    orderBy,
+    filter,
+    panelView,
+  } = useServicesList();
   const { openForm } = useServiceForm();
 
   const servicesOrderOptions = useMemo(() => ([
@@ -36,11 +43,14 @@ export const ServicesHeader = () => {
 
   return (
     <>
-      <CommonOrderButton
-        value={orderBy}
-        onChange={(newOrderBy) => filtratePanel(filter, newOrderBy as ServicesOrder)}
-        options={servicesOrderOptions}
-      />
+      <ServicesPanelsButton />
+      {panelView === "list" && (
+        <CommonOrderButton
+          value={orderBy}
+          onChange={(newOrderBy) => filtratePanel(filter, newOrderBy as ServicesOrder)}
+          options={servicesOrderOptions}
+        />
+      )}
       <Tooltip title={t("common.actions.reload")}>
         <CommonButton
           onClick={() => filtratePanel()}
