@@ -2,6 +2,7 @@ import { useMemo, type CSSProperties } from "react";
 import { useTranslation } from "react-i18next";
 import { Calendar, Flex, Spin, Tooltip, Typography } from "antd";
 import type { CalendarProps } from "antd";
+import ptBRCalendar from "antd/es/calendar/locale/pt_BR";
 import dayjs, { type Dayjs } from "dayjs";
 import { IconChevronLeft, IconChevronRight } from "@tabler/icons-react";
 
@@ -82,6 +83,7 @@ export const ServicesCalendar = () => {
       <Spin spinning={loading}>
         <Calendar
           value={calendarMonth}
+          locale={ptBRCalendar}
           mode="month"
           cellRender={cellRender}
           headerRender={({ value }) => (
