@@ -10,11 +10,17 @@ type ServiceSelectResponse = CommonResponse & {
   service: Service;
 };
 
+export type ServicesSelectFilter = {
+  patient_id?: number;
+  without_payment?: boolean;
+  without_medical_record?: boolean;
+};
+
 const ServicesSelectService = {
-  async getServices(): Promise<ServicesSelectResponse> {
+  async getServices(filter: ServicesSelectFilter = {}): Promise<ServicesSelectResponse> {
     const response = await api.get("/services", {
       params: {
-        services: {},
+        services: filter,
         order_by: "datetime_start_desc",
         page: 1,
       },

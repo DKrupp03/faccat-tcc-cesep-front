@@ -29,6 +29,7 @@ export const MedicalRecordForm = ({
     isFormOpen,
     medicalRecord,
     submitMedicalRecord,
+    patientId,
   } = useMedicalRecords();
 
   const [newFiles, setNewFiles] = useState<File[]>([]);
@@ -103,6 +104,8 @@ export const MedicalRecordForm = ({
               required
               disabled={isServiceLocked}
               allowClear={false}
+              patientId={patientId}
+              withoutMedicalRecord
             />
           </Form.Item>
         </Col>

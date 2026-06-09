@@ -219,7 +219,8 @@ export const PatientForm = () => {
           <Form.Item name="default_value" normalize={decimalMask}>
             <CommonTextInput
               label={t("common.columns.defaultValue")}
-              icon={<CommonIconHelp text={t("common.help.defaultValue")} />}
+              icon="R$"
+              suffix={<CommonIconHelp text={t("common.help.defaultValue")} />}
             />
           </Form.Item>
         </Col>

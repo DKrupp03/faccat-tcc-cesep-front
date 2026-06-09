@@ -16,6 +16,8 @@ type ServiceFormProviderProps = {
   ) => void;
   therapistId?: number;
   patientId?: number;
+  renderFormDrawer?: boolean;
+  keepFormOpenOnSubmit?: boolean;
   children: React.ReactNode;
 };
 
@@ -23,6 +25,8 @@ export const ServiceFormProvider = ({
   afterSaveCallback,
   therapistId,
   patientId,
+  renderFormDrawer = true,
+  keepFormOpenOnSubmit = false,
   children,
 }: ServiceFormProviderProps) => {
   const { t } = useTranslation();
@@ -75,14 +79,18 @@ export const ServiceFormProvider = ({
       }
 
       afterSaveCallback?.("create", response.service);
-      closeForm();
+      if (keepFormOpenOnSubmit) {
+        setService(response.service);
+      } else {
+        closeForm();
+      }
       openNotification("success", t("services.actions.created"));
     } catch (error) {
       console.error(error || t("common.errors.unknown"));
     } finally {
       setIsSubmitting(false);
     }
-  }, [t, createServiceOperation, afterSaveCallback, openNotification, closeForm]);
+  }, [t, createServiceOperation, afterSaveCallback, openNotification, closeForm, keepFormOpenOnSubmit]);
 
   const updateService = useCallback(async (serviceData: Partial<Service>) => {
     try {
@@ -94,14 +102,18 @@ export const ServiceFormProvider = ({
       }
 
       afterSaveCallback?.("update", response.service);
-      closeForm();
+      if (keepFormOpenOnSubmit) {
+        setService(response.service);
+      } else {
+        closeForm();
+      }
       openNotification("success", t("services.actions.updated"));
     } catch (error) {
       console.error(error || t("common.errors.unknown"));
     } finally {
       setIsSubmitting(false);
     }
-  }, [t, updateServiceOperation, afterSaveCallback, openNotification, closeForm]);
+  }, [t, updateServiceOperation, afterSaveCallback, openNotification, closeForm, keepFormOpenOnSubmit]);
 
   const submitService = useCallback(async (formValues: Partial<Service>) => {
     setIsSubmitting(true);
@@ -162,7 +174,7 @@ export const ServiceFormProvider = ({
       }}
     >
       {children}
-      <ServiceDrawer />
+      {renderFormDrawer && <ServiceDrawer />}
     </ServiceFormContext.Provider>
   );
 };

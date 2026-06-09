@@ -24,6 +24,15 @@ export const formatDateTime = (value?: string) => {
     ).replace(",", " -");
 };
 
+export const formatCurrency = (value?: string | number) => {
+  const number = typeof value === "string" ? Number(value) : value ?? 0;
+
+  return new Intl.NumberFormat("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+  }).format(Number.isFinite(number) ? (number as number) : 0);
+};
+
 export const formatMonthYear = (value?: string | Date) => {
   if (!value) return "";
 

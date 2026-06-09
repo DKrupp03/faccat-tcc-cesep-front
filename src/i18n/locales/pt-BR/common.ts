@@ -92,6 +92,8 @@ const common = {
     "service_type": "Tipo de atendimento",
     "datetime_start": "Início",
     "datetime_end": "Término",
+    "expiration_date": "Vencimento",
+    "value": "Valor",
   },
 
   "genders": {

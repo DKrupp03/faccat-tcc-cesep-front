@@ -13,6 +13,9 @@ type ServicesSelectProps = Omit<SelectProps, "options"> & {
   label?: string;
   required?: boolean;
   showHelp?: boolean;
+  patientId?: number;
+  withoutPayment?: boolean;
+  withoutMedicalRecord?: boolean;
 };
 
 const toOption = (service: Service): DefaultOptionType => ({
@@ -24,6 +27,9 @@ export const ServicesSelect: React.FC<ServicesSelectProps> = ({
   showHelp,
   label,
   value,
+  patientId,
+  withoutPayment,
+  withoutMedicalRecord,
   ...props
 }) => {
   const { t } = useTranslation();
@@ -31,7 +37,11 @@ export const ServicesSelect: React.FC<ServicesSelectProps> = ({
   const [options, setOptions] = useState<DefaultOptionType[]>([]);
 
   const getServices = useCallback(async () => {
-    const response = await ServicesSelectService.getServices();
+    const response = await ServicesSelectService.getServices({
+      patient_id: patientId,
+      without_payment: withoutPayment,
+      without_medical_record: withoutMedicalRecord,
+    });
 
     if (response.success) {
       setOptions((prev) => {
@@ -41,7 +51,7 @@ export const ServicesSelect: React.FC<ServicesSelectProps> = ({
         return [...fetched, ...extras];
       });
     }
-  }, []);
+  }, [patientId, withoutPayment, withoutMedicalRecord]);
 
   useEffect(() => {
     getServices();
