@@ -11,12 +11,14 @@ import {
 import { CommonDrawer } from "@/shared/components/CommonDrawer/CommonDrawer";
 
 import { ServicesProvider } from "@/modules/services/providers/ServicesProvider";
+import { PaymentsProvider } from "@/modules/payments/providers/PaymentsProvider";
 import { usePatientDrawer } from "../../hooks/usePatientDrawer";
 import { MedicalRecordsProvider } from "../../providers/MedicalRecordsProvider";
 import { PatientForm, PatientFormOptions } from "../PatientForm/PatientForm";
 import { PatientAnamneseForm, PatientAnamneseFormOptions } from "../PatientAnamneseForm/PatientAnamneseForm";
 import { MedicalRecords, MedicalRecordsOptions } from "../MedicalRecords/MedicalRecords";
 import { PatientServices, PatientServicesOptions } from "../PatientServices/PatientServices";
+import { PatientPayments, PatientPaymentsOptions } from "../PatientPayments/PatientPayments";
 
 const PatientDrawerContent = () => {
   const { t } = useTranslation();
@@ -57,6 +59,7 @@ const PatientDrawerContent = () => {
   const header = useMemo(() => {
     if (tab === "medicalRecords") return <MedicalRecordsOptions />;
     if (tab === "services") return <PatientServicesOptions />;
+    if (tab === "payments") return <PatientPaymentsOptions />;
   }, [tab]);
 
   const content = useMemo(() => {
@@ -64,6 +67,7 @@ const PatientDrawerContent = () => {
     if (tab === "anamnese") return <PatientAnamneseForm />;
     if (tab === "medicalRecords") return <MedicalRecords />;
     if (tab === "services") return <PatientServices />;
+    if (tab === "payments") return <PatientPayments />;
   }, [tab]);
 
   const footer = useMemo(() => {
@@ -94,7 +98,9 @@ export const PatientDrawer = () => {
   return (
     <MedicalRecordsProvider patientId={patient?.id}>
       <ServicesProvider patientId={patient?.id}>
-        <PatientDrawerContent />
+        <PaymentsProvider patientId={patient?.id}>
+          <PatientDrawerContent />
+        </PaymentsProvider>
       </ServicesProvider>
     </MedicalRecordsProvider>
   );

@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Tooltip } from "antd";
-import { IconCalendarMonth, IconList } from "@tabler/icons-react";
+import { IconCalendarEvent, IconList } from "@tabler/icons-react";
 
 import { CommonDropdown } from "@/shared/components/CommonDropdown/CommonDropdown";
 import { CommonButton } from "@/shared/components/CommonButton/CommonButton";
@@ -18,7 +18,7 @@ export const ServicesPanelsButton = () => {
     {
       value: "calendar" as ServicesPanelView,
       label: t("services.view.calendar"),
-      icon: <IconCalendarMonth size={16} />,
+      icon: <IconCalendarEvent size={16} />,
     },
     {
       value: "list" as ServicesPanelView,
@@ -51,7 +51,7 @@ export const ServicesPanelsButton = () => {
       >
         <CommonButton
           icon={panelView === "calendar"
-            ? <IconCalendarMonth size={18} />
+            ? <IconCalendarEvent size={18} />
             : <IconList size={18} />}
           size="large"
           circular

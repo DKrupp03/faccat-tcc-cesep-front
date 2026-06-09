@@ -14,11 +14,15 @@ type PaymentFormProviderProps = {
     operation: "create" | "update" | "delete",
     payment: Payment,
   ) => void;
+  renderFormDrawer?: boolean;
+  keepFormOpenOnSubmit?: boolean;
   children: React.ReactNode;
 };
 
 export const PaymentFormProvider = ({
   afterSaveCallback,
+  renderFormDrawer = true,
+  keepFormOpenOnSubmit = false,
   children,
 }: PaymentFormProviderProps) => {
   const { t } = useTranslation();
@@ -71,14 +75,18 @@ export const PaymentFormProvider = ({
       }
 
       afterSaveCallback?.("create", response.payment);
-      closeForm();
+      if (keepFormOpenOnSubmit) {
+        setPayment(response.payment);
+      } else {
+        closeForm();
+      }
       openNotification("success", t("payments.actions.created"));
     } catch (error) {
       console.error(error || t("common.errors.unknown"));
     } finally {
       setIsSubmitting(false);
     }
-  }, [t, createPaymentOperation, afterSaveCallback, openNotification, closeForm]);
+  }, [t, createPaymentOperation, afterSaveCallback, openNotification, closeForm, keepFormOpenOnSubmit]);
 
   const updatePayment = useCallback(async (paymentData: Partial<Payment>) => {
     try {
@@ -90,14 +98,18 @@ export const PaymentFormProvider = ({
       }
 
       afterSaveCallback?.("update", response.payment);
-      closeForm();
+      if (keepFormOpenOnSubmit) {
+        setPayment(response.payment);
+      } else {
+        closeForm();
+      }
       openNotification("success", t("payments.actions.updated"));
     } catch (error) {
       console.error(error || t("common.errors.unknown"));
     } finally {
       setIsSubmitting(false);
     }
-  }, [t, updatePaymentOperation, afterSaveCallback, openNotification, closeForm]);
+  }, [t, updatePaymentOperation, afterSaveCallback, openNotification, closeForm, keepFormOpenOnSubmit]);
 
   const submitPayment = useCallback(async (formValues: Partial<Payment>) => {
     setIsSubmitting(true);
@@ -156,7 +168,7 @@ export const PaymentFormProvider = ({
       }}
     >
       {children}
-      <PaymentDrawer />
+      {renderFormDrawer && <PaymentDrawer />}
     </PaymentFormContext.Provider>
   );
 };

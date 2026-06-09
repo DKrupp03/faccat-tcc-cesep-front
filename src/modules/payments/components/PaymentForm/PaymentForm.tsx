@@ -29,7 +29,15 @@ const fileNameFromUrl = (url: string): string => {
   }
 };
 
-export const PaymentForm = () => {
+type PaymentFormProps = {
+  lockedFields?: Array<keyof Payment>;
+  defaultValues?: Partial<Payment>;
+};
+
+export const PaymentForm = ({
+  lockedFields = [],
+  defaultValues,
+}: PaymentFormProps) => {
   const { t } = useTranslation();
   const { isFormOpen, payment, loadingPayment, submitPayment } = usePaymentForm();
 
@@ -50,15 +58,19 @@ export const PaymentForm = () => {
     if (isFormOpen) {
       if (payment) {
         form.setFieldsValue({
+          ...defaultValues,
           ...payment,
           value: formatCurrencyInput(payment.value),
         });
       } else {
         form.resetFields();
+        if (defaultValues) form.setFieldsValue(defaultValues);
       }
       setNewFiles([]);
     }
-  }, [isFormOpen, payment, form]);
+  }, [isFormOpen, payment, defaultValues, form]);
+
+  const isServiceLocked = !!payment?.id || lockedFields.includes("service_id");
 
   const handleFinish = (values: Partial<Payment>) => {
     submitPayment({
@@ -85,6 +97,7 @@ export const PaymentForm = () => {
       layout="vertical"
       requiredMark={false}
       onFinish={handleFinish}
+      initialValues={defaultValues}
       className={styles.form}
     >
       <Row gutter={16}>
@@ -93,7 +106,7 @@ export const PaymentForm = () => {
             <ServicesSelect
               label={t("payments.columns.service")}
               required
-              disabled={!!payment?.id}
+              disabled={isServiceLocked}
               allowClear={false}
               withoutPayment
             />
@@ -164,13 +177,17 @@ export const PaymentForm = () => {
   );
 };
 
-export const PaymentFormOptions = () => {
+type PaymentFormOptionsProps = {
+  showDelete?: boolean;
+};
+
+export const PaymentFormOptions = ({ showDelete = true }: PaymentFormOptionsProps) => {
   const { t } = useTranslation();
   const { payment, isSubmitting, deletePayment } = usePaymentForm();
 
   return (
     <>
-      {payment?.id && (
+      {showDelete && payment?.id && (
         <CommonButton
           onClick={() => deletePayment(payment.id)}
           buttonVariant="danger"

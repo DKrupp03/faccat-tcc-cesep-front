@@ -1,5 +1,6 @@
 import type { CommonResponse, CommonPanelResponse } from "@/shared/types/common";
 import type { MedicalRecordType } from "@/modules/patients/types/medicalRecord";
+import type { Payment } from "@/modules/payments/types/payment";
 
 export type ServiceStatus =
   | "scheduled"
@@ -40,6 +41,7 @@ export type Service = {
   patient?: ServiceProfile;
   therapist?: ServiceProfile;
   medical_record?: MedicalRecordType;
+  payment?: Payment;
 };
 
 export type ServicesOrder = "datetime_start_desc" | "datetime_start_asc";

@@ -14,6 +14,12 @@ import {
   MedicalRecordForm,
   MedicalRecordFormOptions,
 } from "@/modules/patients/components/MedicalRecordForm/MedicalRecordForm";
+import { PaymentFormProvider } from "@/modules/payments/providers/PaymentFormProvider";
+import { usePaymentForm } from "@/modules/payments/hooks/usePaymentForm";
+import {
+  PaymentForm,
+  PaymentFormOptions,
+} from "@/modules/payments/components/PaymentForm/PaymentForm";
 
 import { useServiceDrawer } from "../../hooks/useServiceDrawer";
 import type { Service } from "../../types/service";
@@ -53,6 +59,42 @@ const MedicalRecordTabContent = ({ serviceId }: MedicalRecordTabContentProps) =>
   );
 };
 
+type PaymentSyncProps = {
+  service: Service;
+};
+
+const PaymentSync = ({ service }: PaymentSyncProps) => {
+  const { openForm } = usePaymentForm();
+
+  useEffect(() => {
+    openForm(service.payment?.id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [service.id]);
+
+  return null;
+};
+
+type PaymentTabContentProps = {
+  serviceId: number;
+};
+
+const PaymentTabContent = ({ serviceId }: PaymentTabContentProps) => {
+  const { loadingPayment } = usePaymentForm();
+
+  const defaultValues = useMemo(() => ({ service_id: serviceId }), [serviceId]);
+
+  if (loadingPayment) {
+    return <Skeleton paragraph={{ rows: 6 }} active />;
+  }
+
+  return (
+    <PaymentForm
+      lockedFields={["service_id"]}
+      defaultValues={defaultValues}
+    />
+  );
+};
+
 export const ServiceDrawer = () => {
   const { t } = useTranslation();
   const { isFormOpen, service, tab, handleClose, handleChangeTab } = useServiceDrawer();
@@ -79,6 +121,9 @@ export const ServiceDrawer = () => {
 
   const content = useMemo(() => {
     if (tab === "form") return <ServiceForm />;
+    if (tab === "payment" && service?.id) {
+      return <PaymentTabContent serviceId={service.id} />;
+    }
     if (tab === "medicalRecord" && service?.id) {
       return <MedicalRecordTabContent serviceId={service.id} />;
     }
@@ -86,6 +131,7 @@ export const ServiceDrawer = () => {
 
   const footer = useMemo(() => {
     if (tab === "form") return <ServiceFormOptions />;
+    if (tab === "payment") return <PaymentFormOptions showDelete={false} />;
     if (tab === "medicalRecord") return <MedicalRecordFormOptions showDelete={false} />;
   }, [tab]);
 
@@ -95,19 +141,22 @@ export const ServiceDrawer = () => {
       renderFormDrawer={false}
       keepFormOpenOnSubmit
     >
-      {service?.id && <MedicalRecordSync service={service} />}
-      <CommonDrawer
-        isOpen={isFormOpen}
-        close={handleClose}
-        title={t(`services.tabs.${tab}`)}
-        footer={footer}
-        tabs={tabs}
-        activeTab={tab}
-        onChangeTab={handleChangeTab}
-        showTabs
-      >
-        {content}
-      </CommonDrawer>
+      <PaymentFormProvider renderFormDrawer={false} keepFormOpenOnSubmit>
+        {service?.id && <MedicalRecordSync service={service} />}
+        {service?.id && <PaymentSync service={service} />}
+        <CommonDrawer
+          isOpen={isFormOpen}
+          close={handleClose}
+          title={t(`services.tabs.${tab}`)}
+          footer={footer}
+          tabs={tabs}
+          activeTab={tab}
+          onChangeTab={handleChangeTab}
+          showTabs
+        >
+          {content}
+        </CommonDrawer>
+      </PaymentFormProvider>
     </MedicalRecordsProvider>
   );
 };

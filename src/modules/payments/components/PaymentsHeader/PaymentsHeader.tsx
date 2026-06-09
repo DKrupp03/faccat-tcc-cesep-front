@@ -17,7 +17,11 @@ import { usePaymentsList } from "../../hooks/usePaymentsList";
 import { usePaymentForm } from "../../hooks/usePaymentForm";
 import type { PaymentsOrder } from "../../types/payment";
 
-export const PaymentsHeader = () => {
+type PaymentsHeaderProps = {
+  showCharts?: boolean;
+};
+
+export const PaymentsHeader = ({ showCharts = true }: PaymentsHeaderProps) => {
   const { t } = useTranslation();
   const { openFilter, filtratePanel, orderBy, filter } = usePaymentsList();
   const { openForm } = usePaymentForm();
@@ -60,15 +64,17 @@ export const PaymentsHeader = () => {
         options={paymentsOrderOptions}
         width={250}
       />
-      <Tooltip title={t("payments.actions.showCharts")}>
-        <CommonButton
-          onClick={scrollToCharts}
-          icon={<IconChartBar size={18} />}
-          size="large"
-          circular
-          outline
-        />
-      </Tooltip>
+      {showCharts && (
+        <Tooltip title={t("payments.actions.showCharts")}>
+          <CommonButton
+            onClick={scrollToCharts}
+            icon={<IconChartBar size={18} />}
+            size="large"
+            circular
+            outline
+          />
+        </Tooltip>
+      )}
       <Tooltip title={t("common.actions.reload")}>
         <CommonButton
           onClick={() => filtratePanel()}
