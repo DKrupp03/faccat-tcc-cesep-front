@@ -15,12 +15,14 @@ type CommonOrderButton = {
     label: string;
     icon: React.ReactNode;
   }[];
+  width?: number;
 };
 
 export const CommonOrderButton = ({
   value,
   onChange,
   options,
+  width = 200,
 }: CommonOrderButton) => {
   const { t } = useTranslation();
   
@@ -46,7 +48,7 @@ export const CommonOrderButton = ({
       <CommonDropdown
         placement="bottomRight"
         options={buttons}
-        width={200}
+        width={width}
       >
         <CommonButton
           icon={<IconArrowsSort size={18} />}

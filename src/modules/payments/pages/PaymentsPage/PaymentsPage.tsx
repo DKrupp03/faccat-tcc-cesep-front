@@ -11,6 +11,7 @@ import { usePaymentsList } from "../../hooks/usePaymentsList";
 import { PaymentsHeader } from "../../components/PaymentsHeader/PaymentsHeader";
 import { PaymentsHeaderCards } from "../../components/PaymentsHeaderCards/PaymentsHeaderCards";
 import { PaymentsTable } from "../../components/PaymentsTable/PaymentsTable";
+import { PaymentsCharts } from "../../components/PaymentsCharts/PaymentsCharts";
 import styles from "./PaymentsPage.module.css";
 
 const PaymentsPage = () => {
@@ -47,6 +48,7 @@ const PaymentsPanel = () => {
       <Flex vertical gap={24} className={styles.body}>
         <PaymentsHeaderCards />
         <PaymentsTable />
+        <PaymentsCharts />
       </Flex>
     </Flex>
   );

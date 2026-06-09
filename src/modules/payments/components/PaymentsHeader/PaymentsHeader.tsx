@@ -7,6 +7,7 @@ import {
   IconPlus,
   IconSortAscending,
   IconSortDescending,
+  IconChartBar,
 } from "@tabler/icons-react";
 
 import { CommonButton } from "@/shared/components/CommonButton/CommonButton";
@@ -20,6 +21,13 @@ export const PaymentsHeader = () => {
   const { t } = useTranslation();
   const { openFilter, filtratePanel, orderBy, filter } = usePaymentsList();
   const { openForm } = usePaymentForm();
+
+  const scrollToCharts = () => {
+    document.getElementById("payments-charts")?.scrollIntoView({
+      behavior: "smooth",
+      block: "end",
+    });
+  };
 
   const paymentsOrderOptions = useMemo(() => ([
     {
@@ -50,7 +58,17 @@ export const PaymentsHeader = () => {
         value={orderBy}
         onChange={(newOrderBy) => filtratePanel(filter, newOrderBy as PaymentsOrder)}
         options={paymentsOrderOptions}
+        width={250}
       />
+      <Tooltip title={t("payments.actions.showCharts")}>
+        <CommonButton
+          onClick={scrollToCharts}
+          icon={<IconChartBar size={18} />}
+          size="large"
+          circular
+          outline
+        />
+      </Tooltip>
       <Tooltip title={t("common.actions.reload")}>
         <CommonButton
           onClick={() => filtratePanel()}

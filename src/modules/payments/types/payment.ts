@@ -49,8 +49,29 @@ export type PaymentsPayload = {
   per_page?: number;
 };
 
+export type PaymentStatusChartItem = {
+  status: PaymentStatus;
+  count: number;
+};
+
+export type PaymentMonthlyChartItem = {
+  month: string;
+  received: number;
+  received_count: number;
+  to_receive: number;
+  to_receive_count: number;
+};
+
 export type PaymentResponse = CommonResponse & {
   payment: Payment;
+};
+
+export type PaymentStatusChartResponse = CommonResponse & {
+  status_chart: PaymentStatusChartItem[];
+};
+
+export type PaymentMonthlyChartResponse = CommonResponse & {
+  monthly_chart: PaymentMonthlyChartItem[];
 };
 
 export type PaymentsResponse = CommonResponse & {

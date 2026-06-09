@@ -12,6 +12,7 @@ const payments = {
     "edit": "Editar pagamento",
     "updated": "Pagamento atualizado com sucesso!",
     "filtrate": "Filtrar pagamentos",
+    "showCharts": "Exibir gráficos",
     "delete": "Excluir pagamento",
     "delete.confirmation": "Tem certeza que deseja excluir este pagamento?",
     "deleted": "Pagamento excluído com sucesso!",
@@ -60,6 +61,15 @@ const payments = {
     "paid": "Pago",
     "unpaid": "Não pago",
     "overdue": "Atrasado",
+  },
+
+  "charts": {
+    "statusTitle": "Status dos pagamentos",
+    "monthlyTitle": "Pagamentos do último ano",
+    "monthlyTooltip": "Quantidade de pagamentos recebidos e a receber por mês, "
+      + "com base no vencimento, nos últimos 12 meses.",
+    "received": "Recebido",
+    "toReceive": "A receber",
   },
 } as const;
 

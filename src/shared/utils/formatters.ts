@@ -44,6 +44,28 @@ export const formatMonthYear = (value?: string | Date) => {
   return formatted.charAt(0).toUpperCase() + formatted.slice(1);
 };
 
+export const formatCurrencyCompact = (value?: string | number) => {
+  const number = typeof value === "string" ? Number(value) : value ?? 0;
+
+  return new Intl.NumberFormat("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+    notation: "compact",
+    maximumFractionDigits: 1,
+  }).format(Number.isFinite(number) ? (number as number) : 0);
+};
+
+export const formatShortMonth = (value?: string) => {
+  if (!value) return "";
+
+  const [year, month] = value.split("-").map(Number);
+  const label = new Date(year, month - 1, 1).toLocaleDateString("pt-BR", {
+    month: "short",
+  });
+
+  return label.replace(".", "").toUpperCase();
+};
+
 export const phoneMask = (value: string) => {
   const digits = value.replace(/\D/g, "").slice(0, 11);
   if (digits.length === 0) return "";

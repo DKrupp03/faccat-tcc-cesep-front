@@ -5,6 +5,8 @@ import type {
   PaymentResponse,
   PaymentsResponse,
   PaymentsPayload,
+  PaymentStatusChartResponse,
+  PaymentMonthlyChartResponse,
 } from "../types/payment";
 
 const paymentToFormData = (payment: Partial<Payment>): FormData => {
@@ -41,6 +43,16 @@ const PaymentsService = {
 
   async getPayments(params: PaymentsPayload): Promise<PaymentsResponse> {
     const response = await api.get("/payments", { params });
+    return response.data;
+  },
+
+  async getStatusChart(): Promise<PaymentStatusChartResponse> {
+    const response = await api.get("/payments/status_chart");
+    return response.data;
+  },
+
+  async getMonthlyChart(): Promise<PaymentMonthlyChartResponse> {
+    const response = await api.get("/payments/monthly_chart");
     return response.data;
   },
 
