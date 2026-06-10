@@ -36,6 +36,16 @@ export const PaymentForm = ({
   const [newFiles, setNewFiles] = useState<File[]>([]);
   const [removedIds, setRemovedIds] = useState<number[]>([]);
 
+  // Limpa os anexos pendentes a cada nova sessão de edição (sem efeito, para
+  // evitar renders em cascata) comparando com a chave de sessão anterior.
+  const sessionKey = isFormOpen ? payment?.id ?? "new" : null;
+  const [prevSessionKey, setPrevSessionKey] = useState(sessionKey);
+  if (prevSessionKey !== sessionKey) {
+    setPrevSessionKey(sessionKey);
+    setNewFiles([]);
+    setRemovedIds([]);
+  }
+
   const paymentMethodOptions = useMemo(() => getPaymentMethodOptions(t), [t]);
 
   const visibleDocuments = useMemo(() => (
@@ -54,8 +64,6 @@ export const PaymentForm = ({
         form.resetFields();
         if (defaultValues) form.setFieldsValue(defaultValues);
       }
-      setNewFiles([]);
-      setRemovedIds([]);
     }
   }, [isFormOpen, payment, defaultValues, form]);
 

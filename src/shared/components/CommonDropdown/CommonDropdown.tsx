@@ -52,6 +52,7 @@ export const CommonDropdown = ({
     options,
     suffix,
     width,
+    minWidth,
   ]);
 
   return (

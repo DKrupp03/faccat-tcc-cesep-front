@@ -70,7 +70,7 @@ export const usePatientAnamnese = () => {
     } else {
       form.resetFields();
     }
-  }, [patient?.anamnese]);
+  }, [patient?.anamnese, form]);
 
   return {
     form,

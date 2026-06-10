@@ -39,7 +39,7 @@ export const CommonCollapse = ({
 
   const handleChangeCollapse = useCallback((key: string[]) => {
     if (hideExpandButton) return;
-    setIsCollapseOpen(key.length > 0)
+    setIsCollapseOpen(key.length > 0);
   }, [hideExpandButton]);
 
   const expandButton = useCallback(() => {
@@ -53,7 +53,7 @@ export const CommonCollapse = ({
         circular
         outline
       />
-    )
+    );
   }, [hideExpandButton, isCollapseOpen]);
 
   return (
@@ -117,4 +117,4 @@ export const CommonCollapse = ({
       }]}
     />
   );
-}
+};

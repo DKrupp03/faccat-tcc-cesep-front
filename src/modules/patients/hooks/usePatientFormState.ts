@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 
 import type { Patient } from "../types/patient";
 import { usePatientForm } from "./usePatientForm";
@@ -8,6 +8,17 @@ export const usePatientFormState = () => {
 
   const [uploadedPhoto, setUploadedPhoto] = useState<File>();
   const [changedPhoto, setChangedPhoto] = useState<boolean>(false);
+
+  // Reseta a foto enviada quando o form abre (sem efeito, para evitar renders
+  // em cascata) comparando com o valor anterior de isFormOpen.
+  const [wasOpen, setWasOpen] = useState(isFormOpen);
+  if (wasOpen !== isFormOpen) {
+    setWasOpen(isFormOpen);
+    if (isFormOpen) {
+      setUploadedPhoto(undefined);
+      setChangedPhoto(false);
+    }
+  }
 
   const photoUrl = useMemo(() => {
     if (changedPhoto) {
@@ -26,13 +37,6 @@ export const usePatientFormState = () => {
     }
     submitPatient(values);
   }, [submitPatient, changedPhoto, uploadedPhoto]);
-
-  useEffect(() => {
-    if (isFormOpen) {
-      setUploadedPhoto(undefined);
-      setChangedPhoto(false);
-    }
-  }, [isFormOpen]);
 
   return {
     isFormOpen,

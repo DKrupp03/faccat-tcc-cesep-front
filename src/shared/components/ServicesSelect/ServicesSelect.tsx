@@ -36,26 +36,30 @@ export const ServicesSelect: React.FC<ServicesSelectProps> = ({
 
   const [options, setOptions] = useState<DefaultOptionType[]>([]);
 
-  const getServices = useCallback(async () => {
+  const fetchServices = useCallback(async () => {
     const response = await ServicesSelectService.getServices({
       patient_id: patientId,
       without_payment: withoutPayment,
       without_medical_record: withoutMedicalRecord,
     });
 
-    if (response.success) {
+    return response.success ? response.services.map(toOption) : null;
+  }, [patientId, withoutPayment, withoutMedicalRecord]);
+
+  useEffect(() => {
+    let active = true;
+    fetchServices().then((fetched) => {
+      if (!active || !fetched) return;
       setOptions((prev) => {
-        const fetched = response.services.map(toOption);
         const fetchedValues = new Set(fetched.map((o) => o.value));
         const extras = prev.filter((o) => !fetchedValues.has(o.value));
         return [...fetched, ...extras];
       });
-    }
-  }, [patientId, withoutPayment, withoutMedicalRecord]);
-
-  useEffect(() => {
-    getServices();
-  }, [getServices]);
+    });
+    return () => {
+      active = false;
+    };
+  }, [fetchServices]);
 
   useEffect(() => {
     if (value === undefined || value === null) return;

@@ -1,4 +1,4 @@
-import { useCallback, useState, useEffect } from "react";
+import { useCallback, useState } from "react";
 
 import { usePaymentForm } from "./usePaymentForm";
 
@@ -9,9 +9,13 @@ export const usePaymentDrawer = () => {
 
   const [tab, setTab] = useState<PaymentDrawerTab>("form");
 
-  useEffect(() => {
+  // Reseta para a aba inicial quando o drawer fecha (sem efeito, para evitar
+  // renders em cascata) comparando com o valor anterior de isFormOpen.
+  const [wasOpen, setWasOpen] = useState(isFormOpen);
+  if (wasOpen !== isFormOpen) {
+    setWasOpen(isFormOpen);
     if (!isFormOpen) setTab("form");
-  }, [isFormOpen]);
+  }
 
   const handleClose = useCallback(() => closeForm(), [closeForm]);
 

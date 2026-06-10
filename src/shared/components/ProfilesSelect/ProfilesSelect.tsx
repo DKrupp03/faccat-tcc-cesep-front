@@ -37,24 +37,32 @@ export const ProfilesSelect: React.FC<ProfilesSelectProps> = ({
   const [options, setOptions] = useState<DefaultOptionType[]>([]);
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const getProfiles = useCallback(async (name?: string) => {
+  const fetchProfiles = useCallback(async (name?: string) => {
     const response = await ProfilesSelectService.getProfiles(role, { name, therapistId, patientId });
 
-    if (response.success) {
-      setOptions(response.profiles.map((p) => ({ label: p.name, value: p.id })));
-    }
+    return response.success
+      ? response.profiles.map((p) => ({ label: p.name, value: p.id }))
+      : null;
   }, [role, therapistId, patientId]);
 
   useEffect(() => {
-    getProfiles();
-  }, [getProfiles]);
+    let active = true;
+    fetchProfiles().then((opts) => {
+      if (active && opts) setOptions(opts);
+    });
+    return () => {
+      active = false;
+    };
+  }, [fetchProfiles]);
 
   const handleSearch = useCallback((value: string) => {
     if (debounceRef.current) clearTimeout(debounceRef.current);
     debounceRef.current = setTimeout(() => {
-      getProfiles(value || undefined);
+      fetchProfiles(value || undefined).then((opts) => {
+        if (opts) setOptions(opts);
+      });
     }, 200);
-  }, [getProfiles]);
+  }, [fetchProfiles]);
 
   // Garante que o perfil já selecionado apareça com o nome, mesmo que não
   // esteja na página atual de opções carregadas (paginação da busca).

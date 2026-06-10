@@ -35,6 +35,16 @@ export const MedicalRecordForm = ({
   const [newFiles, setNewFiles] = useState<File[]>([]);
   const [removedIds, setRemovedIds] = useState<number[]>([]);
 
+  // Limpa os anexos pendentes a cada nova sessão de edição (sem efeito, para
+  // evitar renders em cascata) comparando com a chave de sessão anterior.
+  const sessionKey = isFormOpen ? medicalRecord?.id ?? "new" : null;
+  const [prevSessionKey, setPrevSessionKey] = useState(sessionKey);
+  if (prevSessionKey !== sessionKey) {
+    setPrevSessionKey(sessionKey);
+    setNewFiles([]);
+    setRemovedIds([]);
+  }
+
   useEffect(() => {
     if (isFormOpen) {
       if (medicalRecord) {
@@ -43,8 +53,6 @@ export const MedicalRecordForm = ({
         form.resetFields();
         if (defaultValues) form.setFieldsValue(defaultValues);
       }
-      setNewFiles([]);
-      setRemovedIds([]);
     }
   }, [isFormOpen, medicalRecord, defaultValues, form]);
 
