@@ -13,7 +13,6 @@ export const useNotification = () => {
     title?: string,
   ) => {
     const message = title || t(`common.notifications.${type}`);
-    let messages: string[] = [];
 
     const sharedProps = {
       stack: { threshold: 3 },
@@ -26,19 +25,7 @@ export const useNotification = () => {
       return;
     }
 
-    if (Array.isArray(text)) {
-      messages = text.flatMap((item) =>
-        typeof item === "string" ? [item] : Object.values(item),
-      );
-    } else {
-      messages = Object.entries(text).flatMap(([key, value]) =>
-        Array.isArray(value)
-          ? value.map((msg) => `${t(`common.columns.${key}`)}: ${msg}`)
-          : [`${t(`common.columns.${key}`)}: ${value}`],
-      );
-    }
-
-    messages.forEach((description) => {
+    text.forEach((description) => {
       notification[type]({ message, description, ...sharedProps });
     });
   };

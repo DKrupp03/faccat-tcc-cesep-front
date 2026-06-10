@@ -1,4 +1,21 @@
 const therapists = {
+  "columns": {
+    "name": "Nome",
+    "email": "E-mail",
+    "gender": "Gênero",
+    "birth": "Data de nascimento",
+    "phone": "Telefone",
+    "address": "Endereço",
+    "cpf": "CPF",
+    "rg": "RG",
+    "crp": "CRP",
+    "active": "Ativo",
+    "admin": "Administrador",
+    "services": "Atendimentos",
+    "patients": "Pacientes",
+    "lastService": "Último atendimento",
+  },
+
   "headerCards": {
     "total": "Número total de terapeutas",
     "filtered": "Número de terapeutas filtrados",

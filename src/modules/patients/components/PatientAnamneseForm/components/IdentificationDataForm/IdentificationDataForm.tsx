@@ -36,7 +36,7 @@ export const IdentificationDataForm = () => {
       <Row gutter={16}>
         <Col span={12}>
           <Form.Item name={["anamnese_data", "identificationData", "name"]}>
-            <CommonTextInput label={t("common.columns.name")} />
+            <CommonTextInput label={t("patients.columns.name")} />
           </Form.Item>
         </Col>
         <Col span={12}>
@@ -51,7 +51,7 @@ export const IdentificationDataForm = () => {
             name={["anamnese_data", "identificationData", "birth"]}
             getValueProps={(value) => ({ value: value ? dayjs(value) : undefined })}
           >
-            <CommonDatePicker label={t("common.columns.birth")} />
+            <CommonDatePicker label={t("patients.columns.birth")} />
           </Form.Item>
         </Col>
         <Col span={6}>
@@ -65,7 +65,7 @@ export const IdentificationDataForm = () => {
         <Col span={12}>
           <Form.Item name={["anamnese_data", "identificationData", "gender"]}>
             <CommonSelect
-              label={t("common.columns.gender")}
+              label={t("patients.columns.gender")}
               options={genderOptions}
             />
           </Form.Item>
@@ -75,7 +75,7 @@ export const IdentificationDataForm = () => {
         <Col span={12}>
           <Form.Item name={["anamnese_data", "identificationData", "educationLevel"]}>
             <CommonSelect
-              label={t("common.columns.educationLevel")}
+              label={t("patients.columns.educationLevel")}
               options={educationLevelOptions}
             />
           </Form.Item>
@@ -84,7 +84,7 @@ export const IdentificationDataForm = () => {
           <Col span={12}>
             <Form.Item name={["anamnese_data", "identificationData", "maritalStatus"]}>
               <CommonSelect
-                label={t("common.columns.maritalStatus")}
+                label={t("patients.columns.maritalStatus")}
                 options={maritalStatusOptions}
               />
             </Form.Item>

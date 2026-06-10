@@ -1,7 +1,4 @@
-export type ErrorsType =
-  | { [key: string]: string }[]
-  | string[]
-  | { [key: string]: string | string[] };
+export type ErrorsType = string[];
 
 export type CommonResponse = {
   success: boolean;

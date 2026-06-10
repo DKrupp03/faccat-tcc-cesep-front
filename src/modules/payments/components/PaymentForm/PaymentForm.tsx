@@ -7,7 +7,7 @@ import { CommonSelect } from "@/shared/components/CommonSelect/CommonSelect";
 import { CommonDatePicker } from "@/shared/components/CommonDatePicker";
 import { CommonTextInput } from "@/shared/components/CommonTextInput/CommonTextInput";
 import { CommonButton } from "@/shared/components/CommonButton/CommonButton";
-import { CommonDocuments, type CommonDocument } from "@/shared/components/CommonDocuments/CommonDocuments";
+import { CommonDocuments } from "@/shared/components/CommonDocuments/CommonDocuments";
 import { ServicesSelect } from "@/shared/components/ServicesSelect/ServicesSelect";
 import { decimalMask } from "@/shared/utils/formatters";
 
@@ -19,15 +19,6 @@ import {
 } from "../../utils/form";
 import type { Payment } from "../../types/payment";
 import styles from "./PaymentForm.module.css";
-
-const fileNameFromUrl = (url: string): string => {
-  try {
-    const path = decodeURIComponent(new URL(url).pathname);
-    return path.split("/").pop() || url;
-  } catch {
-    return url.split("/").pop() || url;
-  }
-};
 
 type PaymentFormProps = {
   lockedFields?: Array<keyof Payment>;
@@ -43,16 +34,13 @@ export const PaymentForm = ({
 
   const [form] = Form.useForm<Partial<Payment>>();
   const [newFiles, setNewFiles] = useState<File[]>([]);
+  const [removedIds, setRemovedIds] = useState<number[]>([]);
 
   const paymentMethodOptions = useMemo(() => getPaymentMethodOptions(t), [t]);
 
-  const existingDocuments = useMemo<CommonDocument[]>(() => (
-    (payment?.attachment_urls ?? []).map((url) => ({
-      id: url,
-      name: fileNameFromUrl(url),
-      url,
-    }))
-  ), [payment?.attachment_urls]);
+  const visibleDocuments = useMemo(() => (
+    (payment?.attachments ?? []).filter((doc) => !removedIds.includes(doc.id))
+  ), [payment?.attachments, removedIds]);
 
   useEffect(() => {
     if (isFormOpen) {
@@ -67,6 +55,7 @@ export const PaymentForm = ({
         if (defaultValues) form.setFieldsValue(defaultValues);
       }
       setNewFiles([]);
+      setRemovedIds([]);
     }
   }, [isFormOpen, payment, defaultValues, form]);
 
@@ -77,6 +66,7 @@ export const PaymentForm = ({
       ...values,
       value: parseCurrencyInput(values.value as string),
       new_attachments: newFiles,
+      remove_attachment_ids: removedIds,
     });
   };
 
@@ -166,9 +156,10 @@ export const PaymentForm = ({
         <Col span={24}>
           <CommonDocuments
             label={t("common.documents.title")}
-            documents={existingDocuments}
+            documents={visibleDocuments}
             pendingFiles={newFiles}
             onUpload={(files) => setNewFiles((prev) => [...prev, ...files])}
+            onRemove={(id) => setRemovedIds((prev) => [...prev, Number(id)])}
             onRemovePending={(idx) => setNewFiles((prev) => prev.filter((_, i) => i !== idx))}
           />
         </Col>

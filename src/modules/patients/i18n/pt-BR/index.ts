@@ -5,6 +5,28 @@ const patients = {
   anamnese,
   medicalRecords,
 
+  "columns": {
+    "name": "Nome",
+    "email": "E-mail",
+    "gender": "Gênero",
+    "birth": "Data de nascimento",
+    "phone": "Telefone",
+    "address": "Endereço",
+    "cpf": "CPF",
+    "rg": "RG",
+    "maritalStatus": "Estado civil",
+    "educationLevel": "Nível de escolaridade",
+    "occupation": "Profissão",
+    "defaultValue": "Valor padrão",
+    "extra": "Observações",
+    "active": "Ativo",
+    "parent": "Responsável",
+    "paymentStatus": "Status do pagamento",
+    "services": "Atendimentos",
+    "therapist": "Terapeuta",
+    "lastService": "Último atendimento",
+  },
+
   "headerCards": {
     "total": "Número total de pacientes",
     "filtered": "Número de pacientes filtrados",

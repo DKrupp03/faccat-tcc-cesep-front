@@ -68,7 +68,7 @@ export const ProfilesSelect: React.FC<ProfilesSelectProps> = ({
 
   return (
     <CommonSelect
-      label={label || t(`common.columns.${role}`)}
+      label={label || t(`common.roles.${role}`)}
       options={mergedOptions}
       icon={showHelp ? <CommonIconHelp text={t("common.help.defaultValue")} /> : undefined}
       allowClear

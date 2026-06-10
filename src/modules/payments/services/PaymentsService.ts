@@ -19,7 +19,11 @@ const paymentToFormData = (payment: Partial<Payment>): FormData => {
           formData.append("payment[attachments][]", file, file.name);
         }
       });
-    } else if (key === "attachment_urls" || key === "service" || key === "status") {
+    } else if (key === "remove_attachment_ids" && Array.isArray(value)) {
+      value.forEach((id) => {
+        formData.append("payment[remove_attachment_ids][]", String(id));
+      });
+    } else if (key === "attachments" || key === "service" || key === "status") {
       // server-side read DTO, never sent back
       return;
     } else if (value !== undefined && value !== null) {
@@ -33,6 +37,10 @@ const paymentToFormData = (payment: Partial<Payment>): FormData => {
 const hasFiles = (payment: Partial<Payment>): boolean => {
   const newFiles = payment.new_attachments;
   return Array.isArray(newFiles) && newFiles.some((f) => f instanceof File);
+};
+
+const hasRemovals = (payment: Partial<Payment>): boolean => {
+  return Array.isArray(payment.remove_attachment_ids) && payment.remove_attachment_ids.length > 0;
 };
 
 const PaymentsService = {
@@ -65,7 +73,7 @@ const PaymentsService = {
   },
 
   async updatePayment(payment: Partial<Payment>): Promise<PaymentResponse> {
-    const useFormData = hasFiles(payment);
+    const useFormData = hasFiles(payment) || hasRemovals(payment);
     const data = useFormData ? paymentToFormData(payment) : { payment };
     const headers = useFormData ? { "Content-Type": undefined } : {};
     const response = await api.put(`/payments/${payment.id}`, data, { headers });

@@ -116,7 +116,7 @@ export const PatientForm = () => {
         <Col span={12}>
           <Form.Item name="name">
             <CommonTextInput
-              label={t("common.columns.name")}
+              label={t("patients.columns.name")}
               required
             />
           </Form.Item>
@@ -124,7 +124,7 @@ export const PatientForm = () => {
         <Col span={12}>
           <Form.Item name="email">
             <CommonTextInput
-              label={t("common.columns.email")}
+              label={t("patients.columns.email")}
               disabled={!!patient?.id}
               required
             />
@@ -136,7 +136,7 @@ export const PatientForm = () => {
         <Col span={12}>
           <Form.Item name="gender">
             <CommonSelect
-              label={t("common.columns.gender")}
+              label={t("patients.columns.gender")}
               options={genderOptions}
               required
             />
@@ -148,7 +148,7 @@ export const PatientForm = () => {
             getValueProps={(value) => ({ value: value ? dayjs(value) : undefined })}
           >
             <CommonDatePicker
-              label={t("common.columns.birth")}
+              label={t("patients.columns.birth")}
               required
             />
           </Form.Item>
@@ -158,12 +158,12 @@ export const PatientForm = () => {
       <Row gutter={16}>
         <Col span={12}>
           <Form.Item name="phone" normalize={phoneMask}>
-            <CommonTextInput label={t("common.columns.phone")} />
+            <CommonTextInput label={t("patients.columns.phone")} />
           </Form.Item>
         </Col>
         <Col span={12}>
           <Form.Item name="address">
-            <CommonTextInput label={t("common.columns.address")} />
+            <CommonTextInput label={t("patients.columns.address")} />
           </Form.Item>
         </Col>
       </Row>
@@ -171,12 +171,12 @@ export const PatientForm = () => {
       <Row gutter={16}>
         <Col span={12}>
           <Form.Item name="cpf" normalize={cpfMask}>
-            <CommonTextInput label={t("common.columns.cpf")} />
+            <CommonTextInput label={t("patients.columns.cpf")} />
           </Form.Item>
         </Col>
         <Col span={12}>
           <Form.Item name="rg" normalize={rgMask}>
-            <CommonTextInput label={t("common.columns.rg")} />
+            <CommonTextInput label={t("patients.columns.rg")} />
           </Form.Item>
         </Col>
       </Row>
@@ -185,7 +185,7 @@ export const PatientForm = () => {
         <Col span={12}>
           <Form.Item name="marital_status">
             <CommonSelect
-              label={t("common.columns.maritalStatus")}
+              label={t("patients.columns.maritalStatus")}
               options={maritalStatusOptions}
             />
           </Form.Item>
@@ -193,7 +193,7 @@ export const PatientForm = () => {
         <Col span={12}>
           <Form.Item name="education_level">
             <CommonSelect
-              label={t("common.columns.educationLevel")}
+              label={t("patients.columns.educationLevel")}
               options={educationLevelOptions}
             />
           </Form.Item>
@@ -203,7 +203,7 @@ export const PatientForm = () => {
       <Row gutter={16}>
         <Col span={12}>
           <Form.Item name="occupation">
-            <CommonTextInput label={t("common.columns.occupation")} />
+            <CommonTextInput label={t("patients.columns.occupation")} />
           </Form.Item>
         </Col>
         <Col span={6}>
@@ -218,7 +218,7 @@ export const PatientForm = () => {
         <Col span={6}>
           <Form.Item name="default_value" normalize={decimalMask}>
             <CommonTextInput
-              label={t("common.columns.defaultValue")}
+              label={t("patients.columns.defaultValue")}
               icon="R$"
               suffix={<CommonIconHelp text={t("common.help.defaultValue")} />}
             />
@@ -229,7 +229,7 @@ export const PatientForm = () => {
       <Row gutter={16}>
         <Col span={24}>
           <Form.Item name="extra">
-            <CommonTextArea label={t("common.columns.extra")} />
+            <CommonTextArea label={t("patients.columns.extra")} />
           </Form.Item>
         </Col>
       </Row>
@@ -238,7 +238,7 @@ export const PatientForm = () => {
         <Col span={6}>
           <Form.Item name="active">
             <CommonSwitch
-              label={t("common.columns.active")}
+              label={t("patients.columns.active")}
               disabled={!patient?.id}
               icon={<CommonIconHelp text={t("patients.help.active")} />}
             />
@@ -250,23 +250,23 @@ export const PatientForm = () => {
 
       <div className={styles.responsiblesContainer}>
         <CommonCollapse
-          title={t("common.columns.parent")}
+          title={t("patients.columns.parent")}
           icon={<IconUser size={16} color={COLORS.grey70} />}
         >
           <Row gutter={16}>
             <Col span={12}>
               <Form.Item name={["parent", "name"]}>
-                <CommonTextInput label={t("common.columns.name")} />
+                <CommonTextInput label={t("patients.columns.name")} />
               </Form.Item>
             </Col>
             <Col span={6}>
               <Form.Item name={["parent", "cpf"]} normalize={cpfMask}>
-                <CommonTextInput label={t("common.columns.cpf")} />
+                <CommonTextInput label={t("patients.columns.cpf")} />
               </Form.Item>
             </Col>
             <Col span={6}>
               <Form.Item name={["parent", "phone"]} normalize={phoneMask}>
-                <CommonTextInput label={t("common.columns.phone")} />
+                <CommonTextInput label={t("patients.columns.phone")} />
               </Form.Item>
             </Col>
           </Row>

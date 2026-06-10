@@ -57,13 +57,13 @@ export const FamilyForm = () => {
                       </Col>
                       <Col span={3}>
                         <Form.Item name={[field.name, "occupation"]}>
-                          <CommonTextInput label={t("common.columns.occupation")} />
+                          <CommonTextInput label={t("patients.columns.occupation")} />
                         </Form.Item>
                       </Col>
                       <Col span={6}>
                         <Form.Item name={[field.name, "educationLevel"]}>
                           <CommonSelect
-                            label={t("common.columns.educationLevel")}
+                            label={t("patients.columns.educationLevel")}
                             options={educationLevelOptions}
                           />
                         </Form.Item>
@@ -71,7 +71,7 @@ export const FamilyForm = () => {
                       <Col span={5}>
                         <Form.Item name={[field.name, "maritalStatus"]}>
                           <CommonSelect
-                            label={t("common.columns.maritalStatus")}
+                            label={t("patients.columns.maritalStatus")}
                             options={maritalStatusOptions}
                           />
                         </Form.Item>

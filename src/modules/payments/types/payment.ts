@@ -11,6 +11,12 @@ export type PaymentMethod =
   | "bank_slip"
   | "bank_transfer";
 
+export type PaymentAttachment = {
+  id: number;
+  name: string;
+  url: string;
+};
+
 export type Payment = {
   id: number;
   value: string | number;
@@ -19,12 +25,13 @@ export type Payment = {
   payment_method?: PaymentMethod | null;
   service_id: number;
   status?: PaymentStatus;
-  attachment_urls?: string[];
+  attachments?: PaymentAttachment[];
   created_at: string;
   updated_at: string;
   service?: Service;
   // form-only fields (never returned by the API)
   new_attachments?: File[];
+  remove_attachment_ids?: number[];
 };
 
 export type PaymentsOrder =

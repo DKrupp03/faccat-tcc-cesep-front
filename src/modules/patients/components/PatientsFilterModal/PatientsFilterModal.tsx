@@ -59,7 +59,7 @@ export const PatientsFilterModal = () => {
         <Row gutter={16}>
           <Col span={24}>
             <Form.Item name="name" noStyle>
-              <CommonTextInput label={t("common.columns.name")} />
+              <CommonTextInput label={t("patients.columns.name")} />
             </Form.Item>
           </Col>
         </Row>
@@ -75,7 +75,7 @@ export const PatientsFilterModal = () => {
           <Col span={12}>
             <Form.Item name="payment_status" noStyle>
               <CommonSelect
-                label={t("common.columns.paymentStatus")}
+                label={t("patients.columns.paymentStatus")}
                 options={paymentStatusOptions}
               />
             </Form.Item>

@@ -49,7 +49,7 @@ export const TherapistsFilterModal = () => {
         <Row gutter={16}>
           <Col span={24}>
             <Form.Item name="name" noStyle>
-              <CommonTextInput label={t("common.columns.name")} />
+              <CommonTextInput label={t("therapists.columns.name")} />
             </Form.Item>
           </Col>
         </Row>
