@@ -1,73 +1,49 @@
-# React + TypeScript + Vite
+# Front-end — Sistema de Gestão de Clínica
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Interface web (SPA) do sistema de gestão para o Centro de Serviços em Psicologia da FACCAT (CESEP) desenvolvido como **Trabalho de Conclusão de Curso (TCC)**. A aplicação cobre o dia a dia da clínica: **prontuário eletrônico**, **controle financeiro**, **agendamento de atendimentos** e gestão de pacientes e terapeutas.
 
-Currently, two official plugins are available:
+Este repositório contém apenas o front-end. Ele consome a [API REST em Ruby on Rails](https://github.com/DKrupp03/faccat-tcc-cesep-api) (repositório git independente).
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Tecnologias
 
-## React Compiler
+- **React 19** + **TypeScript**
+- **Vite** — bundler e servidor de desenvolvimento (HMR)
+- **Ant Design (antd)** — biblioteca de componentes de UI
+- **React Router** — roteamento e rotas protegidas por autenticação
+- **Axios** — client HTTP para consumir a API (com interceptors de token JWT)
+- **i18next / react-i18next** — internacionalização (textos por módulo)
+- **Recharts** — gráficos do dashboard financeiro
+- **Tabler Icons** — ícones
+- **ESLint** — análise estática
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Principais funcionalidades
 
-## Expanding the ESLint configuration
+- **Autenticação** — login, logout, recuperação e definição de senha (fluxo de e-mail), com rotas protegidas via JWT.
+- **Controle de acesso por perfil** — a interface se adapta ao papel do usuário (administrador, terapeuta ou paciente).
+- **Pacientes** — cadastro e gestão de pacientes, incluindo dados pessoais e foto.
+- **Terapeutas** — cadastro e gestão de terapeutas e seus pacientes vinculados.
+- **Anamnese** — formulário de anamnese do paciente.
+- **Prontuário eletrônico** — registros de prontuário por atendimento, com anexos de documentos.
+- **Agendamento de atendimentos** — serviços/sessões agendadas entre terapeuta e paciente.
+- **Controle financeiro** — pagamentos por atendimento (valor, vencimento, método, comprovantes) com status (pago, em aberto, vencido) e **dashboard com gráficos** (status e evolução mensal).
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Exemplos de algumas telas
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### Agendamento de atendimentos
+![Tela de atendimentos em calendário](docs/screenshots/atendimentos.png)
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### Pacientes
+![Listagem de pacientes com status de pagamento](docs/screenshots/pacientes.png)
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### Cadastro de paciente
+![Formulário de cadastro de paciente](docs/screenshots/paciente-formulario.png)
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Prontuário eletrônico
+![Prontuários do paciente](docs/screenshots/prontuarios.png)
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Controle financeiro
+![Dashboard de pagamentos com gráficos](docs/screenshots/pagamentos.png)
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+---
+
+> Projeto de TCC. Para o tratamento de dados sensíveis e LGPD, consulte o [SECURITY.md](../SECURITY.md) na raiz do projeto.
