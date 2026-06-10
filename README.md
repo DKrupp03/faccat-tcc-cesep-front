@@ -46,4 +46,4 @@ Este repositório contém apenas o front-end. Ele consome a [API REST em Ruby on
 
 ---
 
-> Projeto de TCC. Para o tratamento de dados sensíveis e LGPD, consulte o [SECURITY.md](../SECURITY.md) na raiz do projeto.
+> Projeto de TCC. Para o tratamento de dados sensíveis e LGPD, consulte o [SECURITY.md](./SECURITY.md) na raiz do projeto.
