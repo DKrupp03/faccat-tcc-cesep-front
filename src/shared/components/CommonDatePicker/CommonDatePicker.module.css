@@ -1,48 +1,53 @@
 .wrapper {
-  position: relative;
-  width: 100%;
+	position: relative;
+	width: 100%;
 }
 
 .input {
-  width: 100%;
-  border-radius: 8px;
-  height: 44px;
-  color: var(--color-navy);
-  border-color: var(--color-grey30);
+	width: 100%;
+	border-radius: 8px;
+	height: 44px;
+	color: var(--color-navy);
+	border-color: var(--color-grey30);
 }
 
 .input input {
-  font-size: 14px !important;
+	font-size: 14px !important;
 }
 
 .input:hover,
 .input:focus,
 .input:focus-within {
-  border-color: var(--color-grey70) !important;
-  box-shadow: none !important;
+	border-color: var(--color-grey70) !important;
+	box-shadow: none !important;
 }
 
 .label {
-  position: absolute;
-  left: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 14px;
-  color: var(--color-grey70);
-  background: white;
-  padding: 0 4px;
-  pointer-events: none;
-  transition: top 0.3s ease, font-size 0.3s ease, left 0.3s ease;
-  z-index: 10;
-  line-height: 1;
+	position: absolute;
+	left: 12px;
+	top: 50%;
+	transform: translateY(-50%);
+	font-size: 14px;
+	color: var(--color-grey70);
+	background: white;
+	padding: 0 4px;
+	pointer-events: none;
+	transition: top 0.3s ease, font-size 0.3s ease, left 0.3s ease;
+	z-index: 10;
+	line-height: 1;
 }
 
 .labelFloating {
-  top: 0;
-  font-size: 11px;
-  left: 12px;
+	top: 0;
+	font-size: 11px;
+	left: 12px;
 }
 
 .required {
-  color: var(--color-red);
+	color: var(--color-red);
+}
+
+.popup {
+	max-height: calc(100dvh - 16px);
+	overflow-y: auto;
 }
