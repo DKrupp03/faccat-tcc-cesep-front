@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Form, Row, Col, Skeleton } from "antd";
 import dayjs from "dayjs";
@@ -31,28 +31,33 @@ export const ServiceForm = () => {
   const serviceTypeOptions = useMemo(() => getServiceTypeOptions(t), [t]);
   const statusOptions = useMemo(() => getStatusOptions(t), [t]);
 
+  // Preenche o select de terapeuta com o terapeuta padrão do paciente (se ele
+  // tiver um). Ignorado quando o terapeuta está travado.
+  const fillDefaultTherapist = useCallback(async (newPatientId: number) => {
+    if (therapistId) return;
+
+    const response = await PatientsService.getPatient(newPatientId);
+    if (response.success && response.profile.therapist_id) {
+      form.setFieldValue("therapist_id", response.profile.therapist_id);
+    }
+  }, [form, therapistId]);
+
   useEffect(() => {
     if (isFormOpen) {
       if (service) {
         form.setFieldsValue(service);
       } else {
         form.resetFields();
+        // Novo atendimento a partir da aba do paciente: já traz o terapeuta padrão.
+        if (patientId) fillDefaultTherapist(patientId);
       }
     }
-  }, [isFormOpen, service, form]);
+  }, [isFormOpen, service, patientId, form, fillDefaultTherapist]);
 
-  // Ao trocar o paciente, preenche o terapeuta com o terapeuta padrão do
-  // paciente (se ele tiver um). Ignorado quando o terapeuta está travado.
-  const handleValuesChange = async (changed: Partial<Service>) => {
-    if (!("patient_id" in changed) || therapistId) return;
-
-    const newPatientId = changed.patient_id;
-    if (!newPatientId) return;
-
-    const response = await PatientsService.getPatient(newPatientId);
-    if (response.success && response.profile.therapist_id) {
-      form.setFieldValue("therapist_id", response.profile.therapist_id);
-    }
+  // Ao trocar o paciente, preenche o terapeuta com o terapeuta padrão dele.
+  const handleValuesChange = (changed: Partial<Service>) => {
+    if (!("patient_id" in changed) || !changed.patient_id) return;
+    fillDefaultTherapist(changed.patient_id);
   };
 
   if (loadingService) {
