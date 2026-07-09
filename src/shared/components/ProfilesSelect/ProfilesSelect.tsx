@@ -30,19 +30,27 @@ export const ProfilesSelect: React.FC<ProfilesSelectProps> = ({
   therapistId,
   patientId,
   selectedProfile,
+  value,
   ...props
 }) => {
   const { t } = useTranslation();
 
   const [options, setOptions] = useState<DefaultOptionType[]>([]);
+  const [resolvedProfile, setResolvedProfile] = useState<SelectedProfile | null>(null);
+  const [loading, setLoading] = useState(true);
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const fetchProfiles = useCallback(async (name?: string) => {
-    const response = await ProfilesSelectService.getProfiles(role, { name, therapistId, patientId });
+    setLoading(true);
+    try {
+      const response = await ProfilesSelectService.getProfiles(role, { name, therapistId, patientId });
 
-    return response.success
-      ? response.profiles.map((p) => ({ label: p.name, value: p.id }))
-      : null;
+      return response.success
+        ? response.profiles.map((p) => ({ label: p.name, value: p.id }))
+        : null;
+    } finally {
+      setLoading(false);
+    }
   }, [role, therapistId, patientId]);
 
   useEffect(() => {
@@ -55,29 +63,60 @@ export const ProfilesSelect: React.FC<ProfilesSelectProps> = ({
     };
   }, [fetchProfiles]);
 
-  const handleSearch = useCallback((value: string) => {
+  const handleSearch = useCallback((search: string) => {
     if (debounceRef.current) clearTimeout(debounceRef.current);
     debounceRef.current = setTimeout(() => {
-      fetchProfiles(value || undefined).then((opts) => {
+      fetchProfiles(search || undefined).then((opts) => {
         if (opts) setOptions(opts);
       });
     }, 200);
   }, [fetchProfiles]);
 
-  // Garante que o perfil já selecionado apareça com o nome, mesmo que não
-  // esteja na página atual de opções carregadas (paginação da busca).
+  // Self-heal: se há um valor selecionado mas seu nome é desconhecido (não está
+  // na página carregada, não veio via selectedProfile e ainda não foi resolvido),
+  // busca o perfil pelo id para exibir o nome no lugar do id.
+  useEffect(() => {
+    if (value === undefined || value === null) return;
+    if (selectedProfile?.id === value) return;
+    if (resolvedProfile?.id === value) return;
+    if (options.some((option) => option.value === value)) return;
+
+    let active = true;
+    ProfilesSelectService.getProfile(Number(value)).then((response) => {
+      if (active && response.success) {
+        setResolvedProfile({ id: response.profile.id, name: response.profile.name });
+      }
+    });
+    return () => {
+      active = false;
+    };
+  }, [value, options, selectedProfile, resolvedProfile]);
+
+  // Garante que o perfil já selecionado apareça com o nome, mesmo que não esteja
+  // na página atual de opções carregadas. Prioriza selectedProfile (sem requisição)
+  // e, na sua ausência, o perfil resolvido pelo self-heal — sempre casando com o
+  // valor atual.
   const mergedOptions = useMemo(() => {
-    if (selectedProfile && !options.some((option) => option.value === selectedProfile.id)) {
-      return [{ label: selectedProfile.name, value: selectedProfile.id }, ...options];
+    const known =
+      selectedProfile?.id === value
+        ? selectedProfile
+        : resolvedProfile?.id === value
+          ? resolvedProfile
+          : null;
+
+    if (known && !options.some((option) => option.value === known.id)) {
+      return [{ label: known.name, value: known.id }, ...options];
     }
 
     return options;
-  }, [options, selectedProfile]);
+  }, [options, selectedProfile, resolvedProfile, value]);
 
   return (
     <CommonSelect
       label={label || t(`common.roles.${role}`)}
       options={mergedOptions}
+      value={value}
+      loading={loading}
       icon={showHelp ? <CommonIconHelp text={t("common.help.defaultValue")} /> : undefined}
       allowClear
       showSearch={{ filterOption: false, onSearch: handleSearch }}

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Form, Row, Col, Skeleton, Divider } from "antd";
 import dayjs from "dayjs";
@@ -10,6 +10,8 @@ import { CommonButton } from "@/shared/components/CommonButton/CommonButton";
 import { CommonDocuments } from "@/shared/components/CommonDocuments/CommonDocuments";
 import { ServicesSelect } from "@/shared/components/ServicesSelect/ServicesSelect";
 import { decimalMask } from "@/shared/utils/formatters";
+import ServicesSelectService from "@/shared/services/ServicesSelectService";
+import PatientsService from "@/modules/patients/services/PatientsService";
 
 import { usePaymentForm } from "../../hooks/usePaymentForm";
 import {
@@ -52,6 +54,22 @@ export const PaymentForm = ({
     (payment?.attachments ?? []).filter((doc) => !removedIds.includes(doc.id))
   ), [payment?.attachments, removedIds]);
 
+  // Preenche o input de valor com o valor padrão do paciente associado ao
+  // atendimento (se ele tiver um).
+  const prefillDefaultValue = useCallback(async (serviceId: number) => {
+    const serviceResponse = await ServicesSelectService.getService(serviceId);
+    if (!serviceResponse.success) return;
+
+    const patientResponse = await PatientsService.getPatient(serviceResponse.service.patient_id);
+    const defaultValue = patientResponse.success
+      ? patientResponse.profile.default_value
+      : undefined;
+
+    if (defaultValue != null && defaultValue !== "") {
+      form.setFieldValue("value", formatCurrencyInput(defaultValue));
+    }
+  }, [form]);
+
   useEffect(() => {
     if (isFormOpen) {
       if (payment) {
@@ -62,12 +80,22 @@ export const PaymentForm = ({
         });
       } else {
         form.resetFields();
-        if (defaultValues) form.setFieldsValue(defaultValues);
+        if (defaultValues) {
+          form.setFieldsValue(defaultValues);
+          // Pagamento ainda não salvo: já traz o valor padrão do paciente.
+          if (defaultValues.service_id) prefillDefaultValue(defaultValues.service_id);
+        }
       }
     }
-  }, [isFormOpen, payment, defaultValues, form]);
+  }, [isFormOpen, payment, defaultValues, form, prefillDefaultValue]);
 
   const isServiceLocked = !!payment?.id || lockedFields.includes("service_id");
+
+  // Ao trocar o atendimento, preenche o valor com o valor padrão do paciente.
+  const handleValuesChange = (changed: Partial<Payment>) => {
+    if (!("service_id" in changed) || !changed.service_id) return;
+    prefillDefaultValue(changed.service_id);
+  };
 
   const handleFinish = (values: Partial<Payment>) => {
     submitPayment({
@@ -95,6 +123,7 @@ export const PaymentForm = ({
       layout="vertical"
       requiredMark={false}
       onFinish={handleFinish}
+      onValuesChange={handleValuesChange}
       initialValues={defaultValues}
       className={styles.form}
     >

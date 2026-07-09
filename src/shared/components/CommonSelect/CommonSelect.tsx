@@ -1,5 +1,5 @@
 import { useState, useRef, useCallback, type ReactNode } from "react";
-import { Select, Flex, type SelectProps, type RefSelectProps } from "antd";
+import { Select, Flex, Spin, type SelectProps, type RefSelectProps } from "antd";
 
 import styles from "./CommonSelect.module.css";
 
@@ -13,6 +13,8 @@ const blurActive = () => {
   setTimeout(() => (document.activeElement as HTMLElement)?.blur(), 0);
 };
 
+const loadingIndicator = <Spin size="small" />;
+
 export const CommonSelect: React.FC<CommonSelectProps> = ({
   icon,
   label,
@@ -21,6 +23,9 @@ export const CommonSelect: React.FC<CommonSelectProps> = ({
   onChange,
   onClear,
   onOpenChange,
+  loading,
+  labelRender,
+  notFoundContent,
   required = false,
   ...props
 }: CommonSelectProps) => {
@@ -74,6 +79,8 @@ export const CommonSelect: React.FC<CommonSelectProps> = ({
         onChange={handleChange}
         onClear={handleClear}
         onOpenChange={handleOpenChange}
+        labelRender={loading ? () => loadingIndicator : labelRender}
+        notFoundContent={loading ? loadingIndicator : notFoundContent}
         {...props}
       />
     </div>

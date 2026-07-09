@@ -8,6 +8,7 @@ import { CommonDatePicker } from "@/shared/components/CommonDatePicker";
 import { CommonTextArea } from "@/shared/components/CommonTextArea/CommonTextArea";
 import { CommonButton } from "@/shared/components/CommonButton/CommonButton";
 import { ProfilesSelect } from "@/shared/components/ProfilesSelect/ProfilesSelect";
+import PatientsService from "@/modules/patients/services/PatientsService";
 
 import { useServiceForm } from "../../hooks/useServiceForm";
 import { getServiceTypeOptions, getStatusOptions } from "../../utils/form";
@@ -40,6 +41,20 @@ export const ServiceForm = () => {
     }
   }, [isFormOpen, service, form]);
 
+  // Ao trocar o paciente, preenche o terapeuta com o terapeuta padrão do
+  // paciente (se ele tiver um). Ignorado quando o terapeuta está travado.
+  const handleValuesChange = async (changed: Partial<Service>) => {
+    if (!("patient_id" in changed) || therapistId) return;
+
+    const newPatientId = changed.patient_id;
+    if (!newPatientId) return;
+
+    const response = await PatientsService.getPatient(newPatientId);
+    if (response.success && response.profile.therapist_id) {
+      form.setFieldValue("therapist_id", response.profile.therapist_id);
+    }
+  };
+
   if (loadingService) {
     return (
       <Skeleton
@@ -57,6 +72,7 @@ export const ServiceForm = () => {
       layout="vertical"
       requiredMark={false}
       onFinish={submitService}
+      onValuesChange={handleValuesChange}
       initialValues={{
         status: "scheduled",
         therapist_id: therapistId,

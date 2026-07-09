@@ -1,5 +1,5 @@
 import api from "@/shared/api/client";
-import type { CommonPanelResponse } from "@/shared/types/common";
+import type { CommonResponse, CommonPanelResponse } from "@/shared/types/common";
 import type { ProfileRole } from "@/shared/types/profile";
 
 type ProfilesSelectOption = {
@@ -9,6 +9,11 @@ type ProfilesSelectOption = {
 
 type ProfilesSelectResponse = CommonPanelResponse & {
   profiles: ProfilesSelectOption[];
+};
+
+type ProfileSelectResponse = CommonResponse & {
+  // O backend retorna o perfil completo; aqui só usamos { id, name }.
+  profile: ProfilesSelectOption;
 };
 
 type ProfilesSelectFilters = {
@@ -32,6 +37,11 @@ const ProfilesSelectService = {
         page: 1,
       },
     });
+    return response.data;
+  },
+
+  async getProfile(id: number): Promise<ProfileSelectResponse> {
+    const response = await api.get(`/profiles/${id}`);
     return response.data;
   },
 };

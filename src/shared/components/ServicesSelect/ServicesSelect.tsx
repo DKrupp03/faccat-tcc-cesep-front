@@ -35,15 +35,21 @@ export const ServicesSelect: React.FC<ServicesSelectProps> = ({
   const { t } = useTranslation();
 
   const [options, setOptions] = useState<DefaultOptionType[]>([]);
+  const [loading, setLoading] = useState(true);
 
   const fetchServices = useCallback(async () => {
-    const response = await ServicesSelectService.getServices({
-      patient_id: patientId,
-      without_payment: withoutPayment,
-      without_medical_record: withoutMedicalRecord,
-    });
+    setLoading(true);
+    try {
+      const response = await ServicesSelectService.getServices({
+        patient_id: patientId,
+        without_payment: withoutPayment,
+        without_medical_record: withoutMedicalRecord,
+      });
 
-    return response.success ? response.services.map(toOption) : null;
+      return response.success ? response.services.map(toOption) : null;
+    } finally {
+      setLoading(false);
+    }
   }, [patientId, withoutPayment, withoutMedicalRecord]);
 
   useEffect(() => {
@@ -79,6 +85,7 @@ export const ServicesSelect: React.FC<ServicesSelectProps> = ({
       label={label || t("patients.medicalRecords.columns.service")}
       options={options}
       value={value}
+      loading={loading}
       icon={showHelp ? <CommonIconHelp text={t("common.help.defaultValue")} /> : undefined}
       allowClear
       {...props}
