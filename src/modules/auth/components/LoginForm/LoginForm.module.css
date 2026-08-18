@@ -14,3 +14,8 @@
   margin-top: -8px;
   margin-bottom: 8px;
 }
+
+.registerLink {
+  color: var(--color-blue);
+  font-weight: 700;
+}

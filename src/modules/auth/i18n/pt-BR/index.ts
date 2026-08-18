@@ -6,6 +6,7 @@ const auth = {
 
   "pages": {
     "login": "Login",
+    "register": "Criar conta",
     "forgotPassword": "Recuperar senha",
     "resetPassword": "Redefinir senha",
     "setPassword": "Definir senha",
@@ -15,6 +16,26 @@ const auth = {
     "welcome": "Bem-vindo!",
     "subtitle": "Digite suas credenciais para entrar.",
     "submit": "Entrar",
+  },
+
+  "register": {
+    "register": "Criar conta",
+    "register.description": "Preencha seus dados para criar sua conta.",
+    "noAccount": "Não tem uma conta?",
+    "createAccount": "Cadastre-se",
+    "accountType": "Quero me cadastrar como",
+    "name": "Nome",
+    "gender": "Gênero",
+    "birth": "Data de nascimento",
+    "insertName": "Insira o seu nome",
+    "insertGender": "Selecione o seu gênero",
+    "insertBirth": "Insira a sua data de nascimento",
+    "invalidEmail": "Insira um e-mail válido",
+    "submit": "Cadastrar",
+    "backToLogin": "Voltar ao login",
+    "success": "Cadastro realizado!",
+    "therapistSuccess.description": "Enviamos um e-mail para você definir sua senha de acesso.",
+    "patientSuccess.description": "Seus dados foram recebidos. Em breve o CESEP entrará em contato com você.",
   },
 
   "forgotPassword": {

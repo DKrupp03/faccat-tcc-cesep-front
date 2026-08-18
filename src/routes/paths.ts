@@ -1,5 +1,6 @@
 export const PATHS = {
   login: "/login",
+  register: "/register",
   forgotPassword: "/login/forgot-password",
   resetPassword: "/login/reset-password",
   setPassword: "/login/set-password",

@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import { Form, Flex } from "antd";
+import { Form, Flex, Typography } from "antd";
 import { IconMail, IconLock } from "@tabler/icons-react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
@@ -10,6 +10,8 @@ import { PATHS } from "@/routes/paths";
 import { useAuth } from "../../hooks/useAuth";
 
 import styles from "./LoginForm.module.css";
+
+const { Text } = Typography;
 
 export const LoginForm = () => {
   const { t } = useTranslation();
@@ -90,6 +92,17 @@ export const LoginForm = () => {
           {t("auth.login.submit")}
         </CommonButton>
       </Form.Item>
+
+      <Flex justify="center" align="center" gap={4}>
+        <Text>{t("auth.register.noAccount")}</Text>
+
+        <Link
+          to={PATHS.register}
+          className={styles.registerLink}
+        >
+          {t("auth.register.createAccount")}
+        </Link>
+      </Flex>
     </Form>
   );
 };

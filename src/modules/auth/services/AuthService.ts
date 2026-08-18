@@ -1,7 +1,7 @@
 import api from "@/shared/api/client";
 import { type CommonResponse } from "@/shared/types/common";
 
-import { type SignInResponse } from "../types/auth";
+import { type SignInResponse, type RegisterPayload } from "../types/auth";
 
 export const AuthService = {
   async signIn(email: string, password: string): Promise<SignInResponse> {
@@ -16,6 +16,14 @@ export const AuthService = {
     }
 
     return { token, ...response.data };
+  },
+
+  async register(profile: RegisterPayload): Promise<CommonResponse> {
+    const response = await api.post("/signup", {
+      user: { email: profile.email, profile },
+    });
+
+    return response.data;
   },
 
   async logout(): Promise<CommonResponse> {

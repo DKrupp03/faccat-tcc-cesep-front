@@ -1,10 +1,19 @@
 import { type CommonResponse } from "@/shared/types/common";
 import type { BasicUser } from "@/shared/types/user";
+import type { ProfileGender, ProfileRole } from "@/shared/types/profile";
 import type { Therapist } from "@/modules/therapists/types/therapist";
 
 export type SignInResponse = CommonResponse & {
   token: string;
   user: BasicUser;
+};
+
+export type RegisterPayload = {
+  name: string;
+  email: string;
+  gender: ProfileGender;
+  birth: string;
+  role: ProfileRole;
 };
 
 export type AuthContextType = {

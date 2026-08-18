@@ -1,6 +1,6 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 
-import { LoginPage, ForgotPasswordPage, ResetPasswordPage, SetPasswordPage } from "../modules/auth/pages";
+import { LoginPage, RegisterPage, ForgotPasswordPage, ResetPasswordPage, SetPasswordPage } from "../modules/auth/pages";
 import { ServicesPage } from "@/modules/services/pages";
 import { TherapistsPage } from "@/modules/therapists/pages";
 import { PatientsPage } from "@/modules/patients/pages";
@@ -20,6 +20,7 @@ const AppRoutes = () => {
 
   const authRoutes: RouteType[] = [
     { path: PATHS.login, element: <LoginPage /> },
+    { path: PATHS.register, element: <RegisterPage /> },
     { path: PATHS.forgotPassword, element: <ForgotPasswordPage /> },
     { path: PATHS.resetPassword, element: <ResetPasswordPage /> },
     { path: PATHS.setPassword, element: <SetPasswordPage /> },

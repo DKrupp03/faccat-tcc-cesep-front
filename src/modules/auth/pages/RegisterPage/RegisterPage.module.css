@@ -1,0 +1,9 @@
+.successDescription {
+  text-align: center;
+}
+
+.backToLogin {
+  color: var(--color-blue);
+  font-weight: 700;
+  cursor: pointer;
+}
