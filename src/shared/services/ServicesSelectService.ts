@@ -21,7 +21,7 @@ const ServicesSelectService = {
     const response = await api.get("/services", {
       params: {
         services: filter,
-        order_by: "datetime_start_desc",
+        order_by: "date_desc",
         page: 1,
       },
     });

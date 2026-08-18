@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import type { ColumnType } from "antd/lib/table/interface";
 
 import { CommonTable } from "@/shared/components/CommonTable/CommonTable";
-import { formatDateTime } from "@/shared/utils/formatters";
+import { formatDateAndTime } from "@/shared/utils/formatters";
 
 import { useServicesList } from "../../hooks/useServicesList";
 import { useServiceForm } from "../../hooks/useServiceForm";
@@ -56,11 +56,11 @@ export const ServicesTable = () => {
         render: (value: ServiceType) => t(`services.serviceTypes.${value}`),
       },
       {
-        title: t("services.columns.datetimeStart"),
-        dataIndex: "datetime_start",
-        key: "datetime_start",
+        title: t("services.columns.date"),
+        dataIndex: "date",
+        key: "date",
         width: "18%",
-        render: (value: string) => formatDateTime(value),
+        render: (_: unknown, record: Service) => formatDateAndTime(record.date, record.start_time),
       },
       {
         title: t("services.columns.status"),

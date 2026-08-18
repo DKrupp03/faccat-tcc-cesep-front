@@ -5,7 +5,7 @@ import type { DefaultOptionType } from "antd/es/select";
 
 import { CommonSelect } from "@/shared/components/CommonSelect/CommonSelect";
 import { CommonIconHelp } from "@/shared/components/CommonHelpIcon/CommonHelpIcon";
-import { formatDateTime } from "@/shared/utils/formatters";
+import { formatDateAndTime } from "@/shared/utils/formatters";
 import ServicesSelectService from "@/shared/services/ServicesSelectService";
 import type { Service } from "@/modules/services/types/service";
 
@@ -19,7 +19,7 @@ type ServicesSelectProps = Omit<SelectProps, "options"> & {
 };
 
 const toOption = (service: Service): DefaultOptionType => ({
-  label: `${formatDateTime(service.datetime_start)} - ${service.patient?.name ?? ""}`,
+  label: `${formatDateAndTime(service.date, service.start_time)} - ${service.patient?.name ?? ""}`,
   value: service.id,
 });
 

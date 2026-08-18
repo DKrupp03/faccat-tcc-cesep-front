@@ -1,6 +1,6 @@
 import { createContext } from "react";
 
-import type { Service } from "../types/service";
+import type { Service, ServiceFormValues } from "../types/service";
 
 export type ServiceFormContextType = {
   therapistId?: number;
@@ -11,7 +11,7 @@ export type ServiceFormContextType = {
   loadingService: boolean;
   openForm: (serviceId?: number) => void;
   closeForm: () => void;
-  submitService: (values: Partial<Service>) => void;
+  submitService: (values: ServiceFormValues) => void;
   deleteService: (serviceId: number) => void;
 };
 

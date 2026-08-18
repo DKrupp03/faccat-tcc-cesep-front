@@ -6,19 +6,30 @@ import { useModals } from "@/shared/hooks/useModals";
 
 import { ServiceFormContext } from "../contexts/ServiceFormContext";
 import { useServicesOperations } from "../hooks/useServicesOperations";
-import type { Service } from "../types/service";
+import type { Service, ServiceFormValues, ServiceScope } from "../types/service";
 import { ServiceDrawer } from "../components/ServiceDrawer/ServiceDrawer";
+import {
+  ServiceScopeModal,
+  type ServiceScopeAction,
+} from "../components/ServiceScopeModal/ServiceScopeModal";
 
 type ServiceFormProviderProps = {
   afterSaveCallback?: (
     operation: "create" | "update" | "delete",
     service: Service,
+    scope?: ServiceScope,
   ) => void;
   therapistId?: number;
   patientId?: number;
   renderFormDrawer?: boolean;
   keepFormOpenOnSubmit?: boolean;
   children: React.ReactNode;
+};
+
+// Ação de uma série recorrente aguardando a escolha do escopo na modal.
+type PendingScopeAction = {
+  action: ServiceScopeAction;
+  run: (scope: ServiceScope) => Promise<void>;
 };
 
 export const ServiceFormProvider = ({
@@ -43,6 +54,7 @@ export const ServiceFormProvider = ({
   const [service, setService] = useState<Service>();
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [loadingService, setLoadingService] = useState<boolean>(false);
+  const [pendingScopeAction, setPendingScopeAction] = useState<PendingScopeAction>();
 
   const openForm = useCallback(async (serviceId?: number) => {
     if (serviceId) {
@@ -69,7 +81,7 @@ export const ServiceFormProvider = ({
     setService(undefined);
   }, []);
 
-  const createService = useCallback(async (serviceData: Partial<Service>) => {
+  const createService = useCallback(async (serviceData: ServiceFormValues) => {
     try {
       const response = await createServiceOperation(serviceData);
 
@@ -92,16 +104,19 @@ export const ServiceFormProvider = ({
     }
   }, [t, createServiceOperation, afterSaveCallback, openNotification, closeForm, keepFormOpenOnSubmit]);
 
-  const updateService = useCallback(async (serviceData: Partial<Service>) => {
+  const updateService = useCallback(async (
+    serviceData: ServiceFormValues,
+    scope: ServiceScope = "single",
+  ) => {
     try {
-      const response = await updateServiceOperation(serviceData);
+      const response = await updateServiceOperation(serviceData, scope);
 
       if (!response.success) {
         openNotification("error", response.errors!);
         throw new Error(response.error);
       }
 
-      afterSaveCallback?.("update", response.service);
+      afterSaveCallback?.("update", response.service, scope);
       if (keepFormOpenOnSubmit) {
         setService(response.service);
       } else {
@@ -115,48 +130,82 @@ export const ServiceFormProvider = ({
     }
   }, [t, updateServiceOperation, afterSaveCallback, openNotification, closeForm, keepFormOpenOnSubmit]);
 
-  const submitService = useCallback(async (formValues: Partial<Service>) => {
-    setIsSubmitting(true);
+  const removeService = useCallback(async (
+    serviceId: number,
+    scope: ServiceScope = "single",
+  ) => {
+    try {
+      const response = await deleteServiceOperation(serviceId, scope);
 
-    if (service?.id) {
-      await updateService({ ...formValues, id: service.id });
-    } else {
-      await createService(formValues);
+      if (!response.success) {
+        openNotification("error", response.errors!);
+        throw new Error(response.error);
+      }
+
+      closeForm();
+      afterSaveCallback?.("delete", service!, scope);
+      openNotification("success", t("services.actions.deleted"));
+    } catch (error) {
+      console.error(error || t("common.errors.unknown"));
+    } finally {
+      setIsSubmitting(false);
     }
+  }, [t, deleteServiceOperation, afterSaveCallback, openNotification, closeForm, service]);
+
+  const submitService = useCallback(async (formValues: ServiceFormValues) => {
+    if (!service?.id) {
+      setIsSubmitting(true);
+      await createService(formValues);
+      return;
+    }
+
+    const values = { ...formValues, id: service.id };
+
+    // Ocorrência de uma série: o escopo da edição é escolhido na modal.
+    if (service.recurrence_id) {
+      setPendingScopeAction({
+        action: "update",
+        run: async (scope) => {
+          setIsSubmitting(true);
+          await updateService(values, scope);
+        },
+      });
+      return;
+    }
+
+    setIsSubmitting(true);
+    await updateService(values);
   }, [updateService, createService, service]);
 
   const deleteService = useCallback(async (serviceId: number) => {
+    if (service?.recurrence_id) {
+      setPendingScopeAction({
+        action: "delete",
+        run: async (scope) => {
+          setIsSubmitting(true);
+          await removeService(serviceId, scope);
+        },
+      });
+      return;
+    }
+
     openConfirmationModal(
       t("services.actions.delete"),
       t("services.actions.delete.confirmation"),
-      async () => {
-        try {
-          const response = await deleteServiceOperation(serviceId);
-
-          if (!response.success) {
-            openNotification("error", response.errors!);
-            throw new Error(response.error);
-          }
-
-          closeForm();
-          afterSaveCallback?.("delete", service!);
-          openNotification("success", t("services.actions.deleted"));
-        } catch (error) {
-          console.error(error || t("common.errors.unknown"));
-        } finally {
-          setIsSubmitting(false);
-        }
+      () => {
+        setIsSubmitting(true);
+        removeService(serviceId);
       },
     );
-  }, [
-    t,
-    openConfirmationModal,
-    deleteServiceOperation,
-    afterSaveCallback,
-    openNotification,
-    closeForm,
-    service,
-  ]);
+  }, [t, openConfirmationModal, removeService, service]);
+
+  const closeScopeModal = useCallback(() => setPendingScopeAction(undefined), []);
+
+  const handleSelectScope = useCallback((scope: ServiceScope) => {
+    const pending = pendingScopeAction;
+    setPendingScopeAction(undefined);
+    pending?.run(scope);
+  }, [pendingScopeAction]);
 
   return (
     <ServiceFormContext.Provider
@@ -175,6 +224,11 @@ export const ServiceFormProvider = ({
     >
       {children}
       {renderFormDrawer && <ServiceDrawer />}
+      <ServiceScopeModal
+        action={pendingScopeAction?.action}
+        close={closeScopeModal}
+        onSelect={handleSelectScope}
+      />
     </ServiceFormContext.Provider>
   );
 };

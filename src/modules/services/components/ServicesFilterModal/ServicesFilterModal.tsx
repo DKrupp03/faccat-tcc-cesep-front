@@ -63,8 +63,7 @@ export const ServicesFilterModal = () => {
             >
               <CommonDatePicker
                 label={t("services.filter.dateStart")}
-                showTime={{ format: "HH:mm" }}
-                format="DD/MM/YYYY HH:mm"
+                format="DD/MM/YYYY"
                 disabled={isCalendar}
               />
             </Form.Item>
@@ -77,8 +76,7 @@ export const ServicesFilterModal = () => {
             >
               <CommonDatePicker
                 label={t("services.filter.dateEnd")}
-                showTime={{ format: "HH:mm" }}
-                format="DD/MM/YYYY HH:mm"
+                format="DD/MM/YYYY"
                 disabled={isCalendar}
               />
             </Form.Item>

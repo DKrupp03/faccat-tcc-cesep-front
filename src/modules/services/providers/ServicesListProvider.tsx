@@ -7,6 +7,7 @@ import { ServicesFilterModal } from "../components/ServicesFilterModal/ServicesF
 import { useServicesOperations } from "../hooks/useServicesOperations";
 import type {
   Service,
+  ServiceScope,
   ServicesFilter,
   ServicesOrder,
   ServicesPanelView,
@@ -34,7 +35,7 @@ export const ServicesListProvider = ({ therapistId, patientId, children }: Servi
   const [loadingMore, setLoadingMore] = useState<boolean>(false);
   const [filter, setFilter] = useState<ServicesFilter>(defaultFilter);
   const [page, setPage] = useState<number>(1);
-  const [orderBy, setOrderBy] = useState<ServicesOrder>("datetime_start_desc");
+  const [orderBy, setOrderBy] = useState<ServicesOrder>("date_desc");
   const [panelView, setPanelView] = useState<ServicesPanelView>("calendar");
   const [calendarMonth, setCalendarMonth] = useState<Dayjs>(dayjs());
   const [isFilterOpen, setIsFilterOpen] = useState<boolean>(false);
@@ -129,7 +130,15 @@ export const ServicesListProvider = ({ therapistId, patientId, children }: Servi
   const serviceFormCallback = useCallback((
     operation: "create" | "update" | "delete",
     service: Service,
+    scope: ServiceScope = "single",
   ) => {
+    // Criar uma série ou aplicar em várias ocorrências mexe em N registros de
+    // uma vez: o ajuste incremental não dá conta, então recarrega o painel.
+    if (scope !== "single" || (operation === "create" && service.recurrence_id)) {
+      filtratePanel();
+      return;
+    }
+
     if (operation === "create") {
       setServices((prev) => [service, ...prev]);
       setTotal((prev) => prev + 1);
@@ -141,7 +150,7 @@ export const ServicesListProvider = ({ therapistId, patientId, children }: Servi
       setTotal((prev) => prev - 1);
       setTotalFiltered((prev) => prev - 1);
     }
-  }, []);
+  }, [filtratePanel]);
 
   const openFilter = useCallback(() => setIsFilterOpen(true), []);
   const closeFilter = useCallback(() => setIsFilterOpen(false), []);

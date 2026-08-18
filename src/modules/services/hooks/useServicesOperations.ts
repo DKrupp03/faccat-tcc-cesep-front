@@ -1,7 +1,8 @@
 import { useCallback } from "react";
 
 import type {
-  Service,
+  ServiceFormValues,
+  ServiceScope,
   ServicesFilter,
   ServicesOrder,
   ServicesPayload,
@@ -9,16 +10,16 @@ import type {
 import ServicesService from "../services/ServicesService";
 
 export const useServicesOperations = () => {
-  const createService = useCallback(async (service: Partial<Service>) => {
+  const createService = useCallback(async (service: ServiceFormValues) => {
     return await ServicesService.createService(service);
   }, []);
 
-  const updateService = useCallback(async (service: Partial<Service>) => {
-    return await ServicesService.updateService(service);
+  const updateService = useCallback(async (service: ServiceFormValues, scope?: ServiceScope) => {
+    return await ServicesService.updateService(service, scope);
   }, []);
 
-  const deleteService = useCallback(async (serviceId: number) => {
-    return await ServicesService.deleteService(serviceId);
+  const deleteService = useCallback(async (serviceId: number, scope?: ServiceScope) => {
+    return await ServicesService.deleteService(serviceId, scope);
   }, []);
 
   const fetchService = useCallback(async (serviceId: number) => {
@@ -27,7 +28,7 @@ export const useServicesOperations = () => {
 
   const fetchServices = useCallback(async (
     filter: ServicesFilter,
-    orderBy: ServicesOrder = "datetime_start_desc",
+    orderBy: ServicesOrder = "date_desc",
     page?: number,
     perPage?: number,
   ) => {

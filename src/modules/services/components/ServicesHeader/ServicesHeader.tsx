@@ -30,12 +30,12 @@ export const ServicesHeader = () => {
 
   const servicesOrderOptions = useMemo(() => ([
     {
-      value: "datetime_start_desc",
+      value: "date_desc",
       label: t("services.order.dateDesc"),
       icon: <IconSortDescending size={16} />,
     },
     {
-      value: "datetime_start_asc",
+      value: "date_asc",
       label: t("services.order.dateAsc"),
       icon: <IconSortAscending size={16} />,
     },

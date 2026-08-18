@@ -1,3 +1,22 @@
 .form {
   width: 100%;
 }
+
+.recurrenceSummary {
+  display: block;
+  font-size: 13px;
+  color: var(--color-navy);
+  padding-bottom: 16px;
+}
+
+.recurrenceHint {
+  display: block;
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--color-grey70);
+  padding-bottom: 16px;
+}
+
+.divider {
+  margin-top: 8px !important;
+}

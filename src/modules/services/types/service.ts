@@ -27,24 +27,63 @@ export type ServiceProfile = {
   name: string;
 };
 
+export type RecurrenceFrequency = "daily" | "weekly" | "monthly";
+
+export type RecurrenceEndType = "by_date" | "by_occurrences";
+
+// Escopo escolhido na modal ao editar/excluir uma ocorrência de uma série.
+export type ServiceScope = "single" | "future" | "all";
+
+export type ServiceRecurrence = {
+  id: number;
+  frequency: RecurrenceFrequency;
+  repeat_interval: number;
+  start_date: string;
+  end_type: RecurrenceEndType;
+  end_date?: string;
+  occurrences?: number;
+  weekday?: number;
+  month_day?: number;
+};
+
 export type Service = {
   id: number;
-  datetime_start: string;
-  datetime_end: string;
+  date: string;
+  start_time: string;
+  end_time: string;
   observations?: string;
   service_type: ServiceType;
   status: ServiceStatus;
   patient_id: number;
   therapist_id: number;
+  recurrence_id?: number;
   created_at: string;
   updated_at: string;
   patient?: ServiceProfile;
   therapist?: ServiceProfile;
   medical_record?: MedicalRecordType;
   payment?: Payment;
+  recurrence?: ServiceRecurrence;
 };
 
-export type ServicesOrder = "datetime_start_desc" | "datetime_start_asc";
+// No formulário os campos numéricos passam por máscara e ficam como texto,
+// mas chegam da API como número ao editar uma série existente.
+export type ServiceRecurrenceFormValues = Omit<
+  Partial<ServiceRecurrence>,
+  "repeat_interval" | "occurrences" | "month_day"
+> & {
+  repeat_interval?: number | string;
+  occurrences?: number | string;
+  month_day?: number | string;
+};
+
+// Valores do formulário: além do atendimento, o switch e o padrão da recorrência.
+export type ServiceFormValues = Partial<Service> & {
+  recurrent?: boolean;
+  recurrence?: ServiceRecurrenceFormValues;
+};
+
+export type ServicesOrder = "date_desc" | "date_asc";
 
 export type ServicesPanelView = "calendar" | "list";
 

@@ -3,6 +3,7 @@ import type { Dayjs } from "dayjs";
 
 import type {
   Service,
+  ServiceScope,
   ServicesFilter,
   ServicesOrder,
   ServicesPanelView,
@@ -32,7 +33,11 @@ export type ServicesListContextType = {
   changeCalendarMonth: (month: Dayjs) => void;
   openFilter: () => void;
   closeFilter: () => void;
-  serviceFormCallback: (operation: "create" | "update" | "delete", service: Service) => void;
+  serviceFormCallback: (
+    operation: "create" | "update" | "delete",
+    service: Service,
+    scope?: ServiceScope,
+  ) => void;
 };
 
 export const ServicesListContext = createContext<ServicesListContextType | null>(null);

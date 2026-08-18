@@ -1,11 +1,35 @@
+// Datas puras ("2026-08-18") seriam lidas como UTC pelo Date e exibiriam o dia
+// anterior no fuso de Brasília, por isso a conversão para data local.
+const toLocalDate = (value: string) => {
+  const [year, month, day] = value.split("-").map(Number);
+  return new Date(year, month - 1, day);
+};
+
+const DATE_ONLY = /^\d{4}-\d{2}-\d{2}$/;
+
 export const formatDate = (value?: string) => {
   if (!value) return "";
 
-  return new Date(value).toLocaleDateString("pt-BR", {
+  const date = DATE_ONLY.test(value) ? toLocalDate(value) : new Date(value);
+
+  return date.toLocaleDateString("pt-BR", {
     day: "2-digit",
     month: "2-digit",
     year: "numeric",
   });
+};
+
+// Horários chegam da API como "HH:MM"; mantém o formato e tolera nulos.
+export const formatTime = (value?: string) => value?.slice(0, 5) ?? "";
+
+export const formatDateAndTime = (date?: string, time?: string) => {
+  const formattedDate = formatDate(date);
+  const formattedTime = formatTime(time);
+
+  if (!formattedDate) return formattedTime;
+  if (!formattedTime) return formattedDate;
+
+  return `${formattedDate} - ${formattedTime}`;
 };
 
 export const formatDateTime = (value?: string) => {

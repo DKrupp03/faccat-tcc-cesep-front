@@ -7,7 +7,7 @@ import dayjs, { type Dayjs } from "dayjs";
 import { IconChevronLeft, IconChevronRight } from "@tabler/icons-react";
 
 import { CommonButton } from "@/shared/components/CommonButton/CommonButton";
-import { formatMonthYear } from "@/shared/utils/formatters";
+import { formatMonthYear, formatTime } from "@/shared/utils/formatters";
 
 import { useServicesList } from "../../hooks/useServicesList";
 import { useServiceForm } from "../../hooks/useServiceForm";
@@ -17,7 +17,8 @@ import styles from "./ServicesCalendar.module.css";
 
 const { Text } = Typography;
 
-const dayKey = (value: string | Dayjs) => dayjs(value).format("YYYY-MM-DD");
+// A API já devolve a data no formato "YYYY-MM-DD", igual à chave do calendário.
+const dayKey = (value: Dayjs) => value.format("YYYY-MM-DD");
 
 export const ServicesCalendar = () => {
   const { t } = useTranslation();
@@ -28,7 +29,7 @@ export const ServicesCalendar = () => {
     const map = new Map<string, Service[]>();
 
     for (const service of services) {
-      const key = dayKey(service.datetime_start);
+      const key = service.date;
       const dayServices = map.get(key);
 
       if (dayServices) {
@@ -39,7 +40,7 @@ export const ServicesCalendar = () => {
     }
 
     for (const dayServices of map.values()) {
-      dayServices.sort((a, b) => a.datetime_start.localeCompare(b.datetime_start));
+      dayServices.sort((a, b) => a.start_time.localeCompare(b.start_time));
     }
 
     return map;
@@ -67,7 +68,7 @@ export const ServicesCalendar = () => {
               >
                 <ServiceStatusIcon status={service.status} size={14} />
                 <span className={styles.time}>
-                  {dayjs(service.datetime_start).format("HH:mm")}
+                  {formatTime(service.start_time)}
                 </span>
                 <span className={styles.name}>{service.patient?.name}</span>
               </div>
