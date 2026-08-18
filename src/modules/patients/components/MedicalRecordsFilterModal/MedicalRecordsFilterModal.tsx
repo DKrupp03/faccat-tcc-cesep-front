@@ -1,10 +1,11 @@
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Form, Row, Col } from "antd";
-import dayjs from "dayjs";
 
 import { CommonModal } from "@/shared/components/CommonModal/CommonModal";
 import { CommonButton } from "@/shared/components/CommonButton/CommonButton";
+import { dateValueProps, normalizeDate } from "@/shared/utils/formatters";
+import { dateRangeRule } from "@/shared/utils/filterRules";
 import { CommonDatePicker } from "@/shared/components/CommonDatePicker";
 
 import { useMedicalRecordsFilter } from "../../hooks/useMedicalRecordsFilter";
@@ -50,7 +51,8 @@ export const MedicalRecordsFilterModal = () => {
             <Form.Item
               name="date_start"
               noStyle
-              getValueProps={(value) => ({ value: value ? dayjs(value) : undefined })}
+              getValueProps={dateValueProps}
+              normalize={normalizeDate}
             >
               <CommonDatePicker label={t("patients.medicalRecords.filter.dateStart")} />
             </Form.Item>
@@ -59,7 +61,10 @@ export const MedicalRecordsFilterModal = () => {
             <Form.Item
               name="date_end"
               noStyle
-              getValueProps={(value) => ({ value: value ? dayjs(value) : undefined })}
+              dependencies={["date_start"]}
+              getValueProps={dateValueProps}
+              normalize={normalizeDate}
+              rules={[dateRangeRule(t, "date_start")]}
             >
               <CommonDatePicker label={t("patients.medicalRecords.filter.dateEnd")} />
             </Form.Item>

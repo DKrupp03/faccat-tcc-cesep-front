@@ -1,6 +1,5 @@
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { Form, Row, Col, Flex, Skeleton, Upload } from "antd";
-import dayjs from "dayjs";
 import { useTranslation } from "react-i18next";
 import { IconTrash, IconUpload } from "@tabler/icons-react";
 
@@ -11,7 +10,15 @@ import { CommonAvatar } from "@/shared/components/CommonAvatar/CommonAvatar";
 import { CommonButton } from "@/shared/components/CommonButton/CommonButton";
 import { CommonSwitch } from "@/shared/components/CommonSwitch/CommonSwitch";
 import { CommonIconHelp } from "@/shared/components/CommonHelpIcon/CommonHelpIcon";
-import { phoneMask, cpfMask, rgMask, crpMask } from "@/shared/utils/formatters";
+import {
+  phoneMask,
+  cpfMask,
+  rgMask,
+  crpMask,
+  dateValueProps,
+  normalizeDate,
+  isFutureDate,
+} from "@/shared/utils/formatters";
 
 import { useTherapistFormState } from "../../hooks/useTherapistFormState";
 import { useTherapistForm } from "../../hooks/useTherapistForm";
@@ -22,6 +29,21 @@ import styles from "./TherapistForm.module.css";
 export const TherapistForm = () => {
   const { t } = useTranslation();
   const [form] = Form.useForm<Partial<Therapist>>();
+
+  // A obrigatoriedade era só visual (o asterisco da prop `required`): sem
+  // `rules`, todo campo em branco só era barrado pelo servidor.
+  const requiredRule = useMemo(
+    () => [{ required: true, message: t("common.errors.required") }],
+    [t],
+  );
+
+  const emailRules = useMemo(
+    () => [
+      { required: true, message: t("common.errors.required") },
+      { type: "email" as const, message: t("common.errors.invalidEmail") },
+    ],
+    [t],
+  );
   const {
     isFormOpen,
     therapist,
@@ -106,7 +128,7 @@ export const TherapistForm = () => {
 
       <Row gutter={16}>
         <Col span={12}>
-          <Form.Item name="name">
+          <Form.Item name="name" rules={requiredRule}>
             <CommonTextInput
               label={t("therapists.columns.name")}
               required
@@ -114,7 +136,7 @@ export const TherapistForm = () => {
           </Form.Item>
         </Col>
         <Col span={12}>
-          <Form.Item name="email">
+          <Form.Item name="email" rules={emailRules}>
             <CommonTextInput
               label={t("therapists.columns.email")}
               disabled={!!therapist?.id}
@@ -126,7 +148,7 @@ export const TherapistForm = () => {
 
       <Row gutter={16}>
         <Col span={12}>
-          <Form.Item name="gender">
+          <Form.Item name="gender" rules={requiredRule}>
             <CommonSelect
               label={t("therapists.columns.gender")}
               options={genderOptions}
@@ -137,10 +159,13 @@ export const TherapistForm = () => {
         <Col span={12}>
           <Form.Item
             name="birth"
-            getValueProps={(value) => ({ value: value ? dayjs(value) : undefined })}
+            rules={requiredRule}
+            getValueProps={dateValueProps}
+            normalize={normalizeDate}
           >
             <CommonDatePicker
               label={t("therapists.columns.birth")}
+              disabledDate={isFutureDate}
               required
             />
           </Form.Item>

@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Form, Row, Col, Divider } from "antd";
-import dayjs from "dayjs";
 
 import { CommonTextInput } from "@/shared/components/CommonTextInput/CommonTextInput";
 import { CommonTextArea } from "@/shared/components/CommonTextArea/CommonTextArea";
@@ -9,6 +8,7 @@ import { CommonDatePicker } from "@/shared/components/CommonDatePicker";
 import { CommonButton } from "@/shared/components/CommonButton/CommonButton";
 import { CommonDocuments } from "@/shared/components/CommonDocuments/CommonDocuments";
 import { ServicesSelect } from "@/shared/components/ServicesSelect/ServicesSelect";
+import { dateValueProps, normalizeDate } from "@/shared/utils/formatters";
 
 import { useMedicalRecords } from "../../hooks/useMedicalRecords";
 import type { MedicalRecordType } from "../../types/medicalRecord";
@@ -31,6 +31,13 @@ export const MedicalRecordForm = ({
     submitMedicalRecord,
     patientId,
   } = useMedicalRecords();
+
+  // A obrigatoriedade era só visual (o asterisco da prop `required`): sem
+  // `rules`, todo campo em branco só era barrado pelo servidor.
+  const requiredRule = useMemo(
+    () => [{ required: true, message: t("common.errors.required") }],
+    [t],
+  );
 
   const [newFiles, setNewFiles] = useState<File[]>([]);
   const [removedIds, setRemovedIds] = useState<number[]>([]);
@@ -82,7 +89,7 @@ export const MedicalRecordForm = ({
     >
       <Row gutter={16}>
         <Col span={16}>
-          <Form.Item name="title">
+          <Form.Item name="title" rules={requiredRule}>
             <CommonTextInput
               label={t("patients.medicalRecords.columns.title")}
               required
@@ -93,7 +100,9 @@ export const MedicalRecordForm = ({
         <Col span={8}>
           <Form.Item
             name="date"
-            getValueProps={(value) => ({ value: value ? dayjs(value) : undefined })}
+            rules={requiredRule}
+            getValueProps={dateValueProps}
+            normalize={normalizeDate}
           >
             <CommonDatePicker
               label={t("patients.medicalRecords.columns.date")}
@@ -106,7 +115,7 @@ export const MedicalRecordForm = ({
 
       <Row gutter={16}>
         <Col span={24}>
-          <Form.Item name="service_id">
+          <Form.Item name="service_id" rules={requiredRule}>
             <ServicesSelect
               label={t("patients.medicalRecords.columns.service")}
               required
@@ -121,7 +130,7 @@ export const MedicalRecordForm = ({
 
       <Row gutter={16}>
         <Col span={24}>
-          <Form.Item name="observations">
+          <Form.Item name="observations" rules={requiredRule}>
             <CommonTextArea
               label={t("patients.medicalRecords.columns.observations")}
               required

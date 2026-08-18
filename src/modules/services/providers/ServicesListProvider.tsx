@@ -7,7 +7,6 @@ import { ServicesFilterModal } from "../components/ServicesFilterModal/ServicesF
 import { useServicesOperations } from "../hooks/useServicesOperations";
 import type {
   Service,
-  ServiceScope,
   ServicesFilter,
   ServicesOrder,
   ServicesPanelView,
@@ -54,10 +53,13 @@ export const ServicesListProvider = ({ therapistId, patientId, children }: Servi
     const isCalendar = view === "calendar";
 
     if (isCalendar) {
+      // Data pura, sem fuso: toISOString() converte para UTC e, em UTC-3, o
+      // fim do mês virava o dia 1º do mês seguinte (e o início recuaria um dia
+      // em fusos positivos).
       effectiveFilter = {
         ...effectiveFilter,
-        date_start: month.startOf("month").toISOString(),
-        date_end: month.endOf("month").toISOString(),
+        date_start: month.startOf("month").format("YYYY-MM-DD"),
+        date_end: month.endOf("month").format("YYYY-MM-DD"),
       };
     }
 
@@ -127,29 +129,11 @@ export const ServicesListProvider = ({ therapistId, patientId, children }: Servi
     }
   }, [fetchForView, panelView, calendarMonth, filter, orderBy]);
 
-  const serviceFormCallback = useCallback((
-    operation: "create" | "update" | "delete",
-    service: Service,
-    scope: ServiceScope = "single",
-  ) => {
-    // Criar uma série ou aplicar em várias ocorrências mexe em N registros de
-    // uma vez: o ajuste incremental não dá conta, então recarrega o painel.
-    if (scope !== "single" || (operation === "create" && service.recurrence_id)) {
-      filtratePanel();
-      return;
-    }
-
-    if (operation === "create") {
-      setServices((prev) => [service, ...prev]);
-      setTotal((prev) => prev + 1);
-      setTotalFiltered((prev) => prev + 1);
-    } else if (operation === "update") {
-      setServices((prev) => prev.map((s) => s.id === service.id ? service : s));
-    } else if (operation === "delete") {
-      setServices((prev) => prev.filter((s) => s.id !== service.id));
-      setTotal((prev) => prev - 1);
-      setTotalFiltered((prev) => prev - 1);
-    }
+  // Recarrega sempre: além das séries (que mexem em N registros de uma vez), o
+  // ajuste incremental ignorava a ordenação e o filtro ativos — um atendimento
+  // criado fora do recorte aparecia no topo da lista mesmo assim.
+  const serviceFormCallback = useCallback(() => {
+    filtratePanel();
   }, [filtratePanel]);
 
   const openFilter = useCallback(() => setIsFilterOpen(true), []);

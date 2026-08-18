@@ -61,6 +61,7 @@ const payments = {
 		paid: "Pago",
 		unpaid: "Não pago",
 		overdue: "Atrasado",
+		noPayment: "Sem pagamento",
 	},
 
 	charts: {

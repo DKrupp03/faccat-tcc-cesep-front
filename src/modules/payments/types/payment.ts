@@ -43,6 +43,8 @@ export type PaymentsOrder =
 export type PaymentsFilter = {
   status?: PaymentStatus;
   patient_id?: number;
+  therapist_id?: number;
+  payment_method?: PaymentMethod;
   payment_date_start?: string;
   payment_date_end?: string;
   expiration_date_start?: string;

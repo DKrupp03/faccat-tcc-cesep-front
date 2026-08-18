@@ -30,6 +30,9 @@ export const PatientsFilterModal = () => {
     { label: t("payments.status.paid"), value: "paid" },
     { label: t("payments.status.unpaid"), value: "unpaid" },
     { label: t("payments.status.overdue"), value: "overdue" },
+    // Paciente sem atendimento (ou cujo último não tem pagamento) não cabia em
+    // nenhum dos status e ficava fora de qualquer recorte.
+    { label: t("payments.status.noPayment"), value: "no_payment" },
   ]), [t]);
 
   const footerContent = useMemo(() => (

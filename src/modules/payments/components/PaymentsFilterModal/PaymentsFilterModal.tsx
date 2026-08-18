@@ -1,17 +1,20 @@
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Form, Row, Col } from "antd";
-import dayjs from "dayjs";
 
 import { CommonModal } from "@/shared/components/CommonModal/CommonModal";
 import { CommonButton } from "@/shared/components/CommonButton/CommonButton";
+import { dateValueProps, normalizeDate } from "@/shared/utils/formatters";
+import { dateRangeRule } from "@/shared/utils/filterRules";
 import { CommonDatePicker } from "@/shared/components/CommonDatePicker";
 import { CommonSelect } from "@/shared/components/CommonSelect/CommonSelect";
 import { ProfilesSelect } from "@/shared/components/ProfilesSelect/ProfilesSelect";
 
+import { useAuth } from "@/modules/auth/hooks/useAuth";
+
 import { usePaymentsFilter } from "../../hooks/usePaymentsFilter";
 import { usePaymentsList } from "../../hooks/usePaymentsList";
-import { getStatusOptions } from "../../utils/form";
+import { getStatusOptions, getPaymentMethodOptions } from "../../utils/form";
 import styles from "./PaymentsFilterModal.module.css";
 
 export const PaymentsFilterModal = () => {
@@ -26,7 +29,11 @@ export const PaymentsFilterModal = () => {
     handleFiltrate,
   } = usePaymentsFilter();
 
+  const { profile } = useAuth();
+  const isAdmin = !!profile?.admin;
+
   const statusOptions = useMemo(() => getStatusOptions(t), [t]);
+  const paymentMethodOptions = useMemo(() => getPaymentMethodOptions(t), [t]);
 
   const footerContent = useMemo(() => (
     <>
@@ -63,6 +70,17 @@ export const PaymentsFilterModal = () => {
             </Form.Item>
           </Col>
           <Col span={12}>
+            <Form.Item name="payment_method" noStyle>
+              <CommonSelect
+                label={t("payments.columns.paymentMethod")}
+                options={paymentMethodOptions}
+                allowClear
+              />
+            </Form.Item>
+          </Col>
+        </Row>
+        <Row gutter={16}>
+          <Col span={12}>
             <Form.Item name="patient_id" noStyle>
               <ProfilesSelect
                 role="patient"
@@ -71,13 +89,23 @@ export const PaymentsFilterModal = () => {
               />
             </Form.Item>
           </Col>
+          {/* Terapeuta não-admin já tem o painel restrito a ele; o corte por
+              profissional só faz sentido para quem enxerga todos. */}
+          {isAdmin && (
+            <Col span={12}>
+              <Form.Item name="therapist_id" noStyle>
+                <ProfilesSelect role="therapist" />
+              </Form.Item>
+            </Col>
+          )}
         </Row>
         <Row gutter={16}>
           <Col span={12}>
             <Form.Item
               name="expiration_date_start"
               noStyle
-              getValueProps={(value) => ({ value: value ? dayjs(value) : undefined })}
+              getValueProps={dateValueProps}
+              normalize={normalizeDate}
             >
               <CommonDatePicker label={t("payments.filter.expirationDateStart")} />
             </Form.Item>
@@ -86,7 +114,10 @@ export const PaymentsFilterModal = () => {
             <Form.Item
               name="expiration_date_end"
               noStyle
-              getValueProps={(value) => ({ value: value ? dayjs(value) : undefined })}
+              dependencies={["expiration_date_start"]}
+              getValueProps={dateValueProps}
+              normalize={normalizeDate}
+              rules={[dateRangeRule(t, "expiration_date_start")]}
             >
               <CommonDatePicker label={t("payments.filter.expirationDateEnd")} />
             </Form.Item>
@@ -97,7 +128,8 @@ export const PaymentsFilterModal = () => {
             <Form.Item
               name="payment_date_start"
               noStyle
-              getValueProps={(value) => ({ value: value ? dayjs(value) : undefined })}
+              getValueProps={dateValueProps}
+              normalize={normalizeDate}
             >
               <CommonDatePicker label={t("payments.filter.paymentDateStart")} />
             </Form.Item>
@@ -106,7 +138,10 @@ export const PaymentsFilterModal = () => {
             <Form.Item
               name="payment_date_end"
               noStyle
-              getValueProps={(value) => ({ value: value ? dayjs(value) : undefined })}
+              dependencies={["payment_date_start"]}
+              getValueProps={dateValueProps}
+              normalize={normalizeDate}
+              rules={[dateRangeRule(t, "payment_date_start")]}
             >
               <CommonDatePicker label={t("payments.filter.paymentDateEnd")} />
             </Form.Item>

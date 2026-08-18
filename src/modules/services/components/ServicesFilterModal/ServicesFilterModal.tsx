@@ -1,10 +1,11 @@
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Form, Row, Col } from "antd";
-import dayjs from "dayjs";
 
 import { CommonModal } from "@/shared/components/CommonModal/CommonModal";
 import { CommonButton } from "@/shared/components/CommonButton/CommonButton";
+import { dateValueProps, normalizeDate } from "@/shared/utils/formatters";
+import { dateRangeRule } from "@/shared/utils/filterRules";
 import { CommonDatePicker } from "@/shared/components/CommonDatePicker";
 import { CommonSelect } from "@/shared/components/CommonSelect/CommonSelect";
 import { ProfilesSelect } from "@/shared/components/ProfilesSelect/ProfilesSelect";
@@ -59,7 +60,8 @@ export const ServicesFilterModal = () => {
             <Form.Item
               name="date_start"
               noStyle
-              getValueProps={(value) => ({ value: value ? dayjs(value) : undefined })}
+              getValueProps={dateValueProps}
+              normalize={normalizeDate}
             >
               <CommonDatePicker
                 label={t("services.filter.dateStart")}
@@ -72,7 +74,10 @@ export const ServicesFilterModal = () => {
             <Form.Item
               name="date_end"
               noStyle
-              getValueProps={(value) => ({ value: value ? dayjs(value) : undefined })}
+              dependencies={["date_start"]}
+              getValueProps={dateValueProps}
+              normalize={normalizeDate}
+              rules={[dateRangeRule(t, "date_start")]}
             >
               <CommonDatePicker
                 label={t("services.filter.dateEnd")}

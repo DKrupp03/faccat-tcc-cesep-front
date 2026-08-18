@@ -74,24 +74,11 @@ export const TherapistsListProvider = ({ children }: TherapistsListProviderProps
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [t]);
 
-  const therapistFormCallback = useCallback((
-    operation: "create" | "update" | "delete",
-    therapist: Therapist,
-  ) => {
-    if (operation === "create") {
-      setTherapists((prev) => [...prev, therapist]);
-      setTotal((prev) => prev + 1);
-      setTotalFiltered((prev) => prev + 1);
-      if (therapist.active) setTotalActive((prev) => prev + 1);
-    } else if (operation === "update") {
-      setTherapists((prev) => prev.map((p) => p.id === therapist.id ? therapist : p));
-    } else if (operation === "delete") {
-      setTherapists((prev) => prev.filter((p) => p.id !== therapist.id));
-      setTotal((prev) => prev - 1);
-      setTotalFiltered((prev) => prev - 1);
-      if (therapist.active) setTotalActive((prev) => prev - 1);
-    }
-  }, []);
+  // Recarrega em vez de remendar a lista local: o ajuste incremental ignorava
+  // a ordenação e o filtro ativos e desencontrava os totais do painel.
+  const therapistFormCallback = useCallback(() => {
+    filtratePanel(filter, orderBy, 1);
+  }, [filtratePanel, filter, orderBy]);
 
   const openFilter = useCallback(() => setIsFilterOpen(true), []);
   const closeFilter = useCallback(() => setIsFilterOpen(false), []);

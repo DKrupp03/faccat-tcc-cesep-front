@@ -22,6 +22,10 @@ type ProfilesSelectFilters = {
   patientId?: number;
 };
 
+// Teto do backend por página. A busca por nome é server-side, mas a lista
+// inicial vinha cortada em 30 opções sem nenhum aviso ao usuário.
+const SELECT_PAGE_SIZE = 100;
+
 const ProfilesSelectService = {
   async getProfiles(role: ProfileRole, filters: ProfilesSelectFilters = {}): Promise<ProfilesSelectResponse> {
     const response = await api.get("/profiles", {
@@ -35,6 +39,7 @@ const ProfilesSelectService = {
         },
         order_by: "name_asc",
         page: 1,
+        per_page: SELECT_PAGE_SIZE,
       },
     });
     return response.data;

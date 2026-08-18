@@ -9,7 +9,13 @@ export const usePatientsFilter = () => {
 
   const [form] = Form.useForm<PatientsFilter>();
 
-  const handleClear = useCallback(() => form.resetFields(), [form]);
+  // Limpar precisa refletir no painel: antes só zerava o formulário e a
+  // listagem seguia com o filtro anterior até o usuário clicar em "Filtrar".
+  const handleClear = useCallback(() => {
+    form.resetFields();
+    filtratePanel(defaultFilter);
+    closeFilter();
+  }, [form, filtratePanel, defaultFilter, closeFilter]);
 
   const handleClose = useCallback(() => closeFilter(), [closeFilter]);
 

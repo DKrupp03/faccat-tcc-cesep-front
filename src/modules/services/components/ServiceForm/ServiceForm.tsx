@@ -16,6 +16,7 @@ import { CommonGroupButtons } from "@/shared/components/CommonGroupButtons/Commo
 import { ProfilesSelect } from "@/shared/components/ProfilesSelect/ProfilesSelect";
 import { COLORS } from "@/shared/theme";
 import { integerMask } from "@/shared/utils/formatters";
+import { rangeRule } from "@/shared/utils/filterRules";
 import PatientsService from "@/modules/patients/services/PatientsService";
 
 import { useServiceForm } from "../../hooks/useServiceForm";
@@ -35,6 +36,13 @@ const { Text } = Typography;
 // trabalham com dayjs, então cada Form.Item converte nos dois sentidos.
 const dateValueProps = (value?: string) => ({ value: value ? dayjs(value) : undefined });
 const normalizeDate = (value?: Dayjs) => value?.format("YYYY-MM-DD");
+
+// Espelham os limites do model (ServiceRecurrence): antes o usuário só
+// descobria o teto depois de enviar e receber o erro do servidor.
+const MAX_OCCURRENCES = 366;
+const MAX_REPEAT_INTERVAL = 99;
+
+const isPastDate = (current: Dayjs) => !!current && current < dayjs().startOf("day");
 
 const timeValueProps = (value?: string) => ({
   value: value ? dayjs(`2000-01-01T${value}`) : undefined,
@@ -147,7 +155,7 @@ export const ServiceForm = () => {
     >
       <Row gutter={16}>
         <Col span={12}>
-          <Form.Item name="patient_id">
+          <Form.Item name="patient_id" rules={requiredRule}>
             <ProfilesSelect
               role="patient"
               therapistId={therapistId}
@@ -159,7 +167,7 @@ export const ServiceForm = () => {
           </Form.Item>
         </Col>
         <Col span={12}>
-          <Form.Item name="therapist_id">
+          <Form.Item name="therapist_id" rules={requiredRule}>
             <ProfilesSelect
               role="therapist"
               selectedProfile={service?.therapist}
@@ -173,7 +181,7 @@ export const ServiceForm = () => {
 
       <Row gutter={16}>
         <Col span={12}>
-          <Form.Item name="service_type">
+          <Form.Item name="service_type" rules={requiredRule}>
             <CommonSelect
               label={t("services.columns.serviceType")}
               options={serviceTypeOptions}
@@ -182,7 +190,7 @@ export const ServiceForm = () => {
           </Form.Item>
         </Col>
         <Col span={12}>
-          <Form.Item name="status">
+          <Form.Item name="status" rules={requiredRule}>
             <CommonSelect
               label={t("services.columns.status")}
               options={statusOptions}
@@ -220,6 +228,7 @@ export const ServiceForm = () => {
               <CommonDatePicker
                 label={t("services.columns.date")}
                 format="DD/MM/YYYY"
+                disabledDate={isEditing ? undefined : isPastDate}
                 required
               />
             </Form.Item>
@@ -290,7 +299,7 @@ export const ServiceForm = () => {
               <Col span={8}>
                 <Form.Item
                   name={["recurrence", "repeat_interval"]}
-                  rules={requiredRule}
+                  rules={[...requiredRule, rangeRule(t, 1, MAX_REPEAT_INTERVAL)]}
                   normalize={integerMask}
                 >
                   <CommonTextInput
@@ -320,7 +329,7 @@ export const ServiceForm = () => {
                 <Col span={8}>
                   <Form.Item
                     name={["recurrence", "month_day"]}
-                    rules={requiredRule}
+                    rules={[...requiredRule, rangeRule(t, 1, 31)]}
                     normalize={integerMask}
                   >
                     <CommonTextInput
@@ -354,7 +363,7 @@ export const ServiceForm = () => {
                 {endType === "by_occurrences" ? (
                   <Form.Item
                     name={["recurrence", "occurrences"]}
-                    rules={requiredRule}
+                    rules={[...requiredRule, rangeRule(t, 1, MAX_OCCURRENCES)]}
                     normalize={integerMask}
                   >
                     <CommonTextInput

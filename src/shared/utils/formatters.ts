@@ -1,3 +1,5 @@
+import dayjs, { type Dayjs } from "dayjs";
+
 // Datas puras ("2026-08-18") seriam lidas como UTC pelo Date e exibiriam o dia
 // anterior no fuso de Brasília, por isso a conversão para data local.
 const toLocalDate = (value: string) => {
@@ -89,6 +91,19 @@ export const formatShortMonth = (value?: string) => {
 
   return label.replace(".", "").toUpperCase();
 };
+
+// Ponte entre o valor guardado no form ("YYYY-MM-DD", que é o que a API espera)
+// e o dayjs exigido pelos pickers. Guardar o próprio dayjs faria o axios
+// serializar em UTC e deslocar o dia (em UTC-3, 01/09 vira 31/08 e vice-versa).
+export const dateValueProps = (value?: string) => ({
+  value: value ? dayjs(value) : undefined,
+});
+
+export const normalizeDate = (value?: Dayjs) => value?.format("YYYY-MM-DD");
+
+// Para `disabledDate` dos pickers: nascimento não pode ser no futuro.
+export const isFutureDate = (current: Dayjs) =>
+  !!current && current > dayjs().endOf("day");
 
 export const phoneMask = (value: string) => {
   const digits = value.replace(/\D/g, "").slice(0, 11);

@@ -13,6 +13,7 @@ import { PATHS, DEFAULT_PATH } from "./paths";
 type RouteType = {
   path: string;
   element: React.ReactNode;
+  requireAdmin?: boolean;
 };
 
 const AppRoutes = () => {
@@ -28,7 +29,7 @@ const AppRoutes = () => {
 
   const privateRoutes: RouteType[] = [
     { path: PATHS.services, element: <ServicesPage /> },
-    { path: PATHS.therapists, element: <TherapistsPage /> },
+    { path: PATHS.therapists, element: <TherapistsPage />, requireAdmin: true },
     { path: PATHS.patients, element: <PatientsPage /> },
     { path: PATHS.payments, element: <PaymentsPage /> },
   ];
@@ -47,7 +48,11 @@ const AppRoutes = () => {
         <Route
           key={index}
           path={route.path}
-          element={<PrivateRoute>{route.element}</PrivateRoute>}
+          element={
+            <PrivateRoute requireAdmin={route.requireAdmin}>
+              {route.element}
+            </PrivateRoute>
+          }
         />
       ))}
 

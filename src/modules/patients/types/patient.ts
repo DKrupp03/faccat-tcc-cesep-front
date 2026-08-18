@@ -34,7 +34,7 @@ export type PatientsFilter = {
   active: number;
   name?: string;
   therapist_id?: number;
-  payment_status?: PaymentStatus | "all";
+  payment_status?: PaymentStatus | "all" | "no_payment";
 };
 
 export type PatientsPayload = {

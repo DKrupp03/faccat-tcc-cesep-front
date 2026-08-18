@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Form, Row, Col, Skeleton, Divider } from "antd";
-import dayjs from "dayjs";
 
 import { CommonSelect } from "@/shared/components/CommonSelect/CommonSelect";
 import { CommonDatePicker } from "@/shared/components/CommonDatePicker";
@@ -9,7 +8,7 @@ import { CommonTextInput } from "@/shared/components/CommonTextInput/CommonTextI
 import { CommonButton } from "@/shared/components/CommonButton/CommonButton";
 import { CommonDocuments } from "@/shared/components/CommonDocuments/CommonDocuments";
 import { ServicesSelect } from "@/shared/components/ServicesSelect/ServicesSelect";
-import { decimalMask } from "@/shared/utils/formatters";
+import { decimalMask, dateValueProps, normalizeDate, isFutureDate } from "@/shared/utils/formatters";
 import ServicesSelectService from "@/shared/services/ServicesSelectService";
 import PatientsService from "@/modules/patients/services/PatientsService";
 
@@ -49,6 +48,13 @@ export const PaymentForm = ({
   }
 
   const paymentMethodOptions = useMemo(() => getPaymentMethodOptions(t), [t]);
+
+  // A obrigatoriedade era só visual (o asterisco da prop `required`): sem
+  // `rules`, todo campo em branco só era barrado pelo servidor.
+  const requiredRule = useMemo(
+    () => [{ required: true, message: t("common.errors.required") }],
+    [t],
+  );
 
   const visibleDocuments = useMemo(() => (
     (payment?.attachments ?? []).filter((doc) => !removedIds.includes(doc.id))
@@ -129,7 +135,7 @@ export const PaymentForm = ({
     >
       <Row gutter={16}>
         <Col span={24}>
-          <Form.Item name="service_id">
+          <Form.Item name="service_id" rules={requiredRule}>
             <ServicesSelect
               label={t("payments.columns.service")}
               required
@@ -143,7 +149,7 @@ export const PaymentForm = ({
 
       <Row gutter={16}>
         <Col span={12}>
-          <Form.Item name="value" normalize={decimalMask}>
+          <Form.Item name="value" rules={requiredRule} normalize={decimalMask}>
             <CommonTextInput
               label={t("payments.columns.value")}
               icon="R$"
@@ -166,23 +172,28 @@ export const PaymentForm = ({
         <Col span={12}>
           <Form.Item
             name="expiration_date"
-            getValueProps={(value) => ({ value: value ? dayjs(value) : undefined })}
+            rules={requiredRule}
+            getValueProps={dateValueProps}
+            normalize={normalizeDate}
           >
+            {/* Vencimento no passado é legítimo: a maioria dos pagamentos é
+                lançada depois de o atendimento acontecer. */}
             <CommonDatePicker
               label={t("payments.columns.expirationDate")}
               required
-              disabledDate={!payment?.id
-                ? (current) => !!current && current < dayjs().startOf("day")
-                : undefined}
             />
           </Form.Item>
         </Col>
         <Col span={12}>
           <Form.Item
             name="payment_date"
-            getValueProps={(value) => ({ value: value ? dayjs(value) : undefined })}
+            getValueProps={dateValueProps}
+            normalize={normalizeDate}
           >
-            <CommonDatePicker label={t("payments.columns.paymentDate")} />
+            <CommonDatePicker
+              label={t("payments.columns.paymentDate")}
+              disabledDate={isFutureDate}
+            />
           </Form.Item>
         </Col>
       </Row>

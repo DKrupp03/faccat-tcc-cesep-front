@@ -16,6 +16,9 @@ export type ServicesSelectFilter = {
   without_medical_record?: boolean;
 };
 
+// Teto do backend por página: a lista vinha cortada em 30 opções sem aviso.
+const SELECT_PAGE_SIZE = 100;
+
 const ServicesSelectService = {
   async getServices(filter: ServicesSelectFilter = {}): Promise<ServicesSelectResponse> {
     const response = await api.get("/services", {
@@ -23,6 +26,7 @@ const ServicesSelectService = {
         services: filter,
         order_by: "date_desc",
         page: 1,
+        per_page: SELECT_PAGE_SIZE,
       },
     });
     return response.data;

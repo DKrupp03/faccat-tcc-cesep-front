@@ -59,6 +59,9 @@ const common = {
     "generic": "Ocorreu um erro. Tente novamente ou contate um administrador.",
     "unknown": "Ocorreu um erro desconhecido.",
     "required": "Campo obrigatório.",
+    "dateRangeInverted": "A data final deve ser igual ou posterior à inicial.",
+    "invalidEmail": "Informe um e-mail válido.",
+    "outOfRange": "Informe um valor entre {{min}} e {{max}}.",
   },
 
   "genders": {
