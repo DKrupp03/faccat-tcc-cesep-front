@@ -36,6 +36,7 @@ export const PaymentsStatusChart = ({
   return (
     <ChartCard
       title={t("payments.charts.statusTitle")}
+      info={t("payments.charts.statusTooltip")}
       loading={loading}
       className={styles.statusCard}
     >

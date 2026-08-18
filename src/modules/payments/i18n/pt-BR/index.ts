@@ -65,10 +65,12 @@ const payments = {
 
 	charts: {
 		statusTitle: "Status dos pagamentos",
-		monthlyTitle: "Pagamentos do último ano",
+		statusTooltip:
+			"Distribuição dos pagamentos por status, considerando os filtros aplicados.",
+		monthlyTitle: "Pagamentos por mês",
 		monthlyTooltip:
-			"Quantidade de pagamentos recebidos e a receber por mês, " +
-			"com base no vencimento, nos últimos 12 meses.",
+			"Valores recebidos e a receber por mês, com base no vencimento, " +
+			"considerando os filtros aplicados (até 12 meses).",
 		received: "Recebido",
 		toReceive: "A receber",
 	},

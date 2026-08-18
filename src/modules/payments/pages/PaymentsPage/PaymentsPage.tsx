@@ -22,7 +22,7 @@ const PaymentsPage = () => {
   ), [profile]);
 
   return (
-    <PaymentsProvider therapistId={therapistId}>
+    <PaymentsProvider therapistId={therapistId} withCharts>
       <PaymentsPanel />
     </PaymentsProvider>
   );

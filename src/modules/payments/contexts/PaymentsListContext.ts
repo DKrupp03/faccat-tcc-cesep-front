@@ -4,6 +4,8 @@ import type {
   Payment,
   PaymentsFilter,
   PaymentsOrder,
+  PaymentStatusChartItem,
+  PaymentMonthlyChartItem,
 } from "../types/payment";
 
 export type PaymentsListContextType = {
@@ -21,6 +23,9 @@ export type PaymentsListContextType = {
   page: number;
   orderBy: PaymentsOrder;
   isFilterOpen: boolean;
+  statusChart: PaymentStatusChartItem[];
+  monthlyChart: PaymentMonthlyChartItem[];
+  loadingCharts: boolean;
   filtratePanel: (
     newFilter?: PaymentsFilter,
     newOrderBy?: PaymentsOrder,

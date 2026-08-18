@@ -5,6 +5,7 @@ import type {
   PaymentResponse,
   PaymentsResponse,
   PaymentsPayload,
+  PaymentsFilterPayload,
   PaymentStatusChartResponse,
   PaymentMonthlyChartResponse,
 } from "../types/payment";
@@ -54,13 +55,13 @@ const PaymentsService = {
     return response.data;
   },
 
-  async getStatusChart(): Promise<PaymentStatusChartResponse> {
-    const response = await api.get("/payments/status_chart");
+  async getStatusChart(params: PaymentsFilterPayload): Promise<PaymentStatusChartResponse> {
+    const response = await api.get("/payments/status_chart", { params });
     return response.data;
   },
 
-  async getMonthlyChart(): Promise<PaymentMonthlyChartResponse> {
-    const response = await api.get("/payments/monthly_chart");
+  async getMonthlyChart(params: PaymentsFilterPayload): Promise<PaymentMonthlyChartResponse> {
+    const response = await api.get("/payments/monthly_chart", { params });
     return response.data;
   },
 

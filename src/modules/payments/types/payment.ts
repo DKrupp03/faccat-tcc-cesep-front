@@ -49,8 +49,11 @@ export type PaymentsFilter = {
   expiration_date_end?: string;
 };
 
-export type PaymentsPayload = {
+export type PaymentsFilterPayload = {
   payments: PaymentsFilter;
+};
+
+export type PaymentsPayload = PaymentsFilterPayload & {
   order_by: PaymentsOrder;
   page?: number;
   per_page?: number;

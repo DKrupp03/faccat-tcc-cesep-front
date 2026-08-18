@@ -7,6 +7,7 @@ import type {
   PaymentsPayload,
 } from "../types/payment";
 import PaymentsService from "../services/PaymentsService";
+import { buildPaymentsFilterPayload } from "../utils/filter";
 
 export const usePaymentsOperations = () => {
   const createPayment = useCallback(async (payment: Partial<Payment>) => {
@@ -32,7 +33,7 @@ export const usePaymentsOperations = () => {
     perPage?: number,
   ) => {
     const payload: PaymentsPayload = {
-      payments: filter,
+      ...buildPaymentsFilterPayload(filter),
       order_by: orderBy,
       page,
       per_page: perPage,
@@ -41,11 +42,25 @@ export const usePaymentsOperations = () => {
     return await PaymentsService.getPayments(payload);
   }, []);
 
+  // Os gráficos não são paginados: usam o mesmo filtro da listagem sobre o
+  // conjunto inteiro.
+  const fetchPaymentsCharts = useCallback(async (filter: PaymentsFilter) => {
+    const payload = buildPaymentsFilterPayload(filter);
+
+    const [statusResponse, monthlyResponse] = await Promise.all([
+      PaymentsService.getStatusChart(payload),
+      PaymentsService.getMonthlyChart(payload),
+    ]);
+
+    return { statusResponse, monthlyResponse };
+  }, []);
+
   return {
     createPayment,
     updatePayment,
     deletePayment,
     fetchPayment,
     fetchPayments,
+    fetchPaymentsCharts,
   };
 };

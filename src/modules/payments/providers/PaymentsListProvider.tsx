@@ -8,17 +8,25 @@ import type {
   Payment,
   PaymentsFilter,
   PaymentsOrder,
+  PaymentStatusChartItem,
+  PaymentMonthlyChartItem,
 } from "../types/payment";
 
 type PaymentsListProviderProps = {
   therapistId?: number;
   patientId?: number;
+  withCharts?: boolean;
   children: React.ReactNode;
 };
 
-export const PaymentsListProvider = ({ therapistId, patientId, children }: PaymentsListProviderProps) => {
+export const PaymentsListProvider = ({
+  therapistId,
+  patientId,
+  withCharts = false,
+  children,
+}: PaymentsListProviderProps) => {
   const { t } = useTranslation();
-  const { fetchPayments } = usePaymentsOperations();
+  const { fetchPayments, fetchPaymentsCharts } = usePaymentsOperations();
 
   const defaultFilter: PaymentsFilter = useMemo(() => ({
     patient_id: patientId,
@@ -35,6 +43,28 @@ export const PaymentsListProvider = ({ therapistId, patientId, children }: Payme
   const [page, setPage] = useState<number>(1);
   const [orderBy, setOrderBy] = useState<PaymentsOrder>("expiration_date_desc");
   const [isFilterOpen, setIsFilterOpen] = useState<boolean>(false);
+  const [statusChart, setStatusChart] = useState<PaymentStatusChartItem[]>([]);
+  const [monthlyChart, setMonthlyChart] = useState<PaymentMonthlyChartItem[]>([]);
+  const [loadingCharts, setLoadingCharts] = useState<boolean>(withCharts);
+
+  // Os gráficos não são paginados, então recarregam por inteiro a cada
+  // filtragem, sempre com o mesmo filtro aplicado à listagem.
+  const filtrateCharts = useCallback(async (effectiveFilter: PaymentsFilter) => {
+    if (!withCharts) return;
+
+    setLoadingCharts(true);
+
+    try {
+      const { statusResponse, monthlyResponse } = await fetchPaymentsCharts(effectiveFilter);
+
+      if (statusResponse.success) setStatusChart(statusResponse.status_chart);
+      if (monthlyResponse.success) setMonthlyChart(monthlyResponse.monthly_chart);
+    } catch (error) {
+      console.error(error || t("common.errors.unknown"));
+    } finally {
+      setLoadingCharts(false);
+    }
+  }, [t, withCharts, fetchPaymentsCharts]);
 
   const filtratePanel = useCallback(async (
     newFilter: PaymentsFilter = filter,
@@ -50,6 +80,8 @@ export const PaymentsListProvider = ({ therapistId, patientId, children }: Payme
 
     if (newPage === 1) {
       setLoading(true);
+      // "Carregar mais" só estende a listagem, então não recarrega os gráficos.
+      filtrateCharts(effectiveFilter);
     } else {
       setLoadingMore(true);
     }
@@ -80,7 +112,7 @@ export const PaymentsListProvider = ({ therapistId, patientId, children }: Payme
       setLoading(false);
       setLoadingMore(false);
     }
-  }, [t, patientId, fetchPayments, filter, orderBy]);
+  }, [t, patientId, fetchPayments, filtrateCharts, filter, orderBy]);
 
   const paymentFormCallback = useCallback(() => {
     // Os totais e somas dependem do conjunto filtrado calculado no back-end,
@@ -108,6 +140,9 @@ export const PaymentsListProvider = ({ therapistId, patientId, children }: Payme
         page,
         orderBy,
         isFilterOpen,
+        statusChart,
+        monthlyChart,
+        loadingCharts,
         filtratePanel,
         openFilter,
         closeFilter,
