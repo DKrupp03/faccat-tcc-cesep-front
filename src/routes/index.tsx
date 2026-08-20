@@ -8,6 +8,7 @@ import { PaymentsPage } from "@/modules/payments/pages";
 
 import PrivateRoute from "./PrivateRoute";
 import { useAuth } from "../modules/auth/hooks/useAuth";
+import { CommonFallbackLoading } from "@/shared/components/CommonFallbackLoading/CommonFallbackLoading";
 import { PATHS, DEFAULT_PATH } from "./paths";
 
 type RouteType = {
@@ -17,7 +18,13 @@ type RouteType = {
 };
 
 const AppRoutes = () => {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, initializing } = useAuth();
+
+  // Aguarda a reidratação da sessão (GET /me) antes de decidir a rota, senão o
+  // usuário logado seria redirecionado ao login ao recarregar a página.
+  if (initializing) {
+    return <CommonFallbackLoading />;
+  }
 
   const authRoutes: RouteType[] = [
     { path: PATHS.login, element: <LoginPage /> },

@@ -49,8 +49,8 @@ export type ServiceRecurrence = {
 export type Service = {
   id: number;
   date: string;
-  start_time: string;
-  end_time: string;
+  start_time?: string;
+  end_time?: string;
   observations?: string;
   service_type: ServiceType;
   status: ServiceStatus;

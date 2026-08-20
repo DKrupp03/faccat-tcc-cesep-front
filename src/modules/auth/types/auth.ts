@@ -4,7 +4,6 @@ import type { ProfileGender, ProfileRole } from "@/shared/types/profile";
 import type { Therapist } from "@/modules/therapists/types/therapist";
 
 export type SignInResponse = CommonResponse & {
-  token: string;
   user: BasicUser;
 };
 
@@ -17,11 +16,12 @@ export type RegisterPayload = {
 };
 
 export type AuthContextType = {
-  token: string | null;
   user: BasicUser | null;
   profile: Therapist | null;
   setProfile: (profile: Therapist) => void;
   isAuthenticated: boolean;
+  // Verdadeiro enquanto a sessão é reidratada via GET /me no carregamento.
+  initializing: boolean;
   login: (email: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
 };

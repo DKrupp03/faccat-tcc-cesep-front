@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 import { useNotification } from "@/shared/hooks/useNotification";
 import { PATHS, DEFAULT_PATH } from "@/routes/paths";
 
-import { authStorage } from "../utils/authStorage";
 import { type BasicUser } from "@/shared/types/user";
 import { type Therapist } from "@/modules/therapists/types/therapist";
 import { AuthService } from "../services/AuthService";
@@ -18,9 +17,21 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const { openNotification } = useNotification();
   const { fetchTherapist } = useTherapistsOperations();
 
-  const [token, setToken] = useState<string | null>(() => authStorage.getToken());
-  const [user, setUser] = useState<BasicUser | null>(() => authStorage.getUser());
+  const [user, setUser] = useState<BasicUser | null>(null);
   const [profile, setProfile] = useState<Therapist | null>(null);
+  const [initializing, setInitializing] = useState(true);
+
+  // Reidrata a sessão a partir do cookie JWT (o token não fica mais no JS).
+  useEffect(() => {
+    (async () => {
+      try {
+        const response = await AuthService.getCurrentUser();
+        if (response.success) setUser(response.user);
+      } finally {
+        setInitializing(false);
+      }
+    })();
+  }, []);
 
   useEffect(() => {
     if (!user) return;
@@ -35,9 +46,10 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     try {
       const response = await AuthService.signIn(email, password);
 
-      authStorage.set(response.token, response.user);
+      if (!response.success) {
+        throw new Error("invalid credentials");
+      }
 
-      setToken(response.token);
       setUser(response.user);
 
       navigate(DEFAULT_PATH, { replace: true });
@@ -55,10 +67,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         throw new Error(response.error);
       }
 
-      authStorage.clear();
-
-      setToken(null);
       setUser(null);
+      setProfile(null);
 
       navigate(PATHS.login, { replace: true });
     } catch (error) {
@@ -69,11 +79,11 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   return (
     <AuthContext.Provider
       value={{
-        token,
         user,
         profile,
         setProfile,
-        isAuthenticated: !!token,
+        isAuthenticated: !!user,
+        initializing,
         login,
         logout,
       }}

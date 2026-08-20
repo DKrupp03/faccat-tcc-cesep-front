@@ -40,7 +40,7 @@ export const ServicesCalendar = () => {
     }
 
     for (const dayServices of map.values()) {
-      dayServices.sort((a, b) => a.start_time.localeCompare(b.start_time));
+      dayServices.sort((a, b) => (a.start_time ?? "").localeCompare(b.start_time ?? ""));
     }
 
     return map;

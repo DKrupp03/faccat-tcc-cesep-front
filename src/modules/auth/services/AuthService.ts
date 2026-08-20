@@ -5,17 +5,19 @@ import { type SignInResponse, type RegisterPayload } from "../types/auth";
 
 export const AuthService = {
   async signIn(email: string, password: string): Promise<SignInResponse> {
+    // O JWT é entregue pelo servidor em cookie HttpOnly; o corpo traz o usuário.
     const response = await api.post("/login", {
       user: { email, password },
     });
 
-    const token = response.headers["authorization"]?.replace("Bearer ", "");
+    return response.data;
+  },
 
-    if (!token) {
-      throw new Error("Token not found in response");
-    }
+  // Reidrata a sessão a partir do cookie (usuário atual). 401 → não autenticado.
+  async getCurrentUser(): Promise<SignInResponse> {
+    const response = await api.get("/me");
 
-    return { token, ...response.data };
+    return response.data;
   },
 
   async register(profile: RegisterPayload): Promise<CommonResponse> {

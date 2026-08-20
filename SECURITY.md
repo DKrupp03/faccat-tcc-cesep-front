@@ -5,17 +5,15 @@ Postura de segurança da SPA React do sistema de gestão do Centro de Serviços 
 > A API que serve este front-end tem o seu próprio [SECURITY.md](https://github.com/DKrupp03/faccat-tcc-cesep-api), com os detalhes de autenticação, autorização e LGPD do lado do servidor.
 
 ## Autenticação no cliente
-- O login devolve um **JWT**, enviado em todas as requisições no header `Authorization: Bearer`.
-- O logout descarta o token localmente; a invalidação efetiva é feita pela API.
-- **Rotas protegidas:** sem token válido, o usuário é redirecionado para o login.
+- O login estabelece uma sessão via **JWT em cookie `HttpOnly`**, gerenciado pela API. O cookie é enviado automaticamente pelo browser (axios com `withCredentials`); o front **não** manipula nem armazena o token.
+- A sessão é reidratada no carregamento por `GET /me` (o front não guarda dados de auth localmente).
+- O logout chama a API, que revoga o token e expira o cookie; o estado local é limpo.
+- **Rotas protegidas:** sem sessão válida, o usuário é redirecionado para o login.
 
 ## Armazenamento do token (decisão arquitetural)
-- Hoje o JWT é guardado em `localStorage`. É simples e funciona com o fluxo `Authorization: Bearer`, mas fica **exposto a XSS**.
-- **Mitigações atuais:**
-  - React escapa o output por padrão;
-  - não se usa injeção de HTML bruto;
-  - o conteúdo renderizado vem da API, com CORS restrito no servidor.
-- **Evolução recomendada (fase 2):** migrar para cookie `httpOnly` + `Secure` + `SameSite`, com proteção CSRF. É uma mudança maior (afeta o fluxo de login e o envio do token) e está fora do escopo atual.
+- O JWT fica em cookie **`HttpOnly` + `Secure` (produção) + `SameSite`**, portanto **inacessível ao JavaScript** — o vetor de roubo de token via XSS está mitigado. Nada de token ou PII de usuário é guardado em `localStorage`.
+- **Proteção CSRF:** como o cookie é enviado automaticamente, requisições mutantes usam o padrão *double-submit* — o axios ecoa o cookie `XSRF-TOKEN` no header `X-XSRF-TOKEN`, que a API valida.
+- **Defesa em profundidade contra XSS:** React escapa o output por padrão; não se usa injeção de HTML bruto; o conteúdo renderizado vem da API, com CORS restrito no servidor.
 
 ## Boas práticas adotadas
 - **Sem segredos no bundle:** apenas variáveis não sensíveis (como a URL da API) são embutidas no build. O `.env` fica fora do git; apenas `.env.example` é versionado.

@@ -1,32 +1,27 @@
 import axios from "axios";
 
 import i18n from "@/i18n";
-import { authStorage } from "@/modules/auth/utils/authStorage";
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL ?? "http://localhost:3000",
+  // Envia/recebe o cookie de sessão (JWT HttpOnly) e faz o axios anexar
+  // automaticamente o header X-XSRF-TOKEN a partir do cookie XSRF-TOKEN.
+  withCredentials: true,
   headers: {
     "Content-Type": "application/json",
   },
 });
 
-api.interceptors.request.use((config) => {
-  const token = authStorage.getToken();
-
-  if (token) {
-    config.headers["Authorization"] = `Bearer ${token}`;
-  }
-
-  return config;
-});
-
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    const isLoginRequest = error.config?.url === "/login";
+    // /login e /me sinalizam "não autenticado" via 401 e são tratados pelo
+    // fluxo de auth — não devem disparar o redirect global (evita loop na tela
+    // de login, onde o /me de reidratação retorna 401 por definição).
+    const url = error.config?.url;
+    const skipRedirect = url === "/login" || url === "/me";
 
-    if (error.response?.status === 401 && !isLoginRequest) {
-      authStorage.clear();
+    if (error.response?.status === 401 && !skipRedirect) {
       window.location.href = "/login";
     }
 
