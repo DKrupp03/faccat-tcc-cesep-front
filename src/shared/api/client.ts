@@ -4,9 +4,14 @@ import i18n from "@/i18n";
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL ?? "http://localhost:3000",
-  // Envia/recebe o cookie de sessão (JWT HttpOnly) e faz o axios anexar
-  // automaticamente o header X-XSRF-TOKEN a partir do cookie XSRF-TOKEN.
+  // Envia/recebe o cookie de sessão (JWT HttpOnly).
   withCredentials: true,
+  // Anexa o header X-XSRF-TOKEN a partir do cookie XSRF-TOKEN (double-submit
+  // exigido pela API em requisições mutantes). Precisa ser explícito: desde o
+  // axios 1.6 o `withCredentials` não basta — sem esta flag o header só vai em
+  // URL same-origin, e a comparação inclui a porta (front 3001 x API 3000),
+  // então todo POST/PUT/DELETE autenticado voltava 403 "Acesso não permitido!".
+  withXSRFToken: true,
   headers: {
     "Content-Type": "application/json",
   },
