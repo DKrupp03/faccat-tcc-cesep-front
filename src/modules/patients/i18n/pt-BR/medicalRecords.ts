@@ -13,7 +13,9 @@ const medicalRecords = {
   "columns": {
     "title": "Título",
     "date": "Data",
-    "observations": "Observações",
+    "evolution": "Evolução do atendimento",
+    "documentaryRecord": "Registro documental",
+    "supervisionRecord": "Registros da supervisão",
     "service": "Atendimento",
   },
 

@@ -130,11 +130,33 @@ export const MedicalRecordForm = ({
 
       <Row gutter={16}>
         <Col span={24}>
-          <Form.Item name="observations" rules={requiredRule}>
+          <Form.Item name="evolution" rules={requiredRule}>
             <CommonTextArea
-              label={t("patients.medicalRecords.columns.observations")}
+              label={t("patients.medicalRecords.columns.evolution")}
               required
-              disabled={lockedFields.includes("observations")}
+              disabled={lockedFields.includes("evolution")}
+            />
+          </Form.Item>
+        </Col>
+      </Row>
+
+      <Row gutter={16}>
+        <Col span={24}>
+          <Form.Item name="documentary_record">
+            <CommonTextArea
+              label={t("patients.medicalRecords.columns.documentaryRecord")}
+              disabled={lockedFields.includes("documentary_record")}
+            />
+          </Form.Item>
+        </Col>
+      </Row>
+
+      <Row gutter={16}>
+        <Col span={24}>
+          <Form.Item name="supervision_record">
+            <CommonTextArea
+              label={t("patients.medicalRecords.columns.supervisionRecord")}
+              disabled={lockedFields.includes("supervision_record")}
             />
           </Form.Item>
         </Col>

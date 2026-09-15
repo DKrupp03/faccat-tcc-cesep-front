@@ -46,12 +46,12 @@ export const MedicalRecordsTable = () => {
       render: (value?: string) => formatDate(value),
     },
     {
-      title: t("patients.medicalRecords.columns.observations"),
-      dataIndex: "observations",
-      key: "observations",
+      title: t("patients.medicalRecords.columns.evolution"),
+      dataIndex: "evolution",
+      key: "evolution",
       width: "50%",
       render: (value?: string) => (
-        <span className={styles.observations}>{value}</span>
+        <span className={styles.evolution}>{value}</span>
       ),
     },
   ]), [t, openForm]);

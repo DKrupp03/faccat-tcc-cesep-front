@@ -24,7 +24,9 @@ export type MedicalRecordType = {
   id: number;
   title: string;
   date: string;
-  observations: string;
+  evolution: string;
+  documentary_record?: string | null;
+  supervision_record?: string | null;
   service_id?: number;
   attachments?: MedicalRecordAttachment[];
   new_attachments?: File[];
