@@ -15,6 +15,7 @@ const STATUS_COLORS: Record<PaymentStatus, string> = {
   paid: COLORS.blue,
   unpaid: COLORS.yellow,
   overdue: COLORS.red,
+  free: COLORS.gren,
 };
 
 type PaymentsStatusChartProps = {

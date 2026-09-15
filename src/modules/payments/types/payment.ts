@@ -1,7 +1,7 @@
 import type { CommonResponse } from "@/shared/types/common";
 import type { Service } from "@/modules/services/types/service";
 
-export type PaymentStatus = "paid" | "overdue" | "unpaid";
+export type PaymentStatus = "paid" | "overdue" | "unpaid" | "free";
 
 export type PaymentMethod =
   | "cash"
@@ -19,12 +19,14 @@ export type PaymentAttachment = {
 
 export type Payment = {
   id: number;
-  value: string | number;
-  expiration_date: string;
+  // Nulos quando o pagamento é gratuito.
+  value: string | number | null;
+  expiration_date: string | null;
   payment_date?: string | null;
   payment_method?: PaymentMethod | null;
   service_id: number;
   observations?: string | null;
+  free: boolean;
   status?: PaymentStatus;
   attachments?: PaymentAttachment[];
   created_at: string;

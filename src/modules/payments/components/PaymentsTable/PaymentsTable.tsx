@@ -46,7 +46,10 @@ export const PaymentsTable = () => {
         dataIndex: "value",
         key: "value",
         width: "16%",
-        render: (value: string | number) => formatCurrency(value),
+        // Gratuito não tem valor: vazio em vez de "R$ 0,00".
+        render: (value: string | number | null, record: Payment) => (
+          record.free ? "" : formatCurrency(value ?? undefined)
+        ),
       },
       {
         title: t("payments.columns.expirationDate"),

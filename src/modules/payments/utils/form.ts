@@ -11,7 +11,7 @@ const PAYMENT_METHODS: PaymentMethod[] = [
   "bank_transfer",
 ];
 
-const PAYMENT_STATUSES: PaymentStatus[] = ["paid", "unpaid", "overdue"];
+const PAYMENT_STATUSES: PaymentStatus[] = ["paid", "unpaid", "overdue", "free"];
 
 export const getPaymentMethodOptions = (t: TFunction) =>
   PAYMENT_METHODS.map((method) => ({
@@ -32,7 +32,7 @@ export const parseCurrencyInput = (value?: string): string | undefined => {
 };
 
 // "150.0" (decimal do back-end) -> "150,00" (máscara pt-BR)
-export const formatCurrencyInput = (value?: string | number): string => {
+export const formatCurrencyInput = (value?: string | number | null): string => {
   if (value === undefined || value === null || value === "") return "";
   const number = typeof value === "string" ? Number(value) : value;
   if (!Number.isFinite(number)) return "";

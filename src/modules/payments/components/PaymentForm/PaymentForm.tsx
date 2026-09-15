@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { Form, Row, Col, Skeleton, Divider } from "antd";
 
 import { CommonSelect } from "@/shared/components/CommonSelect/CommonSelect";
+import { CommonSwitch } from "@/shared/components/CommonSwitch/CommonSwitch";
 import { CommonDatePicker } from "@/shared/components/CommonDatePicker";
 import { CommonTextInput } from "@/shared/components/CommonTextInput/CommonTextInput";
 import { CommonTextArea } from "@/shared/components/CommonTextArea/CommonTextArea";
@@ -35,6 +36,7 @@ export const PaymentForm = ({
   const { isFormOpen, payment, loadingPayment, submitPayment } = usePaymentForm();
 
   const [form] = Form.useForm<Partial<Payment>>();
+  const isFree = Form.useWatch("free", form);
   const [newFiles, setNewFiles] = useState<File[]>([]);
   const [removedIds, setRemovedIds] = useState<number[]>([]);
 
@@ -72,6 +74,9 @@ export const PaymentForm = ({
       ? patientResponse.profile.default_value
       : undefined;
 
+    // Gratuito não tem valor (o campo nem está na tela).
+    if (form.getFieldValue("free")) return;
+
     if (defaultValue != null && defaultValue !== "") {
       form.setFieldValue("value", formatCurrencyInput(defaultValue));
     }
@@ -104,10 +109,16 @@ export const PaymentForm = ({
     prefillDefaultValue(changed.service_id);
   };
 
+  // O antd mantém no store o que foi digitado nos campos de cobrança antes de
+  // marcar "gratuito"; aqui eles são descartados explicitamente.
   const handleFinish = (values: Partial<Payment>) => {
+    const chargeFields = values.free
+      ? { value: null, payment_method: null, expiration_date: null, payment_date: null }
+      : { value: parseCurrencyInput(values.value as string) };
+
     submitPayment({
       ...values,
-      value: parseCurrencyInput(values.value as string),
+      ...chargeFields,
       new_attachments: newFiles,
       remove_attachment_ids: removedIds,
     });
@@ -131,7 +142,7 @@ export const PaymentForm = ({
       requiredMark={false}
       onFinish={handleFinish}
       onValuesChange={handleValuesChange}
-      initialValues={defaultValues}
+      initialValues={{ free: false, ...defaultValues }}
       className={styles.form}
     >
       <Row gutter={16}>
@@ -149,55 +160,68 @@ export const PaymentForm = ({
       </Row>
 
       <Row gutter={16}>
-        <Col span={12}>
-          <Form.Item name="value" rules={requiredRule} normalize={decimalMask}>
-            <CommonTextInput
-              label={t("payments.columns.value")}
-              icon="R$"
-              required
-            />
-          </Form.Item>
-        </Col>
-        <Col span={12}>
-          <Form.Item name="payment_method">
-            <CommonSelect
-              label={t("payments.columns.paymentMethod")}
-              options={paymentMethodOptions}
-              allowClear
-            />
+        <Col span={24}>
+          <Form.Item name="free">
+            <CommonSwitch label={t("payments.columns.free")} />
           </Form.Item>
         </Col>
       </Row>
 
-      <Row gutter={16}>
-        <Col span={12}>
-          <Form.Item
-            name="expiration_date"
-            rules={requiredRule}
-            getValueProps={dateValueProps}
-            normalize={normalizeDate}
-          >
-            {/* Vencimento no passado é legítimo: a maioria dos pagamentos é
-                lançada depois de o atendimento acontecer. */}
-            <CommonDatePicker
-              label={t("payments.columns.expirationDate")}
-              required
-            />
-          </Form.Item>
-        </Col>
-        <Col span={12}>
-          <Form.Item
-            name="payment_date"
-            getValueProps={dateValueProps}
-            normalize={normalizeDate}
-          >
-            <CommonDatePicker
-              label={t("payments.columns.paymentDate")}
-              disabledDate={isFutureDate}
-            />
-          </Form.Item>
-        </Col>
-      </Row>
+      {/* Desmontados, os campos de cobrança também deixam de ser validados. */}
+      {!isFree && (
+        <>
+          <Row gutter={16}>
+            <Col span={12}>
+              <Form.Item name="value" rules={requiredRule} normalize={decimalMask}>
+                <CommonTextInput
+                  label={t("payments.columns.value")}
+                  icon="R$"
+                  required
+                />
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item name="payment_method">
+                <CommonSelect
+                  label={t("payments.columns.paymentMethod")}
+                  options={paymentMethodOptions}
+                  allowClear
+                />
+              </Form.Item>
+            </Col>
+          </Row>
+
+          <Row gutter={16}>
+            <Col span={12}>
+              <Form.Item
+                name="expiration_date"
+                rules={requiredRule}
+                getValueProps={dateValueProps}
+                normalize={normalizeDate}
+              >
+                {/* Vencimento no passado é legítimo: a maioria dos pagamentos é
+                    lançada depois de o atendimento acontecer. */}
+                <CommonDatePicker
+                  label={t("payments.columns.expirationDate")}
+                  required
+                />
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item
+                name="payment_date"
+                getValueProps={dateValueProps}
+                normalize={normalizeDate}
+              >
+                <CommonDatePicker
+                  label={t("payments.columns.paymentDate")}
+                  disabledDate={isFutureDate}
+                />
+              </Form.Item>
+            </Col>
+          </Row>
+        </>
+      )}
 
       <Row gutter={16}>
         <Col span={24}>

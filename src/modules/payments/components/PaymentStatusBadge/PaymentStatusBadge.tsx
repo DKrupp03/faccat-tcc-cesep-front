@@ -5,6 +5,7 @@ import {
   IconCircleCheck,
   IconCircleX,
   IconAlertCircle,
+  IconGift,
 } from "@tabler/icons-react";
 
 import type { PaymentStatus } from "../../types/payment";
@@ -25,12 +26,14 @@ export const PaymentStatusBadge = ({
     if (status === "paid") return COLORS.blue;
     if (status === "unpaid") return COLORS.yellow;
     if (status === "overdue") return COLORS.red;
+    if (status === "free") return COLORS.gren;
   }, [status]);
 
   const icon = useMemo(() => {
     if (status === "paid") return <IconCircleCheck size={16} color={COLORS.white} />;
     if (status === "unpaid") return <IconCircleX size={16} color={COLORS.white} />;
     if (status === "overdue") return <IconAlertCircle size={16} color={COLORS.white} />;
+    if (status === "free") return <IconGift size={16} color={COLORS.white} />;
   }, [status]);
 
   if (!status) return;

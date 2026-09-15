@@ -33,6 +33,7 @@ const payments = {
 		status: "Status",
 		service: "Atendimento",
 		observations: "Observações",
+		free: "Gratuito",
 	},
 
 	filter: {
@@ -62,6 +63,7 @@ const payments = {
 		paid: "Pago",
 		unpaid: "Não pago",
 		overdue: "Atrasado",
+		free: "Gratuito",
 		noPayment: "Sem pagamento",
 	},
 
