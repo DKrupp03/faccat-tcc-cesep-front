@@ -1,6 +1,7 @@
 import type { CommonResponse, CommonPanelResponse } from "@/shared/types/common";
 import type { MedicalRecordType } from "@/modules/patients/types/medicalRecord";
 import type { Payment } from "@/modules/payments/types/payment";
+import type { Room } from "@/shared/types/room";
 
 export type ServiceStatus =
   | "scheduled"
@@ -57,6 +58,7 @@ export type Service = {
   patient_id: number;
   therapist_id: number;
   recurrence_id?: number;
+  room_id?: number | null;
   created_at: string;
   updated_at: string;
   patient?: ServiceProfile;
@@ -64,6 +66,7 @@ export type Service = {
   medical_record?: MedicalRecordType;
   payment?: Payment;
   recurrence?: ServiceRecurrence;
+  room?: Room | null;
 };
 
 // No formulário os campos numéricos passam por máscara e ficam como texto,

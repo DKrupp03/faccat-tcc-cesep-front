@@ -15,6 +15,7 @@ import { CommonOrderButton } from "@/shared/components/CommonOrderButton/CommonO
 import { useServicesList } from "../../hooks/useServicesList";
 import { useServiceForm } from "../../hooks/useServiceForm";
 import { ServicesPanelsButton } from "../ServicesPanelsButton/ServicesPanelsButton";
+import { ServicesRoomsButton } from "../ServicesRoomsButton/ServicesRoomsButton";
 import type { ServicesOrder } from "../../types/service";
 
 export const ServicesHeader = () => {
@@ -51,6 +52,7 @@ export const ServicesHeader = () => {
           options={servicesOrderOptions}
         />
       )}
+      <ServicesRoomsButton />
       <Tooltip title={t("common.actions.reload")}>
         <CommonButton
           onClick={() => filtratePanel()}

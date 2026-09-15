@@ -1,0 +1,16 @@
+.form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.name {
+  flex: 1;
+  min-width: 0;
+}
+
+.remove {
+  height: 44px;
+  flex-shrink: 0;
+}

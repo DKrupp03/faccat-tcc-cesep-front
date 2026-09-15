@@ -31,6 +31,14 @@ const services = {
 		startTime: "Hora de início",
 		endTime: "Hora de fim",
 		observations: "Observações",
+		room: "Sala",
+	},
+
+	rooms: {
+		title: "Salas",
+		name: "Nome da sala",
+		none: "Nenhuma sala cadastrada.",
+		saved: "Salas salvas com sucesso!",
 	},
 
 	form: {

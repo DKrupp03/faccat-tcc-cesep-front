@@ -14,6 +14,7 @@ import { CommonSwitch } from "@/shared/components/CommonSwitch/CommonSwitch";
 import { CommonCollapse } from "@/shared/components/CommonCollapse/CommonCollapse";
 import { CommonGroupButtons } from "@/shared/components/CommonGroupButtons/CommonGroupButtons";
 import { ProfilesSelect } from "@/shared/components/ProfilesSelect/ProfilesSelect";
+import { SelectRoom } from "@/shared/components/SelectRoom/SelectRoom";
 import { COLORS } from "@/shared/theme";
 import { integerMask } from "@/shared/utils/formatters";
 import { rangeRule } from "@/shared/utils/filterRules";
@@ -218,7 +219,7 @@ export const ServiceForm = () => {
         icon={<IconCalendarClock size={16} color={COLORS.grey70} />}
       >
         <Row gutter={16}>
-          <Col span={12}>
+          <Col span={6}>
             <Form.Item
               name="date"
               rules={requiredRule}
@@ -231,6 +232,13 @@ export const ServiceForm = () => {
                 disabledDate={isEditing ? undefined : isPastDate}
                 required
               />
+            </Form.Item>
+          </Col>
+          <Col span={6}>
+            {/* Limpar o select gera undefined, que some do JSON e manteria a
+                sala anterior no backend; null desvincula de fato. */}
+            <Form.Item name="room_id" normalize={(value) => value ?? null}>
+              <SelectRoom selectedRoom={service?.room} />
             </Form.Item>
           </Col>
           <Col span={6}>
