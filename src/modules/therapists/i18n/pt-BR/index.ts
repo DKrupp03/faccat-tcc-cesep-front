@@ -11,6 +11,7 @@ const therapists = {
 		crp: "CRP",
 		active: "Ativo",
 		admin: "Administrador",
+		supervisor: "Supervisor",
 		services: "Atendimentos",
 		patients: "Pacientes",
 		lastService: "Último atendimento",

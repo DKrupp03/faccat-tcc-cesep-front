@@ -30,7 +30,7 @@ export const PaymentsFilterModal = () => {
   } = usePaymentsFilter();
 
   const { profile } = useAuth();
-  const isAdmin = !!profile?.admin;
+  const canFilterTherapist = !!profile?.admin || !!profile?.subordinates?.length;
 
   const statusOptions = useMemo(() => getStatusOptions(t), [t]);
   const paymentMethodOptions = useMemo(() => getPaymentMethodOptions(t), [t]);
@@ -89,9 +89,9 @@ export const PaymentsFilterModal = () => {
               />
             </Form.Item>
           </Col>
-          {/* Terapeuta não-admin já tem o painel restrito a ele; o corte por
-              profissional só faz sentido para quem enxerga todos. */}
-          {isAdmin && (
+          {/* Terapeuta comum já tem o painel restrito a ele; o corte por
+              profissional só faz sentido para admin e supervisor. */}
+          {canFilterTherapist && (
             <Col span={12}>
               <Form.Item name="therapist_id" noStyle>
                 <ProfilesSelect role="therapist" />

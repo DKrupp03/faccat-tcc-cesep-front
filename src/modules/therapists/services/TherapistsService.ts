@@ -16,6 +16,10 @@ const therapistToFormData = (therapist: Partial<Therapist>): FormData => {
       formData.append("profile[photo]", value, value.name);
     } else if (key === "remove_photo" && value === true) {
       formData.append("profile[remove_photo]", "1");
+    } else if (key === "supervisor_id" && value === null) {
+      // Vazio vira nil no Rails: sem isso, remover o supervisor junto com a
+      // troca de foto não chegava ao servidor.
+      formData.append("profile[supervisor_id]", "");
     } else if (value !== undefined && value !== null) {
       formData.append(`profile[${key}]`, String(value));
     }

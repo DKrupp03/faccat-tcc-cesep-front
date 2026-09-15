@@ -21,6 +21,9 @@ type ProfilesSelectProps = Omit<SelectProps, "options"> & {
   therapistId?: number;
   patientId?: number;
   selectedProfile?: SelectedProfile;
+  // Perfis que nunca aparecem como opção (ex.: o próprio terapeuta ao
+  // escolher o supervisor dele).
+  excludeIds?: number[];
 };
 
 export const ProfilesSelect: React.FC<ProfilesSelectProps> = ({
@@ -30,6 +33,7 @@ export const ProfilesSelect: React.FC<ProfilesSelectProps> = ({
   therapistId,
   patientId,
   selectedProfile,
+  excludeIds,
   value,
   ...props
 }) => {
@@ -97,6 +101,10 @@ export const ProfilesSelect: React.FC<ProfilesSelectProps> = ({
   // e, na sua ausência, o perfil resolvido pelo self-heal — sempre casando com o
   // valor atual.
   const mergedOptions = useMemo(() => {
+    const visibleOptions = excludeIds?.length
+      ? options.filter((option) => !excludeIds.includes(Number(option.value)))
+      : options;
+
     const known =
       selectedProfile?.id === value
         ? selectedProfile
@@ -104,12 +112,12 @@ export const ProfilesSelect: React.FC<ProfilesSelectProps> = ({
           ? resolvedProfile
           : null;
 
-    if (known && !options.some((option) => option.value === known.id)) {
-      return [{ label: known.name, value: known.id }, ...options];
+    if (known && !visibleOptions.some((option) => option.value === known.id)) {
+      return [{ label: known.name, value: known.id }, ...visibleOptions];
     }
 
-    return options;
-  }, [options, selectedProfile, resolvedProfile, value]);
+    return visibleOptions;
+  }, [options, excludeIds, selectedProfile, resolvedProfile, value]);
 
   return (
     <CommonSelect

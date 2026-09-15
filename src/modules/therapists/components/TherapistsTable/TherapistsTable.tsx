@@ -65,11 +65,11 @@ export const TherapistsTable = () => {
         width: "15%",
       },
       {
-        title: t("therapists.columns.email"),
-        dataIndex: "email",
-        key: "email",
+        title: t("therapists.columns.supervisor"),
+        dataIndex: "supervisor",
+        key: "supervisor",
         width: "20%",
-        render: (_: unknown, record: Therapist) => record.user.email,
+        render: (_: unknown, record: Therapist) => record.supervisor?.name,
       },
       {
         title: t("therapists.columns.lastService"),

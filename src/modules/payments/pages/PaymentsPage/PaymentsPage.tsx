@@ -1,8 +1,8 @@
-import { useEffect, useMemo } from "react";
+import { useEffect } from "react";
 import { Flex } from "antd";
 import { useTranslation } from "react-i18next";
 
-import { useAuth } from "@/modules/auth/hooks/useAuth";
+import { useLockedTherapistId } from "@/modules/auth/hooks/useLockedTherapistId";
 import { useModules } from "@/shared/hooks/useModules";
 import { CommonHeader } from "@/shared/components/CommonHeader/CommonHeader";
 
@@ -15,11 +15,7 @@ import { PaymentsCharts } from "../../components/PaymentsCharts/PaymentsCharts";
 import styles from "./PaymentsPage.module.css";
 
 const PaymentsPage = () => {
-  const { profile } = useAuth();
-
-  const therapistId = useMemo(() => (
-    profile?.role === "therapist" && !profile.admin ? profile.id : undefined
-  ), [profile]);
+  const therapistId = useLockedTherapistId();
 
   return (
     <PaymentsProvider therapistId={therapistId} withCharts>

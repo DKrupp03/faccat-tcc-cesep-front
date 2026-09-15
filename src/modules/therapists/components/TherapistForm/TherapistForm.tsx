@@ -10,6 +10,7 @@ import { CommonAvatar } from "@/shared/components/CommonAvatar/CommonAvatar";
 import { CommonButton } from "@/shared/components/CommonButton/CommonButton";
 import { CommonSwitch } from "@/shared/components/CommonSwitch/CommonSwitch";
 import { CommonIconHelp } from "@/shared/components/CommonHelpIcon/CommonHelpIcon";
+import { ProfilesSelect } from "@/shared/components/ProfilesSelect/ProfilesSelect";
 import {
   phoneMask,
   cpfMask,
@@ -25,6 +26,10 @@ import { useTherapistForm } from "../../hooks/useTherapistForm";
 import type { Therapist } from "../../types/therapist";
 import { getGenderOptions } from "../../utils/form";
 import styles from "./TherapistForm.module.css";
+
+// Limpar o select devolve undefined, que o JSON descarta: sem virar null, o
+// supervisor removido nunca chegava ao servidor.
+const normalizeSupervisor = (value?: number | null) => value ?? null;
 
 export const TherapistForm = () => {
   const { t } = useTranslation();
@@ -55,6 +60,12 @@ export const TherapistForm = () => {
   } = useTherapistFormState();
 
   const genderOptions = getGenderOptions(t);
+
+  const therapistId = therapist?.id;
+  const supervisorExcludeIds = useMemo(
+    () => (therapistId ? [therapistId] : undefined),
+    [therapistId],
+  );
 
   useEffect(() => {
     if (isFormOpen) {
@@ -199,6 +210,19 @@ export const TherapistForm = () => {
         <Col span={6}>
           <Form.Item name="rg" normalize={rgMask}>
             <CommonTextInput label={t("therapists.columns.rg")} />
+          </Form.Item>
+        </Col>
+      </Row>
+
+      <Row gutter={16}>
+        <Col span={12}>
+          <Form.Item name="supervisor_id" normalize={normalizeSupervisor}>
+            <ProfilesSelect
+              role="therapist"
+              label={t("therapists.columns.supervisor")}
+              selectedProfile={therapist?.supervisor ?? undefined}
+              excludeIds={supervisorExcludeIds}
+            />
           </Form.Item>
         </Col>
       </Row>

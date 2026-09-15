@@ -1,10 +1,18 @@
 import type { CommonResponse, CommonPanelResponse } from "@/shared/types/common";
 import type { BaseProfile, ProfilesOrder } from "@/shared/types/profile";
 
+export type TherapistSummary = {
+  id: number;
+  name: string;
+};
+
 export type Therapist = BaseProfile & {
   role: "therapist";
   crp?: string;
   admin: boolean;
+  supervisor_id?: number | null;
+  supervisor?: TherapistSummary | null;
+  subordinates?: TherapistSummary[];
   patients_count?: number;
   therapist_services_count?: number;
   services_count?: number;
