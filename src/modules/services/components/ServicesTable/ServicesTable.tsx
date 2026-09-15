@@ -8,7 +8,7 @@ import { formatDateAndTime } from "@/shared/utils/formatters";
 import { useServicesList } from "../../hooks/useServicesList";
 import { useServiceForm } from "../../hooks/useServiceForm";
 import { ServiceStatusBadge } from "../ServiceStatusBadge/ServiceStatusBadge";
-import type { Service, ServiceType } from "../../types/service";
+import type { Service } from "../../types/service";
 import styles from "./ServicesTable.module.css";
 
 export const ServicesTable = () => {
@@ -49,11 +49,11 @@ export const ServicesTable = () => {
         render: (_: unknown, record: Service) => record.therapist?.name,
       },
       {
-        title: t("services.columns.serviceType"),
-        dataIndex: "service_type",
-        key: "service_type",
+        title: t("services.columns.room"),
+        dataIndex: "room",
+        key: "room",
         width: "26%",
-        render: (value: ServiceType) => t(`services.serviceTypes.${value}`),
+        render: (_: unknown, record: Service) => record.room?.name,
       },
       {
         title: t("services.columns.date"),
