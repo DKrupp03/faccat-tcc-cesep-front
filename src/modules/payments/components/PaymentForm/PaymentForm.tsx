@@ -5,6 +5,7 @@ import { Form, Row, Col, Skeleton, Divider } from "antd";
 import { CommonSelect } from "@/shared/components/CommonSelect/CommonSelect";
 import { CommonDatePicker } from "@/shared/components/CommonDatePicker";
 import { CommonTextInput } from "@/shared/components/CommonTextInput/CommonTextInput";
+import { CommonTextArea } from "@/shared/components/CommonTextArea/CommonTextArea";
 import { CommonButton } from "@/shared/components/CommonButton/CommonButton";
 import { CommonDocuments } from "@/shared/components/CommonDocuments/CommonDocuments";
 import { ServicesSelect } from "@/shared/components/ServicesSelect/ServicesSelect";
@@ -193,6 +194,17 @@ export const PaymentForm = ({
             <CommonDatePicker
               label={t("payments.columns.paymentDate")}
               disabledDate={isFutureDate}
+            />
+          </Form.Item>
+        </Col>
+      </Row>
+
+      <Row gutter={16}>
+        <Col span={24}>
+          <Form.Item name="observations">
+            <CommonTextArea
+              label={t("payments.columns.observations")}
+              rows={4}
             />
           </Form.Item>
         </Col>

@@ -32,6 +32,7 @@ const payments = {
 		paymentMethod: "Forma de pagamento",
 		status: "Status",
 		service: "Atendimento",
+		observations: "Observações",
 	},
 
 	filter: {

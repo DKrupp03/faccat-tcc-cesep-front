@@ -24,6 +24,7 @@ export type Payment = {
   payment_date?: string | null;
   payment_method?: PaymentMethod | null;
   service_id: number;
+  observations?: string | null;
   status?: PaymentStatus;
   attachments?: PaymentAttachment[];
   created_at: string;
