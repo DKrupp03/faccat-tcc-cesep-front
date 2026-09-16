@@ -1,9 +1,13 @@
 import { useTranslation } from "react-i18next";
 import { Badge, Flex } from "antd";
 
-import { COLORS } from "@/shared/theme";
 import type { ServiceStatus } from "../../types/service";
-import { ServiceStatusIcon, getServiceStatusColor } from "../../utils/status";
+import {
+  ServiceStatusIcon,
+  getServiceStatusBgColor,
+  getServiceStatusTextColor,
+} from "../../utils/status";
+import { TOKENS } from "@/shared/theme";
 
 import styles from "./ServiceStatusBadge.module.css";
 
@@ -20,10 +24,13 @@ export const ServiceStatusBadge = ({
 
   return (
     <Badge
-      style={{ backgroundColor: getServiceStatusColor(status) }}
+      style={{
+        backgroundColor: getServiceStatusBgColor(status),
+        color: getServiceStatusTextColor(status),
+      }}
       count={
-        <Flex align="center" justify="center" gap={4} className={styles.badge}>
-          <ServiceStatusIcon status={status} color={COLORS.white} />
+        <Flex align="center" justify="center" gap={TOKENS.space[4]} className={styles.badge}>
+          <ServiceStatusIcon status={status} />
           <span>
             {t(`services.status.${status}`)}
           </span>

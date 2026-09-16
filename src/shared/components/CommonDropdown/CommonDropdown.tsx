@@ -2,6 +2,7 @@ import React, { useMemo, useState } from "react";
 import { Flex, Popover, type PopoverProps } from "antd";
 
 import { CommonButton, type CommonButtonProps } from "../CommonButton/CommonButton";
+import { TOKENS } from "../../theme";
 
 type CommonDropdownProps = PopoverProps & {
   prefix?: React.ReactNode;
@@ -20,17 +21,17 @@ export const CommonDropdown = ({
   children,
   width,
   minWidth,
-  padding = 6,
+  padding = TOKENS.space[6],
   ...props
 }: CommonDropdownProps) => {
   const [visible, setVisible] = useState<boolean>(false);
 
   const content = useMemo(() => (
-    <Flex vertical gap={8} style={{ width, minWidth }}>
+    <Flex vertical gap={TOKENS.space[8]} style={{ width, minWidth }}>
       {prefix}
 
       {options && (
-        <Flex vertical gap={4}>
+        <Flex vertical gap={TOKENS.space[4]}>
           {options.map((option) => (
             <CommonButton
               {...option}

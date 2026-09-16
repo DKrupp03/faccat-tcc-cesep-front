@@ -2,7 +2,7 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: var(--space-16);
 }
 
 .name {
@@ -10,7 +10,9 @@
   min-width: 0;
 }
 
+/* botão alinhado ao centro do campo, abaixo do rótulo */
 .remove {
-  height: 44px;
+  height: var(--control-height-field);
+  margin-top: var(--field-label-offset);
   flex-shrink: 0;
 }

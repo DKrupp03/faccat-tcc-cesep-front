@@ -11,7 +11,6 @@ export const CommonBackButton = ({ onClick }: CommonBackButtonProps) => {
     <CommonButton
       size="small"
       onClick={onClick}
-      circular
       outline
     >
       <IconChevronLeft size={16} />

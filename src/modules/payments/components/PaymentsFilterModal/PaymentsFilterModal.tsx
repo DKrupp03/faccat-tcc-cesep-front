@@ -15,6 +15,7 @@ import { useAuth } from "@/modules/auth/hooks/useAuth";
 import { usePaymentsFilter } from "../../hooks/usePaymentsFilter";
 import { usePaymentsList } from "../../hooks/usePaymentsList";
 import { getStatusOptions, getPaymentMethodOptions } from "../../utils/form";
+import { TOKENS } from "@/shared/theme";
 import styles from "./PaymentsFilterModal.module.css";
 
 export const PaymentsFilterModal = () => {
@@ -59,7 +60,7 @@ export const PaymentsFilterModal = () => {
         initialValues={defaultFilter}
         className={styles.form}
       >
-        <Row gutter={16}>
+        <Row gutter={TOKENS.space[16]}>
           <Col span={12}>
             <Form.Item name="status" noStyle>
               <CommonSelect
@@ -79,7 +80,7 @@ export const PaymentsFilterModal = () => {
             </Form.Item>
           </Col>
         </Row>
-        <Row gutter={16}>
+        <Row gutter={TOKENS.space[16]}>
           <Col span={12}>
             <Form.Item name="patient_id" noStyle>
               <ProfilesSelect
@@ -99,7 +100,7 @@ export const PaymentsFilterModal = () => {
             </Col>
           )}
         </Row>
-        <Row gutter={16}>
+        <Row gutter={TOKENS.space[16]}>
           <Col span={12}>
             <Form.Item
               name="expiration_date_start"
@@ -123,7 +124,7 @@ export const PaymentsFilterModal = () => {
             </Form.Item>
           </Col>
         </Row>
-        <Row gutter={16}>
+        <Row gutter={TOKENS.space[16]}>
           <Col span={12}>
             <Form.Item
               name="payment_date_start"

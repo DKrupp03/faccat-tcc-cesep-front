@@ -4,7 +4,7 @@ import { IconHeartHandshake } from "@tabler/icons-react";
 
 import { CommonCollapse } from "@/shared/components/CommonCollapse/CommonCollapse";
 import { CommonTextArea } from "@/shared/components/CommonTextArea/CommonTextArea";
-import { COLORS } from "@/shared/theme";
+import { TOKENS } from "@/shared/theme";
 
 export const SocialRelationsForm = () => {
   const { t } = useTranslation();
@@ -12,10 +12,10 @@ export const SocialRelationsForm = () => {
   return (
     <CommonCollapse
       title={t("patients.anamnese.socialRelations.title")}
-      icon={<IconHeartHandshake size={16} color={COLORS.grey70} />}
+      icon={<IconHeartHandshake size={16} color={TOKENS.color.textMuted} />}
       initialOpen={false}
     >
-      <Row gutter={16}>
+      <Row gutter={TOKENS.space[16]}>
         <Col span={24}>
           <Form.Item name={["anamnese_data", "socialRelations", "friendships"]}>
             <CommonTextArea label={t("patients.anamnese.socialRelations.friendships")} />
@@ -23,7 +23,7 @@ export const SocialRelationsForm = () => {
         </Col>
       </Row>
 
-      <Row gutter={16}>
+      <Row gutter={TOKENS.space[16]}>
         <Col span={24}>
           <Form.Item name={["anamnese_data", "socialRelations", "loveRelationships"]}>
             <CommonTextArea label={t("patients.anamnese.socialRelations.loveRelationships")} />
@@ -31,7 +31,7 @@ export const SocialRelationsForm = () => {
         </Col>
       </Row>
 
-      <Row gutter={16}>
+      <Row gutter={TOKENS.space[16]}>
         <Col span={24}>
           <Form.Item name={["anamnese_data", "socialRelations", "behaviorChanges"]}>
             <CommonTextArea label={t("patients.anamnese.socialRelations.behaviorChanges")} />

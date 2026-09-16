@@ -12,6 +12,7 @@ import { dateValueProps, normalizeDate } from "@/shared/utils/formatters";
 
 import { useMedicalRecords } from "../../hooks/useMedicalRecords";
 import type { MedicalRecordType } from "../../types/medicalRecord";
+import { TOKENS } from "@/shared/theme";
 import styles from "./MedicalRecordForm.module.css";
 
 type MedicalRecordFormProps = {
@@ -87,7 +88,7 @@ export const MedicalRecordForm = ({
       initialValues={defaultValues}
       className={styles.form}
     >
-      <Row gutter={16}>
+      <Row gutter={TOKENS.space[16]}>
         <Col span={16}>
           <Form.Item name="title" rules={requiredRule}>
             <CommonTextInput
@@ -113,7 +114,7 @@ export const MedicalRecordForm = ({
         </Col>
       </Row>
 
-      <Row gutter={16}>
+      <Row gutter={TOKENS.space[16]}>
         <Col span={24}>
           <Form.Item name="service_id" rules={requiredRule}>
             <ServicesSelect
@@ -128,7 +129,7 @@ export const MedicalRecordForm = ({
         </Col>
       </Row>
 
-      <Row gutter={16}>
+      <Row gutter={TOKENS.space[16]}>
         <Col span={24}>
           <Form.Item name="evolution" rules={requiredRule}>
             <CommonTextArea
@@ -140,7 +141,7 @@ export const MedicalRecordForm = ({
         </Col>
       </Row>
 
-      <Row gutter={16}>
+      <Row gutter={TOKENS.space[16]}>
         <Col span={24}>
           <Form.Item name="documentary_record">
             <CommonTextArea
@@ -151,7 +152,7 @@ export const MedicalRecordForm = ({
         </Col>
       </Row>
 
-      <Row gutter={16}>
+      <Row gutter={TOKENS.space[16]}>
         <Col span={24}>
           <Form.Item name="supervision_record">
             <CommonTextArea
@@ -164,7 +165,7 @@ export const MedicalRecordForm = ({
 
       <Divider className={styles.divider} />
 
-      <Row gutter={16}>
+      <Row gutter={TOKENS.space[16]}>
         <Col span={24}>
           <CommonDocuments
             label={t("common.documents.title")}

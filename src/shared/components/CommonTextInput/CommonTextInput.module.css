@@ -1,52 +1,14 @@
-.wrapper {
-  position: relative;
-}
-
 .input {
-  border-radius: 8px;
-  height: 44px;
-  color: var(--color-navy);
-  border-color: var(--color-grey30);
-  font-size: 14px;
+  height: var(--control-height-field);
+  color: var(--color-ink);
 }
 
-.input:hover,
 .input:focus,
 .input:focus-within {
-  border-color: var(--color-grey70) !important;
-  box-shadow: none !important;
+  background-color: var(--color-surface) !important;
 }
 
 .prefix {
-  color: var(--color-grey70);
-  padding-right: 5px;
-}
-
-.label {
-  position: absolute;
-  left: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 14px;
-  color: var(--color-grey70);
-  background: white;
-  padding: 0 4px;
-  pointer-events: none;
-  transition: top 0.3s ease, font-size 0.3s ease, left 0.3s ease;
-  z-index: 10;
-  line-height: 1;
-}
-
-.labelWithPrefix {
-  left: 35px;
-}
-
-.labelFloating {
-  top: 0;
-  font-size: 11px;
-  left: 12px;
-}
-
-.required {
-  color: var(--color-red);
+  color: var(--color-text-muted);
+  padding-right: var(--space-4);
 }

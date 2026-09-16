@@ -1,8 +1,9 @@
 .avatar {
-  background-color: var(--color-grey50);
-  color: var(--color-grey90);
+  background-color: var(--color-neutral-soft);
+  color: var(--color-text);
 }
 
 .avatar span {
-  font-size: 14px;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
 }

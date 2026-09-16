@@ -15,7 +15,7 @@ import { CommonCollapse } from "@/shared/components/CommonCollapse/CommonCollaps
 import { CommonGroupButtons } from "@/shared/components/CommonGroupButtons/CommonGroupButtons";
 import { ProfilesSelect } from "@/shared/components/ProfilesSelect/ProfilesSelect";
 import { SelectRoom } from "@/shared/components/SelectRoom/SelectRoom";
-import { COLORS } from "@/shared/theme";
+import { TOKENS } from "@/shared/theme";
 import { integerMask } from "@/shared/utils/formatters";
 import { rangeRule } from "@/shared/utils/filterRules";
 import PatientsService from "@/modules/patients/services/PatientsService";
@@ -154,7 +154,7 @@ export const ServiceForm = () => {
       }}
       className={styles.form}
     >
-      <Row gutter={16}>
+      <Row gutter={TOKENS.space[16]}>
         <Col span={12}>
           <Form.Item name="patient_id" rules={requiredRule}>
             <ProfilesSelect
@@ -180,7 +180,7 @@ export const ServiceForm = () => {
         </Col>
       </Row>
 
-      <Row gutter={16}>
+      <Row gutter={TOKENS.space[16]}>
         <Col span={12}>
           <Form.Item name="service_type" rules={requiredRule}>
             <CommonSelect
@@ -201,7 +201,7 @@ export const ServiceForm = () => {
         </Col>
       </Row>
 
-      <Row gutter={16}>
+      <Row gutter={TOKENS.space[16]}>
         <Col span={24}>
           <Form.Item name="observations">
             <CommonTextArea
@@ -216,9 +216,9 @@ export const ServiceForm = () => {
 
       <CommonCollapse
         title={t("services.form.datesTimes")}
-        icon={<IconCalendarClock size={16} color={COLORS.grey70} />}
+        icon={<IconCalendarClock size={16} color={TOKENS.color.textMuted} />}
       >
-        <Row gutter={16}>
+        <Row gutter={TOKENS.space[16]}>
           <Col span={6}>
             <Form.Item
               name="date"
@@ -279,7 +279,7 @@ export const ServiceForm = () => {
           </Col>
         </Row>
 
-        <Row gutter={16}>
+        <Row gutter={TOKENS.space[16]}>
           <Col span={24}>
             <Form.Item name="recurrent">
               <CommonSwitch
@@ -292,7 +292,7 @@ export const ServiceForm = () => {
 
         {isRecurrent && (
           <>
-            <Row gutter={16}>
+            <Row gutter={TOKENS.space[16]}>
               <Col span={8}>
                 <Form.Item name={["recurrence", "frequency"]} rules={requiredRule}>
                   <CommonSelect
@@ -352,9 +352,9 @@ export const ServiceForm = () => {
               )}
             </Row>
 
-            <Row gutter={16}>
+            <Row gutter={TOKENS.space[16]}>
               <Col span={12}>
-                <Flex align="center" style={{ height: 44 }}>
+                <Flex align="center">
                   <Form.Item name={["recurrence", "end_type"]} noStyle>
                     <CommonGroupButtons label={t("services.recurrence.end")}>
                       <CommonGroupButtons.Button value="by_date" disabled={isExistingSeries}>

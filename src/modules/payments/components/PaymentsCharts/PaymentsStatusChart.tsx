@@ -3,20 +3,13 @@ import { useTranslation } from "react-i18next";
 import { Flex, Typography } from "antd";
 import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
 
-import { COLORS } from "@/shared/theme";
-
-import type { PaymentStatus, PaymentStatusChartItem } from "../../types/payment";
+import type { PaymentStatusChartItem } from "../../types/payment";
+import { PAYMENT_STATUS_COLORS } from "../../utils/status";
 import { ChartCard } from "./ChartCard";
+import { TOKENS } from "@/shared/theme";
 import styles from "./PaymentsCharts.module.css";
 
 const { Text } = Typography;
-
-const STATUS_COLORS: Record<PaymentStatus, string> = {
-  paid: COLORS.blue,
-  unpaid: COLORS.yellow,
-  overdue: COLORS.red,
-  free: COLORS.gren,
-};
 
 type PaymentsStatusChartProps = {
   data: PaymentStatusChartItem[];
@@ -43,7 +36,7 @@ export const PaymentsStatusChart = ({
     >
       <Flex
         align="center" justify="center"
-        gap={32} className={styles.statusContent}
+        gap={TOKENS.space[32]} className={styles.statusContent}
       >
         <ResponsiveContainer width={180} height={180}>
           <PieChart>
@@ -59,21 +52,21 @@ export const PaymentsStatusChart = ({
               stroke="none"
             >
               {data.map((item) => (
-                <Cell key={item.status} fill={STATUS_COLORS[item.status]} />
+                <Cell key={item.status} fill={PAYMENT_STATUS_COLORS[item.status].color} />
               ))}
             </Pie>
           </PieChart>
         </ResponsiveContainer>
 
-        <Flex vertical gap={16} className={styles.legend}>
+        <Flex vertical gap={TOKENS.space[16]} className={styles.legend}>
           {data.map((item) => {
             const percent = total ? Math.round((item.count / total) * 100) : 0;
 
             return (
-              <Flex key={item.status} align="center" gap={10}>
+              <Flex key={item.status} align="center" gap={TOKENS.space[10]}>
                 <span
                   className={styles.legendDot}
-                  style={{ backgroundColor: STATUS_COLORS[item.status] }}
+                  style={{ backgroundColor: PAYMENT_STATUS_COLORS[item.status].color }}
                 />
                 <Flex vertical>
                   <Text strong className={styles.legendLabel}>

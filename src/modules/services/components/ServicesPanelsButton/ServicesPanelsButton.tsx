@@ -5,7 +5,7 @@ import { IconCalendarEvent, IconList } from "@tabler/icons-react";
 
 import { CommonDropdown } from "@/shared/components/CommonDropdown/CommonDropdown";
 import { CommonButton } from "@/shared/components/CommonButton/CommonButton";
-import { COLORS } from "@/shared/theme";
+import { TOKENS } from "@/shared/theme";
 
 import { useServicesList } from "../../hooks/useServicesList";
 import type { ServicesPanelView } from "../../types/service";
@@ -35,9 +35,8 @@ export const ServicesPanelsButton = () => {
       contentAlign: "flex-start" as const,
       onClick: () => changePanelView(option.value),
       style: option.value === panelView ? {
-        border: `1px solid ${COLORS.grey30}`,
-        backgroundColor: COLORS.grey10,
-        color: COLORS.grey90,
+        backgroundColor: TOKENS.color.accentSoft,
+        color: TOKENS.color.accent,
       } : undefined,
     }))
   ), [options, panelView, changePanelView]);
@@ -53,8 +52,6 @@ export const ServicesPanelsButton = () => {
           icon={panelView === "calendar"
             ? <IconCalendarEvent size={18} />
             : <IconList size={18} />}
-          size="large"
-          circular
           outline
         />
       </CommonDropdown>

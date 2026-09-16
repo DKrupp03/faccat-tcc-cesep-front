@@ -9,7 +9,7 @@ import { CommonDatePicker } from "@/shared/components/CommonDatePicker";
 import { CommonCollapse } from "@/shared/components/CommonCollapse/CommonCollapse";
 import { CommonTextInput } from "@/shared/components/CommonTextInput/CommonTextInput";
 import { integerMask } from "@/shared/utils/formatters";
-import { COLORS } from "@/shared/theme";
+import { TOKENS } from "@/shared/theme";
 
 import { getGenderOptions, getMaritalStatusOptions, getEducationLevelOptions } from "@/modules/patients/utils/form";
 
@@ -30,10 +30,10 @@ export const IdentificationDataForm = () => {
   return (
     <CommonCollapse
       title={t("patients.anamnese.identificationData.title")}
-      icon={<IconInfoCircle size={16} color={COLORS.grey70} />}
+      icon={<IconInfoCircle size={16} color={TOKENS.color.textMuted} />}
       initialOpen={false}
     >
-      <Row gutter={16}>
+      <Row gutter={TOKENS.space[16]}>
         <Col span={12}>
           <Form.Item name={["anamnese_data", "identificationData", "name"]}>
             <CommonTextInput label={t("patients.columns.name")} />
@@ -45,7 +45,7 @@ export const IdentificationDataForm = () => {
           </Form.Item>
         </Col>
       </Row>
-      <Row gutter={16}>
+      <Row gutter={TOKENS.space[16]}>
         <Col span={6}>
           <Form.Item
             name={["anamnese_data", "identificationData", "birth"]}
@@ -71,7 +71,7 @@ export const IdentificationDataForm = () => {
           </Form.Item>
         </Col>
       </Row>
-      <Row gutter={16}>
+      <Row gutter={TOKENS.space[16]}>
         <Col span={12}>
           <Form.Item name={["anamnese_data", "identificationData", "educationLevel"]}>
             <CommonSelect

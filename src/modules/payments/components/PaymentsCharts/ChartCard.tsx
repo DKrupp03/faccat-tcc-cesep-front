@@ -1,7 +1,7 @@
 import { Flex, Typography, Skeleton, Tooltip } from "antd";
 import { IconHelpCircle } from "@tabler/icons-react";
 
-import { COLORS } from "@/shared/theme";
+import { TOKENS } from "@/shared/theme";
 
 import styles from "./PaymentsCharts.module.css";
 
@@ -26,7 +26,7 @@ export const ChartCard = ({
     return (
       <Skeleton
         className={`${styles.card} ${className ?? ""}`}
-        style={{ padding: 20 }}
+        style={{ padding: TOKENS.space[24] }}
         paragraph={{ rows: 6 }}
         active
       />
@@ -35,13 +35,13 @@ export const ChartCard = ({
 
   return (
     <Flex vertical className={`${styles.card} ${className ?? ""}`}>
-      <Flex align="center" gap={6} className={styles.header}>
-        <Title level={5}>{title}</Title>
+      <Flex align="center" gap={TOKENS.space[8]} className={styles.header}>
+        <Title level={5} className={styles.title}>{title}</Title>
         {info && (
           <Tooltip title={info}>
             <IconHelpCircle
-              size={16}
-              color={COLORS.grey70}
+              size={15}
+              color={TOKENS.color.textMuted}
               className={styles.info}
             />
           </Tooltip>

@@ -1,11 +1,12 @@
 .badge {
-  color: var(--color-white);
-  padding: 4px 8px;
-  border-radius: 6px;
+  color: inherit;
+  padding: var(--space-4) var(--space-8);
+  border-radius: var(--radius-xs);
   height: 100%;
   display: flex !important;
 }
 
 .badge span {
-  font-size: 13px;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
 }

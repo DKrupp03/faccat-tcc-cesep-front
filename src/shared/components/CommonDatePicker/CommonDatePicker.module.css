@@ -1,53 +1,20 @@
-.wrapper {
-	position: relative;
-	width: 100%;
-}
-
 .input {
 	width: 100%;
-	border-radius: 8px;
-	height: 44px;
-	color: var(--color-navy);
-	border-color: var(--color-grey30);
+	height: var(--control-height-field);
+	color: var(--color-ink);
 }
 
 .input input {
-	font-size: 14px !important;
+	font-size: var(--font-size-base) !important;
+	font-variant-numeric: tabular-nums;
 }
 
-.input:hover,
 .input:focus,
 .input:focus-within {
-	border-color: var(--color-grey70) !important;
-	box-shadow: none !important;
-}
-
-.label {
-	position: absolute;
-	left: 12px;
-	top: 50%;
-	transform: translateY(-50%);
-	font-size: 14px;
-	color: var(--color-grey70);
-	background: white;
-	padding: 0 4px;
-	pointer-events: none;
-	transition: top 0.3s ease, font-size 0.3s ease, left 0.3s ease;
-	z-index: 10;
-	line-height: 1;
-}
-
-.labelFloating {
-	top: 0;
-	font-size: 11px;
-	left: 12px;
-}
-
-.required {
-	color: var(--color-red);
+	background-color: var(--color-surface) !important;
 }
 
 .popup {
-	max-height: calc(100dvh - 16px);
+	max-height: calc(100dvh - var(--space-16));
 	overflow-y: auto;
 }

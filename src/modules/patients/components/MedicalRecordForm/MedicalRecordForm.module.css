@@ -3,5 +3,5 @@
 }
 
 .divider {
-  margin-top: 8px !important;
+  margin: var(--space-8) 0 var(--space-24) !important;
 }

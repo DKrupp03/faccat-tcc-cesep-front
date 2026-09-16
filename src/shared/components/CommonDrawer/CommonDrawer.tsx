@@ -4,6 +4,8 @@ import { Drawer, Flex, Typography } from "antd";
 import { CommonCloseButton } from "../CommonCloseButton/CommonCloseButton";
 import { CommonTabs, type CommonTabsProps } from "../CommonTabs/CommonTabs";
 
+import { TOKENS } from "../../theme";
+
 import styles from "./CommonDrawer.module.css";
 
 type CommonDrawerProps = Partial<CommonTabsProps> & {
@@ -41,21 +43,21 @@ export const CommonDrawer = ({
       justify="space-between" align="center"
       className={styles.header}
     >
-      <Title level={5}>
+      <Title level={5} className={styles.title}>
         {title}
       </Title>
-      <Flex align="center" gap={12}>
-        <Flex gap={8}>
+      <Flex align="center" gap={TOKENS.space[12]}>
+        <Flex align="center" gap={TOKENS.space[8]}>
           {header}
         </Flex>
-        <CommonCloseButton onClick={close} />
+        <CommonCloseButton onClick={close} outline />
       </Flex>
     </Flex>
   ), [title, close, header]);
 
   const footerContent = useMemo(() => (
     <Flex
-      justify="end" align="center" gap={12}
+      justify="end" align="center" gap={TOKENS.space[12]}
       className={styles.footer}
     >
       {footer}

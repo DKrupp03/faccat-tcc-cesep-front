@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { IconPlus } from "@tabler/icons-react";
 
 import { CommonButton } from "../CommonButton/CommonButton";
+import { TOKENS } from "../../theme";
 
 import styles from "./CommonTable.module.css";
 
@@ -40,7 +41,7 @@ export const CommonTable = <T extends object = object>({
   return loading ? (
     <Skeleton
       className={styles.card}
-      style={{ padding: "10px 20px" }}
+      style={{ padding: TOKENS.space[24] }}
       paragraph={{ rows: 8 }}
       active
     />
@@ -53,7 +54,7 @@ export const CommonTable = <T extends object = object>({
         justify="space-between" align="center"
         className={styles.header}
       >
-        <Title level={5}>
+        <Title level={5} className={styles.title}>
           {titleHeader}
         </Title>
         {header}
@@ -80,11 +81,8 @@ export const CommonTable = <T extends object = object>({
             onClick={() => loadMore!(page! + 1)}
             icon={<IconPlus size={14} />}
             buttonVariant="primary"
-            size="small"
-            circular
             outline
             loading={loadingMore}
-            className={styles.loadMoreButton}
           >
             {t("common.actions.loadMore")}
           </CommonButton>

@@ -8,6 +8,7 @@ import { CommonDatePicker } from "@/shared/components/CommonDatePicker";
 import { ProfilesSelect } from "@/shared/components/ProfilesSelect/ProfilesSelect";
 
 import { usePatientForm } from "@/modules/patients/hooks/usePatientForm";
+import { TOKENS } from "@/shared/theme";
 
 export const GeneralDataForm = () => {
   const { t } = useTranslation();
@@ -23,7 +24,7 @@ export const GeneralDataForm = () => {
   ]), [t]);
 
   return (
-    <Row gutter={16}>
+    <Row gutter={TOKENS.space[16]}>
       <Col span={12}>
         <Form.Item name="anamnese_type">
           <CommonSelect

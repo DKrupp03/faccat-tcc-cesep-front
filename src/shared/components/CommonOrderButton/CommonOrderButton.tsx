@@ -5,7 +5,7 @@ import { IconArrowsSort } from "@tabler/icons-react";
 
 import { CommonDropdown } from "../CommonDropdown/CommonDropdown";
 import { CommonButton } from "../CommonButton/CommonButton";
-import { COLORS } from "@/shared/theme";
+import { TOKENS } from "@/shared/theme";
 
 type CommonOrderButton = {
   value: string;
@@ -36,9 +36,8 @@ export const CommonOrderButton = ({
         onChange(option.value);
       },
       style: option.value === value ? {
-        border: `1px solid ${COLORS.grey30}`,
-        backgroundColor: COLORS.grey10,
-        color: COLORS.grey90,
+        backgroundColor: TOKENS.color.accentSoft,
+        color: TOKENS.color.accent,
       } : undefined,
     }))
   ), [options, onChange, value]);
@@ -53,8 +52,6 @@ export const CommonOrderButton = ({
         <CommonButton
           icon={<IconArrowsSort size={18} />}
           iconPlacement="end"
-          size="large"
-          circular
           outline
         />
       </CommonDropdown>

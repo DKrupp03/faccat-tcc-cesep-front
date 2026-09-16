@@ -25,6 +25,7 @@ import { useTherapistFormState } from "../../hooks/useTherapistFormState";
 import { useTherapistForm } from "../../hooks/useTherapistForm";
 import type { Therapist } from "../../types/therapist";
 import { getGenderOptions } from "../../utils/form";
+import { TOKENS } from "@/shared/theme";
 import styles from "./TherapistForm.module.css";
 
 // Limpar o select devolve undefined, que o JSON descarta: sem virar null, o
@@ -102,12 +103,11 @@ export const TherapistForm = () => {
       className={styles.form}
     >
       <Flex
-        justify="center" align="center" gap={10}
+        align="center" gap={TOKENS.space[16]}
         className={styles.avatarContainer}
       >
         <CommonAvatar
-          size={60}
-          circular
+          size={56}
           photoUrl={photoUrl}
         />
         <Upload
@@ -122,8 +122,7 @@ export const TherapistForm = () => {
           <CommonButton
             onClick={() => {}}
             icon={<IconUpload size={18} />}
-            buttonVariant="primary"
-            circular
+            outline
           />
         </Upload>
         <CommonButton
@@ -133,11 +132,11 @@ export const TherapistForm = () => {
           }}
           icon={<IconTrash size={18} />}
           buttonVariant="danger"
-          circular
+          outline
         />
       </Flex>
 
-      <Row gutter={16}>
+      <Row gutter={TOKENS.space[16]}>
         <Col span={12}>
           <Form.Item name="name" rules={requiredRule}>
             <CommonTextInput
@@ -157,7 +156,7 @@ export const TherapistForm = () => {
         </Col>
       </Row>
 
-      <Row gutter={16}>
+      <Row gutter={TOKENS.space[16]}>
         <Col span={12}>
           <Form.Item name="gender" rules={requiredRule}>
             <CommonSelect
@@ -183,7 +182,7 @@ export const TherapistForm = () => {
         </Col>
       </Row>
 
-      <Row gutter={16}>
+      <Row gutter={TOKENS.space[16]}>
         <Col span={12}>
           <Form.Item name="phone" normalize={phoneMask}>
             <CommonTextInput label={t("therapists.columns.phone")} />
@@ -196,7 +195,7 @@ export const TherapistForm = () => {
         </Col>
       </Row>
 
-      <Row gutter={16}>
+      <Row gutter={TOKENS.space[16]}>
         <Col span={12}>
           <Form.Item name="crp" normalize={crpMask}>
             <CommonTextInput label={t("therapists.columns.crp")} />
@@ -214,7 +213,7 @@ export const TherapistForm = () => {
         </Col>
       </Row>
 
-      <Row gutter={16}>
+      <Row gutter={TOKENS.space[16]}>
         <Col span={12}>
           <Form.Item name="supervisor_id" normalize={normalizeSupervisor}>
             <ProfilesSelect
@@ -227,7 +226,7 @@ export const TherapistForm = () => {
         </Col>
       </Row>
 
-      <Row gutter={16}>
+      <Row gutter={TOKENS.space[16]}>
         <Col span={6}>
           <Form.Item name="active">
             <CommonSwitch
@@ -239,7 +238,7 @@ export const TherapistForm = () => {
         </Col>
       </Row>
 
-      <Row gutter={16} className={styles.switch}>
+      <Row gutter={TOKENS.space[16]} className={styles.switch}>
         <Col span={6}>
           <Form.Item name="admin">
             <CommonSwitch

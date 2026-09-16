@@ -8,6 +8,7 @@ import { CommonTextInput } from "@/shared/components/CommonTextInput/CommonTextI
 import { CommonButton } from "@/shared/components/CommonButton/CommonButton";
 import { PATHS } from "@/routes/paths";
 import { useAuth } from "../../hooks/useAuth";
+import { TOKENS } from "@/shared/theme";
 
 import styles from "./LoginForm.module.css";
 
@@ -93,7 +94,7 @@ export const LoginForm = () => {
         </CommonButton>
       </Form.Item>
 
-      <Flex justify="center" align="center" gap={4}>
+      <Flex justify="center" align="center" gap={TOKENS.space[4]}>
         <Text>{t("auth.register.noAccount")}</Text>
 
         <Link

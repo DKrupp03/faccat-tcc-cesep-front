@@ -1,4 +1,18 @@
 .tab {
-  width: 50px;
-  height: 50px;
+  width: var(--control-height-lg);
+  height: var(--control-height-lg);
+  border-radius: var(--radius-xl) !important;
+  color: var(--color-text-muted) !important;
+}
+
+.tab:not(:disabled):hover {
+  background-color: var(--color-rail-hover) !important;
+  color: var(--color-text) !important;
+}
+
+.tabActive,
+.tabActive:not(:disabled):hover {
+  background-color: var(--color-surface) !important;
+  color: var(--color-accent) !important;
+  box-shadow: var(--shadow-md) !important;
 }

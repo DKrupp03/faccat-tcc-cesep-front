@@ -4,7 +4,7 @@ import { IconClock24 } from "@tabler/icons-react";
 
 import { CommonCollapse } from "@/shared/components/CommonCollapse/CommonCollapse";
 import { CommonTextArea } from "@/shared/components/CommonTextArea/CommonTextArea";
-import { COLORS } from "@/shared/theme";
+import { TOKENS } from "@/shared/theme";
 
 export const WeeklyRoutineForm = () => {
   const { t } = useTranslation();
@@ -12,10 +12,10 @@ export const WeeklyRoutineForm = () => {
   return (
     <CommonCollapse
       title={t("patients.anamnese.weeklyRoutine.title")}
-      icon={<IconClock24 size={16} color={COLORS.grey70} />}
+      icon={<IconClock24 size={16} color={TOKENS.color.textMuted} />}
       initialOpen={false}
     >
-      <Row gutter={16}>
+      <Row gutter={TOKENS.space[16]}>
         <Col span={24}>
           <Form.Item name={["anamnese_data", "weeklyRoutine"]}>
             <CommonTextArea label={t("patients.anamnese.weeklyRoutine.label")} />

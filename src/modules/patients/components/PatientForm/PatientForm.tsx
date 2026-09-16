@@ -22,7 +22,7 @@ import {
   normalizeDate,
   isFutureDate,
 } from "@/shared/utils/formatters";
-import { COLORS } from "@/shared/theme";
+import { TOKENS } from "@/shared/theme";
 
 import { usePatientFormState } from "../../hooks/usePatientFormState";
 import { usePatientForm } from "../../hooks/usePatientForm";
@@ -99,12 +99,11 @@ export const PatientForm = () => {
       className={styles.form}
     >
       <Flex
-        justify="center" align="center" gap={10}
+        align="center" gap={TOKENS.space[16]}
         className={styles.avatarContainer}
       >
         <CommonAvatar
-          size={60}
-          circular
+          size={56}
           photoUrl={photoUrl}
         />
         <Upload
@@ -119,8 +118,7 @@ export const PatientForm = () => {
           <CommonButton
             onClick={() => {}}
             icon={<IconUpload size={18} />}
-            buttonVariant="primary"
-            circular
+            outline
           />
         </Upload>
         <CommonButton
@@ -130,11 +128,11 @@ export const PatientForm = () => {
           }}
           icon={<IconTrash size={18} />}
           buttonVariant="danger"
-          circular
+          outline
         />
       </Flex>
 
-      <Row gutter={16}>
+      <Row gutter={TOKENS.space[16]}>
         <Col span={12}>
           <Form.Item name="name" rules={requiredRule}>
             <CommonTextInput
@@ -154,7 +152,7 @@ export const PatientForm = () => {
         </Col>
       </Row>
 
-      <Row gutter={16}>
+      <Row gutter={TOKENS.space[16]}>
         <Col span={12}>
           <Form.Item name="gender" rules={requiredRule}>
             <CommonSelect
@@ -180,7 +178,7 @@ export const PatientForm = () => {
         </Col>
       </Row>
 
-      <Row gutter={16}>
+      <Row gutter={TOKENS.space[16]}>
         <Col span={12}>
           <Form.Item name="phone" normalize={phoneMask}>
             <CommonTextInput label={t("patients.columns.phone")} />
@@ -193,7 +191,7 @@ export const PatientForm = () => {
         </Col>
       </Row>
 
-      <Row gutter={16}>
+      <Row gutter={TOKENS.space[16]}>
         <Col span={12}>
           <Form.Item name="cpf" normalize={cpfMask}>
             <CommonTextInput label={t("patients.columns.cpf")} />
@@ -206,7 +204,7 @@ export const PatientForm = () => {
         </Col>
       </Row>
 
-      <Row gutter={16}>
+      <Row gutter={TOKENS.space[16]}>
         <Col span={12}>
           <Form.Item name="marital_status">
             <CommonSelect
@@ -225,7 +223,7 @@ export const PatientForm = () => {
         </Col>
       </Row>
 
-      <Row gutter={16}>
+      <Row gutter={TOKENS.space[16]}>
         <Col span={12}>
           <Form.Item name="occupation">
             <CommonTextInput label={t("patients.columns.occupation")} />
@@ -251,7 +249,7 @@ export const PatientForm = () => {
         </Col>
       </Row>
 
-      <Row gutter={16}>
+      <Row gutter={TOKENS.space[16]}>
         <Col span={24}>
           <Form.Item name="extra">
             <CommonTextArea label={t("patients.columns.extra")} />
@@ -259,7 +257,7 @@ export const PatientForm = () => {
         </Col>
       </Row>
 
-      <Row gutter={16}>
+      <Row gutter={TOKENS.space[16]}>
         <Col span={6}>
           <Form.Item name="active">
             <CommonSwitch
@@ -276,9 +274,9 @@ export const PatientForm = () => {
       <div className={styles.responsiblesContainer}>
         <CommonCollapse
           title={t("patients.columns.parent")}
-          icon={<IconUser size={16} color={COLORS.grey70} />}
+          icon={<IconUser size={16} color={TOKENS.color.textMuted} />}
         >
-          <Row gutter={16}>
+          <Row gutter={TOKENS.space[16]}>
             <Col span={12}>
               <Form.Item name={["parent", "name"]}>
                 <CommonTextInput label={t("patients.columns.name")} />

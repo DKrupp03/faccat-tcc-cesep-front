@@ -2,6 +2,8 @@ import { Flex } from "antd";
 
 import logo from "@/shared/assets/logo.png";
 
+import { TOKENS } from "@/shared/theme";
+
 import styles from "./AuthCardContainer.module.css";
 
 export const AuthCardContainer = ({ children }: { children: React.ReactNode }) => (
@@ -11,7 +13,7 @@ export const AuthCardContainer = ({ children }: { children: React.ReactNode }) =
     className={styles.page}
   >
     <Flex
-      gap={32}
+      gap={TOKENS.space[32]}
       vertical
       className={styles.card}
     >

@@ -11,6 +11,7 @@ import { usePatientsList } from "../../hooks/usePatientsList";
 import { PatientsHeader } from "../../components/PatientsHeader/PatientsHeader";
 import { PatientsHeaderCards } from "../../components/PatientsHeaderCards/PatientsHeaderCards";
 import { PatientsTable } from "../../components/PatientsTable/PatientsTable";
+import { TOKENS } from "@/shared/theme";
 import styles from "./PatientsPage.module.css";
 
 const PatientsPage = () => {
@@ -40,7 +41,7 @@ const PatientsPanel = () => {
         <PatientsHeader />
       </CommonHeader>
 
-      <Flex vertical gap={24} className={styles.body}>
+      <Flex vertical gap={TOKENS.space[24]} className={styles.body}>
         <PatientsHeaderCards />
         <PatientsTable />
       </Flex>

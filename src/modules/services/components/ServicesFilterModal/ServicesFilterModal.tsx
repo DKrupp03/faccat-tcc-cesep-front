@@ -13,6 +13,7 @@ import { ProfilesSelect } from "@/shared/components/ProfilesSelect/ProfilesSelec
 import { useServicesFilter } from "../../hooks/useServicesFilter";
 import { useServicesList } from "../../hooks/useServicesList";
 import { getServiceTypeOptions, getStatusOptions } from "../../utils/form";
+import { TOKENS } from "@/shared/theme";
 import styles from "./ServicesFilterModal.module.css";
 
 export const ServicesFilterModal = () => {
@@ -55,7 +56,7 @@ export const ServicesFilterModal = () => {
         initialValues={defaultFilter}
         className={styles.form}
       >
-        <Row gutter={16}>
+        <Row gutter={TOKENS.space[16]}>
           <Col span={12}>
             <Form.Item
               name="date_start"
@@ -87,7 +88,7 @@ export const ServicesFilterModal = () => {
             </Form.Item>
           </Col>
         </Row>
-        <Row gutter={16}>
+        <Row gutter={TOKENS.space[16]}>
           <Col span={12}>
             <Form.Item name="patient_id" noStyle>
               <ProfilesSelect
@@ -106,7 +107,7 @@ export const ServicesFilterModal = () => {
             </Form.Item>
           </Col>
         </Row>
-        <Row gutter={16}>
+        <Row gutter={TOKENS.space[16]}>
           <Col span={12}>
             <Form.Item name="service_type" noStyle>
               <CommonSelect

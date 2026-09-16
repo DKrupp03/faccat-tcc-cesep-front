@@ -9,6 +9,7 @@ import { CommonTextInput } from "@/shared/components/CommonTextInput/CommonTextI
 import { ProfilesSelect } from "@/shared/components/ProfilesSelect/ProfilesSelect";
 
 import { useTherapistsFilter } from "../../hooks/useTherapistsFilter";
+import { TOKENS } from "@/shared/theme";
 import styles from "./TherapistsFilterModal.module.css";
 
 export const TherapistsFilterModal = () => {
@@ -46,21 +47,21 @@ export const TherapistsFilterModal = () => {
         initialValues={defaultFilter}
         className={styles.form}
       >
-        <Row gutter={16}>
+        <Row gutter={TOKENS.space[16]}>
           <Col span={24}>
             <Form.Item name="name" noStyle>
               <CommonTextInput label={t("therapists.columns.name")} />
             </Form.Item>
           </Col>
         </Row>
-        <Row gutter={16}>
+        <Row gutter={TOKENS.space[16]}>
           <Col span={24}>
             <Form.Item name="patient_id" noStyle>
               <ProfilesSelect role="patient" />
             </Form.Item>
           </Col>
         </Row>
-        <Row gutter={16}>
+        <Row gutter={TOKENS.space[16]}>
           <Col span={24}>
             <Flex justify="start">
               <Form.Item name="active" noStyle>

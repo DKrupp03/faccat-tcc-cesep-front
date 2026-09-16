@@ -69,8 +69,6 @@ export const PaymentsHeader = ({ showCharts = true }: PaymentsHeaderProps) => {
           <CommonButton
             onClick={scrollToCharts}
             icon={<IconChartBar size={18} />}
-            size="large"
-            circular
             outline
           />
         </Tooltip>
@@ -79,8 +77,6 @@ export const PaymentsHeader = ({ showCharts = true }: PaymentsHeaderProps) => {
         <CommonButton
           onClick={() => filtratePanel()}
           icon={<IconReload size={18} />}
-          size="large"
-          circular
           outline
         />
       </Tooltip>
@@ -88,8 +84,6 @@ export const PaymentsHeader = ({ showCharts = true }: PaymentsHeaderProps) => {
         <CommonButton
           onClick={openFilter}
           icon={<IconFilter size={18} />}
-          size="large"
-          circular
           outline
         />
       </Tooltip>
@@ -97,9 +91,7 @@ export const PaymentsHeader = ({ showCharts = true }: PaymentsHeaderProps) => {
         <CommonButton
           onClick={() => openForm()}
           icon={<IconPlus size={18} />}
-          size="large"
           buttonVariant="primary"
-          circular
         />
       </Tooltip>
     </>

@@ -1,9 +1,9 @@
 .form {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: var(--space-4);
 }
 
 .submit {
-  margin-top: 8px;
+  margin-top: var(--space-8);
 }

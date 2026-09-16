@@ -5,22 +5,20 @@ import styles from "./CommonAvatar.module.css";
 
 type CommonAvatarProps = AvatarProps & {
   photoUrl?: string;
-  circular?: boolean;
 };
 
 export const CommonAvatar = ({
   photoUrl,
-  circular = false,
   ...props
 }: CommonAvatarProps) => {
-  const size = props.size || 35;
+  const size = props.size || 32;
 
   return (
     <Avatar
       size={size}
-      shape={circular ? "circle" : "square"}
+      shape="circle"
       className={styles.avatar}
-      icon={<IconUser size={Number(size) * 0.6} stroke={1.5} />}
+      icon={<IconUser size={Number(size) * 0.55} stroke={1.7} />}
       src={photoUrl}
       {...props}
     />

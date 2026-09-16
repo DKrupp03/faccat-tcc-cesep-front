@@ -11,6 +11,7 @@ import { ProfilesSelect } from "@/shared/components/ProfilesSelect/ProfilesSelec
 
 import { usePatientsFilter } from "../../hooks/usePatientsFilter";
 import { usePatientsList } from "../../hooks/usePatientsList";
+import { TOKENS } from "@/shared/theme";
 import styles from "./PatientsFilterModal.module.css";
 
 export const PatientsFilterModal = () => {
@@ -60,14 +61,14 @@ export const PatientsFilterModal = () => {
         initialValues={defaultFilter}
         className={styles.form}
       >
-        <Row gutter={16}>
+        <Row gutter={TOKENS.space[16]}>
           <Col span={24}>
             <Form.Item name="name" noStyle>
               <CommonTextInput label={t("patients.columns.name")} />
             </Form.Item>
           </Col>
         </Row>
-        <Row gutter={16}>
+        <Row gutter={TOKENS.space[16]}>
           <Col span={12}>
             <Form.Item name="therapist_id" noStyle>
               <ProfilesSelect
@@ -85,7 +86,7 @@ export const PatientsFilterModal = () => {
             </Form.Item>
           </Col>
         </Row>
-        <Row gutter={16}>
+        <Row gutter={TOKENS.space[16]}>
           <Col span={24}>
             <Flex justify="start">
               <Form.Item name="active" noStyle>

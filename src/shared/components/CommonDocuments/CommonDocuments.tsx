@@ -11,7 +11,7 @@ import {
 
 import { CommonCollapse } from "../CommonCollapse/CommonCollapse";
 import { CommonButton } from "../CommonButton/CommonButton";
-import { COLORS } from "../../theme";
+import { TOKENS } from "../../theme";
 
 import styles from "./CommonDocuments.module.css";
 
@@ -83,7 +83,7 @@ export const CommonDocuments = ({
   return (
     <CommonCollapse
       title={label ?? t("common.documents.title")}
-      icon={<IconFiles size={16} color={COLORS.grey70} />}
+      icon={<IconFiles size={16} color={TOKENS.color.textMuted} />}
       shouldShowAddButton={!!onUpload && !disabled}
       onClickAdd={handleAdd}
     >
@@ -102,18 +102,18 @@ export const CommonDocuments = ({
       {isEmpty ? (
         <Text>{t("common.documents.empty")}</Text>
       ) : (
-        <Flex vertical gap={4}>
+        <Flex vertical gap={TOKENS.space[8]}>
           {documents.map((doc) => (
             <Flex
               key={doc.id}
-              align="center" justify="space-between" gap={12}
+              align="center" justify="space-between" gap={TOKENS.space[12]}
               className={styles.item}
             >
-              <Flex align="center" gap={8}>
-                <IconFile size={16} color={COLORS.grey70} />
+              <Flex align="center" gap={TOKENS.space[10]}>
+                <IconFile size={16} color={TOKENS.color.textMuted} />
                 <Text className={styles.name}>{doc.name}</Text>
               </Flex>
-              <Flex align="center" gap={4}>
+              <Flex align="center" gap={TOKENS.space[6]}>
                 <Tooltip title={t("common.documents.open")}>
                   <CommonButton
                     href={doc.url}
@@ -121,8 +121,6 @@ export const CommonDocuments = ({
                     rel="noopener noreferrer"
                     icon={<IconExternalLink size={16} />}
                     size="small"
-                    circular
-                    outline
                   />
                 </Tooltip>
                 <Tooltip title={t("common.documents.download")}>
@@ -130,8 +128,6 @@ export const CommonDocuments = ({
                     onClick={() => handleDownload(doc.url, doc.name)}
                     icon={<IconDownload size={16} />}
                     size="small"
-                    circular
-                    outline
                   />
                 </Tooltip>
                 {onRemove && (
@@ -142,7 +138,6 @@ export const CommonDocuments = ({
                       disabled={disabled}
                       buttonVariant="danger"
                       size="small"
-                      circular
                     />
                   </Tooltip>
                 )}
@@ -153,17 +148,17 @@ export const CommonDocuments = ({
           {pendingFiles.map((file, idx) => (
             <Flex
               key={idx}
-              align="center" justify="space-between" gap={12}
+              align="center" justify="space-between" gap={TOKENS.space[12]}
               className={styles.item}
             >
-              <Flex align="center" gap={8}>
-                <IconFile size={16} color={COLORS.grey70} />
+              <Flex align="center" gap={TOKENS.space[10]}>
+                <IconFile size={16} color={TOKENS.color.textMuted} />
                 <Text className={styles.name}>{file.name}</Text>
                 <Flex align="center" className={styles.pendingTag}>
                   {t("common.documents.pending")}
                 </Flex>
               </Flex>
-              <Flex align="center" gap={4}>
+              <Flex align="center" gap={TOKENS.space[6]}>
                 {onRemovePending && (
                   <Tooltip title={t("common.documents.remove")}>
                     <CommonButton
@@ -172,7 +167,6 @@ export const CommonDocuments = ({
                       disabled={disabled}
                       buttonVariant="danger"
                       size="small"
-                      circular
                     />
                   </Tooltip>
                 )}

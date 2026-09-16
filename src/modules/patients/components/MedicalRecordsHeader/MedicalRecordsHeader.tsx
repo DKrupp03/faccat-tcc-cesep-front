@@ -49,8 +49,6 @@ export const MedicalRecordsHeader = () => {
         <CommonButton
           onClick={() => filtratePanel()}
           icon={<IconReload size={18} />}
-          size="large"
-          circular
           outline
         />
       </Tooltip>
@@ -58,8 +56,6 @@ export const MedicalRecordsHeader = () => {
         <CommonButton
           onClick={openFilter}
           icon={<IconFilter size={18} />}
-          size="large"
-          circular
           outline
         />
       </Tooltip>
@@ -67,9 +63,7 @@ export const MedicalRecordsHeader = () => {
         <CommonButton
           onClick={() => openForm()}
           icon={<IconPlus size={18} />}
-          size="large"
           buttonVariant="primary"
-          circular
         />
       </Tooltip>
     </>

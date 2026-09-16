@@ -1,5 +1,7 @@
 import { Flex, Typography } from "antd";
 
+import { TOKENS } from "../../theme";
+
 import styles from "./CommonHeader.module.css";
 
 const { Title } = Typography;
@@ -18,11 +20,11 @@ export const CommonHeader = ({
       justify="space-between" align="center"
       className={styles.header}
     >
-      <Title level={3}>
+      <Title level={3} className={styles.title}>
         {title}
       </Title>
 
-      <Flex gap={8}>
+      <Flex align="center" gap={TOKENS.space[8]}>
         {children}
       </Flex>
     </Flex>

@@ -1,3 +1,10 @@
 .label {
-  color: var(--color-navy);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text);
+}
+
+.labelActive {
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-ink);
 }

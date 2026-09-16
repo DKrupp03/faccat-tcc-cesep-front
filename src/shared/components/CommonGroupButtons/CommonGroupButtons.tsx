@@ -1,13 +1,12 @@
 /* eslint-disable react-refresh/only-export-components */
 import React, { createContext, useContext } from "react";
-import { Flex, Typography } from "antd";
+import { Flex } from "antd";
 
 import { CommonButton, type CommonButtonProps } from "../CommonButton/CommonButton";
-import { COLORS } from "@/shared/theme";
+
+import { CommonField } from "../CommonField/CommonField";
 
 import styles from "./CommonGroupButtons.module.css";
-
-const { Text } = Typography;
 
 type GroupContextValue = {
   value?: string | number;
@@ -34,15 +33,10 @@ const Button: React.FC<ButtonProps> = ({ value, children, ...buttonProps }) => {
 
   return (
     <CommonButton
-      outline
+      buttonVariant="noBorder"
       hoverEffect={!isActive}
       onClick={() => onChange?.(value)}
-      className={styles.button}
-      style={isActive ? {
-        border: `1px solid ${COLORS.grey50}`,
-        color: COLORS.grey90,
-        backgroundColor: COLORS.grey10,
-      } : undefined}
+      className={isActive ? `${styles.button} ${styles.buttonActive}` : styles.button}
       {...buttonProps}
     >
       {children}
@@ -52,16 +46,13 @@ const Button: React.FC<ButtonProps> = ({ value, children, ...buttonProps }) => {
 
 const CommonGroupButtonsBase: React.FC<GroupProps> = ({ value, onChange, children, label }) => {
   return (
-    <Flex align="center" gap={16} className={styles.container}>
-      {label && (
-        <Text className={styles.label}>{label}</Text>
-      )}
+    <CommonField label={label} className={styles.container}>
       <GroupContext.Provider value={{ value, onChange }}>
         <Flex className={styles.group}>
           {children}
         </Flex>
       </GroupContext.Provider>
-    </Flex>
+    </CommonField>
   );
 };
 

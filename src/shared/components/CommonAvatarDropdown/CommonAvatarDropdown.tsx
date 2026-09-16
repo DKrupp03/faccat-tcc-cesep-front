@@ -7,6 +7,8 @@ import { useTherapistForm } from "@/modules/therapists/hooks/useTherapistForm";
 import { CommonAvatar } from "../CommonAvatar/CommonAvatar";
 import { CommonDropdown } from "../CommonDropdown/CommonDropdown";
 
+import { TOKENS } from "../../theme";
+
 import styles from "./CommonAvatarDropdown.module.css";
 
 const { Text } = Typography;
@@ -20,18 +22,17 @@ export const CommonAvatarDropdown = () => {
     <CommonDropdown
       placement="right"
       align={{ offset: [12, -20] }}
-      padding={12}
+      padding={TOKENS.space[12]}
       minWidth={150}
       arrow
       prefix={
         <Flex
-          align="center" gap={12}
+          align="center" gap={TOKENS.space[12]}
           className={styles.header}
         >
           <CommonAvatar
             photoUrl={profile?.photo_url}
-            size={40}
-            circular
+            size={TOKENS.control.md}
           />
           <Flex vertical>
             <Text className={styles.name}>
@@ -67,8 +68,7 @@ export const CommonAvatarDropdown = () => {
       <CommonAvatar
         photoUrl={profile?.photo_url}
         style={{ cursor: "pointer" }}
-        size={50}
-        circular
+        size={TOKENS.control.md}
       />
     </CommonDropdown>
   );

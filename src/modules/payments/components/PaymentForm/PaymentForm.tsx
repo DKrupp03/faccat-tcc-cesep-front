@@ -21,6 +21,7 @@ import {
   formatCurrencyInput,
 } from "../../utils/form";
 import type { Payment } from "../../types/payment";
+import { TOKENS } from "@/shared/theme";
 import styles from "./PaymentForm.module.css";
 
 type PaymentFormProps = {
@@ -145,7 +146,7 @@ export const PaymentForm = ({
       initialValues={{ free: false, ...defaultValues }}
       className={styles.form}
     >
-      <Row gutter={16}>
+      <Row gutter={TOKENS.space[16]}>
         <Col span={24}>
           <Form.Item name="service_id" rules={requiredRule}>
             <ServicesSelect
@@ -159,7 +160,7 @@ export const PaymentForm = ({
         </Col>
       </Row>
 
-      <Row gutter={16}>
+      <Row gutter={TOKENS.space[16]}>
         <Col span={24}>
           <Form.Item name="free">
             <CommonSwitch label={t("payments.columns.free")} />
@@ -170,7 +171,7 @@ export const PaymentForm = ({
       {/* Desmontados, os campos de cobrança também deixam de ser validados. */}
       {!isFree && (
         <>
-          <Row gutter={16}>
+          <Row gutter={TOKENS.space[16]}>
             <Col span={12}>
               <Form.Item name="value" rules={requiredRule} normalize={decimalMask}>
                 <CommonTextInput
@@ -191,7 +192,7 @@ export const PaymentForm = ({
             </Col>
           </Row>
 
-          <Row gutter={16}>
+          <Row gutter={TOKENS.space[16]}>
             <Col span={12}>
               <Form.Item
                 name="expiration_date"
@@ -223,7 +224,7 @@ export const PaymentForm = ({
         </>
       )}
 
-      <Row gutter={16}>
+      <Row gutter={TOKENS.space[16]}>
         <Col span={24}>
           <Form.Item name="observations">
             <CommonTextArea
@@ -236,7 +237,7 @@ export const PaymentForm = ({
 
       <Divider className={styles.divider} />
 
-      <Row gutter={16}>
+      <Row gutter={TOKENS.space[16]}>
         <Col span={24}>
           <CommonDocuments
             label={t("common.documents.title")}

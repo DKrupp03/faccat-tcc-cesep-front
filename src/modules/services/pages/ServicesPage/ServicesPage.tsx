@@ -12,6 +12,7 @@ import { ServicesHeader } from "../../components/ServicesHeader/ServicesHeader";
 import { ServicesHeaderCards } from "../../components/ServicesHeaderCards/ServicesHeaderCards";
 import { ServicesTable } from "../../components/ServicesTable/ServicesTable";
 import { ServicesCalendar } from "../../components/ServicesCalendar/ServicesCalendar";
+import { TOKENS } from "@/shared/theme";
 import styles from "./ServicesPage.module.css";
 
 const ServicesPage = () => {
@@ -41,7 +42,7 @@ const ServicesPanel = () => {
         <ServicesHeader />
       </CommonHeader>
 
-      <Flex vertical gap={24} className={styles.body}>
+      <Flex vertical gap={TOKENS.space[24]} className={styles.body}>
         <ServicesHeaderCards />
         {panelView === "calendar" ? <ServicesCalendar /> : <ServicesTable />}
       </Flex>

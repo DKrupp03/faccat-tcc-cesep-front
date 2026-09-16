@@ -11,7 +11,7 @@ import {
   type TooltipProps,
 } from "recharts";
 
-import { COLORS } from "@/shared/theme";
+import { TOKENS } from "@/shared/theme";
 import {
   formatShortMonth,
   formatCurrency,
@@ -21,6 +21,9 @@ import {
 import type { PaymentMonthlyChartItem } from "../../types/payment";
 import { ChartCard } from "./ChartCard";
 import styles from "./PaymentsCharts.module.css";
+
+const { color: C, font: F, radius: R } = TOKENS;
+const BAR_RADIUS: [number, number, number, number] = [R["2xs"], R["2xs"], 0, 0];
 
 type PaymentsMonthlyChartProps = {
   data: PaymentMonthlyChartItem[];
@@ -44,13 +47,13 @@ export const PaymentsMonthlyChart = ({
 
     const rows = [
       {
-        color: COLORS.blue,
+        color: C.accent,
         label: t("payments.charts.received"),
         value: item.received,
         count: item.received_count,
       },
       {
-        color: COLORS.yellow,
+        color: C.warning,
         label: t("payments.charts.toReceive"),
         value: item.to_receive,
         count: item.to_receive_count,
@@ -93,41 +96,41 @@ export const PaymentsMonthlyChart = ({
           <CartesianGrid
             strokeDasharray="4 4"
             vertical={false}
-            stroke={COLORS.grey30}
+            stroke={C.border}
           />
           <XAxis
             dataKey="month"
             tickFormatter={formatShortMonth}
             tickLine={false}
-            axisLine={{ stroke: COLORS.grey30 }}
-            tick={{ fontSize: 12, fill: COLORS.grey70 }}
+            axisLine={{ stroke: C.border }}
+            tick={{ fontSize: F.size.xs, fill: C.textMuted }}
           />
           <YAxis
             width={72}
             tickFormatter={formatCurrencyCompact}
             tickLine={false}
             axisLine={false}
-            tick={{ fontSize: 12, fill: COLORS.grey70 }}
+            tick={{ fontSize: F.size.xs, fill: C.textMuted }}
           />
-          <Tooltip cursor={{ fill: COLORS.grey10 }} content={renderTooltip} />
+          <Tooltip cursor={{ fill: C.bg }} content={renderTooltip} />
           <Legend
-            wrapperStyle={{ fontSize: 13 }}
+            wrapperStyle={{ fontSize: F.size.sm }}
             formatter={(value) => (
-              <span style={{ color: COLORS.grey90 }}>{value}</span>
+              <span style={{ color: C.text }}>{value}</span>
             )}
           />
           <Bar
             dataKey="received"
             name={t("payments.charts.received")}
-            fill={COLORS.blue}
-            radius={[4, 4, 0, 0]}
+            fill={C.accent}
+            radius={BAR_RADIUS}
             maxBarSize={14}
           />
           <Bar
             dataKey="to_receive"
             name={t("payments.charts.toReceive")}
-            fill={COLORS.yellow}
-            radius={[4, 4, 0, 0]}
+            fill={C.warning}
+            radius={BAR_RADIUS}
             maxBarSize={14}
           />
         </BarChart>

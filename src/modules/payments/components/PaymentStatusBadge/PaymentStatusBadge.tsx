@@ -9,7 +9,8 @@ import {
 } from "@tabler/icons-react";
 
 import type { PaymentStatus } from "../../types/payment";
-import { COLORS } from "@/shared/theme";
+import { PAYMENT_STATUS_COLORS } from "../../utils/status";
+import { TOKENS } from "@/shared/theme";
 
 import styles from "./PaymentStatusBadge.module.css";
 
@@ -22,27 +23,22 @@ export const PaymentStatusBadge = ({
 }: PaymentStatusBadgeProps) => {
   const { t } = useTranslation();
 
-  const backgroundColor = useMemo(() => {
-    if (status === "paid") return COLORS.blue;
-    if (status === "unpaid") return COLORS.yellow;
-    if (status === "overdue") return COLORS.red;
-    if (status === "free") return COLORS.gren;
-  }, [status]);
+  const colors = status ? PAYMENT_STATUS_COLORS[status] : undefined;
 
   const icon = useMemo(() => {
-    if (status === "paid") return <IconCircleCheck size={16} color={COLORS.white} />;
-    if (status === "unpaid") return <IconCircleX size={16} color={COLORS.white} />;
-    if (status === "overdue") return <IconAlertCircle size={16} color={COLORS.white} />;
-    if (status === "free") return <IconGift size={16} color={COLORS.white} />;
+    if (status === "paid") return <IconCircleCheck size={16} />;
+    if (status === "unpaid") return <IconCircleX size={16} />;
+    if (status === "overdue") return <IconAlertCircle size={16} />;
+    if (status === "free") return <IconGift size={16} />;
   }, [status]);
 
   if (!status) return;
 
   return (
     <Badge
-      style={{ backgroundColor }}
+      style={{ backgroundColor: colors?.bg, color: colors?.text }}
       count={
-        <Flex align="center" justify="center" gap={4} className={styles.badge}>
+        <Flex align="center" justify="center" gap={TOKENS.space[4]} className={styles.badge}>
           {icon}
           <span>
             {t(`payments.status.${status}`)}

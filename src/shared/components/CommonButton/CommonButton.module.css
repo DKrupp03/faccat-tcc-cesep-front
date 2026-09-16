@@ -1,6 +1,13 @@
 .button {
-  font-size: 14px;
-  transition: 0.2s ease;
+  transition: var(--transition-fast);
+  box-shadow: var(--button-shadow) !important;
+}
+
+.button:not(:disabled):hover {
+  box-shadow: var(--button-shadow-hover) !important;
+}
+
+.button:disabled {
   box-shadow: none !important;
 }
 

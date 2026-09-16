@@ -2,6 +2,8 @@ import { Flex, Tooltip } from "antd";
 
 import { CommonButton } from "../CommonButton/CommonButton";
 
+import { TOKENS } from "../../theme";
+
 import styles from "./CommonTabs.module.css";
 
 type TabType = {
@@ -22,7 +24,7 @@ export type CommonTabsProps = {
 export const CommonTabs = ({ tabs, activeTab, onChangeTab, containerClass }: CommonTabsProps) => {
   return (
     <Flex
-      vertical gap={16}
+      vertical gap={TOKENS.space[10]}
       className={containerClass}
     >
       {tabs.filter((tab) => !tab.hide).map((tab) => (
@@ -32,12 +34,10 @@ export const CommonTabs = ({ tabs, activeTab, onChangeTab, containerClass }: Com
               onClick={() => onChangeTab?.(tab.key)}
               icon={tab.icon}
               size="large"
-              className={styles.tab}
-              buttonVariant={activeTab === tab.key ? "primary" : "outline"}
-              outline={activeTab !== tab.key}
+              buttonVariant="noBorder"
+              className={activeTab === tab.key ? `${styles.tab} ${styles.tabActive}` : styles.tab}
               hoverEffect={activeTab !== tab.key}
               disabled={tab.disabled}
-              circular
             />
           </Tooltip>
         </Flex>

@@ -3,6 +3,7 @@ import { Collapse, Flex, Typography } from "antd";
 import { IconChevronDown, IconChevronUp, IconPlus } from "@tabler/icons-react";
 
 import { CommonButton } from "../CommonButton/CommonButton";
+import { TOKENS } from "../../theme";
 
 import styles from "./CommonCollapse.module.css";
 
@@ -50,7 +51,6 @@ export const CommonCollapse = ({
         onClick={() => setIsCollapseOpen((prev) => !prev)}
         icon={isCollapseOpen ? <IconChevronUp size={16} /> : <IconChevronDown size={16} />}
         size="small"
-        circular
         outline
       />
     );
@@ -68,7 +68,7 @@ export const CommonCollapse = ({
       items={[{
         key: 1,
         label: (
-          <Flex align="center" gap={12}>
+          <Flex align="center" gap={TOKENS.space[12]}>
             {icon && (
               <Flex
                 justify="center" align="center"
@@ -77,13 +77,13 @@ export const CommonCollapse = ({
                 {icon}
               </Flex>
             )}
-            <Title level={5}>
+            <Title level={5} className={styles.title}>
               {title}
             </Title>
           </Flex>
         ),
         extra: (
-          <Flex gap={12} align="center">
+          <Flex gap={TOKENS.space[8]} align="center">
             {extraPlacement === "start" && extra}
 
             {shouldShowAddButton && (
@@ -92,7 +92,6 @@ export const CommonCollapse = ({
                 icon={<IconPlus size={16} />}
                 size="small"
                 buttonVariant="primary"
-                circular
               />
             )}
 
@@ -111,7 +110,7 @@ export const CommonCollapse = ({
           },
           body: {
             padding: 0,
-            paddingTop: 16,
+            paddingTop: TOKENS.space[16],
           },
         },
       }]}

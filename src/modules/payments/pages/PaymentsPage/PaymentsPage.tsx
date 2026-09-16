@@ -12,6 +12,7 @@ import { PaymentsHeader } from "../../components/PaymentsHeader/PaymentsHeader";
 import { PaymentsHeaderCards } from "../../components/PaymentsHeaderCards/PaymentsHeaderCards";
 import { PaymentsTable } from "../../components/PaymentsTable/PaymentsTable";
 import { PaymentsCharts } from "../../components/PaymentsCharts/PaymentsCharts";
+import { TOKENS } from "@/shared/theme";
 import styles from "./PaymentsPage.module.css";
 
 const PaymentsPage = () => {
@@ -41,7 +42,7 @@ const PaymentsPanel = () => {
         <PaymentsHeader />
       </CommonHeader>
 
-      <Flex vertical gap={24} className={styles.body}>
+      <Flex vertical gap={TOKENS.space[24]} className={styles.body}>
         <PaymentsHeaderCards />
         <PaymentsTable />
         <PaymentsCharts />

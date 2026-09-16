@@ -1,13 +1,29 @@
+.collapse,
+.collapseWithIcon {
+  padding: var(--space-16) var(--space-20);
+  border-radius: var(--radius-2xl);
+  background-color: var(--color-surface-subtle);
+}
+
 .iconContainer {
-  padding: 6px;
-  border-radius: 100%;
-  background-color: var(--color-grey30);
+  width: var(--control-height-xs);
+  height: var(--control-height-xs);
+  flex-shrink: 0;
+  border-radius: var(--radius-full);
+  background-color: var(--color-rail);
+  color: var(--color-text);
 }
 
-.collapse :global(.ant-collapse-header) {
-  height: 24px !important;
+.iconContainer svg {
+  color: inherit;
 }
 
+.title {
+  font-size: var(--font-size-base) !important;
+  font-weight: var(--font-weight-semibold) !important;
+}
+
+.collapse :global(.ant-collapse-header),
 .collapseWithIcon :global(.ant-collapse-header) {
-  height: 32px !important;
+  min-height: var(--control-height-xs);
 }

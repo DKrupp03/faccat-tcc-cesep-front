@@ -1,13 +1,13 @@
-import { Flex, Typography, Skeleton } from "antd";
+import { Flex, Skeleton } from "antd";
+
+import { TOKENS } from "../../theme";
 
 import styles from "./CommonHeaderCards.module.css";
-
-const { Title, Text } = Typography;
 
 type CardType = {
   text: string;
   value: string | number;
-  icon: React.ReactNode;
+  valueColor?: string;
 };
 
 type CommonHeaderCardsProps = {
@@ -20,40 +20,31 @@ export const CommonHeaderCards = ({
   loading,
 }: CommonHeaderCardsProps) => {
   return (
-    <Flex
-      gap={24} justify="center" align="center"
+    <div
       className={styles.cards}
+      style={{ gridTemplateColumns: `repeat(${cards.length}, minmax(0, 1fr))` }}
     >
       {cards.map((card, index) => loading ? (
         <Skeleton
           key={index}
           paragraph={{ rows: 1 }}
           className={styles.card}
-          style={{ paddingTop: 5 }}
           active
         />
       ) : (
         <Flex
           key={index}
-          align="center" gap={16}
+          vertical gap={TOKENS.space[8]}
           className={styles.card}
         >
-          <Flex
-            justify="center" align="center"
-            className={styles.iconContainer}
-          >
-            {card.icon}
-          </Flex>
-          <Flex vertical>
-            <Title level={4}>
-              {card.value}
-            </Title>
-            <Text>
-              {card.text}
-            </Text>
-          </Flex>
+          <span className={styles.label}>
+            {card.text}
+          </span>
+          <span className={styles.value} style={{ color: card.valueColor }}>
+            {card.value}
+          </span>
         </Flex>
       ))}
-    </Flex>
+    </div>
   );
 };

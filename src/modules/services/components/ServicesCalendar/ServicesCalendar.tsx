@@ -11,8 +11,9 @@ import { formatMonthYear, formatTime } from "@/shared/utils/formatters";
 
 import { useServicesList } from "../../hooks/useServicesList";
 import { useServiceForm } from "../../hooks/useServiceForm";
-import { ServiceStatusIcon, getServiceStatusColor } from "../../utils/status";
+import { ServiceStatusIcon, getServiceStatusColor, getServiceStatusBgColor } from "../../utils/status";
 import type { Service } from "../../types/service";
+import { TOKENS } from "@/shared/theme";
 import styles from "./ServicesCalendar.module.css";
 
 const { Text } = Typography;
@@ -60,7 +61,10 @@ export const ServicesCalendar = () => {
             <Tooltip title={service.patient?.name}>
               <div
                 className={styles.event}
-                style={{ "--status-color": getServiceStatusColor(service.status) } as CSSProperties}
+                style={{
+                  "--status-color": getServiceStatusColor(service.status),
+                  "--status-bg": getServiceStatusBgColor(service.status),
+                } as CSSProperties}
                 onClick={(e) => {
                   e.stopPropagation();
                   openForm(service.id);
@@ -89,13 +93,12 @@ export const ServicesCalendar = () => {
           cellRender={cellRender}
           headerRender={({ value }) => (
             <Flex align="center" justify="space-between" className={styles.header}>
-              <Flex align="center" gap={12}>
+              <Flex align="center" gap={TOKENS.space[12]}>
                 <Tooltip title={t("services.calendar.previousMonth")}>
                   <CommonButton
                     onClick={() => changeCalendarMonth(value.subtract(1, "month"))}
                     icon={<IconChevronLeft size={18} />}
-                    circular
-                    outline
+                    className={styles.navButton}
                   />
                 </Tooltip>
                 <Text className={styles.monthLabel}>
@@ -105,8 +108,7 @@ export const ServicesCalendar = () => {
                   <CommonButton
                     onClick={() => changeCalendarMonth(value.add(1, "month"))}
                     icon={<IconChevronRight size={18} />}
-                    circular
-                    outline
+                    className={styles.navButton}
                   />
                 </Tooltip>
               </Flex>

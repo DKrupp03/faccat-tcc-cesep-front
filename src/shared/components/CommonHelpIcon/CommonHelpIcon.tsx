@@ -1,7 +1,7 @@
 import { Tooltip } from "antd";
 import { IconHelpCircle } from "@tabler/icons-react";
 
-import { COLORS } from "@/shared/theme";
+import { TOKENS } from "@/shared/theme";
 
 interface CommonIconHelpParams {
   text: string;
@@ -23,7 +23,7 @@ export const CommonIconHelp = ({
     >
       <IconHelpCircle
         size={size}
-        color={color || COLORS.blue}
+        color={color || TOKENS.color.textMuted}
         style={{ cursor: "help", ...style }}
       />
     </Tooltip>
