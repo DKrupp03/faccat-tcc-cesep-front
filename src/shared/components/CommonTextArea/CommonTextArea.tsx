@@ -17,7 +17,7 @@ export const CommonTextArea: React.FC<CommonTextAreaProps> = ({
   required = false,
   ...props
 }: CommonTextAreaProps) => (
-  <CommonField label={label} required={required}>
+  <CommonField label={label} htmlFor={props.id} required={required}>
     <TextArea
       size="large"
       variant="filled"

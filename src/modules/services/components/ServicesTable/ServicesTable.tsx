@@ -94,11 +94,7 @@ export const ServicesTable = () => {
   return (
     <CommonTable<Service>
       titleHeader={t("common.modules.services")}
-      header={(
-        <span className={styles.orderNote}>
-          {t(orderBy === "date_asc" ? "services.order.dateAsc" : "services.order.dateDesc")}
-        </span>
-      )}
+      headerNote={t(orderBy === "date_asc" ? "services.order.dateAsc" : "services.order.dateDesc")}
       columns={servicesColumnFields}
       dataSource={services}
       rowKey="id"

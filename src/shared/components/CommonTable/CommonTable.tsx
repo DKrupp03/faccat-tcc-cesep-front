@@ -12,6 +12,8 @@ import styles from "./CommonTable.module.css";
 export type CommonTableProps<T extends object = object> = TableProps<T> & {
   titleHeader?: string;
   header?: React.ReactNode;
+  // texto de apoio à direita do título (ex.: ordenação atual)
+  headerNote?: string;
   loading?: boolean;
   pagination?: boolean;
   page?: number;
@@ -25,6 +27,7 @@ const { Title } = Typography;
 export const CommonTable = <T extends object = object>({
   titleHeader,
   header,
+  headerNote,
   loading,
   pagination,
   page,
@@ -52,7 +55,7 @@ export const CommonTable = <T extends object = object>({
       vertical
       className={styles.card}
     >
-      {!inDrawer && (titleHeader || header) && (
+      {!inDrawer && (titleHeader || header || headerNote) && (
         <Flex
           justify="space-between" align="center"
           className={styles.header}
@@ -60,6 +63,9 @@ export const CommonTable = <T extends object = object>({
           <Title level={5} className={styles.title}>
             {titleHeader}
           </Title>
+          {headerNote && (
+            <span className={styles.headerNote}>{headerNote}</span>
+          )}
           {header}
         </Flex>
       )}

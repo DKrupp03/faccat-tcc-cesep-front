@@ -21,8 +21,3 @@
 .status {
   padding-inline-start: var(--space-16) !important;
 }
-
-.orderNote {
-  font-size: var(--font-size-sm);
-  color: var(--color-text-muted);
-}

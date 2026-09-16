@@ -104,7 +104,7 @@ export const PaymentsTable = () => {
   return (
     <CommonTable<Payment>
       titleHeader={t("common.modules.payments")}
-      header={<span className={styles.orderNote}>{t(ORDER_LABELS[orderBy])}</span>}
+      headerNote={t(ORDER_LABELS[orderBy])}
       columns={paymentsColumnFields}
       dataSource={payments}
       rowKey="id"

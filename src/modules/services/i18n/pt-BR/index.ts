@@ -130,7 +130,6 @@ const services = {
 	},
 
 	view: {
-		panel: "Painel",
 		calendar: "Calendário",
 		list: "Lista",
 	},

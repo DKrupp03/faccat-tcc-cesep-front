@@ -39,7 +39,7 @@ export const CommonTimePicker: React.FC<CommonTimePickerProps> = ({
 	...props
 }: CommonTimePickerProps) => {
 	return (
-		<CommonField label={label} required={required}>
+		<CommonField label={label} htmlFor={props.id} required={required}>
 			<TimePicker
 				size="large"
 				variant="filled"

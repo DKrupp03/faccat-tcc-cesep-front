@@ -1,6 +1,4 @@
 import { useMemo } from "react";
-import { useTranslation } from "react-i18next";
-import { Tooltip } from "antd";
 import { IconArrowsSort } from "@tabler/icons-react";
 
 import { CommonDropdown } from "../CommonDropdown/CommonDropdown";
@@ -24,8 +22,6 @@ export const CommonOrderButton = ({
   options,
   width = 200,
 }: CommonOrderButton) => {
-  const { t } = useTranslation();
-  
   const buttons = useMemo(() => (
     options.map((option) => ({
       children: option.label,
@@ -43,19 +39,17 @@ export const CommonOrderButton = ({
   ), [options, onChange, value]);
 
   return (
-    <Tooltip title={t("common.actions.order")}>
-      <CommonDropdown
-        placement="bottomRight"
-        options={buttons}
-        width={width}
+    <CommonDropdown
+      placement="bottomRight"
+      options={buttons}
+      width={width}
+    >
+      <CommonButton
+        icon={<IconArrowsSort size={16} />}
+        outline
       >
-        <CommonButton
-          icon={<IconArrowsSort size={16} />}
-          outline
-        >
-          {options.find((option) => option.value === value)?.label}
-        </CommonButton>
-      </CommonDropdown>
-    </Tooltip>
+        {options.find((option) => option.value === value)?.label}
+      </CommonButton>
+    </CommonDropdown>
   );
 };

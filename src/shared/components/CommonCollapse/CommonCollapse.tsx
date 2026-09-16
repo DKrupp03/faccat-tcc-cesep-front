@@ -108,7 +108,7 @@ export const CommonCollapse = ({
           </Flex>
         ),
         children: (
-          <div className={styles.content}>
+          <div>
             {children}
           </div>
         ),

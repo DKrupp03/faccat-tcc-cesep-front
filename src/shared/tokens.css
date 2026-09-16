@@ -64,6 +64,36 @@
   --color-info: #3B5F86;
   --color-info-bg: #EAF0F6;
 
+  /* Status (atendimentos e pagamentos): um matiz distinto por status. */
+  --color-status-scheduled: #857B70;
+  --color-status-scheduled-text: #57504A;
+  --color-status-scheduled-bg: #EFECE7;
+  --color-status-confirmed: #2F6FD6;
+  --color-status-confirmed-text: #1E56B0;
+  --color-status-confirmed-bg: #E6EEFB;
+  --color-status-attended: #2E8B3E;
+  --color-status-attended-text: #1F6B2D;
+  --color-status-attended-bg: #E5F3E7;
+  --color-status-no-show: #C48A00;
+  --color-status-no-show-text: #8A6500;
+  --color-status-no-show-bg: #FBF3D9;
+  --color-status-cancelled: #D0342C;
+  --color-status-cancelled-text: #B0241D;
+  --color-status-cancelled-bg: #FCEAE9;
+
+  --color-status-paid: #0F9488;
+  --color-status-paid-text: #0B6E65;
+  --color-status-paid-bg: #E0F4F2;
+  --color-status-unpaid: #E8751A;
+  --color-status-unpaid-text: #A94F07;
+  --color-status-unpaid-bg: #FDEEE1;
+  --color-status-overdue: #C2185B;
+  --color-status-overdue-text: #A0134A;
+  --color-status-overdue-bg: #FBE7EF;
+  --color-status-free: #7C4DCC;
+  --color-status-free-text: #6238AD;
+  --color-status-free-bg: #F0EAFA;
+
   /* Não definido no Claude Design — derivado dos neutros. */
   --color-disabled-bg: #F1EEE9;
   --color-disabled-text: #A39C93;

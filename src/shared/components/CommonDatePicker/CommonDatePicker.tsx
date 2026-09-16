@@ -39,7 +39,7 @@ export const CommonDatePicker: React.FC<CommonDatePickerProps> = ({
 	...props
 }: CommonDatePickerProps) => {
 	return (
-		<CommonField label={label} required={required}>
+		<CommonField label={label} htmlFor={props.id} required={required}>
 			<DatePicker
 				size="large"
 				variant="filled"

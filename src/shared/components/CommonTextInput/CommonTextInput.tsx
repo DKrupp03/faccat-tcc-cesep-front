@@ -27,7 +27,7 @@ export const CommonTextInput: React.FC<CommonTextInputProps> = ({
     : undefined;
 
   return (
-    <CommonField label={label} labelSuffix={labelSuffix} required={required}>
+    <CommonField label={label} htmlFor={props.id} labelSuffix={labelSuffix} required={required}>
       {password ? (
         <Input.Password
           prefix={prefix}

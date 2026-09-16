@@ -48,7 +48,7 @@ export const CommonSelect: React.FC<CommonSelectProps> = ({
   }, [onChange]);
 
   return (
-    <CommonField label={label} labelSuffix={labelSuffix} required={required}>
+    <CommonField label={label} htmlFor={props.id} labelSuffix={labelSuffix} required={required}>
       {icon && <Flex className={styles.prefix}>{icon}</Flex>}
       <Select
         ref={selectRef}

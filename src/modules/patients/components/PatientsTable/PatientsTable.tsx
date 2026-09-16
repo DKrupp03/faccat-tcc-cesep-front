@@ -96,9 +96,7 @@ export const PatientsTable = () => {
   return (
     <CommonTable<Patient>
       titleHeader={t("patients.listTitle")}
-      header={ORDER_LABELS[orderBy] && (
-        <span className={styles.orderNote}>{t(ORDER_LABELS[orderBy])}</span>
-      )}
+      headerNote={ORDER_LABELS[orderBy] && t(ORDER_LABELS[orderBy])}
       columns={patientsColumnFields}
       dataSource={patients}
       rowKey="id"

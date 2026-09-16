@@ -2,7 +2,8 @@
   white-space: nowrap;
 }
 
-.containerFit {
+/* especificidade maior que .field (width: 100%) do CommonField */
+.container.containerFit {
   width: auto;
 }
 

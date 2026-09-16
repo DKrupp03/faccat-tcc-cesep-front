@@ -35,8 +35,3 @@
   color: var(--color-text-secondary) !important;
   font-variant-numeric: tabular-nums;
 }
-
-.orderNote {
-  font-size: var(--font-size-sm);
-  color: var(--color-text-muted);
-}

@@ -18,7 +18,7 @@ type CommonHeaderCardsProps = {
 // Mantém a altura da linha de texto (via espaço não quebrável) e sobrepõe o skeleton,
 // para que o card tenha o mesmo tamanho carregando e carregado.
 const SkeletonLine = ({ width }: { width: number }) => (
-  <span className={styles.skeletonLine}>
+  <div className={styles.skeletonLine}>
     {"\u00A0"}
     <Skeleton.Input
       active
@@ -28,7 +28,7 @@ const SkeletonLine = ({ width }: { width: number }) => (
         content: { width, minWidth: 0, height: "1em" },
       }}
     />
-  </span>
+  </div>
 );
 
 export const CommonHeaderCards = ({
@@ -46,19 +46,19 @@ export const CommonHeaderCards = ({
           vertical gap={TOKENS.space[8]}
           className={styles.card}
         >
-          <span className={styles.label}>
+          <div className={styles.label}>
             {loading ? (
               <SkeletonLine width={160} />
             ) : card.text}
-          </span>
-          <span
+          </div>
+          <div
             className={styles.value}
             style={loading ? undefined : { color: card.valueColor }}
           >
             {loading ? (
               <SkeletonLine width={96} />
             ) : card.value}
-          </span>
+          </div>
         </Flex>
       ))}
     </div>
