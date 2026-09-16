@@ -31,7 +31,7 @@ export const CommonHeader = ({
         )}
       </Flex>
 
-      <Flex align="center" gap={TOKENS.space[8]}>
+      <Flex align="center" gap={TOKENS.space[8]} className={styles.actions}>
         {children}
       </Flex>
     </Flex>

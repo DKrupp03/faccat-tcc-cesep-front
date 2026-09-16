@@ -2,6 +2,10 @@
   white-space: nowrap;
 }
 
+.containerFit {
+  width: auto;
+}
+
 .group {
   width: 100%;
   height: var(--control-height-field);

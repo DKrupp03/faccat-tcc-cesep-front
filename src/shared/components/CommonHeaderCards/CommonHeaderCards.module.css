@@ -25,3 +25,8 @@
   color: var(--color-ink);
   font-variant-numeric: tabular-nums;
 }
+
+.skeletonLine {
+  position: relative;
+  display: block;
+}

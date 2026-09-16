@@ -18,7 +18,12 @@ import { ServicesPanelsButton } from "../ServicesPanelsButton/ServicesPanelsButt
 import { ServicesRoomsButton } from "../ServicesRoomsButton/ServicesRoomsButton";
 import type { ServicesOrder } from "../../types/service";
 
-export const ServicesHeader = () => {
+type ServicesHeaderProps = {
+  // Nas drawers só existe a lista, então o alternador Calendário/Lista não aparece.
+  hidePanelsButton?: boolean;
+};
+
+export const ServicesHeader = ({ hidePanelsButton = false }: ServicesHeaderProps) => {
   const { t } = useTranslation();
   const {
     openFilter,
@@ -44,7 +49,7 @@ export const ServicesHeader = () => {
 
   return (
     <>
-      <ServicesPanelsButton />
+      {!hidePanelsButton && <ServicesPanelsButton />}
       {panelView === "list" && (
         <CommonOrderButton
           value={orderBy}

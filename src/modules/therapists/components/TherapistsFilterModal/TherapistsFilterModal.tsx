@@ -65,7 +65,7 @@ export const TherapistsFilterModal = () => {
           <Col span={24}>
             <Flex justify="start">
               <Form.Item name="active" noStyle>
-                <CommonGroupButtons>
+                <CommonGroupButtons label={t("therapists.columns.active")}>
                   <CommonGroupButtons.Button value={1}>
                     {t("common.active.active")}
                   </CommonGroupButtons.Button>

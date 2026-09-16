@@ -44,7 +44,6 @@ export const MedicalRecordsHeader = () => {
         value={orderBy}
         onChange={(newOrderBy) => filtratePanel(filter, newOrderBy as MedicalRecordsOrder)}
         options={orderOptions}
-        showLabel
       />
       <Tooltip title={t("common.actions.reload")}>
         <CommonButton

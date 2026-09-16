@@ -127,7 +127,7 @@ export const RoomsModal = ({ isOpen, close }: RoomsModalProps) => {
                   <Flex key={field.key} gap={TOKENS.space[16]} align="flex-start">
                     <Form.Item name={[field.name, "id"]} hidden noStyle />
                     {/* Largura fixa no botão: numa Col estreita ele era
-                        espremido e deixava de ser redondo. */}
+                        espremido e deformado. */}
                     <Form.Item
                       name={[field.name, "name"]}
                       rules={requiredRule}
@@ -145,7 +145,6 @@ export const RoomsModal = ({ isOpen, close }: RoomsModalProps) => {
                         icon={<IconTrash size={16} />}
                         buttonVariant="danger"
                         size="small"
-                        shape="circle"
                       />
                     </Flex>
                   </Flex>

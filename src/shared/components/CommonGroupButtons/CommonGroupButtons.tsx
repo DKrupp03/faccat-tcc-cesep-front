@@ -67,7 +67,10 @@ const CommonGroupButtonsBase: React.FC<GroupProps> = ({
   ].filter(Boolean).join(" ");
 
   return (
-    <CommonField label={label} className={styles.container}>
+    <CommonField
+      label={label}
+      className={fit ? `${styles.container} ${styles.containerFit}` : styles.container}
+    >
       <GroupContext.Provider value={{ value, onChange, tone }}>
         <Flex className={groupClass}>
           {children}

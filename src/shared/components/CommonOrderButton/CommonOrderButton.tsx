@@ -16,7 +16,6 @@ type CommonOrderButton = {
     icon: React.ReactNode;
   }[];
   width?: number;
-  showLabel?: boolean;
 };
 
 export const CommonOrderButton = ({
@@ -24,7 +23,6 @@ export const CommonOrderButton = ({
   onChange,
   options,
   width = 200,
-  showLabel = false,
 }: CommonOrderButton) => {
   const { t } = useTranslation();
   
@@ -51,19 +49,12 @@ export const CommonOrderButton = ({
         options={buttons}
         width={width}
       >
-        {showLabel ? (
-          <CommonButton
-            icon={<IconArrowsSort size={16} />}
-            outline
-          >
-            {options.find((option) => option.value === value)?.label}
-          </CommonButton>
-        ) : (
-          <CommonButton
-            icon={<IconArrowsSort size={18} />}
-            outline
-          />
-        )}
+        <CommonButton
+          icon={<IconArrowsSort size={16} />}
+          outline
+        >
+          {options.find((option) => option.value === value)?.label}
+        </CommonButton>
       </CommonDropdown>
     </Tooltip>
   );

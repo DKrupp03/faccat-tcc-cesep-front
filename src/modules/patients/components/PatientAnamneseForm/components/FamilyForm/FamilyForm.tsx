@@ -84,7 +84,6 @@ export const FamilyForm = () => {
                             icon={<IconTrash size={16} />}
                             buttonVariant="danger"
                             size="small"
-                            shape="circle"
                           />
                         </Flex>
                       </Col>
@@ -132,7 +131,6 @@ export const FamilyForm = () => {
                             icon={<IconTrash size={16} />}
                             buttonVariant="danger"
                             size="small"
-                            shape="circle"
                           />
                         </Flex>
                       </Col>
@@ -177,7 +175,6 @@ export const FamilyForm = () => {
                           icon={<IconTrash size={16} />}
                           buttonVariant="danger"
                           size="small"
-                          shape="circle"
                         />
                       </Flex>
                     </Col>

@@ -81,7 +81,7 @@ export const TherapistDrawer = () => {
 
   return (
     <PatientsProvider therapistId={therapist?.id}>
-      <ServicesProvider therapistId={therapist?.id}>
+      <ServicesProvider therapistId={therapist?.id} initialPanelView="list">
         <TherapistDrawerContent />
       </ServicesProvider>
     </PatientsProvider>

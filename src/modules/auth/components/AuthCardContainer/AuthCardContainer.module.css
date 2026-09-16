@@ -40,3 +40,9 @@
 .card :global(.ant-input) {
   height: var(--control-height-lg);
 }
+
+/* o <input> dentro do wrapper (campos com ícone) não pode herdar os 48px,
+   senão estoura o padding do wrapper e desce */
+.card :global(.ant-input-affix-wrapper .ant-input) {
+  height: auto;
+}

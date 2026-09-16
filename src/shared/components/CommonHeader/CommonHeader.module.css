@@ -20,6 +20,11 @@
   color: var(--color-text-secondary);
 }
 
+/* ações nunca encolhem (evita botões de ícone espremidos) */
+.actions > * {
+  flex-shrink: 0;
+}
+
 /* ação primária com texto fica um pouco afastada dos ícones */
 .header :global(.ant-btn[data-variant="primary"]:not(.ant-btn-icon-only)) {
   margin-left: var(--space-8);

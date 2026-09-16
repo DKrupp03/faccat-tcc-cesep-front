@@ -63,7 +63,6 @@ export const PaymentsHeader = ({ showCharts = true }: PaymentsHeaderProps) => {
         onChange={(newOrderBy) => filtratePanel(filter, newOrderBy as PaymentsOrder)}
         options={paymentsOrderOptions}
         width={250}
-        showLabel
       />
       {showCharts && (
         <Tooltip title={t("payments.actions.showCharts")}>

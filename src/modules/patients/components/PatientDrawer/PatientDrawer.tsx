@@ -116,7 +116,7 @@ export const PatientDrawer = () => {
 
   return (
     <MedicalRecordsProvider patientId={patient?.id} patientName={patient?.name}>
-      <ServicesProvider patientId={patient?.id}>
+      <ServicesProvider patientId={patient?.id} initialPanelView="list">
         <PaymentsProvider patientId={patient?.id}>
           <PatientDrawerContent />
         </PaymentsProvider>

@@ -38,6 +38,8 @@
 
 .content {
   width: 100%;
+  /* sem stretch: o filho cresce com o conteúdo e o padding inferior entra na rolagem */
+  align-items: flex-start;
   padding: var(--space-8) var(--space-32) var(--space-32);
   overflow: auto;
 }
