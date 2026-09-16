@@ -9,6 +9,7 @@ import { PATHS } from "@/routes/paths";
 
 import { AuthCardContainer } from "../../components/AuthCardContainer/AuthCardContainer";
 import { ResetPasswordForm } from "../../components/ResetPasswordForm/ResetPasswordForm";
+import { TOKENS } from "@/shared/theme";
 
 const { Title, Text } = Typography;
 
@@ -30,8 +31,8 @@ const ResetPasswordPage = () => {
 
   return (
     <AuthCardContainer>
-      <Flex vertical gap={4}>
-        <Flex align="center" gap={12}>
+      <Flex vertical gap={TOKENS.space[4]}>
+        <Flex align="center" gap={TOKENS.space[12]}>
           <CommonBackButton onClick={goBack} />
           <Title level={3}>
             {t("auth.resetPassword.resetPassword")}

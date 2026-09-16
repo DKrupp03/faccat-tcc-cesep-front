@@ -5,7 +5,7 @@ import { IconHistory } from "@tabler/icons-react";
 import { CommonCollapse } from "@/shared/components/CommonCollapse/CommonCollapse";
 import { CommonTextInput } from "@/shared/components/CommonTextInput/CommonTextInput";
 import { CommonGroupButtons } from "@/shared/components/CommonGroupButtons/CommonGroupButtons";
-import { COLORS } from "@/shared/theme";
+import { TOKENS } from "@/shared/theme";
 import { apgarMask, integerMask } from "@/shared/utils/formatters";
 
 import { SectionsCard } from "../SectionsCard/SectionsCard";
@@ -17,41 +17,42 @@ export const PreviousHistoryForm = () => {
 
   return (
     <CommonCollapse
+      variant="card"
       title={t("patients.anamnese.previousHistory.title")}
-      icon={<IconHistory size={16} color={COLORS.grey70} />}
+      icon={<IconHistory size={16} />}
       initialOpen={false}
     >
       {anamneseType === "adult" ? (
         <>
-          <Row gutter={16}>
+          <Row gutter={TOKENS.space[16]}>
             <Col span={24}>
               <Form.Item name={["anamnese_data", "previousHistory", "adultInfo", "notableEvents"]}>
                 <CommonTextInput label={t("patients.anamnese.previousHistory.adultInfo.notableEvents")} />
               </Form.Item>
             </Col>
           </Row>
-          <Row gutter={16}>
+          <Row gutter={TOKENS.space[16]}>
             <Col span={24}>
               <Form.Item name={["anamnese_data", "previousHistory", "adultInfo", "development"]}>
                 <CommonTextInput label={t("patients.anamnese.previousHistory.adultInfo.development")} />
               </Form.Item>
             </Col>
           </Row>
-          <Row gutter={16}>
+          <Row gutter={TOKENS.space[16]}>
             <Col span={24}>
               <Form.Item name={["anamnese_data", "previousHistory", "adultInfo", "schoolJourney"]}>
                 <CommonTextInput label={t("patients.anamnese.previousHistory.adultInfo.schoolJourney")} />
               </Form.Item>
             </Col>
           </Row>
-          <Row gutter={16}>
+          <Row gutter={TOKENS.space[16]}>
             <Col span={24}>
               <Form.Item name={["anamnese_data", "previousHistory", "adultInfo", "socialRelations"]}>
                 <CommonTextInput label={t("patients.anamnese.previousHistory.adultInfo.socialRelations")} />
               </Form.Item>
             </Col>
           </Row>
-          <Row gutter={16}>
+          <Row gutter={TOKENS.space[16]}>
             <Col span={24}>
               <Form.Item name={["anamnese_data", "previousHistory", "adultInfo", "hospitalizations"]}>
                 <CommonTextInput label={t("patients.anamnese.previousHistory.adultInfo.hospitalizations")} />
@@ -63,9 +64,9 @@ export const PreviousHistoryForm = () => {
         <>
           <SectionsCard>
             <CommonCollapse title={t("patients.anamnese.previousHistory.gestation.title")}>
-              <Row gutter={16}>
+              <Row gutter={TOKENS.space[16]}>
                 <Col span={8}>
-                  <Flex align="center" style={{ height: 44 }}>
+                  <Flex align="center">
                     <Form.Item name={["anamnese_data", "previousHistory", "gestation", "planned"]} noStyle>
                       <CommonGroupButtons label={t("patients.anamnese.previousHistory.gestation.planned")}>
                         <CommonGroupButtons.Button value={1}>
@@ -79,7 +80,7 @@ export const PreviousHistoryForm = () => {
                   </Flex>
                 </Col>
                 <Col span={8}>
-                  <Flex align="center" style={{ height: 44 }}>
+                  <Flex align="center">
                     <Form.Item name={["anamnese_data", "previousHistory", "gestation", "desired"]} noStyle>
                       <CommonGroupButtons label={t("patients.anamnese.previousHistory.gestation.desired")}>
                         <CommonGroupButtons.Button value={1}>
@@ -93,7 +94,7 @@ export const PreviousHistoryForm = () => {
                   </Flex>
                 </Col>
                 <Col span={8}>
-                  <Flex align="center" style={{ height: 44 }}>
+                  <Flex align="center">
                     <Form.Item name={["anamnese_data", "previousHistory", "gestation", "prenatal"]} noStyle>
                       <CommonGroupButtons label={t("patients.anamnese.previousHistory.gestation.prenatal")}>
                         <CommonGroupButtons.Button value={1}>
@@ -107,11 +108,11 @@ export const PreviousHistoryForm = () => {
                   </Flex>
                 </Col>
               </Row>
-              <Row gutter={16}>
+              <Row gutter={TOKENS.space[16]}>
                 <Col span={24}>
                   <Form.Item
                     name={["anamnese_data", "previousHistory", "gestation", "motherConditions"]}
-                    style={{ marginTop: 16 }}
+                    style={{ marginTop: TOKENS.space[16] }}
                   >
                     <CommonTextInput label={t("patients.anamnese.previousHistory.gestation.motherConditions")} />
                   </Form.Item>
@@ -122,9 +123,9 @@ export const PreviousHistoryForm = () => {
 
           <SectionsCard>
             <CommonCollapse title={t("patients.anamnese.previousHistory.abortions.title")}>
-              <Row gutter={16}>
+              <Row gutter={TOKENS.space[16]}>
                 <Col span={8}>
-                  <Flex align="center" style={{ height: 44 }}>
+                  <Flex align="center">
                     <Form.Item name={["anamnese_data", "previousHistory", "abortions", "happened"]} noStyle>
                       <CommonGroupButtons label={t("patients.anamnese.previousHistory.abortions.happened")}>
                         <CommonGroupButtons.Button value={1}>
@@ -156,9 +157,9 @@ export const PreviousHistoryForm = () => {
 
           <SectionsCard>
             <CommonCollapse title={t("patients.anamnese.previousHistory.childbirth.title")}>
-              <Row gutter={16}>
+              <Row gutter={TOKENS.space[16]}>
                 <Col span={8}>
-                  <Flex align="center" style={{ height: 44 }}>
+                  <Flex align="center">
                     <Form.Item name={["anamnese_data", "previousHistory", "childbirth", "type"]} noStyle>
                       <CommonGroupButtons label={t("patients.anamnese.previousHistory.childbirth.type")}>
                         <CommonGroupButtons.Button value={"normal"}>
@@ -188,14 +189,14 @@ export const PreviousHistoryForm = () => {
                   </Form.Item>
                 </Col>
               </Row>
-              <Row gutter={16}>
+              <Row gutter={TOKENS.space[16]}>
                 <Col span={24}>
                   <Form.Item name={["anamnese_data", "previousHistory", "childbirth", "parentsReaction"]}>
                     <CommonTextInput label={t("patients.anamnese.previousHistory.childbirth.parentsReaction")} />
                   </Form.Item>
                 </Col>
               </Row>
-              <Row gutter={16}>
+              <Row gutter={TOKENS.space[16]}>
                 <Col span={24}>
                   <Form.Item name={["anamnese_data", "previousHistory", "childbirth", "postpartumDepression"]}>
                     <CommonTextInput label={t("patients.anamnese.previousHistory.childbirth.postpartumDepression")} />

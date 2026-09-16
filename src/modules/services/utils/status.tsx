@@ -1,46 +1,22 @@
-/* eslint-disable react-refresh/only-export-components */
-import {
-  IconClock,
-  IconCircleCheck,
-  IconUserCheck,
-  IconUserX,
-  IconBan,
-} from "@tabler/icons-react";
-
-import { COLORS } from "@/shared/theme";
+import { TOKENS } from "@/shared/theme";
 import type { ServiceStatus } from "../types/service";
 
-const SERVICE_STATUS_COLORS: Record<ServiceStatus, string> = {
-  scheduled: COLORS.grey70,
-  confirmed: COLORS.blue,
-  attended: COLORS.gren,
-  no_show: COLORS.yellow,
-  cancelled: COLORS.red,
-};
+const { color: C } = TOKENS;
 
-const SERVICE_STATUS_ICONS: Record<ServiceStatus, typeof IconClock> = {
-  scheduled: IconClock,
-  confirmed: IconCircleCheck,
-  attended: IconUserCheck,
-  no_show: IconUserX,
-  cancelled: IconBan,
+// Cor do ponto, cor do texto e fundo suave de cada status (padrão C).
+const SERVICE_STATUS_COLORS: Record<ServiceStatus, { color: string; text: string; bg: string }> = {
+  scheduled: { color: C.statusScheduled, text: C.statusScheduledText, bg: C.statusScheduledBg },
+  confirmed: { color: C.statusConfirmed, text: C.statusConfirmedText, bg: C.statusConfirmedBg },
+  attended: { color: C.statusAttended, text: C.statusAttendedText, bg: C.statusAttendedBg },
+  no_show: { color: C.statusNoShow, text: C.statusNoShowText, bg: C.statusNoShowBg },
+  cancelled: { color: C.statusCancelled, text: C.statusCancelledText, bg: C.statusCancelledBg },
 };
 
 export const getServiceStatusColor = (status: ServiceStatus) =>
-  SERVICE_STATUS_COLORS[status];
+  SERVICE_STATUS_COLORS[status].color;
 
-type ServiceStatusIconProps = {
-  status: ServiceStatus;
-  size?: number;
-  color?: string;
-};
+export const getServiceStatusTextColor = (status: ServiceStatus) =>
+  SERVICE_STATUS_COLORS[status].text;
 
-export const ServiceStatusIcon = ({
-  status,
-  size = 16,
-  color,
-}: ServiceStatusIconProps) => {
-  const Icon = SERVICE_STATUS_ICONS[status];
-
-  return <Icon size={size} color={color ?? getServiceStatusColor(status)} />;
-};
+export const getServiceStatusBgColor = (status: ServiceStatus) =>
+  SERVICE_STATUS_COLORS[status].bg;

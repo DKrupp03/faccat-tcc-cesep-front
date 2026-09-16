@@ -125,7 +125,7 @@ export const ProfilesSelect: React.FC<ProfilesSelectProps> = ({
       options={mergedOptions}
       value={value}
       loading={loading}
-      icon={showHelp ? <CommonIconHelp text={t("common.help.defaultValue")} /> : undefined}
+      labelSuffix={showHelp ? <CommonIconHelp text={t("common.help.defaultValue")} size={15} /> : undefined}
       allowClear
       showSearch={{ filterOption: false, onSearch: handleSearch }}
       {...props}

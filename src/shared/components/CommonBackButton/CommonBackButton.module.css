@@ -1,0 +1,6 @@
+.button {
+  width: var(--control-height-xs) !important;
+  height: var(--control-height-xs) !important;
+  flex-shrink: 0;
+  border-radius: var(--radius-md) !important;
+}

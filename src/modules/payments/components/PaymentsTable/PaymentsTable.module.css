@@ -1,7 +1,29 @@
 .name {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-ink);
   cursor: pointer;
+  transition: color var(--transition-fast);
 }
 
 .name:hover {
-  text-decoration: underline;
+  color: var(--color-accent);
+}
+
+.value {
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-ink) !important;
+  font-variant-numeric: tabular-nums;
+}
+
+.date {
+  font-variant-numeric: tabular-nums;
+}
+
+.secondary {
+  color: var(--color-text-secondary) !important;
+}
+
+.method {
+  padding-inline-start: var(--space-24) !important;
 }

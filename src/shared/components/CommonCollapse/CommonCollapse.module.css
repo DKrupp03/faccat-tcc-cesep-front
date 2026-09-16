@@ -1,13 +1,93 @@
+.collapse {
+  width: 100%;
+  transition: background-color var(--transition-fast);
+}
+
+/* bloco suave dentro de formulários (ex.: Responsável, Documentos) */
+.block {
+  padding: var(--space-16) var(--space-20);
+  border-radius: var(--radius-2xl);
+  background-color: var(--color-surface-subtle);
+}
+
+/* seção em cartão (anamnese) */
+.card {
+  padding: var(--space-16) var(--space-24);
+  border-radius: var(--radius-2xl) !important;
+  background-color: var(--color-surface) !important;
+  box-shadow: var(--shadow-xs);
+}
+
+.card:not(.open):hover {
+  background-color: var(--color-surface-subtle) !important;
+}
+
+.card.open {
+  padding: var(--space-24);
+}
+
+/* sub-bloco sem fundo próprio (dentro de outro bloco) */
+.plain {
+  padding: 0;
+}
+
 .iconContainer {
-  padding: 6px;
-  border-radius: 100%;
-  background-color: var(--color-grey30);
+  width: var(--control-height-xs);
+  height: var(--control-height-xs);
+  flex-shrink: 0;
+  border-radius: var(--radius-full);
+  background-color: var(--color-rail);
+  color: var(--color-text);
+}
+
+/* ícone da seção em cartão: 30px no design */
+.card .iconContainer {
+  width: 30px;
+  height: 30px;
+}
+
+.card.open .iconContainer {
+  background-color: var(--color-accent-soft);
+  color: var(--color-accent);
+}
+
+.iconContainer svg {
+  color: inherit !important;
+  stroke: currentColor;
+}
+
+.title {
+  font-size: var(--font-size-base) !important;
+  font-weight: var(--font-weight-semibold) !important;
+  color: var(--color-ink) !important;
+}
+
+.card.open .title {
+  font-size: var(--font-size-lg) !important;
+  font-weight: var(--font-weight-bold) !important;
 }
 
 .collapse :global(.ant-collapse-header) {
-  height: 24px !important;
+  min-height: var(--control-height-xs);
 }
 
-.collapseWithIcon :global(.ant-collapse-header) {
-  height: 32px !important;
+.expandButton {
+  width: var(--control-height-xs) !important;
+  height: var(--control-height-xs) !important;
+  border-radius: var(--radius-md) !important;
+}
+
+.card .expandButton {
+  width: var(--space-32) !important;
+  height: var(--space-32) !important;
+}
+
+.addButton {
+  width: var(--space-32) !important;
+  height: var(--space-32) !important;
+  border-radius: var(--radius-md) !important;
+}
+
+.plain .title {
+  font-weight: var(--font-weight-bold) !important;
 }

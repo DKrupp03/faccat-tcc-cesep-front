@@ -1,5 +1,5 @@
 import { useEffect, useMemo } from "react";
-import { Form, Row, Col, Flex, Skeleton, Upload } from "antd";
+import { Form, Row, Col, Flex, Skeleton, Upload, Tooltip } from "antd";
 import { useTranslation } from "react-i18next";
 import { IconTrash, IconUpload } from "@tabler/icons-react";
 
@@ -9,7 +9,6 @@ import { CommonDatePicker } from "@/shared/components/CommonDatePicker";
 import { CommonAvatar } from "@/shared/components/CommonAvatar/CommonAvatar";
 import { CommonButton } from "@/shared/components/CommonButton/CommonButton";
 import { CommonSwitch } from "@/shared/components/CommonSwitch/CommonSwitch";
-import { CommonIconHelp } from "@/shared/components/CommonHelpIcon/CommonHelpIcon";
 import { ProfilesSelect } from "@/shared/components/ProfilesSelect/ProfilesSelect";
 import {
   phoneMask,
@@ -25,6 +24,7 @@ import { useTherapistFormState } from "../../hooks/useTherapistFormState";
 import { useTherapistForm } from "../../hooks/useTherapistForm";
 import type { Therapist } from "../../types/therapist";
 import { getGenderOptions } from "../../utils/form";
+import { TOKENS } from "@/shared/theme";
 import styles from "./TherapistForm.module.css";
 
 // Limpar o select devolve undefined, que o JSON descarta: sem virar null, o
@@ -102,14 +102,18 @@ export const TherapistForm = () => {
       className={styles.form}
     >
       <Flex
-        justify="center" align="center" gap={10}
+        align="center" gap={TOKENS.space[16]}
         className={styles.avatarContainer}
       >
         <CommonAvatar
-          size={60}
-          circular
+          size={56}
+          name={therapist?.name}
           photoUrl={photoUrl}
         />
+        <Flex vertical gap={TOKENS.space[2]} className={styles.avatarText}>
+          <span className={styles.avatarTitle}>{t("therapists.form.photo")}</span>
+          <span className={styles.avatarHint}>{t("therapists.form.photoHint")}</span>
+        </Flex>
         <Upload
           showUploadList={false}
           accept="image/*"
@@ -122,22 +126,25 @@ export const TherapistForm = () => {
           <CommonButton
             onClick={() => {}}
             icon={<IconUpload size={18} />}
-            buttonVariant="primary"
-            circular
-          />
+            outline
+          >
+            {t("therapists.form.upload")}
+          </CommonButton>
         </Upload>
-        <CommonButton
-          onClick={() => {
-            setChangedPhoto(true);
-            setUploadedPhoto(undefined);
-          }}
-          icon={<IconTrash size={18} />}
-          buttonVariant="danger"
-          circular
-        />
+        <Tooltip title={t("common.actions.delete")}>
+          <CommonButton
+            onClick={() => {
+              setChangedPhoto(true);
+              setUploadedPhoto(undefined);
+            }}
+            icon={<IconTrash size={18} />}
+            buttonVariant="danger"
+            outline
+          />
+        </Tooltip>
       </Flex>
 
-      <Row gutter={16}>
+      <Row gutter={TOKENS.space[16]}>
         <Col span={12}>
           <Form.Item name="name" rules={requiredRule}>
             <CommonTextInput
@@ -157,7 +164,7 @@ export const TherapistForm = () => {
         </Col>
       </Row>
 
-      <Row gutter={16}>
+      <Row gutter={TOKENS.space[16]}>
         <Col span={12}>
           <Form.Item name="gender" rules={requiredRule}>
             <CommonSelect
@@ -183,7 +190,7 @@ export const TherapistForm = () => {
         </Col>
       </Row>
 
-      <Row gutter={16}>
+      <Row gutter={TOKENS.space[16]}>
         <Col span={12}>
           <Form.Item name="phone" normalize={phoneMask}>
             <CommonTextInput label={t("therapists.columns.phone")} />
@@ -196,7 +203,7 @@ export const TherapistForm = () => {
         </Col>
       </Row>
 
-      <Row gutter={16}>
+      <Row gutter={TOKENS.space[16]}>
         <Col span={12}>
           <Form.Item name="crp" normalize={crpMask}>
             <CommonTextInput label={t("therapists.columns.crp")} />
@@ -214,7 +221,7 @@ export const TherapistForm = () => {
         </Col>
       </Row>
 
-      <Row gutter={16}>
+      <Row gutter={TOKENS.space[16]}>
         <Col span={12}>
           <Form.Item name="supervisor_id" normalize={normalizeSupervisor}>
             <ProfilesSelect
@@ -227,28 +234,23 @@ export const TherapistForm = () => {
         </Col>
       </Row>
 
-      <Row gutter={16}>
-        <Col span={6}>
-          <Form.Item name="active">
+      <Flex vertical gap={TOKENS.space[12]} className={styles.switches}>
+        <Flex align="center" gap={TOKENS.space[12]} wrap>
+          <Form.Item name="active" noStyle>
             <CommonSwitch
               label={t("therapists.columns.active")}
               disabled={!therapist?.id}
-              icon={<CommonIconHelp text={t("therapists.help.active")} />}
             />
           </Form.Item>
-        </Col>
-      </Row>
-
-      <Row gutter={16} className={styles.switch}>
-        <Col span={6}>
-          <Form.Item name="admin">
-            <CommonSwitch
-              label={t("therapists.columns.admin")}
-              icon={<CommonIconHelp text={t("therapists.help.admin")} />}
-            />
+          <span className={styles.switchHint}>{t("therapists.help.active")}</span>
+        </Flex>
+        <Flex align="center" gap={TOKENS.space[12]} wrap>
+          <Form.Item name="admin" noStyle>
+            <CommonSwitch label={t("therapists.columns.admin")} />
           </Form.Item>
-        </Col>
-      </Row>
+          <span className={styles.switchHint}>{t("therapists.help.admin")}</span>
+        </Flex>
+      </Flex>
     </Form>
   );
 };
@@ -263,6 +265,7 @@ export const TherapistFormOptions = () => {
         <CommonButton
           onClick={() => deleteTherapist(therapist.id)}
           buttonVariant="danger"
+          outline
           loading={isSubmitting}
         >
           {t("common.actions.delete")}

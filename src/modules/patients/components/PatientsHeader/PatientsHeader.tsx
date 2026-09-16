@@ -49,8 +49,6 @@ export const PatientsHeader = ({ onCreateClick }: PatientsHeaderProps = {}) => {
         <CommonButton
           onClick={() => filtratePanel()}
           icon={<IconReload size={18} />}
-          size="large"
-          circular
           outline
         />
       </Tooltip>
@@ -58,20 +56,16 @@ export const PatientsHeader = ({ onCreateClick }: PatientsHeaderProps = {}) => {
         <CommonButton
           onClick={openFilter}
           icon={<IconFilter size={18} />}
-          size="large"
-          circular
           outline
         />
       </Tooltip>
-      <Tooltip title={t("patients.actions.create")}>
-        <CommonButton
-          onClick={onCreateClick ?? (() => openForm())}
-          icon={<IconPlus size={18} />}
-          size="large"
-          buttonVariant="primary"
-          circular
-        />
-      </Tooltip>
+      <CommonButton
+        onClick={onCreateClick ?? (() => openForm())}
+        icon={<IconPlus size={18} />}
+        buttonVariant="primary"
+      >
+        {t("patients.actions.new")}
+      </CommonButton>
     </>
   );
 };

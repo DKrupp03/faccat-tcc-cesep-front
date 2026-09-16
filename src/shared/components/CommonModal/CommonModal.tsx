@@ -3,6 +3,8 @@ import { Flex, Modal, Typography } from "antd";
 
 import { CommonCloseButton } from "../CommonCloseButton/CommonCloseButton";
 
+import { TOKENS } from "../../theme";
+
 import styles from "./CommonModal.module.css";
 
 type CommonModalProps = {
@@ -29,16 +31,16 @@ export const CommonModal = ({
       justify="space-between" align="center"
       className={styles.header}
     >
-      <Title level={5}>
+      <Title level={5} className={styles.title}>
         {title}
       </Title>
-      <CommonCloseButton onClick={close} />
+      <CommonCloseButton onClick={close} className={styles.close} />
     </Flex>
   ), [title, close]);
 
   const footerContent = useMemo(() => (
     <Flex
-      justify="end" gap={12}
+      justify="end" align="center" gap={TOKENS.space[12]}
       className={styles.footer}
     >
       {footer}

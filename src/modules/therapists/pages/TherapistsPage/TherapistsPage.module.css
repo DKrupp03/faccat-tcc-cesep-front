@@ -4,5 +4,5 @@
 
 .body {
   width: 100%;
-  padding: 24px;
+  padding: var(--space-8) var(--space-32) var(--space-32);
 }

@@ -1,0 +1,16 @@
+.dangerIcon {
+  width: var(--control-height-xs);
+  height: var(--control-height-xs);
+  flex-shrink: 0;
+  border-radius: var(--radius-full);
+  background-color: var(--color-danger-bg-hover);
+  color: var(--color-danger);
+}
+
+.description {
+  margin: 0;
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text);
+  text-wrap: pretty;
+}

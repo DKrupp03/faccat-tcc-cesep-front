@@ -1,17 +1,16 @@
 import { useTranslation } from "react-i18next";
+import { Flex } from "antd";
 import {
   BarChart,
   Bar,
   XAxis,
   YAxis,
-  CartesianGrid,
   Tooltip,
-  Legend,
   ResponsiveContainer,
   type TooltipProps,
 } from "recharts";
 
-import { COLORS } from "@/shared/theme";
+import { TOKENS } from "@/shared/theme";
 import {
   formatShortMonth,
   formatCurrency,
@@ -21,6 +20,9 @@ import {
 import type { PaymentMonthlyChartItem } from "../../types/payment";
 import { ChartCard } from "./ChartCard";
 import styles from "./PaymentsCharts.module.css";
+
+const { color: C, font: F, radius: R } = TOKENS;
+const BAR_RADIUS: [number, number, number, number] = [R["2xs"], R["2xs"], 0, 0];
 
 type PaymentsMonthlyChartProps = {
   data: PaymentMonthlyChartItem[];
@@ -44,13 +46,13 @@ export const PaymentsMonthlyChart = ({
 
     const rows = [
       {
-        color: COLORS.blue,
+        color: C.accent,
         label: t("payments.charts.received"),
         value: item.received,
         count: item.received_count,
       },
       {
-        color: COLORS.yellow,
+        color: C.warning,
         label: t("payments.charts.toReceive"),
         value: item.to_receive,
         count: item.to_receive_count,
@@ -83,6 +85,18 @@ export const PaymentsMonthlyChart = ({
       info={t("payments.charts.monthlyTooltip")}
       loading={loading}
       className={styles.monthlyCard}
+      extra={(
+        <Flex align="center" gap={TOKENS.space[16]}>
+          <span className={styles.chartLegend}>
+            <span className={styles.tooltipDot} style={{ backgroundColor: C.accent }} />
+            {t("payments.charts.received")}
+          </span>
+          <span className={styles.chartLegend}>
+            <span className={styles.tooltipDot} style={{ backgroundColor: C.warning }} />
+            {t("payments.charts.toReceive")}
+          </span>
+        </Flex>
+      )}
     >
       <ResponsiveContainer width="100%" height={240}>
         <BarChart
@@ -90,44 +104,33 @@ export const PaymentsMonthlyChart = ({
           barGap={4}
           margin={{ top: 8, right: 8, left: 4, bottom: 0 }}
         >
-          <CartesianGrid
-            strokeDasharray="4 4"
-            vertical={false}
-            stroke={COLORS.grey30}
-          />
           <XAxis
             dataKey="month"
             tickFormatter={formatShortMonth}
             tickLine={false}
-            axisLine={{ stroke: COLORS.grey30 }}
-            tick={{ fontSize: 12, fill: COLORS.grey70 }}
+            axisLine={{ stroke: C.border }}
+            tick={{ fontSize: F.size.xs, fill: C.textMuted }}
           />
           <YAxis
             width={72}
             tickFormatter={formatCurrencyCompact}
             tickLine={false}
             axisLine={false}
-            tick={{ fontSize: 12, fill: COLORS.grey70 }}
+            tick={{ fontSize: F.size.xs, fill: C.textMuted }}
           />
-          <Tooltip cursor={{ fill: COLORS.grey10 }} content={renderTooltip} />
-          <Legend
-            wrapperStyle={{ fontSize: 13 }}
-            formatter={(value) => (
-              <span style={{ color: COLORS.grey90 }}>{value}</span>
-            )}
-          />
+          <Tooltip cursor={{ fill: C.bg }} content={renderTooltip} />
           <Bar
             dataKey="received"
             name={t("payments.charts.received")}
-            fill={COLORS.blue}
-            radius={[4, 4, 0, 0]}
+            fill={C.accent}
+            radius={BAR_RADIUS}
             maxBarSize={14}
           />
           <Bar
             dataKey="to_receive"
             name={t("payments.charts.toReceive")}
-            fill={COLORS.yellow}
-            radius={[4, 4, 0, 0]}
+            fill={C.warning}
+            radius={BAR_RADIUS}
             maxBarSize={14}
           />
         </BarChart>

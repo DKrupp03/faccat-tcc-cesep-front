@@ -12,6 +12,7 @@ import { CommonGroupButtons } from "@/shared/components/CommonGroupButtons/Commo
 import { getGenderOptions } from "@/modules/therapists/utils/form";
 
 import type { RegisterPayload } from "../../types/auth";
+import { TOKENS } from "@/shared/theme";
 
 import styles from "./RegisterForm.module.css";
 
@@ -87,7 +88,7 @@ export const RegisterForm = ({
         />
       </Form.Item>
 
-      <Row gutter={16}>
+      <Row gutter={TOKENS.space[16]}>
         <Col span={12}>
           <Form.Item
             name="gender"

@@ -4,18 +4,19 @@ import { IconSchool } from "@tabler/icons-react";
 
 import { CommonCollapse } from "@/shared/components/CommonCollapse/CommonCollapse";
 import { CommonTextInput } from "@/shared/components/CommonTextInput/CommonTextInput";
-import { COLORS } from "@/shared/theme";
+import { TOKENS } from "@/shared/theme";
 
 export const SchoolHistoryForm = () => {
   const { t } = useTranslation();
 
   return (
     <CommonCollapse
+      variant="card"
       title={t("patients.anamnese.schoolHistory.title")}
-      icon={<IconSchool size={16} color={COLORS.grey70} />}
+      icon={<IconSchool size={16} />}
       initialOpen={false}
     >
-      <Row gutter={16}>
+      <Row gutter={TOKENS.space[16]}>
         <Col span={12}>
           <Form.Item name={["anamnese_data", "schoolHistory", "entry"]}>
             <CommonTextInput label={t("patients.anamnese.schoolHistory.entry")} />
@@ -28,7 +29,7 @@ export const SchoolHistoryForm = () => {
         </Col>
       </Row>
 
-      <Row gutter={16}>
+      <Row gutter={TOKENS.space[16]}>
         <Col span={12}>
           <Form.Item name={["anamnese_data", "schoolHistory", "repetition"]}>
             <CommonTextInput label={t("patients.anamnese.schoolHistory.repetition")} />

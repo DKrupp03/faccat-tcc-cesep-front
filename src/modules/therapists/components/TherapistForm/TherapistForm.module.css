@@ -3,12 +3,32 @@
 }
 
 .avatarContainer {
-  background-color: var(--color-grey10);
-  border-radius: 10px;
-  padding: 14px;
-  margin-bottom: 24px;
+  margin-bottom: var(--space-24);
+  padding: var(--space-16) var(--space-20);
+  border-radius: var(--radius-2xl);
+  background-color: var(--color-bg);
 }
 
-.switch {
-  margin-top: -12px;
+.avatarText {
+  margin-right: auto;
+}
+
+.avatarTitle {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-ink);
+}
+
+.avatarHint {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+.switches {
+  margin-top: var(--space-8);
+}
+
+.switchHint {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
 }

@@ -1,20 +1,22 @@
 import { IconX } from "@tabler/icons-react";
 
 import { CommonButton } from "@/shared/components/CommonButton/CommonButton";
-import { COLORS } from "@/shared/theme";
 
 type CommonCloseButtonProps = {
   onClick: () => void;
+  outline?: boolean;
+  className?: string;
 };
 
-export const CommonCloseButton = ({ onClick }: CommonCloseButtonProps) => {
+// Gaveta: 40px, branco com sombra. Modal: 34px, fundo neutro.
+export const CommonCloseButton = ({ onClick, outline = false, className }: CommonCloseButtonProps) => {
   return (
     <CommonButton
       onClick={onClick}
-      icon={<IconX size={18} color={COLORS.white} stroke={3} />}
-      size="small"
-      buttonVariant="danger"
-      circular
+      icon={<IconX size={18} />}
+      buttonVariant="outline"
+      outline={outline}
+      className={className}
     />
   );
 };

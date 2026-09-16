@@ -16,5 +16,5 @@ export const TherapistServices = () => {
 };
 
 export const TherapistServicesOptions = () => {
-  return <ServicesHeader />;
+  return <ServicesHeader hidePanelsButton />;
 };

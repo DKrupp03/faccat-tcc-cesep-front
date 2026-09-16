@@ -10,6 +10,7 @@ import { CommonTextInput } from "@/shared/components/CommonTextInput/CommonTextI
 import { useNotification } from "@/shared/hooks/useNotification";
 import RoomsService from "@/shared/services/RoomsService";
 import type { Room } from "@/shared/types/room";
+import { TOKENS } from "@/shared/theme";
 
 import styles from "./RoomsModal.module.css";
 
@@ -116,16 +117,17 @@ export const RoomsModal = ({ isOpen, close }: RoomsModalProps) => {
           <Form.List name="rooms">
             {(fields, { add, remove }) => (
               <CommonCollapse
-                title={t("services.rooms.title")}
+                title={t("services.rooms.registered")}
+                variant="plain"
                 onClickAdd={() => add({})}
                 shouldShowAddButton
                 hideExpandButton
               >
                 {fields.map((field) => (
-                  <Flex key={field.key} gap={16} align="flex-start">
+                  <Flex key={field.key} gap={TOKENS.space[16]} align="flex-start">
                     <Form.Item name={[field.name, "id"]} hidden noStyle />
                     {/* Largura fixa no botão: numa Col estreita ele era
-                        espremido e deixava de ser redondo. */}
+                        espremido e deformado. */}
                     <Form.Item
                       name={[field.name, "name"]}
                       rules={requiredRule}
@@ -143,7 +145,6 @@ export const RoomsModal = ({ isOpen, close }: RoomsModalProps) => {
                         icon={<IconTrash size={16} />}
                         buttonVariant="danger"
                         size="small"
-                        circular
                       />
                     </Flex>
                   </Flex>

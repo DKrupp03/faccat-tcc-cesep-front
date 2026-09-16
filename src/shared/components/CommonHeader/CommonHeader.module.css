@@ -3,12 +3,30 @@
   top: 0;
   z-index: 3;
   width: 100%;
-  height: 90px;
-  padding: 0px 24px;
-  background-color: var(--color-grey10);
-  border-bottom: 1px solid var(--color-grey30);
+  height: var(--layout-bar-height);
+  padding: 0 var(--space-32);
+  background-color: var(--color-bg);
 }
 
 .title {
-  font-weight: 500 !important;
+  font-size: var(--font-size-3xl) !important;
+  font-weight: var(--font-weight-bold) !important;
+  letter-spacing: var(--letter-spacing-tighter);
+  color: var(--color-ink) !important;
+}
+
+.subtitle {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+/* ações nunca encolhem (evita botões de ícone espremidos) */
+.actions > * {
+  flex-shrink: 0;
+}
+
+/* ação primária com texto fica um pouco afastada dos ícones */
+.header :global(.ant-btn[data-variant="primary"]:not(.ant-btn-icon-only)) {
+  margin-left: var(--space-8);
+  padding: 0 var(--space-16) 0 var(--space-14);
 }

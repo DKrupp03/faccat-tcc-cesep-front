@@ -9,6 +9,7 @@ import { dateRangeRule } from "@/shared/utils/filterRules";
 import { CommonDatePicker } from "@/shared/components/CommonDatePicker";
 
 import { useMedicalRecordsFilter } from "../../hooks/useMedicalRecordsFilter";
+import { TOKENS } from "@/shared/theme";
 import styles from "./MedicalRecordsFilterModal.module.css";
 
 export const MedicalRecordsFilterModal = () => {
@@ -46,7 +47,7 @@ export const MedicalRecordsFilterModal = () => {
         initialValues={defaultFilter}
         className={styles.form}
       >
-        <Row gutter={16}>
+        <Row gutter={TOKENS.space[16]}>
           <Col span={12}>
             <Form.Item
               name="date_start"

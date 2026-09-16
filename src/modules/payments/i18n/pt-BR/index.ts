@@ -1,4 +1,12 @@
 const payments = {
+	subtitle: "{{total}} lançamentos · {{filtered}} filtrados",
+
+	drawer: {
+		newPayment: "Novo pagamento",
+		dueOn: "{{name}} · vencimento {{date}}",
+		freeHint: "Atendimentos gratuitos não têm valor nem datas de cobrança.",
+	},
+
 	headerCards: {
 		total: "Total de pagamentos",
 		filtered: "Pagamentos filtrados",
@@ -68,6 +76,7 @@ const payments = {
 	},
 
 	charts: {
+		filtered: "filtrados",
 		statusTitle: "Status dos pagamentos",
 		statusTooltip:
 			"Distribuição dos pagamentos por status, considerando os filtros aplicados.",

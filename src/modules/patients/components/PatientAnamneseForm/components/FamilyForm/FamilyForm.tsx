@@ -9,7 +9,7 @@ import { CommonButton } from "@/shared/components/CommonButton/CommonButton";
 import { CommonTextArea } from "@/shared/components/CommonTextArea/CommonTextArea";
 import { CommonGroupButtons } from "@/shared/components/CommonGroupButtons/CommonGroupButtons";
 import { integerMask } from "@/shared/utils/formatters";
-import { COLORS } from "@/shared/theme";
+import { TOKENS } from "@/shared/theme";
 
 import { getMaritalStatusOptions, getEducationLevelOptions } from "@/modules/patients/utils/form";
 import { SectionsCard } from "../SectionsCard/SectionsCard";
@@ -26,13 +26,14 @@ export const FamilyForm = () => {
 
   return (
     <CommonCollapse
+      variant="card"
       title={t("patients.anamnese.family.title")}
-      icon={<IconUsers size={16} color={COLORS.grey70} />}
+      icon={<IconUsers size={16} />}
       initialOpen={false}
     >
       {anamneseType !== "adult" && (
-        <Flex gap={16}>
-          <SectionsCard style={{ marginTop: 4 }}>
+        <Flex gap={TOKENS.space[16]}>
+          <SectionsCard style={{ marginTop: TOKENS.space[4] }}>
             <Form.List name={["anamnese_data", "family", "responsibles"]}>
               {(fields, { add, remove }) => (
                 <CommonCollapse
@@ -41,7 +42,7 @@ export const FamilyForm = () => {
                   shouldShowAddButton
                 >
                   {fields.map((field) => (
-                    <Row key={field.key} gutter={16}>
+                    <Row key={field.key} gutter={TOKENS.space[16]}>
                       <Col span={6}>
                         <Form.Item name={[field.name, "responsible"]}>
                           <CommonTextInput label={t("patients.anamnese.family.responsibles.responsible")} />
@@ -77,13 +78,12 @@ export const FamilyForm = () => {
                         </Form.Item>
                       </Col>
                       <Col span={1}>
-                        <Flex align="center" style={{ height: 44 }}>
+                        <Flex align="center" style={{ height: TOKENS.control.field, marginTop: TOKENS.control.labelOffset }}>
                           <CommonButton
                             onClick={() => remove(field.name)}
                             icon={<IconTrash size={16} />}
                             buttonVariant="danger"
                             size="small"
-                            circular
                           />
                         </Flex>
                       </Col>
@@ -99,7 +99,7 @@ export const FamilyForm = () => {
         </Flex>
       )}
 
-      <Flex gap={16}>
+      <Flex gap={TOKENS.space[16]}>
         {anamneseType !== "adult" && (
           <SectionsCard>
             <Form.List name={["anamnese_data", "family", "brothers"]}>
@@ -110,7 +110,7 @@ export const FamilyForm = () => {
                   shouldShowAddButton
                 >
                   {fields.map((field) => (
-                    <Row key={field.key} gutter={16}>
+                    <Row key={field.key} gutter={TOKENS.space[16]}>
                       <Col span={11}>
                         <Form.Item name={[field.name, "name"]}>
                           <CommonTextInput label={t("patients.anamnese.family.brothers.name")} />
@@ -125,13 +125,12 @@ export const FamilyForm = () => {
                         </Form.Item>
                       </Col>
                       <Col span={2}>
-                        <Flex align="center" style={{ height: 44 }}>
+                        <Flex align="center" style={{ height: TOKENS.control.field, marginTop: TOKENS.control.labelOffset }}>
                           <CommonButton
                             onClick={() => remove(field.name)}
                             icon={<IconTrash size={16} />}
                             buttonVariant="danger"
                             size="small"
-                            circular
                           />
                         </Flex>
                       </Col>
@@ -155,7 +154,7 @@ export const FamilyForm = () => {
                 shouldShowAddButton
               >
                 {fields.map((field) => (
-                  <Row key={field.key} gutter={16}>
+                  <Row key={field.key} gutter={TOKENS.space[16]}>
                     <Col span={anamneseType === "adult" ? 12 : 11}>
                       <Form.Item name={[field.name, "name"]}>
                         <CommonTextInput label={t("patients.anamnese.family.children.name")} />
@@ -170,13 +169,12 @@ export const FamilyForm = () => {
                       </Form.Item>
                     </Col>
                     <Col span={anamneseType === "adult" ? 1 : 2}>
-                      <Flex align="center" style={{ height: 44 }}>
+                      <Flex align="center" style={{ height: TOKENS.control.field, marginTop: TOKENS.control.labelOffset }}>
                         <CommonButton
                           onClick={() => remove(field.name)}
                           icon={<IconTrash size={16} />}
                           buttonVariant="danger"
                           size="small"
-                          circular
                         />
                       </Flex>
                     </Col>
@@ -194,9 +192,9 @@ export const FamilyForm = () => {
       {anamneseType === "adult" && (
         <SectionsCard>
           <CommonCollapse title={t("patients.anamnese.family.spouse.title")}>
-            <Row gutter={16}>
+            <Row gutter={TOKENS.space[16]}>
               <Col span={5}>
-                <Flex align="center" style={{ height: 44 }}>
+                <Flex align="center">
                   <Form.Item name={["anamnese_data", "family", "spouse", "has"]} noStyle>
                     <CommonGroupButtons label={t("patients.anamnese.family.spouse.has")}>
                       <CommonGroupButtons.Button value={1}>
@@ -227,7 +225,7 @@ export const FamilyForm = () => {
         </SectionsCard>
       )}
 
-      <Row gutter={16}>
+      <Row gutter={TOKENS.space[16]}>
         <Col span={24}>
           <Form.Item name={["anamnese_data", "family", "liveWith"]}>
             <CommonTextInput label={t("patients.anamnese.family.liveWith")} />
@@ -235,7 +233,7 @@ export const FamilyForm = () => {
         </Col>
       </Row>
 
-      <Row gutter={16}>
+      <Row gutter={TOKENS.space[16]}>
         <Col span={24}>
           <Form.Item name={["anamnese_data", "family", "genome"]}>
             <CommonTextArea label={t("patients.anamnese.family.genome")} />

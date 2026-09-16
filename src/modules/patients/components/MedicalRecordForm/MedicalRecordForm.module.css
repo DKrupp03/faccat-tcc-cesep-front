@@ -2,6 +2,7 @@
   width: 100%;
 }
 
-.divider {
-  margin-top: 8px !important;
+/* 24px até o bloco de documentos = margem do Form.Item (16) + 8 */
+.documents {
+  margin-top: var(--space-8);
 }

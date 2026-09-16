@@ -1,0 +1,202 @@
+/*
+ * Design tokens — Sistema CESEP, padrão C ("Neutro acolhedor").
+ * Origem: Claude Design, projeto "Sistema interno de psicologia",
+ * arquivo "Sistema CESEP - padrao C.dc.html".
+ *
+ * Espelhado em src/shared/theme.ts (TOKENS) para o tema do Ant Design.
+ * Ao alterar um valor aqui, altere também lá.
+ */
+
+:root {
+  /* ---------------------------------------------------------------------- */
+  /* Cores — neutros                                                        */
+  /* ---------------------------------------------------------------------- */
+
+  --color-ink: #1F2421;
+  --color-text: #4A453C;
+  --color-text-secondary: #6B6459;
+  --color-text-muted: #6E6760;
+  --color-text-inverse: #FFFFFF;
+
+  --color-bg: #F6F4F1;
+  --color-surface: #FFFFFF;
+  --color-surface-subtle: #FBFAF8;
+  --color-surface-hover: #FAF8F6;
+  --color-field-bg: #F6F4F1;
+
+  --color-rail: #F1EEE9;
+  --color-rail-hover: #E8E3DB;
+  --color-neutral-soft: #E2DED6;
+
+  --color-border: #EDE9E3;
+  --color-border-subtle: #F4F1EC;
+  --color-border-strong: #E8E3DB;
+
+  --color-overlay: rgba(36, 31, 27, 0.32);
+
+  /* ---------------------------------------------------------------------- */
+  /* Cores — acento (ação primária, item ativo, confirmação)                */
+  /* ---------------------------------------------------------------------- */
+
+  --color-accent: #2F6F62;
+  --color-accent-hover: #255A4F;
+  --color-accent-soft: #E9EEEB;
+  --color-accent-soft-hover: #E1EBE7;
+  --color-accent-subtle: #F0F5F3;
+
+  /* ---------------------------------------------------------------------- */
+  /* Cores — estados                                                        */
+  /* ---------------------------------------------------------------------- */
+
+  --color-success: var(--color-accent);
+  --color-success-hover: var(--color-accent-hover);
+  --color-success-bg: var(--color-accent-soft);
+
+  --color-danger: #A63D23;
+  --color-danger-hover: #8C3219;
+  --color-danger-bg: #FBF1EE;
+  --color-danger-bg-hover: #F6E6E1;
+
+  --color-warning: #B7791F;
+  --color-warning-text: #8A5B00;
+  --color-warning-bg: #F7EEDC;
+
+  --color-info: #3B5F86;
+  --color-info-bg: #EAF0F6;
+
+  /* Status (atendimentos e pagamentos): um matiz distinto por status. */
+  --color-status-scheduled: #857B70;
+  --color-status-scheduled-text: #57504A;
+  --color-status-scheduled-bg: #EFECE7;
+  --color-status-confirmed: #2F6FD6;
+  --color-status-confirmed-text: #1E56B0;
+  --color-status-confirmed-bg: #E6EEFB;
+  --color-status-attended: #2E8B3E;
+  --color-status-attended-text: #1F6B2D;
+  --color-status-attended-bg: #E5F3E7;
+  --color-status-no-show: #C48A00;
+  --color-status-no-show-text: #8A6500;
+  --color-status-no-show-bg: #FBF3D9;
+  --color-status-cancelled: #D0342C;
+  --color-status-cancelled-text: #B0241D;
+  --color-status-cancelled-bg: #FCEAE9;
+
+  --color-status-paid: #0F9488;
+  --color-status-paid-text: #0B6E65;
+  --color-status-paid-bg: #E0F4F2;
+  --color-status-unpaid: #E8751A;
+  --color-status-unpaid-text: #A94F07;
+  --color-status-unpaid-bg: #FDEEE1;
+  --color-status-overdue: #C2185B;
+  --color-status-overdue-text: #A0134A;
+  --color-status-overdue-bg: #FBE7EF;
+  --color-status-free: #7C4DCC;
+  --color-status-free-text: #6238AD;
+  --color-status-free-bg: #F0EAFA;
+
+  /* Não definido no Claude Design — derivado dos neutros. */
+  --color-disabled-bg: #F1EEE9;
+  --color-disabled-text: #A39C93;
+  --color-disabled-border: #E8E3DB;
+
+  /* ---------------------------------------------------------------------- */
+  /* Tipografia                                                             */
+  /* ---------------------------------------------------------------------- */
+
+  --font-family: "Figtree", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  --font-size-xs: 12px;   /* cabeçalho de tabela, badge, legenda */
+  --font-size-sm: 13px;   /* rótulo, apoio */
+  --font-size-md: 14px;   /* corpo de tabela, botão */
+  --font-size-base: 15px; /* campo, corpo destacado */
+  --font-size-lg: 16px;   /* título de card */
+  --font-size-xl: 17px;   /* título de modal */
+  --font-size-2xl: 18px;  /* título de bloco */
+  --font-size-3xl: 24px;  /* título de tela */
+  --font-size-4xl: 30px;  /* número de destaque */
+
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  --line-height-none: 1;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.6;
+
+  --letter-spacing-tight: -0.01em;
+  --letter-spacing-tighter: -0.015em;
+  --letter-spacing-tightest: -0.02em;
+
+  /* ---------------------------------------------------------------------- */
+  /* Espaçamento — base 8, com passos intermediários                        */
+  /* ---------------------------------------------------------------------- */
+
+  --space-2: 2px;
+  --space-4: 4px;
+  --space-6: 6px;
+  --space-8: 8px;
+  --space-10: 10px;
+  --space-12: 12px;
+  --space-14: 14px;
+  --space-16: 16px;
+  --space-20: 20px;
+  --space-24: 24px;
+  --space-28: 28px;
+  --space-32: 32px;
+  --space-48: 48px;
+
+  /* ---------------------------------------------------------------------- */
+  /* Raios                                                                  */
+  /* ---------------------------------------------------------------------- */
+
+  --radius-2xs: 4px;  /* topo de barra de gráfico */
+  --radius-xs: 6px;   /* badge */
+  --radius-sm: 8px;   /* botão de ícone pequeno */
+  --radius-md: 10px;  /* chip, evento do calendário */
+  --radius-lg: 12px;  /* campo, botão */
+  --radius-xl: 14px;  /* item do menu lateral */
+  --radius-2xl: 16px; /* card */
+  --radius-3xl: 20px; /* modal, cartão de login */
+  --radius-full: 9999px;
+
+  /* ---------------------------------------------------------------------- */
+  /* Sombras                                                                */
+  /* ---------------------------------------------------------------------- */
+
+  --shadow-xs: 0 1px 2px rgba(36, 31, 27, 0.05);
+  --shadow-sm: 0 1px 2px rgba(36, 31, 27, 0.06);
+  --shadow-md: 0 1px 2px rgba(36, 31, 27, 0.08);
+  --shadow-hover: 0 2px 6px rgba(36, 31, 27, 0.10);
+  --shadow-lg: 0 1px 3px rgba(36, 31, 27, 0.10), 0 12px 32px rgba(36, 31, 27, 0.06);
+  --shadow-xl: 0 16px 40px rgba(36, 31, 27, 0.14);
+  --shadow-raised: 0 1px 2px rgba(36, 31, 27, 0.05), 0 16px 40px rgba(36, 31, 27, 0.06);
+
+  /* ---------------------------------------------------------------------- */
+  /* Controles                                                              */
+  /* ---------------------------------------------------------------------- */
+
+  --control-height-sm: 28px;
+  --control-height-xs: 34px;  /* botão de ícone neutro, ícone em círculo */
+  --control-height-compact: 36px;  /* barra de ações da gaveta, carregar mais */
+  --control-height-md: 40px;
+  --control-height-field: 44px;
+  --control-height-lg: 48px;
+  --field-label-height: 20px;
+  /* rótulo acima do campo + espaço até o campo */
+  --field-label-offset: calc(var(--field-label-height) + var(--space-6));
+
+  /* ---------------------------------------------------------------------- */
+  /* Layout                                                                 */
+  /* ---------------------------------------------------------------------- */
+
+  --layout-bar-height: 80px;    /* cabeçalho de tela, cabeçalho e rodapé de gaveta */
+  --layout-rail-width: 84px;    /* menu lateral e trilho de abas */
+  --layout-rail-footer: 96px;   /* rodapé do menu lateral (avatar) */
+
+  /* ---------------------------------------------------------------------- */
+  /* Movimento                                                              */
+  /* ---------------------------------------------------------------------- */
+
+  --transition-fast: 0.15s ease;
+}

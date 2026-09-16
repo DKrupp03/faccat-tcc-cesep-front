@@ -10,6 +10,7 @@ const anamnese = {
 
   "generalData": {
     "type": "Tipo da anamnese",
+    "typeHint": "Alterar o tipo troca as seções disponíveis.",
     "types": {
       "child": "Criança",
       "adolescent": "Adolescente",

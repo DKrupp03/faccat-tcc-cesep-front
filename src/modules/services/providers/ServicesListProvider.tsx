@@ -15,10 +15,16 @@ import type {
 type ServicesListProviderProps = {
   therapistId?: number;
   patientId?: number;
+  initialPanelView?: ServicesPanelView;
   children: React.ReactNode;
 };
 
-export const ServicesListProvider = ({ therapistId, patientId, children }: ServicesListProviderProps) => {
+export const ServicesListProvider = ({
+  therapistId,
+  patientId,
+  initialPanelView = "calendar",
+  children,
+}: ServicesListProviderProps) => {
   const { t } = useTranslation();
   const { fetchServices } = useServicesOperations();
 
@@ -35,7 +41,7 @@ export const ServicesListProvider = ({ therapistId, patientId, children }: Servi
   const [filter, setFilter] = useState<ServicesFilter>(defaultFilter);
   const [page, setPage] = useState<number>(1);
   const [orderBy, setOrderBy] = useState<ServicesOrder>("date_desc");
-  const [panelView, setPanelView] = useState<ServicesPanelView>("calendar");
+  const [panelView, setPanelView] = useState<ServicesPanelView>(initialPanelView);
   const [calendarMonth, setCalendarMonth] = useState<Dayjs>(dayjs());
   const [isFilterOpen, setIsFilterOpen] = useState<boolean>(false);
 

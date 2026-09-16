@@ -4,18 +4,19 @@ import { IconMicrophone2 } from "@tabler/icons-react";
 
 import { CommonCollapse } from "@/shared/components/CommonCollapse/CommonCollapse";
 import { CommonTextArea } from "@/shared/components/CommonTextArea/CommonTextArea";
-import { COLORS } from "@/shared/theme";
+import { TOKENS } from "@/shared/theme";
 
 export const ForInterviewerForm = () => {
   const { t } = useTranslation();
 
   return (
     <CommonCollapse
+      variant="card"
       title={t("patients.anamnese.forInterviewer.title")}
-      icon={<IconMicrophone2 size={16} color={COLORS.grey70} />}
+      icon={<IconMicrophone2 size={16} />}
       initialOpen={false}
     >
-      <Row gutter={16}>
+      <Row gutter={TOKENS.space[16]}>
         <Col span={24}>
           <Form.Item name={["anamnese_data", "forInterviewer", "relevantInfos"]}>
             <CommonTextArea label={t("patients.anamnese.forInterviewer.relevantInfos")} />
@@ -23,7 +24,7 @@ export const ForInterviewerForm = () => {
         </Col>
       </Row>
 
-      <Row gutter={16}>
+      <Row gutter={TOKENS.space[16]}>
         <Col span={24}>
           <Form.Item name={["anamnese_data", "forInterviewer", "impressions"]}>
             <CommonTextArea label={t("patients.anamnese.forInterviewer.impressions")} />

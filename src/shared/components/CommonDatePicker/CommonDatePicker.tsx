@@ -1,7 +1,7 @@
-import { useState } from "react";
 import { DatePicker, type DatePickerProps } from "antd";
 import ptBRDatePicker from "antd/es/date-picker/locale/pt_BR";
-import type { BaseInfo } from "@rc-component/picker/es/interface";
+
+import { CommonField } from "../CommonField/CommonField";
 
 import styles from "./CommonDatePicker.module.css";
 
@@ -35,44 +35,17 @@ type CommonDatePickerProps = DatePickerProps & {
 
 export const CommonDatePicker: React.FC<CommonDatePickerProps> = ({
 	label,
-	onFocus,
-	onBlur,
 	required,
 	...props
 }: CommonDatePickerProps) => {
-	const [focused, setFocused] = useState(false);
-
-	const hasValue = !!props.value || !!props.defaultValue;
-	const isFloating = focused || hasValue;
-
-	const handleFocus = (e: React.FocusEvent<HTMLElement>, info: BaseInfo) => {
-		setFocused(true);
-		onFocus?.(e, info);
-	};
-
-	const handleBlur = (e: React.FocusEvent<HTMLElement>, info: BaseInfo) => {
-		setFocused(false);
-		onBlur?.(e, info);
-	};
-
-	const labelEl = label ? (
-		<span
-			className={`${styles.label} ${isFloating ? styles.labelFloating : ""}`}
-		>
-			{label} {required && <span className={styles.required}>*</span>}
-		</span>
-	) : null;
-
 	return (
-		<div className={styles.wrapper}>
-			{labelEl}
+		<CommonField label={label} htmlFor={props.id} required={required}>
 			<DatePicker
 				size="large"
+				variant="filled"
 				getPopupContainer={() => document.body}
 				builtinPlacements={pickerPlacements}
 				className={styles.input}
-				onFocus={handleFocus}
-				onBlur={handleBlur}
 				placeholder=""
 				locale={ptBRDatePicker}
 				format={{
@@ -82,6 +55,6 @@ export const CommonDatePicker: React.FC<CommonDatePickerProps> = ({
 				{...props}
 				classNames={{ ...props.classNames, popup: { root: styles.popup } }}
 			/>
-		</div>
+		</CommonField>
 	);
 };

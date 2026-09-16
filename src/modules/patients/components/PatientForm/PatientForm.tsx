@@ -1,5 +1,5 @@
 import { useEffect, useMemo } from "react";
-import { Form, Row, Col, Flex, Skeleton, Upload, Divider } from "antd";
+import { Form, Row, Col, Flex, Skeleton, Upload, Tooltip } from "antd";
 import { useTranslation } from "react-i18next";
 import { IconTrash, IconUpload, IconUser } from "@tabler/icons-react";
 
@@ -22,7 +22,7 @@ import {
   normalizeDate,
   isFutureDate,
 } from "@/shared/utils/formatters";
-import { COLORS } from "@/shared/theme";
+import { TOKENS } from "@/shared/theme";
 
 import { usePatientFormState } from "../../hooks/usePatientFormState";
 import { usePatientForm } from "../../hooks/usePatientForm";
@@ -99,14 +99,18 @@ export const PatientForm = () => {
       className={styles.form}
     >
       <Flex
-        justify="center" align="center" gap={10}
+        align="center" gap={TOKENS.space[16]}
         className={styles.avatarContainer}
       >
         <CommonAvatar
-          size={60}
-          circular
+          size={56}
+          name={patient?.name}
           photoUrl={photoUrl}
         />
+        <Flex vertical gap={TOKENS.space[2]} className={styles.avatarText}>
+          <span className={styles.avatarTitle}>{t("patients.form.photo")}</span>
+          <span className={styles.avatarHint}>{t("patients.form.photoHint")}</span>
+        </Flex>
         <Upload
           showUploadList={false}
           accept="image/*"
@@ -119,184 +123,185 @@ export const PatientForm = () => {
           <CommonButton
             onClick={() => {}}
             icon={<IconUpload size={18} />}
-            buttonVariant="primary"
-            circular
-          />
+            outline
+          >
+            {t("patients.form.upload")}
+          </CommonButton>
         </Upload>
-        <CommonButton
-          onClick={() => {
-            setChangedPhoto(true);
-            setUploadedPhoto(undefined);
-          }}
-          icon={<IconTrash size={18} />}
-          buttonVariant="danger"
-          circular
-        />
+        <Tooltip title={t("common.actions.delete")}>
+          <CommonButton
+            onClick={() => {
+              setChangedPhoto(true);
+              setUploadedPhoto(undefined);
+            }}
+            icon={<IconTrash size={18} />}
+            buttonVariant="danger"
+            outline
+          />
+        </Tooltip>
       </Flex>
 
-      <Row gutter={16}>
-        <Col span={12}>
-          <Form.Item name="name" rules={requiredRule}>
-            <CommonTextInput
-              label={t("patients.columns.name")}
-              required
-            />
-          </Form.Item>
-        </Col>
-        <Col span={12}>
-          <Form.Item name="email" rules={emailRules}>
-            <CommonTextInput
-              label={t("patients.columns.email")}
-              disabled={!!patient?.id}
-              required
-            />
-          </Form.Item>
-        </Col>
-      </Row>
+      <section className={styles.section}>
+        <span className={styles.sectionTitle}>{t("patients.form.personalData")}</span>
 
-      <Row gutter={16}>
-        <Col span={12}>
-          <Form.Item name="gender" rules={requiredRule}>
-            <CommonSelect
-              label={t("patients.columns.gender")}
-              options={genderOptions}
-              required
-            />
-          </Form.Item>
-        </Col>
-        <Col span={12}>
-          <Form.Item
-            name="birth"
-            rules={requiredRule}
-            getValueProps={dateValueProps}
-            normalize={normalizeDate}
-          >
-            <CommonDatePicker
-              label={t("patients.columns.birth")}
-              disabledDate={isFutureDate}
-              required
-            />
-          </Form.Item>
-        </Col>
-      </Row>
+        <Row gutter={TOKENS.space[16]}>
+          <Col span={12}>
+            <Form.Item name="name" rules={requiredRule}>
+              <CommonTextInput
+                label={t("patients.columns.name")}
+                required
+              />
+            </Form.Item>
+          </Col>
+          <Col span={12}>
+            <Form.Item name="email" rules={emailRules}>
+              <CommonTextInput
+                label={t("patients.columns.email")}
+                disabled={!!patient?.id}
+                required
+              />
+            </Form.Item>
+          </Col>
+        </Row>
 
-      <Row gutter={16}>
-        <Col span={12}>
-          <Form.Item name="phone" normalize={phoneMask}>
-            <CommonTextInput label={t("patients.columns.phone")} />
-          </Form.Item>
-        </Col>
-        <Col span={12}>
-          <Form.Item name="address">
-            <CommonTextInput label={t("patients.columns.address")} />
-          </Form.Item>
-        </Col>
-      </Row>
+        <Row gutter={TOKENS.space[16]}>
+          <Col span={12}>
+            <Form.Item name="gender" rules={requiredRule}>
+              <CommonSelect
+                label={t("patients.columns.gender")}
+                options={genderOptions}
+                required
+              />
+            </Form.Item>
+          </Col>
+          <Col span={12}>
+            <Form.Item
+              name="birth"
+              rules={requiredRule}
+              getValueProps={dateValueProps}
+              normalize={normalizeDate}
+            >
+              <CommonDatePicker
+                label={t("patients.columns.birth")}
+                disabledDate={isFutureDate}
+                required
+              />
+            </Form.Item>
+          </Col>
+        </Row>
 
-      <Row gutter={16}>
-        <Col span={12}>
-          <Form.Item name="cpf" normalize={cpfMask}>
-            <CommonTextInput label={t("patients.columns.cpf")} />
-          </Form.Item>
-        </Col>
-        <Col span={12}>
-          <Form.Item name="rg" normalize={rgMask}>
-            <CommonTextInput label={t("patients.columns.rg")} />
-          </Form.Item>
-        </Col>
-      </Row>
+        <Row gutter={TOKENS.space[16]}>
+          <Col span={12}>
+            <Form.Item name="phone" normalize={phoneMask}>
+              <CommonTextInput label={t("patients.columns.phone")} />
+            </Form.Item>
+          </Col>
+          <Col span={12}>
+            <Form.Item name="address">
+              <CommonTextInput label={t("patients.columns.address")} />
+            </Form.Item>
+          </Col>
+        </Row>
 
-      <Row gutter={16}>
-        <Col span={12}>
-          <Form.Item name="marital_status">
-            <CommonSelect
-              label={t("patients.columns.maritalStatus")}
-              options={maritalStatusOptions}
-            />
-          </Form.Item>
-        </Col>
-        <Col span={12}>
-          <Form.Item name="education_level">
-            <CommonSelect
-              label={t("patients.columns.educationLevel")}
-              options={educationLevelOptions}
-            />
-          </Form.Item>
-        </Col>
-      </Row>
+        <Row gutter={TOKENS.space[16]}>
+          <Col span={12}>
+            <Form.Item name="cpf" normalize={cpfMask}>
+              <CommonTextInput label={t("patients.columns.cpf")} />
+            </Form.Item>
+          </Col>
+          <Col span={12}>
+            <Form.Item name="rg" normalize={rgMask}>
+              <CommonTextInput label={t("patients.columns.rg")} />
+            </Form.Item>
+          </Col>
+        </Row>
 
-      <Row gutter={16}>
-        <Col span={12}>
-          <Form.Item name="occupation">
-            <CommonTextInput label={t("patients.columns.occupation")} />
-          </Form.Item>
-        </Col>
-        <Col span={6}>
-          <Form.Item name="therapist_id">
-            <ProfilesSelect
-              role="therapist"
-              disabled={!!therapistId}
-              showHelp
-            />
-          </Form.Item>
-        </Col>
-        <Col span={6}>
-          <Form.Item name="default_value" normalize={decimalMask}>
-            <CommonTextInput
-              label={t("patients.columns.defaultValue")}
-              icon="R$"
-              suffix={<CommonIconHelp text={t("common.help.defaultValue")} />}
-            />
-          </Form.Item>
-        </Col>
-      </Row>
+        <Row gutter={TOKENS.space[16]}>
+          <Col span={12}>
+            <Form.Item name="marital_status">
+              <CommonSelect
+                label={t("patients.columns.maritalStatus")}
+                options={maritalStatusOptions}
+              />
+            </Form.Item>
+          </Col>
+          <Col span={12}>
+            <Form.Item name="education_level">
+              <CommonSelect
+                label={t("patients.columns.educationLevel")}
+                options={educationLevelOptions}
+              />
+            </Form.Item>
+          </Col>
+        </Row>
+      </section>
 
-      <Row gutter={16}>
-        <Col span={24}>
-          <Form.Item name="extra">
-            <CommonTextArea label={t("patients.columns.extra")} />
-          </Form.Item>
-        </Col>
-      </Row>
+      <section className={styles.section}>
+        <span className={styles.sectionTitle}>{t("patients.form.serviceData")}</span>
 
-      <Row gutter={16}>
-        <Col span={6}>
-          <Form.Item name="active">
+        <Row gutter={TOKENS.space[16]}>
+          <Col span={12}>
+            <Form.Item name="occupation">
+              <CommonTextInput label={t("patients.columns.occupation")} />
+            </Form.Item>
+          </Col>
+          <Col span={6}>
+            <Form.Item name="therapist_id">
+              <ProfilesSelect
+                role="therapist"
+                disabled={!!therapistId}
+                showHelp
+              />
+            </Form.Item>
+          </Col>
+          <Col span={6}>
+            <Form.Item name="default_value" normalize={decimalMask}>
+              <CommonTextInput
+                label={t("patients.columns.defaultValue")}
+                icon="R$"
+                labelSuffix={<CommonIconHelp text={t("common.help.defaultValue")} size={15} />}
+              />
+            </Form.Item>
+          </Col>
+        </Row>
+
+        <Form.Item name="extra">
+          <CommonTextArea label={t("patients.columns.extra")} />
+        </Form.Item>
+
+        <Flex align="center" gap={TOKENS.space[12]} className={styles.activeRow}>
+          <Form.Item name="active" noStyle>
             <CommonSwitch
               label={t("patients.columns.active")}
               disabled={!patient?.id}
-              icon={<CommonIconHelp text={t("patients.help.active")} />}
             />
           </Form.Item>
-        </Col>
-      </Row>
+          <span className={styles.activeHint}>{t("patients.help.active")}</span>
+        </Flex>
+      </section>
 
-      <Divider className={styles.divider} />
-
-      <div className={styles.responsiblesContainer}>
-        <CommonCollapse
-          title={t("patients.columns.parent")}
-          icon={<IconUser size={16} color={COLORS.grey70} />}
-        >
-          <Row gutter={16}>
-            <Col span={12}>
-              <Form.Item name={["parent", "name"]}>
-                <CommonTextInput label={t("patients.columns.name")} />
-              </Form.Item>
-            </Col>
-            <Col span={6}>
-              <Form.Item name={["parent", "cpf"]} normalize={cpfMask}>
-                <CommonTextInput label={t("patients.columns.cpf")} />
-              </Form.Item>
-            </Col>
-            <Col span={6}>
-              <Form.Item name={["parent", "phone"]} normalize={phoneMask}>
-                <CommonTextInput label={t("patients.columns.phone")} />
-              </Form.Item>
-            </Col>
-          </Row>
-        </CommonCollapse>
-      </div>
+      <CommonCollapse
+        title={t("patients.columns.parent")}
+        icon={<IconUser size={16} />}
+      >
+        <Row gutter={TOKENS.space[16]}>
+          <Col span={12}>
+            <Form.Item name={["parent", "name"]}>
+              <CommonTextInput label={t("patients.columns.name")} />
+            </Form.Item>
+          </Col>
+          <Col span={6}>
+            <Form.Item name={["parent", "cpf"]} normalize={cpfMask}>
+              <CommonTextInput label={t("patients.columns.cpf")} />
+            </Form.Item>
+          </Col>
+          <Col span={6}>
+            <Form.Item name={["parent", "phone"]} normalize={phoneMask}>
+              <CommonTextInput label={t("patients.columns.phone")} />
+            </Form.Item>
+          </Col>
+        </Row>
+      </CommonCollapse>
     </Form>
   );
 };
@@ -311,6 +316,7 @@ export const PatientFormOptions = () => {
         <CommonButton
           onClick={() => deletePatient(patient.id)}
           buttonVariant="danger"
+          outline
           loading={isSubmitting}
         >
           {t("common.actions.delete")}

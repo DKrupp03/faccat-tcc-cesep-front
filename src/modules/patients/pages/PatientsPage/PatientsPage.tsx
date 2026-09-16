@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import { useLockedTherapistId } from "@/modules/auth/hooks/useLockedTherapistId";
 import { useModules } from "@/shared/hooks/useModules";
 import { CommonHeader } from "@/shared/components/CommonHeader/CommonHeader";
+import { TOKENS } from "@/shared/theme";
 
 import { PatientsProvider } from "../../providers/PatientsProvider";
 import { usePatientsList } from "../../hooks/usePatientsList";
@@ -26,7 +27,7 @@ const PatientsPage = () => {
 const PatientsPanel = () => {
   const { t } = useTranslation();
   const { changeActiveModule } = useModules();
-  const { filtratePanel } = usePatientsList();
+  const { filtratePanel, loading, total, totalActive } = usePatientsList();
 
   useEffect(() => {
     changeActiveModule("patients");
@@ -36,11 +37,14 @@ const PatientsPanel = () => {
 
   return (
     <Flex vertical className={styles.panel}>
-      <CommonHeader title={t("common.modules.patients")}>
+      <CommonHeader
+        title={t("common.modules.patients")}
+        subtitle={loading ? undefined : t("patients.subtitle", { active: totalActive, total })}
+      >
         <PatientsHeader />
       </CommonHeader>
 
-      <Flex vertical gap={24} className={styles.body}>
+      <Flex vertical gap={TOKENS.space[24]} className={styles.body}>
         <PatientsHeaderCards />
         <PatientsTable />
       </Flex>

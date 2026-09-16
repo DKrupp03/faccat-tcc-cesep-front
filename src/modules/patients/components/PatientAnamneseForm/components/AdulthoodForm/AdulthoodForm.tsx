@@ -4,18 +4,19 @@ import { IconRating18Plus } from "@tabler/icons-react";
 
 import { CommonCollapse } from "@/shared/components/CommonCollapse/CommonCollapse";
 import { CommonTextInput } from "@/shared/components/CommonTextInput/CommonTextInput";
-import { COLORS } from "@/shared/theme";
+import { TOKENS } from "@/shared/theme";
 
 export const AdulthoodForm = () => {
   const { t } = useTranslation();
 
   return (
     <CommonCollapse
+      variant="card"
       title={t("patients.anamnese.adulthood.title")}
-      icon={<IconRating18Plus size={16} color={COLORS.grey70} />}
+      icon={<IconRating18Plus size={16} />}
       initialOpen={false}
     >
-      <Row gutter={16}>
+      <Row gutter={TOKENS.space[16]}>
         <Col span={12}>
           <Form.Item name={["anamnese_data", "adulthood", "studies"]}>
             <CommonTextInput label={t("patients.anamnese.adulthood.studies")} />
@@ -28,7 +29,7 @@ export const AdulthoodForm = () => {
         </Col>
       </Row>
 
-      <Row gutter={16}>
+      <Row gutter={TOKENS.space[16]}>
         <Col span={12}>
           <Form.Item name={["anamnese_data", "adulthood", "currentSituation"]}>
             <CommonTextInput label={t("patients.anamnese.adulthood.currentSituation")} />
@@ -41,7 +42,7 @@ export const AdulthoodForm = () => {
         </Col>
       </Row>
 
-      <Row gutter={16}>
+      <Row gutter={TOKENS.space[16]}>
         <Col span={24}>
           <Form.Item name={["anamnese_data", "adulthood", "numberOfJobs"]}>
             <CommonTextInput label={t("patients.anamnese.adulthood.numberOfJobs")} />
@@ -49,7 +50,7 @@ export const AdulthoodForm = () => {
         </Col>
       </Row>
 
-      <Row gutter={16}>
+      <Row gutter={TOKENS.space[16]}>
         <Col span={24}>
           <Form.Item name={["anamnese_data", "adulthood", "jobSatisfaction"]}>
             <CommonTextInput label={t("patients.anamnese.adulthood.jobSatisfaction")} />
@@ -57,7 +58,7 @@ export const AdulthoodForm = () => {
         </Col>
       </Row>
 
-      <Row gutter={16}>
+      <Row gutter={TOKENS.space[16]}>
         <Col span={24}>
           <Form.Item name={["anamnese_data", "adulthood", "intimateRelationships"]}>
             <CommonTextInput label={t("patients.anamnese.adulthood.intimateRelationships")} />
@@ -65,7 +66,7 @@ export const AdulthoodForm = () => {
         </Col>
       </Row>
 
-      <Row gutter={16}>
+      <Row gutter={TOKENS.space[16]}>
         <Col span={24}>
           <Form.Item name={["anamnese_data", "adulthood", "friends"]}>
             <CommonTextInput label={t("patients.anamnese.adulthood.friends")} />
@@ -73,7 +74,7 @@ export const AdulthoodForm = () => {
         </Col>
       </Row>
 
-      <Row gutter={16}>
+      <Row gutter={TOKENS.space[16]}>
         <Col span={24}>
           <Form.Item name={["anamnese_data", "adulthood", "relateAbility"]}>
             <CommonTextInput label={t("patients.anamnese.adulthood.relateAbility")} />

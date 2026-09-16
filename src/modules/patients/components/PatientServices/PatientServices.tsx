@@ -16,5 +16,5 @@ export const PatientServices = () => {
 };
 
 export const PatientServicesOptions = () => {
-  return <ServicesHeader />;
+  return <ServicesHeader hidePanelsButton />;
 };

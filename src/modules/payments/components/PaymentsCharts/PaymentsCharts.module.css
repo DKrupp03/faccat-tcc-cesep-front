@@ -3,22 +3,29 @@
 }
 
 .card {
-  border-radius: 12px;
-  background-color: var(--color-white);
-  border: 1px solid var(--color-grey30);
   overflow: hidden;
+  border-radius: var(--radius-2xl);
+  background-color: var(--color-surface);
+  box-shadow: var(--shadow-xs);
 }
 
 .statusCard {
   flex: 2;
+  min-width: 0;
 }
 
 .monthlyCard {
   flex: 3;
+  min-width: 0;
 }
 
 .header {
-  padding: 20px;
+  padding: var(--space-24) var(--space-24) 0;
+}
+
+.title {
+  font-size: var(--font-size-lg) !important;
+  font-weight: var(--font-weight-bold) !important;
 }
 
 .info {
@@ -28,7 +35,7 @@
 .body {
   flex: 1;
   width: 100%;
-  padding: 0 20px 24px;
+  padding: var(--space-24);
 }
 
 .statusContent {
@@ -41,57 +48,94 @@
 }
 
 .legendDot {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
+  width: var(--space-12);
+  height: var(--space-12);
+  border-radius: var(--radius-full);
   flex-shrink: 0;
 }
 
 .legendLabel {
-  font-size: 14px;
-  line-height: 1.3;
+  font-size: var(--font-size-md);
+  line-height: var(--line-height-normal);
+  color: var(--color-ink);
 }
 
 .legendValue {
-  font-size: 13px;
-  color: var(--color-grey70);
-  line-height: 1.3;
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-normal);
+  color: var(--color-text-muted);
+  font-variant-numeric: tabular-nums;
 }
 
 .tooltip {
-  background-color: var(--color-white);
-  border: 1px solid var(--color-grey30);
-  border-radius: 8px;
-  padding: 10px 12px;
-  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.08);
+  padding: var(--space-10) var(--space-12);
+  border-radius: var(--radius-lg);
+  background-color: var(--color-surface);
+  box-shadow: var(--shadow-lg);
 }
 
 .tooltipMonth {
   display: block;
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--color-navy);
-  margin-bottom: 6px;
+  margin-bottom: var(--space-6);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-ink);
 }
 
 .tooltipRow {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--space-8);
 }
 
 .tooltipRow + .tooltipRow {
-  margin-top: 4px;
+  margin-top: var(--space-4);
 }
 
+/* quadrado de legenda do design: 10px, raio 3 */
 .tooltipDot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
+  width: var(--space-10);
+  height: var(--space-10);
+  border-radius: 3px;
   flex-shrink: 0;
 }
 
 .tooltipText {
-  font-size: 13px;
-  color: var(--color-grey90);
+  font-size: var(--font-size-sm);
+  color: var(--color-text);
+  font-variant-numeric: tabular-nums;
+}
+
+.donut {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.donutCenter {
+  position: absolute;
+  inset: 0;
+  justify-content: center;
+  gap: var(--space-2);
+  pointer-events: none;
+}
+
+/* número central da rosca: 22px no design */
+.donutValue {
+  font-size: 22px;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.donutLabel {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+
+.chartLegend {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-6);
+  font-size: var(--font-size-sm);
+  color: var(--color-text);
 }

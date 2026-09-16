@@ -11,6 +11,13 @@ import { PaymentStatusBadge } from "../PaymentStatusBadge/PaymentStatusBadge";
 import type { Payment, PaymentMethod } from "../../types/payment";
 import styles from "./PaymentsTable.module.css";
 
+const ORDER_LABELS: Record<string, string> = {
+  expiration_date_desc: "payments.order.expirationDesc",
+  expiration_date_asc: "payments.order.expirationAsc",
+  payment_date_desc: "payments.order.paymentDesc",
+  payment_date_asc: "payments.order.paymentAsc",
+};
+
 export const PaymentsTable = () => {
   const { t } = useTranslation();
   const {
@@ -31,7 +38,8 @@ export const PaymentsTable = () => {
         title: t("payments.columns.patient"),
         dataIndex: "patient",
         key: "patient",
-        width: "22%",
+        width: "24%",
+        ellipsis: true,
         render: (_: unknown, record: Payment) => (
           <span
             className={styles.name}
@@ -45,7 +53,9 @@ export const PaymentsTable = () => {
         title: t("payments.columns.value"),
         dataIndex: "value",
         key: "value",
-        width: "16%",
+        width: "14%",
+        align: "right",
+        className: styles.value,
         // Gratuito não tem valor: vazio em vez de "R$ 0,00".
         render: (value: string | number | null, record: Payment) => (
           record.free ? "" : formatCurrency(value ?? undefined)
@@ -55,7 +65,9 @@ export const PaymentsTable = () => {
         title: t("payments.columns.expirationDate"),
         dataIndex: "expiration_date",
         key: "expiration_date",
-        width: "15%",
+        width: "14%",
+        align: "right",
+        className: styles.date,
         render: (value: string) => formatDate(value),
       },
       {
@@ -63,13 +75,16 @@ export const PaymentsTable = () => {
         dataIndex: "payment_date",
         key: "payment_date",
         width: "15%",
+        align: "right",
+        className: `${styles.date} ${styles.secondary}`,
         render: (value?: string) => formatDate(value),
       },
       {
         title: t("payments.columns.paymentMethod"),
         dataIndex: "payment_method",
         key: "payment_method",
-        width: "14%",
+        width: "17%",
+        className: styles.method,
         render: (value?: PaymentMethod) => (
           value ? t(`payments.paymentMethods.${value}`) : ""
         ),
@@ -78,7 +93,7 @@ export const PaymentsTable = () => {
         title: t("payments.columns.status"),
         dataIndex: "status",
         key: "status",
-        width: "18%",
+        width: "16%",
         render: (_: unknown, record: Payment) => (
           <PaymentStatusBadge status={record.status} />
         ),
@@ -89,8 +104,10 @@ export const PaymentsTable = () => {
   return (
     <CommonTable<Payment>
       titleHeader={t("common.modules.payments")}
+      headerNote={t(ORDER_LABELS[orderBy])}
       columns={paymentsColumnFields}
       dataSource={payments}
+      rowKey="id"
       pagination
       page={page}
       total={totalFiltered}

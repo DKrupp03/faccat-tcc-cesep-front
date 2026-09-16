@@ -2,52 +2,36 @@
   position: sticky;
   top: 0;
   height: 100vh;
-  width: 90px;
+  width: var(--layout-rail-width);
   flex-shrink: 0;
-  border-right: 1px solid var(--color-grey30);
+  background-color: var(--color-rail);
 }
 
 .header {
   width: 100%;
-  height: 90px;
+  height: var(--layout-bar-height);
   flex-shrink: 0;
-  border-bottom: 1px solid var(--color-grey30);
 }
 
 .logoContainer {
-  width: 46px;
-  height: 46px;
-  border-radius: 4px;
-  background-color: var(--color-navy);
+  width: var(--control-height-field);
+  height: var(--control-height-field);
+  border-radius: var(--radius-xl);
+  background-color: var(--color-surface);
+  box-shadow: var(--shadow-md);
 }
 
 .logo {
-  height: 26px;
-  filter: brightness(0) invert(1);
+  height: var(--space-24);
 }
 
 .tabsContainer {
-  margin-top: 20px;
+  padding-top: var(--space-16);
   height: 100%;
 }
 
 .footer {
   width: 100%;
-  height: 90px;
+  height: var(--layout-rail-footer);
   flex-shrink: 0;
-  border-top: 1px solid var(--color-grey30);
-}
-
-.avatarPopoverHeader {
-  padding: 5px 10px 15px 10px;
-  border-bottom: 1px solid var(--color-grey30);
-}
-
-.avatarPopoverName {
-  color: var(--color-navy);
-  font-weight: 600;
-}
-
-.avatarPopoverRole {
-  font-size: 12px;
 }

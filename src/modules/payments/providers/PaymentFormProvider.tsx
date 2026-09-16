@@ -143,6 +143,8 @@ export const PaymentFormProvider = ({
           setIsSubmitting(false);
         }
       },
+      undefined,
+      { danger: true, confirmLabel: t("common.actions.delete") },
     );
   }, [
     t,

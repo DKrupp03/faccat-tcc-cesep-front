@@ -5,7 +5,7 @@ import { IconHome } from "@tabler/icons-react";
 import { CommonCollapse } from "@/shared/components/CommonCollapse/CommonCollapse";
 import { CommonTextInput } from "@/shared/components/CommonTextInput/CommonTextInput";
 import { CommonTextArea } from "@/shared/components/CommonTextArea/CommonTextArea";
-import { COLORS } from "@/shared/theme";
+import { TOKENS } from "@/shared/theme";
 
 export const DomesticEnvironmentForm = () => {
   const { t } = useTranslation();
@@ -14,11 +14,12 @@ export const DomesticEnvironmentForm = () => {
 
   return (
     <CommonCollapse
+      variant="card"
       title={t("patients.anamnese.domesticEnvironment.title")}
-      icon={<IconHome size={16} color={COLORS.grey70} />}
+      icon={<IconHome size={16} />}
       initialOpen={false}
     >
-      <Row gutter={16}>
+      <Row gutter={TOKENS.space[16]}>
         <Col span={12}>
           <Form.Item name={["anamnese_data", "domesticEnvironment", "house"]}>
             <CommonTextInput label={t("patients.anamnese.domesticEnvironment.house")} />
@@ -31,7 +32,7 @@ export const DomesticEnvironmentForm = () => {
         </Col>
       </Row>
 
-      <Row gutter={16}>
+      <Row gutter={TOKENS.space[16]}>
         {anamneseType === "adolescent" && (
           <Col span={12}>
             <Form.Item name={["anamnese_data", "domesticEnvironment", "privacy"]}>
@@ -46,7 +47,7 @@ export const DomesticEnvironmentForm = () => {
         </Col>
       </Row>
 
-      <Row gutter={16}>
+      <Row gutter={TOKENS.space[16]}>
         <Col span={24}>
           <Form.Item name={["anamnese_data", "domesticEnvironment", "tasks"]}>
             <CommonTextArea label={t("patients.anamnese.domesticEnvironment.tasks")} />

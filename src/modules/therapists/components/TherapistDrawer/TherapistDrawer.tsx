@@ -59,6 +59,11 @@ const TherapistDrawerContent = () => {
       isOpen={isFormOpen}
       close={handleClose}
       title={t(`therapists.tabs.${tab}`)}
+      subtitle={!therapist?.id
+        ? t("therapists.drawer.newTherapist")
+        : therapist.crp
+          ? t("therapists.drawer.withCrp", { name: therapist.name, crp: therapist.crp })
+          : therapist.name}
       header={header}
       footer={footer}
       tabs={tabs}
@@ -76,7 +81,7 @@ export const TherapistDrawer = () => {
 
   return (
     <PatientsProvider therapistId={therapist?.id}>
-      <ServicesProvider therapistId={therapist?.id}>
+      <ServicesProvider therapistId={therapist?.id} initialPanelView="list">
         <TherapistDrawerContent />
       </ServicesProvider>
     </PatientsProvider>

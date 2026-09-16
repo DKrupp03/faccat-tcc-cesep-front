@@ -2,21 +2,28 @@
   width: 100%;
 }
 
+/* bloco "Datas/horários": 24px de respiro após os campos gerais */
+.form > :global(.ant-collapse) {
+  margin-top: var(--space-8);
+}
+
+.recurrentSwitch {
+  margin-bottom: var(--space-20) !important;
+}
+
+.recurrenceBox {
+  padding: var(--space-12) var(--space-16);
+  border-radius: var(--radius-lg);
+  background-color: var(--color-accent-subtle);
+}
+
 .recurrenceSummary {
-  display: block;
-  font-size: 13px;
-  color: var(--color-navy);
-  padding-bottom: 16px;
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-ink);
 }
 
 .recurrenceHint {
-  display: block;
-  margin-top: 4px;
-  font-size: 12px;
-  color: var(--color-grey70);
-  padding-bottom: 16px;
-}
-
-.divider {
-  margin-top: 8px !important;
+  font-size: var(--font-size-sm);
+  color: var(--color-text);
 }

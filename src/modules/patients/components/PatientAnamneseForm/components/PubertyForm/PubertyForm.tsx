@@ -4,18 +4,19 @@ import { IconRating12Plus } from "@tabler/icons-react";
 
 import { CommonCollapse } from "@/shared/components/CommonCollapse/CommonCollapse";
 import { CommonTextInput } from "@/shared/components/CommonTextInput/CommonTextInput";
-import { COLORS } from "@/shared/theme";
+import { TOKENS } from "@/shared/theme";
 
 export const PubertyForm = () => {
   const { t } = useTranslation();
 
   return (
     <CommonCollapse
+      variant="card"
       title={t("patients.anamnese.puberty.title")}
-      icon={<IconRating12Plus size={16} color={COLORS.grey70} />}
+      icon={<IconRating12Plus size={16} />}
       initialOpen={false}
     >
-      <Row gutter={16}>
+      <Row gutter={TOKENS.space[16]}>
         <Col span={12}>
           <Form.Item name={["anamnese_data", "puberty", "socialRelations"]}>
             <CommonTextInput label={t("patients.anamnese.puberty.socialRelations")} />
@@ -28,7 +29,7 @@ export const PubertyForm = () => {
         </Col>
       </Row>
 
-      <Row gutter={16}>
+      <Row gutter={TOKENS.space[16]}>
         <Col span={24}>
           <Form.Item name={["anamnese_data", "puberty", "problems"]}>
             <CommonTextInput label={t("patients.anamnese.puberty.problems")} />

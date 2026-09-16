@@ -5,18 +5,19 @@ import { IconAlertCircle } from "@tabler/icons-react";
 import { CommonCollapse } from "@/shared/components/CommonCollapse/CommonCollapse";
 import { CommonTextInput } from "@/shared/components/CommonTextInput/CommonTextInput";
 import { CommonTextArea } from "@/shared/components/CommonTextArea/CommonTextArea";
-import { COLORS } from "@/shared/theme";
+import { TOKENS } from "@/shared/theme";
 
 export const AdolescentIssuesForm = () => {
   const { t } = useTranslation();
 
   return (
     <CommonCollapse
+      variant="card"
       title={t("patients.anamnese.adolescentIssues.title")}
-      icon={<IconAlertCircle size={16} color={COLORS.grey70} />}
+      icon={<IconAlertCircle size={16} />}
       initialOpen={false}
     >
-      <Row gutter={16}>
+      <Row gutter={TOKENS.space[16]}>
         <Col span={24}>
           <Form.Item name={["anamnese_data", "adolescentIssues", "inferiorityFeelings"]}>
             <CommonTextArea label={t("patients.anamnese.adolescentIssues.inferiorityFeelings")} />
@@ -24,7 +25,7 @@ export const AdolescentIssuesForm = () => {
         </Col>
       </Row>
 
-      <Row gutter={16}>
+      <Row gutter={TOKENS.space[16]}>
         <Col span={8}>
           <Form.Item name={["anamnese_data", "adolescentIssues", "eatingDisorders"]}>
             <CommonTextInput label={t("patients.anamnese.adolescentIssues.eatingDisorders")} />
@@ -42,7 +43,7 @@ export const AdolescentIssuesForm = () => {
         </Col>
       </Row>
 
-      <Row gutter={16}>
+      <Row gutter={TOKENS.space[16]}>
         <Col span={12}>
           <Form.Item name={["anamnese_data", "adolescentIssues", "rebellion"]}>
             <CommonTextInput label={t("patients.anamnese.adolescentIssues.rebellion")} />
@@ -55,7 +56,7 @@ export const AdolescentIssuesForm = () => {
         </Col>
       </Row>
 
-      <Row gutter={16}>
+      <Row gutter={TOKENS.space[16]}>
         <Col span={24}>
           <Form.Item name={["anamnese_data", "adolescentIssues", "drugs"]}>
             <CommonTextArea label={t("patients.anamnese.adolescentIssues.drugs")} />
@@ -63,7 +64,7 @@ export const AdolescentIssuesForm = () => {
         </Col>
       </Row>
 
-      <Row gutter={16}>
+      <Row gutter={TOKENS.space[16]}>
         <Col span={24}>
           <Form.Item name={["anamnese_data", "adolescentIssues", "parentsReaction"]}>
             <CommonTextArea label={t("patients.anamnese.adolescentIssues.parentsReaction")} />

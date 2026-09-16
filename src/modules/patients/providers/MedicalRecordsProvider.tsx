@@ -5,6 +5,7 @@ import { Skeleton } from "antd";
 import { useNotification } from "@/shared/hooks/useNotification";
 import { useModals } from "@/shared/hooks/useModals";
 import { CommonDrawer } from "@/shared/components/CommonDrawer/CommonDrawer";
+import { formatDate } from "@/shared/utils/formatters";
 
 import { MedicalRecordsContext } from "../contexts/MedicalRecordsContext";
 import { MedicalRecordsFilterModal } from "../components/MedicalRecordsFilterModal/MedicalRecordsFilterModal";
@@ -22,6 +23,7 @@ import type {
 
 type MedicalRecordsProviderProps = {
   patientId?: number;
+  patientName?: string;
   renderFormDrawer?: boolean;
   keepFormOpenOnSubmit?: boolean;
   children: React.ReactNode;
@@ -29,6 +31,7 @@ type MedicalRecordsProviderProps = {
 
 export const MedicalRecordsProvider = ({
   patientId,
+  patientName,
   renderFormDrawer = true,
   keepFormOpenOnSubmit = false,
   children,
@@ -202,12 +205,18 @@ export const MedicalRecordsProvider = ({
           setIsSubmitting(false);
         }
       },
+      undefined,
+      { danger: true, confirmLabel: t("common.actions.delete") },
     );
   }, [t, patientId, openConfirmationModal, openNotification, closeForm]);
 
   const formTitle = medicalRecord?.id
     ? t("patients.medicalRecords.actions.edit")
     : t("patients.medicalRecords.actions.create");
+
+  const formSubtitle = patientName && medicalRecord?.date
+    ? t("patients.medicalRecords.session", { name: patientName, date: formatDate(medicalRecord.date) })
+    : patientName;
 
   return (
     <MedicalRecordsContext.Provider
@@ -241,6 +250,7 @@ export const MedicalRecordsProvider = ({
       {renderFormDrawer && (
         <CommonDrawer
           title={formTitle}
+          subtitle={formSubtitle}
           isOpen={isFormOpen}
           close={closeForm}
           footer={<MedicalRecordFormOptions />}

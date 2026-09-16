@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Form, Row, Col, Skeleton, Divider } from "antd";
+import { Form, Row, Col, Skeleton, Flex } from "antd";
 
 import { CommonSelect } from "@/shared/components/CommonSelect/CommonSelect";
 import { CommonSwitch } from "@/shared/components/CommonSwitch/CommonSwitch";
@@ -21,6 +21,7 @@ import {
   formatCurrencyInput,
 } from "../../utils/form";
 import type { Payment } from "../../types/payment";
+import { TOKENS } from "@/shared/theme";
 import styles from "./PaymentForm.module.css";
 
 type PaymentFormProps = {
@@ -145,7 +146,7 @@ export const PaymentForm = ({
       initialValues={{ free: false, ...defaultValues }}
       className={styles.form}
     >
-      <Row gutter={16}>
+      <Row gutter={TOKENS.space[16]}>
         <Col span={24}>
           <Form.Item name="service_id" rules={requiredRule}>
             <ServicesSelect
@@ -159,18 +160,17 @@ export const PaymentForm = ({
         </Col>
       </Row>
 
-      <Row gutter={16}>
-        <Col span={24}>
-          <Form.Item name="free">
-            <CommonSwitch label={t("payments.columns.free")} />
-          </Form.Item>
-        </Col>
-      </Row>
+      <Flex align="center" gap={TOKENS.space[12]} wrap className={styles.freeRow}>
+        <Form.Item name="free" noStyle>
+          <CommonSwitch label={t("payments.columns.free")} />
+        </Form.Item>
+        <span className={styles.freeHint}>{t("payments.drawer.freeHint")}</span>
+      </Flex>
 
       {/* Desmontados, os campos de cobrança também deixam de ser validados. */}
       {!isFree && (
         <>
-          <Row gutter={16}>
+          <Row gutter={TOKENS.space[16]}>
             <Col span={12}>
               <Form.Item name="value" rules={requiredRule} normalize={decimalMask}>
                 <CommonTextInput
@@ -191,7 +191,7 @@ export const PaymentForm = ({
             </Col>
           </Row>
 
-          <Row gutter={16}>
+          <Row gutter={TOKENS.space[16]}>
             <Col span={12}>
               <Form.Item
                 name="expiration_date"
@@ -223,7 +223,7 @@ export const PaymentForm = ({
         </>
       )}
 
-      <Row gutter={16}>
+      <Row gutter={TOKENS.space[16]}>
         <Col span={24}>
           <Form.Item name="observations">
             <CommonTextArea
@@ -234,9 +234,7 @@ export const PaymentForm = ({
         </Col>
       </Row>
 
-      <Divider className={styles.divider} />
-
-      <Row gutter={16}>
+      <Row gutter={TOKENS.space[16]} className={styles.documents}>
         <Col span={24}>
           <CommonDocuments
             label={t("common.documents.title")}
@@ -266,6 +264,7 @@ export const PaymentFormOptions = ({ showDelete = true }: PaymentFormOptionsProp
         <CommonButton
           onClick={() => deletePayment(payment.id)}
           buttonVariant="danger"
+          outline
           loading={isSubmitting}
         >
           {t("common.actions.delete")}

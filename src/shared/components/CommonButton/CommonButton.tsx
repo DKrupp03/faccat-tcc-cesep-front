@@ -1,13 +1,14 @@
 import React from "react";
 import { Button, type ButtonProps, ConfigProvider } from "antd";
 
-import { COLORS } from "../../theme";
+import { TOKENS } from "../../theme";
 
 import styles from "./CommonButton.module.css";
 
+const { color: C, radius: R, shadow: S } = TOKENS;
+
 export type CommonButtonProps = ButtonProps & {
   outline?: boolean;
-  circular?: boolean;
   hoverEffect?: boolean;
   contentAlign?: "flex-start" | "center" | "flex-end";
   buttonVariant?:
@@ -19,98 +20,92 @@ export type CommonButtonProps = ButtonProps & {
   | "info";
 };
 
+type Variant = {
+  bgColor: string;
+  bgColorHover: string;
+  textColor: string;
+  textColorHover: string;
+  shadow?: string;
+  shadowHover?: string;
+};
+
+// Padrão C: sem bordas; profundidade por fundo e sombra.
+// "outline" = superfície branca com sombra leve; cheio = fundo sólido ou suave.
+const getVariant = (
+  buttonVariant: NonNullable<CommonButtonProps["buttonVariant"]>,
+  outline: boolean,
+  iconOnly: boolean,
+): Variant => {
+  const raised = { shadow: S.sm, shadowHover: S.hover };
+
+  switch (buttonVariant) {
+    case "primary":
+    case "success":
+      return outline
+        ? { bgColor: C.surface, bgColorHover: C.surface, textColor: C.accent, textColorHover: C.accentHover, ...raised }
+        : { bgColor: C.accent, bgColorHover: C.accentHover, textColor: C.textInverse, textColorHover: C.textInverse };
+    case "danger":
+      if (outline) {
+        return { bgColor: C.surface, bgColorHover: C.dangerBg, textColor: C.danger, textColorHover: C.danger, shadow: S.sm };
+      }
+      return iconOnly
+        ? { bgColor: C.dangerBg, bgColorHover: C.dangerBgHover, textColor: C.danger, textColorHover: C.danger }
+        : { bgColor: C.danger, bgColorHover: C.dangerHover, textColor: C.textInverse, textColorHover: C.textInverse };
+    case "info":
+      return outline
+        ? { bgColor: C.surface, bgColorHover: C.infoBg, textColor: C.info, textColorHover: C.info, shadow: S.sm }
+        : { bgColor: C.info, bgColorHover: C.ink, textColor: C.textInverse, textColorHover: C.textInverse };
+    case "noBorder":
+      return { bgColor: "transparent", bgColorHover: C.bg, textColor: C.text, textColorHover: C.ink };
+    case "outline":
+    default:
+      return outline
+        ? { bgColor: C.surface, bgColorHover: C.surface, textColor: C.textSecondary, textColorHover: C.ink, ...raised }
+        : { bgColor: C.fieldBg, bgColorHover: C.border, textColor: C.text, textColorHover: C.ink };
+  }
+};
+
 export const CommonButton: React.FC<CommonButtonProps> = ({
   children,
   icon,
   htmlType,
   buttonVariant = "outline",
-  circular = false,
   outline = false,
   disabled = false,
   hoverEffect = true,
   contentAlign = "center",
   style,
+  className,
   ...props
 }) => {
-  const variants: {
-    [key: string]: {
-      bgColor: string;
-      bgColorHover: string;
-      borderColor: string;
-      borderColorHover: string;
-      textColor: string;
-      textColorHover: string;
-    };
-  } = {
-    primary: {
-      bgColor: outline ? COLORS.white : COLORS.blue,
-      bgColorHover: outline ? COLORS.white : COLORS.blueHover,
-      borderColor: outline ? COLORS.blue : "transparent",
-      borderColorHover: outline ? COLORS.blueHover : "transparent",
-      textColor: outline ? COLORS.blue : COLORS.white,
-      textColorHover: outline ? COLORS.blueHover : COLORS.white,
-    },
-    outline: {
-      bgColor: outline ? COLORS.white : COLORS.grey30,
-      bgColorHover: outline ? COLORS.white : COLORS.grey50,
-      borderColor: outline ? COLORS.grey30 : "transparent",
-      borderColorHover: outline ? COLORS.grey50 : "transparent",
-      textColor: COLORS.grey70,
-      textColorHover: COLORS.grey90,
-    },
-    noBorder: {
-      bgColor: COLORS.white,
-      bgColorHover: COLORS.white,
-      borderColor: "transparent",
-      borderColorHover: COLORS.grey30,
-      textColor: COLORS.grey70,
-      textColorHover: COLORS.grey90,
-    },
-    success: {
-      bgColor: outline ? COLORS.white : COLORS.gren,
-      bgColorHover: outline ? COLORS.white : COLORS.grenHover,
-      borderColor: outline ? COLORS.gren : "transparent",
-      borderColorHover: outline ? COLORS.grenHover : "transparent",
-      textColor: outline ? COLORS.gren : COLORS.white,
-      textColorHover: outline ? COLORS.grenHover : COLORS.white,
-    },
-    danger: {
-      bgColor: outline ? COLORS.white : COLORS.red,
-      bgColorHover: outline ? COLORS.white : COLORS.redHover,
-      borderColor: outline ? COLORS.red : "transparent",
-      borderColorHover: outline ? COLORS.redHover : "transparent",
-      textColor: outline ? COLORS.red : COLORS.white,
-      textColorHover: outline ? COLORS.redHover : COLORS.white,
-    },
-    info: {
-      bgColor: outline ? COLORS.white : COLORS.blue,
-      bgColorHover: outline ? COLORS.white : COLORS.navy,
-      borderColor: outline ? COLORS.blue : "transparent",
-      borderColorHover: outline ? COLORS.navy : "transparent",
-      textColor: outline ? COLORS.blue : COLORS.white,
-      textColorHover: outline ? COLORS.navy : COLORS.white,
-    },
-  };
-
-  const variant = variants[buttonVariant];
+  const variant = getVariant(buttonVariant, outline, !children && !!icon);
+  const hover = <T,>(value: T, hoverValue: T) => (hoverEffect ? hoverValue : value);
 
   return (
     <ConfigProvider
       theme={{
         components: {
           Button: {
+            controlHeightLG: TOKENS.control.lg,
+            controlHeight: TOKENS.control.md,
+            controlHeightSM: TOKENS.control.sm,
+            fontWeight: TOKENS.font.weight.semibold,
+            contentFontSize: TOKENS.font.size.md,
+            contentFontSizeSM: TOKENS.font.size.sm,
+            contentFontSizeLG: TOKENS.font.size.base,
             defaultBg: variant.bgColor,
             defaultColor: variant.textColor,
-            defaultBorderColor: variant.borderColor,
-            defaultHoverBg: hoverEffect ? variant.bgColorHover : variant.bgColor,
-            defaultHoverColor: hoverEffect ? variant.textColorHover : variant.textColor,
-            defaultHoverBorderColor: hoverEffect ? variant.borderColorHover : variant.borderColor,
-            defaultActiveBg: hoverEffect ? variant.bgColorHover : variant.bgColor,
-            defaultActiveColor: hoverEffect ? variant.textColorHover : variant.textColor,
-            defaultActiveBorderColor: hoverEffect ? variant.borderColorHover : variant.borderColor,
-            borderRadiusSM: circular ? 32 : 4,
-            borderRadius: circular ? 40 : 6,
-            borderRadiusLG: circular ? 50 : 8,
+            defaultBorderColor: "transparent",
+            defaultHoverBg: hover(variant.bgColor, variant.bgColorHover),
+            defaultHoverColor: hover(variant.textColor, variant.textColorHover),
+            defaultHoverBorderColor: "transparent",
+            defaultActiveBg: hover(variant.bgColor, variant.bgColorHover),
+            defaultActiveColor: hover(variant.textColor, variant.textColorHover),
+            defaultActiveBorderColor: "transparent",
+            borderColorDisabled: "transparent",
+            borderRadiusSM: R.sm,
+            borderRadius: R.lg,
+            borderRadiusLG: R.lg,
           },
         },
       }}
@@ -119,8 +114,15 @@ export const CommonButton: React.FC<CommonButtonProps> = ({
         disabled={disabled}
         htmlType={htmlType}
         icon={icon}
-        className={styles.button}
-        style={{ justifyContent: contentAlign, ...style }}
+        className={className ? `${styles.button} ${className}` : styles.button}
+        data-variant={buttonVariant}
+        data-outline={outline || undefined}
+        style={{
+          justifyContent: contentAlign,
+          "--button-shadow": variant.shadow ?? "none",
+          "--button-shadow-hover": hover(variant.shadow, variant.shadowHover ?? variant.shadow) ?? "none",
+          ...style,
+        } as React.CSSProperties}
         {...props}
       >
         {children}

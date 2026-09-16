@@ -1,26 +1,30 @@
 /* eslint-disable react-refresh/only-export-components */
 import React, { createContext, useContext } from "react";
-import { Flex, Typography } from "antd";
+import { Flex } from "antd";
 
 import { CommonButton, type CommonButtonProps } from "../CommonButton/CommonButton";
-import { COLORS } from "@/shared/theme";
+import { CommonField } from "../CommonField/CommonField";
 
 import styles from "./CommonGroupButtons.module.css";
-
-const { Text } = Typography;
 
 type GroupContextValue = {
   value?: string | number;
   onChange?: (value: string | number) => void;
+  tone: "neutral" | "accent";
 };
 
-const GroupContext = createContext<GroupContextValue>({});
+const GroupContext = createContext<GroupContextValue>({ tone: "neutral" });
 
 type GroupProps = {
   value?: string | number;
   onChange?: (value: string | number) => void;
   children: React.ReactNode;
   label?: string;
+  // "neutral": trilho cinza, ativo branco; "accent": trilho branco, ativo cheio
+  tone?: "neutral" | "accent";
+  fit?: boolean;
+  // "compact": trilho baixo para barras de cabeçalho (ex.: Calendário/Lista)
+  size?: "default" | "compact";
 };
 
 type ButtonProps = Omit<CommonButtonProps, "outline" | "onClick"> & {
@@ -29,20 +33,16 @@ type ButtonProps = Omit<CommonButtonProps, "outline" | "onClick"> & {
 };
 
 const Button: React.FC<ButtonProps> = ({ value, children, ...buttonProps }) => {
-  const { value: groupValue, onChange } = useContext(GroupContext);
+  const { value: groupValue, onChange, tone } = useContext(GroupContext);
   const isActive = value === groupValue;
+  const activeClass = tone === "accent" ? styles.buttonActiveAccent : styles.buttonActive;
 
   return (
     <CommonButton
-      outline
+      buttonVariant="noBorder"
       hoverEffect={!isActive}
       onClick={() => onChange?.(value)}
-      className={styles.button}
-      style={isActive ? {
-        border: `1px solid ${COLORS.grey50}`,
-        color: COLORS.grey90,
-        backgroundColor: COLORS.grey10,
-      } : undefined}
+      className={isActive ? `${styles.button} ${activeClass}` : styles.button}
       {...buttonProps}
     >
       {children}
@@ -50,18 +50,33 @@ const Button: React.FC<ButtonProps> = ({ value, children, ...buttonProps }) => {
   );
 };
 
-const CommonGroupButtonsBase: React.FC<GroupProps> = ({ value, onChange, children, label }) => {
+const CommonGroupButtonsBase: React.FC<GroupProps> = ({
+  value,
+  onChange,
+  children,
+  label,
+  tone = "neutral",
+  fit = false,
+  size = "default",
+}) => {
+  const groupClass = [
+    styles.group,
+    tone === "accent" ? styles.groupAccent : "",
+    fit ? styles.groupFit : "",
+    size === "compact" ? styles.groupCompact : "",
+  ].filter(Boolean).join(" ");
+
   return (
-    <Flex align="center" gap={16} className={styles.container}>
-      {label && (
-        <Text className={styles.label}>{label}</Text>
-      )}
-      <GroupContext.Provider value={{ value, onChange }}>
-        <Flex className={styles.group}>
+    <CommonField
+      label={label}
+      className={fit ? `${styles.container} ${styles.containerFit}` : styles.container}
+    >
+      <GroupContext.Provider value={{ value, onChange, tone }}>
+        <Flex className={groupClass}>
           {children}
         </Flex>
       </GroupContext.Provider>
-    </Flex>
+    </CommonField>
   );
 };
 

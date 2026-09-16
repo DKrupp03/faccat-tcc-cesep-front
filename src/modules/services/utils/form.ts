@@ -36,6 +36,9 @@ export const getStatusOptions = (t: TFunction) =>
     label: t(`services.status.${status}`),
   }));
 
+export const getServiceTypeLabel = (t: TFunction, type?: string) =>
+  type ? t(`services.serviceTypes.${type}`) : "";
+
 export const getServiceTypeOptions = (t: TFunction) =>
   SERVICE_TYPES.map((type) => ({
     value: type,

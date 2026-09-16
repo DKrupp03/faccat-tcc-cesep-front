@@ -10,6 +10,7 @@ import { useTherapistsList } from "../../hooks/useTherapistsList";
 import { TherapistsHeader } from "../../components/TherapistsHeader/TherapistsHeader";
 import { TherapistsHeaderCards } from "../../components/TherapistsHeaderCards/TherapistsHeaderCards";
 import { TherapistsTable } from "../../components/TherapistsTable/TherapistsTable";
+import { TOKENS } from "@/shared/theme";
 import styles from "./TherapistsPage.module.css";
 
 const TherapistsPage = () => {
@@ -23,7 +24,7 @@ const TherapistsPage = () => {
 const TherapistsPanel = () => {
   const { t } = useTranslation();
   const { changeActiveModule } = useModules();
-  const { filtratePanel } = useTherapistsList();
+  const { filtratePanel, loading, total, totalActive } = useTherapistsList();
 
   useEffect(() => {
     changeActiveModule("therapists");
@@ -33,11 +34,14 @@ const TherapistsPanel = () => {
 
   return (
     <Flex vertical className={styles.panel}>
-      <CommonHeader title={t("common.modules.therapists")}>
+      <CommonHeader
+        title={t("common.modules.therapists")}
+        subtitle={loading ? undefined : t("therapists.subtitle", { active: totalActive, total })}
+      >
         <TherapistsHeader />
       </CommonHeader>
 
-      <Flex vertical gap={24} className={styles.body}>
+      <Flex vertical gap={TOKENS.space[24]} className={styles.body}>
         <TherapistsHeaderCards />
         <TherapistsTable />
       </Flex>

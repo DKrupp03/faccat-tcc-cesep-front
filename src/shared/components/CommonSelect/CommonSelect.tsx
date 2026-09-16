@@ -1,11 +1,14 @@
-import { useState, useRef, useCallback, type ReactNode } from "react";
+import { useRef, useCallback, type ReactNode } from "react";
 import { Select, Flex, Spin, type SelectProps, type RefSelectProps } from "antd";
+
+import { CommonField } from "../CommonField/CommonField";
 
 import styles from "./CommonSelect.module.css";
 
 type CommonSelectProps = SelectProps & {
   icon?: ReactNode;
   label?: string;
+  labelSuffix?: ReactNode;
   required?: boolean;
 };
 
@@ -18,8 +21,7 @@ const loadingIndicator = <Spin size="small" />;
 export const CommonSelect: React.FC<CommonSelectProps> = ({
   icon,
   label,
-  onFocus,
-  onBlur,
+  labelSuffix,
   onChange,
   onClear,
   onOpenChange,
@@ -29,21 +31,7 @@ export const CommonSelect: React.FC<CommonSelectProps> = ({
   required = false,
   ...props
 }: CommonSelectProps) => {
-  const [focused, setFocused] = useState(false);
   const selectRef = useRef<RefSelectProps>(null);
-
-  const hasValue = props.value !== undefined && props.value !== null && props.value !== "";
-  const isFloating = focused || hasValue;
-
-  const handleFocus = useCallback((e: React.FocusEvent<HTMLElement>) => {
-    setFocused(true);
-    onFocus?.(e);
-  }, [onFocus]);
-
-  const handleBlur = useCallback((e: React.FocusEvent<HTMLElement>) => {
-    setFocused(false);
-    onBlur?.(e);
-  }, [onBlur]);
 
   const handleOpenChange = useCallback((open: boolean) => {
     if (!open) blurActive();
@@ -59,23 +47,15 @@ export const CommonSelect: React.FC<CommonSelectProps> = ({
     onChange?.(value, option);
   }, [onChange]);
 
-  const labelEl = label ? (
-    <span className={`${styles.label} ${icon ? styles.labelWithPrefix : ""} ${isFloating ? styles.labelFloating : ""}`}>
-      {label} {required && <span className={styles.required}>*</span>}
-    </span>
-  ) : null;
-
   return (
-    <div className={styles.wrapper}>
-      {labelEl}
+    <CommonField label={label} htmlFor={props.id} labelSuffix={labelSuffix} required={required}>
       {icon && <Flex className={styles.prefix}>{icon}</Flex>}
       <Select
         ref={selectRef}
         size="large"
+        variant="filled"
         className={`${styles.select} ${icon ? styles.selectWithPrefix : ""}`}
         classNames={{ popup: { root: styles.popup } }}
-        onFocus={handleFocus}
-        onBlur={handleBlur}
         onChange={handleChange}
         onClear={handleClear}
         onOpenChange={handleOpenChange}
@@ -83,6 +63,6 @@ export const CommonSelect: React.FC<CommonSelectProps> = ({
         notFoundContent={loading ? loadingIndicator : notFoundContent}
         {...props}
       />
-    </div>
+    </CommonField>
   );
 };

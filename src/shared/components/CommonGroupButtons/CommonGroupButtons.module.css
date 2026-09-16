@@ -1,30 +1,69 @@
 .container {
-  width: 100%;
   white-space: nowrap;
 }
 
-.label {
-  color: var(--color-gray90);
+/* especificidade maior que .field (width: 100%) do CommonField */
+.container.containerFit {
+  width: auto;
 }
 
 .group {
   width: 100%;
+  height: var(--control-height-field);
+  gap: var(--space-4);
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+  background-color: var(--color-rail);
 }
 
 .button {
   width: 100%;
+  height: 100% !important;
+  border-radius: var(--radius-sm) !important;
+  font-size: var(--font-size-sm) !important;
+  font-weight: var(--font-weight-medium);
 }
 
-.button:first-child {
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
+.buttonActive,
+.buttonActive:not(:disabled):hover {
+  background-color: var(--color-surface) !important;
+  color: var(--color-accent) !important;
+  font-weight: var(--font-weight-semibold);
+  box-shadow: var(--shadow-sm) !important;
 }
 
-.button:last-child {
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
+.groupAccent {
+  height: auto;
+  background-color: var(--color-surface);
 }
 
-.button:not(:first-child):not(:last-child) {
-  border-radius: 0;
+.groupAccent .button {
+  height: var(--space-32) !important;
+}
+
+.groupFit {
+  width: fit-content;
+}
+
+.groupFit .button {
+  width: auto;
+  padding: 0 var(--space-16);
+}
+
+.buttonActiveAccent,
+.buttonActiveAccent:not(:disabled):hover {
+  background-color: var(--color-accent) !important;
+  color: var(--color-text-inverse) !important;
+  font-weight: var(--font-weight-semibold);
+}
+
+.groupCompact {
+  height: auto;
+  border-radius: var(--radius-xl);
+}
+
+.groupCompact .button {
+  height: var(--space-32) !important;
+  padding: 0 var(--space-12);
+  border-radius: var(--radius-md) !important;
 }

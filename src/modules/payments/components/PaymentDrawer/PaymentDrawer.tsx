@@ -4,6 +4,7 @@ import { Skeleton } from "antd";
 import { IconEdit, IconCalendarEvent } from "@tabler/icons-react";
 
 import { CommonDrawer } from "@/shared/components/CommonDrawer/CommonDrawer";
+import { formatDate } from "@/shared/utils/formatters";
 import { ServiceFormProvider } from "@/modules/services/providers/ServiceFormProvider";
 import { useServiceForm } from "@/modules/services/hooks/useServiceForm";
 import {
@@ -81,6 +82,12 @@ export const PaymentDrawer = () => {
         isOpen={isFormOpen}
         close={handleClose}
         title={t(`payments.tabs.${tab}`)}
+        subtitle={payment?.id
+          ? t("payments.drawer.dueOn", {
+            name: payment.service?.patient?.name ?? "",
+            date: formatDate(payment.expiration_date ?? undefined),
+          })
+          : t("payments.drawer.newPayment")}
         footer={footer}
         tabs={tabs}
         activeTab={tab}

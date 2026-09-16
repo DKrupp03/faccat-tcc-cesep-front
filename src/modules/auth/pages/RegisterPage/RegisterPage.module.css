@@ -3,7 +3,11 @@
 }
 
 .backToLogin {
-  color: var(--color-blue);
-  font-weight: 700;
+  color: var(--color-accent) !important;
+  font-weight: var(--font-weight-semibold);
   cursor: pointer;
+}
+
+.backToLogin:hover {
+  color: var(--color-accent-hover) !important;
 }

@@ -196,6 +196,8 @@ export const ServiceFormProvider = ({
         setIsSubmitting(true);
         removeService(serviceId);
       },
+      undefined,
+      { danger: true, confirmLabel: t("common.actions.delete") },
     );
   }, [t, openConfirmationModal, removeService, service]);
 

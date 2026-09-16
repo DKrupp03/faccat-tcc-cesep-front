@@ -1,23 +1,8 @@
-:root {
-  --color-black: #000000;
-  --color-navy: #092C4C;
-  --color-blue: #514EF3;
-  --color-blue-hover: #403ebf;
-  --color-gren: #2DC8A8;
-  --color-gren-hover: #13b594;
-  --color-red: #EF4444;
-  --color-red-hover: #c72828;
-  --color-yellow: #FFC357;
-  --color-pink: #FE8084;
-  --color-grey90: #526477;
-  --color-grey70: #7E92A2;
-  --color-grey50: #D6E1E6;
-  --color-grey30: #EAEEF4;
-  --color-grey10: #F6FAFD;
-  --color-white: #FFFFFF;
+@import "./shared/tokens.css";
 
-  font-family: "Lato", sans-serif;
-  color: var(--color-navy);
+:root {
+  font-family: var(--font-family);
+  color: var(--color-ink);
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -31,7 +16,7 @@
 
 body {
   margin: 0;
-  background: var(--color-grey10);
+  background: var(--color-bg);
 }
 
 #root {
@@ -50,16 +35,39 @@ h5.ant-typography {
 }
 
 .ant-form-item-explain-error {
-  font-size: 12px;
+  margin-top: var(--space-4);
+  font-size: var(--font-size-xs);
+}
+
+/* campo com erro: fundo suave de alerta (a borda vem do antd) */
+.ant-input-filled.ant-input-status-error,
+.ant-input-affix-wrapper-filled.ant-input-affix-wrapper-status-error,
+.ant-select-filled.ant-select-status-error,
+.ant-picker-filled.ant-picker-status-error {
+  background-color: var(--color-danger-bg) !important;
 }
 
 .ant-dropdown-menu-item {
-  border: 1px solid transparent !important;
-  transition: border-color 0s !important;
+  border-radius: var(--radius-sm) !important;
+  transition: background-color var(--transition-fast) !important;
 }
 
 .ant-dropdown-menu-item:hover,
 .ant-dropdown-menu-item-active {
-  background-color: transparent !important;
-  border-color: var(--color-grey50) !important;
+  background-color: var(--color-bg) !important;
+}
+
+::selection {
+  background-color: var(--color-accent-soft-hover);
+  color: var(--color-ink);
+}
+
+/* campo desabilitado: fundo mais claro e texto de apoio (ex.: e-mail travado) */
+.ant-input-filled.ant-input-disabled,
+.ant-input-affix-wrapper-filled.ant-input-affix-wrapper-disabled,
+.ant-select-filled.ant-select-disabled .ant-select-selector,
+.ant-select-filled.ant-select-disabled,
+.ant-picker-filled.ant-picker-disabled {
+  background-color: var(--color-surface-subtle) !important;
+  color: var(--color-text-muted) !important;
 }

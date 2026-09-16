@@ -1,4 +1,14 @@
 const services = {
+	subtitle: {
+		calendar: "{{count}} atendimentos em {{month}}",
+		list: "{{count}} atendimentos filtrados",
+	},
+
+	drawer: {
+		newService: "Novo atendimento",
+		serviceOf: "Atendimento de {{date}}",
+	},
+
 	headerCards: {
 		total: "Total de atendimentos",
 		filtered: "Atendimentos filtrados",
@@ -6,6 +16,7 @@ const services = {
 
 	actions: {
 		create: "Criar atendimento",
+		new: "Novo atendimento",
 		created: "Atendimento criado com sucesso!",
 		edit: "Editar atendimento",
 		updated: "Atendimento atualizado com sucesso!",
@@ -36,6 +47,7 @@ const services = {
 
 	rooms: {
 		title: "Salas",
+		registered: "Salas cadastradas",
 		name: "Nome da sala",
 		none: "Nenhuma sala cadastrada.",
 		saved: "Salas salvas com sucesso!",
@@ -118,7 +130,6 @@ const services = {
 	},
 
 	view: {
-		panel: "Painel",
 		calendar: "Calendário",
 		list: "Lista",
 	},

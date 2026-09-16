@@ -13,6 +13,7 @@ import { AuthCardContainer } from "../../components/AuthCardContainer/AuthCardCo
 import { RegisterForm } from "../../components/RegisterForm/RegisterForm";
 import { AuthService } from "../../services/AuthService";
 import type { RegisterPayload } from "../../types/auth";
+import { TOKENS } from "@/shared/theme";
 import styles from "./RegisterPage.module.css";
 
 const { Title, Text } = Typography;
@@ -56,8 +57,8 @@ const RegisterPage = () => {
   return (
     <AuthCardContainer>
       {registeredRole ? (
-        <Flex vertical gap={8}>
-          <Flex align="center" vertical gap={4}>
+        <Flex vertical gap={TOKENS.space[8]}>
+          <Flex align="center" vertical gap={TOKENS.space[4]}>
             <Title level={3}>
               {t("auth.register.success")}
             </Title>
@@ -82,8 +83,8 @@ const RegisterPage = () => {
         </Flex>
       ) : (
         <>
-          <Flex vertical gap={4}>
-            <Flex align="center" gap={12}>
+          <Flex vertical gap={TOKENS.space[4]}>
+            <Flex align="center" gap={TOKENS.space[12]}>
               <CommonBackButton onClick={goBack} />
               <Title level={3}>
                 {t("auth.register.register")}

@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Form, Row, Col, Divider } from "antd";
+import { Form, Row, Col } from "antd";
 
 import { CommonTextInput } from "@/shared/components/CommonTextInput/CommonTextInput";
 import { CommonTextArea } from "@/shared/components/CommonTextArea/CommonTextArea";
@@ -12,6 +12,7 @@ import { dateValueProps, normalizeDate } from "@/shared/utils/formatters";
 
 import { useMedicalRecords } from "../../hooks/useMedicalRecords";
 import type { MedicalRecordType } from "../../types/medicalRecord";
+import { TOKENS } from "@/shared/theme";
 import styles from "./MedicalRecordForm.module.css";
 
 type MedicalRecordFormProps = {
@@ -87,7 +88,7 @@ export const MedicalRecordForm = ({
       initialValues={defaultValues}
       className={styles.form}
     >
-      <Row gutter={16}>
+      <Row gutter={TOKENS.space[16]}>
         <Col span={16}>
           <Form.Item name="title" rules={requiredRule}>
             <CommonTextInput
@@ -113,7 +114,7 @@ export const MedicalRecordForm = ({
         </Col>
       </Row>
 
-      <Row gutter={16}>
+      <Row gutter={TOKENS.space[16]}>
         <Col span={24}>
           <Form.Item name="service_id" rules={requiredRule}>
             <ServicesSelect
@@ -128,11 +129,12 @@ export const MedicalRecordForm = ({
         </Col>
       </Row>
 
-      <Row gutter={16}>
+      <Row gutter={TOKENS.space[16]}>
         <Col span={24}>
           <Form.Item name="evolution" rules={requiredRule}>
             <CommonTextArea
               label={t("patients.medicalRecords.columns.evolution")}
+              rows={7}
               required
               disabled={lockedFields.includes("evolution")}
             />
@@ -140,7 +142,7 @@ export const MedicalRecordForm = ({
         </Col>
       </Row>
 
-      <Row gutter={16}>
+      <Row gutter={TOKENS.space[16]}>
         <Col span={24}>
           <Form.Item name="documentary_record">
             <CommonTextArea
@@ -151,7 +153,7 @@ export const MedicalRecordForm = ({
         </Col>
       </Row>
 
-      <Row gutter={16}>
+      <Row gutter={TOKENS.space[16]}>
         <Col span={24}>
           <Form.Item name="supervision_record">
             <CommonTextArea
@@ -162,9 +164,7 @@ export const MedicalRecordForm = ({
         </Col>
       </Row>
 
-      <Divider className={styles.divider} />
-
-      <Row gutter={16}>
+      <Row gutter={TOKENS.space[16]} className={styles.documents}>
         <Col span={24}>
           <CommonDocuments
             label={t("common.documents.title")}
@@ -200,6 +200,7 @@ export const MedicalRecordFormOptions = ({
         <CommonButton
           onClick={() => deleteMedicalRecord(medicalRecord.id)}
           buttonVariant="danger"
+          outline
           loading={isSubmitting}
         >
           {t("common.actions.delete")}

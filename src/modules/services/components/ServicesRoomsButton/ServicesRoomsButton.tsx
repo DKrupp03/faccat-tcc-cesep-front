@@ -25,8 +25,6 @@ export const ServicesRoomsButton = () => {
         <CommonButton
           onClick={open}
           icon={<IconDoor size={18} />}
-          size="large"
-          circular
           outline
         />
       </Tooltip>

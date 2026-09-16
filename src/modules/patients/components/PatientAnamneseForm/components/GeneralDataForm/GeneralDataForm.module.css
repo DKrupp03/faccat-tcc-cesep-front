@@ -1,0 +1,25 @@
+.typeBlock {
+  padding: var(--space-16) var(--space-20);
+  border-radius: var(--radius-2xl);
+  background-color: var(--color-accent-subtle);
+}
+
+.typeLabel {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text);
+}
+
+.typeBlock > :global(div) {
+  width: auto;
+}
+
+.typeHint {
+  margin-left: auto;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+.lastItem {
+  margin-bottom: 0 !important;
+}

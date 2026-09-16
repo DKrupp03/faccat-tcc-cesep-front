@@ -3,11 +3,15 @@ import { Drawer, Flex, Typography } from "antd";
 
 import { CommonCloseButton } from "../CommonCloseButton/CommonCloseButton";
 import { CommonTabs, type CommonTabsProps } from "../CommonTabs/CommonTabs";
+import { DrawerContext } from "../../contexts/DrawerContext";
+
+import { TOKENS } from "../../theme";
 
 import styles from "./CommonDrawer.module.css";
 
 type CommonDrawerProps = Partial<CommonTabsProps> & {
   title: string;
+  subtitle?: string;
   isOpen: boolean;
   close: () => void;
   header?: React.ReactNode;
@@ -21,6 +25,7 @@ const { Title } = Typography;
 
 export const CommonDrawer = ({
   title,
+  subtitle,
   isOpen,
   close,
   header,
@@ -41,21 +46,28 @@ export const CommonDrawer = ({
       justify="space-between" align="center"
       className={styles.header}
     >
-      <Title level={5}>
-        {title}
-      </Title>
-      <Flex align="center" gap={12}>
-        <Flex gap={8}>
-          {header}
-        </Flex>
-        <CommonCloseButton onClick={close} />
+      <Flex vertical gap={TOKENS.space[2]}>
+        <Title level={5} className={styles.title}>
+          {title}
+        </Title>
+        {subtitle && (
+          <span className={styles.subtitle}>{subtitle}</span>
+        )}
+      </Flex>
+      <Flex align="center" gap={TOKENS.space[12]}>
+        {header && (
+          <Flex align="center" gap={TOKENS.space[8]} className={styles.toolbar}>
+            {header}
+          </Flex>
+        )}
+        <CommonCloseButton onClick={close} outline />
       </Flex>
     </Flex>
-  ), [title, close, header]);
+  ), [title, subtitle, close, header]);
 
   const footerContent = useMemo(() => (
     <Flex
-      justify="end" align="center" gap={12}
+      justify="end" align="center" gap={TOKENS.space[12]}
       className={styles.footer}
     >
       {footer}
@@ -85,7 +97,9 @@ export const CommonDrawer = ({
           />
         )}
         <Flex ref={contentRef} className={styles.content}>
-          {children}
+          <DrawerContext.Provider value>
+            {children}
+          </DrawerContext.Provider>
         </Flex>
       </Flex>
     </Drawer>

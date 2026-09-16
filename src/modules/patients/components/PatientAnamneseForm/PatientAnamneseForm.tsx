@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { Form, Divider } from "antd";
+import { Form } from "antd";
 
 import { CommonButton } from "@/shared/components/CommonButton/CommonButton";
 
@@ -44,81 +44,65 @@ export const PatientAnamneseForm = () => {
       className={styles.form}
     >
       <GeneralDataForm />
-      <Divider />
+
+      <div className={styles.sections}>
 
       <IdentificationDataForm />
-      <Divider />
 
       <FamilyForm />
-      <Divider />
 
       <ReasonForm />
-      <Divider />
 
       <PreviousHistoryForm />
-      <Divider />
 
       {anamneseType !== "adult" && (
         <>
           <DevelopmentForm />
-          <Divider />
 
           <SchoolHistoryForm />
-          <Divider />
 
           {anamneseType === "adolescent" && (
             <>
               <OccupationHistoryForm />
-              <Divider />
             </>
           )}
 
           <ClinicalHistoryForm />
-          <Divider />
         </>
       )}
 
       {anamneseType === "adult" && (
         <>
           <PubertyForm />
-          <Divider />
 
           <AdulthoodForm />
-          <Divider />
 
           <MatureAgeForm />
-          <Divider />
         </>
       )}
 
       <CurrentMomentForm />
-      <Divider />
 
       {anamneseType !== "adult" && (
         <>
           <FamilyHistoryForm />
-          <Divider />
 
           <DomesticEnvironmentForm />
-          <Divider />
         </>
       )}
 
       {anamneseType === "adolescent" && (
         <>
           <SocialRelationsForm />
-          <Divider />
 
           <AdolescentIssuesForm />
-          <Divider />
         </>
       )}
 
       <WeeklyRoutineForm />
-      <Divider />
 
       <ForInterviewerForm />
-      <Divider />
+      </div>
     </Form>
   );
 };

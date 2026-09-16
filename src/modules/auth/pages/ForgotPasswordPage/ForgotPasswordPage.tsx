@@ -11,6 +11,7 @@ import { PATHS } from "@/routes/paths";
 import { AuthCardContainer } from "../../components/AuthCardContainer/AuthCardContainer";
 import { ForgotPasswordForm } from "../../components/ForgotPasswordForm/ForgotPasswordForm";
 import { AuthService } from "../../services/AuthService";
+import { TOKENS } from "@/shared/theme";
 import styles from "./ForgotPasswordPage.module.css";
 
 const { Title, Text } = Typography;
@@ -67,9 +68,9 @@ const ForgotPasswordPage = () => {
   return (
     <AuthCardContainer>
       {emailSent ? (
-        <Flex vertical gap={8}>
-          <Flex align="center" vertical gap={4}>
-            <Flex align="center" gap={12}>
+        <Flex vertical gap={TOKENS.space[8]}>
+          <Flex align="center" vertical gap={TOKENS.space[4]}>
+            <Flex align="center" gap={TOKENS.space[12]}>
               <CommonBackButton onClick={goBack} />
               <Title level={3}>
                 {t("auth.forgotPassword.verifyEmail")}
@@ -82,7 +83,7 @@ const ForgotPasswordPage = () => {
 
           <Divider />
 
-          <Flex align="center" vertical gap={4}>
+          <Flex align="center" vertical gap={TOKENS.space[4]}>
             <Text>
               {t("auth.forgotPassword.notReceived")}
             </Text>
@@ -96,8 +97,8 @@ const ForgotPasswordPage = () => {
         </Flex>
       ) : (
         <>
-          <Flex vertical gap={4}>
-            <Flex align="center" gap={12}>
+          <Flex vertical gap={TOKENS.space[4]}>
+            <Flex align="center" gap={TOKENS.space[12]}>
               <CommonBackButton onClick={goBack} />
               <Title level={3}>
                 {t("auth.forgotPassword.recoverPassword")}

@@ -11,11 +11,14 @@ import { formatMonthYear, formatTime } from "@/shared/utils/formatters";
 
 import { useServicesList } from "../../hooks/useServicesList";
 import { useServiceForm } from "../../hooks/useServiceForm";
-import { ServiceStatusIcon, getServiceStatusColor } from "../../utils/status";
-import type { Service } from "../../types/service";
+import { getServiceStatusColor, getServiceStatusBgColor } from "../../utils/status";
+import type { Service, ServiceStatus } from "../../types/service";
+import { TOKENS } from "@/shared/theme";
 import styles from "./ServicesCalendar.module.css";
 
 const { Text } = Typography;
+
+const LEGEND_STATUSES: ServiceStatus[] = ["confirmed", "attended", "scheduled", "no_show", "cancelled"];
 
 // A API já devolve a data no formato "YYYY-MM-DD", igual à chave do calendário.
 const dayKey = (value: Dayjs) => value.format("YYYY-MM-DD");
@@ -60,13 +63,15 @@ export const ServicesCalendar = () => {
             <Tooltip title={service.patient?.name}>
               <div
                 className={styles.event}
-                style={{ "--status-color": getServiceStatusColor(service.status) } as CSSProperties}
+                style={{
+                  "--status-color": getServiceStatusColor(service.status),
+                  "--status-bg": getServiceStatusBgColor(service.status),
+                } as CSSProperties}
                 onClick={(e) => {
                   e.stopPropagation();
                   openForm(service.id);
                 }}
               >
-                <ServiceStatusIcon status={service.status} size={14} />
                 <span className={styles.time}>
                   {formatTime(service.start_time)}
                 </span>
@@ -89,13 +94,12 @@ export const ServicesCalendar = () => {
           cellRender={cellRender}
           headerRender={({ value }) => (
             <Flex align="center" justify="space-between" className={styles.header}>
-              <Flex align="center" gap={12}>
+              <Flex align="center" gap={TOKENS.space[12]}>
                 <Tooltip title={t("services.calendar.previousMonth")}>
                   <CommonButton
                     onClick={() => changeCalendarMonth(value.subtract(1, "month"))}
                     icon={<IconChevronLeft size={18} />}
-                    circular
-                    outline
+                    className={styles.navButton}
                   />
                 </Tooltip>
                 <Text className={styles.monthLabel}>
@@ -105,17 +109,27 @@ export const ServicesCalendar = () => {
                   <CommonButton
                     onClick={() => changeCalendarMonth(value.add(1, "month"))}
                     icon={<IconChevronRight size={18} />}
-                    circular
-                    outline
+                    className={styles.navButton}
                   />
                 </Tooltip>
               </Flex>
-              <CommonButton
-                onClick={() => changeCalendarMonth(dayjs())}
-                outline
-              >
-                {t("services.calendar.today")}
-              </CommonButton>
+              <Flex align="center" gap={TOKENS.space[16]} wrap>
+                {LEGEND_STATUSES.map((status) => (
+                  <span key={status} className={styles.legendItem}>
+                    <span
+                      className={styles.legendDot}
+                      style={{ backgroundColor: getServiceStatusColor(status) }}
+                    />
+                    {t(`services.status.${status}`)}
+                  </span>
+                ))}
+                <CommonButton
+                  onClick={() => changeCalendarMonth(dayjs())}
+                  className={styles.todayButton}
+                >
+                  {t("services.calendar.today")}
+                </CommonButton>
+              </Flex>
             </Flex>
           )}
         />

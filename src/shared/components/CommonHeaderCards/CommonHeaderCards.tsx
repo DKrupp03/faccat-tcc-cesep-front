@@ -1,13 +1,13 @@
-import { Flex, Typography, Skeleton } from "antd";
+import { Flex, Skeleton } from "antd";
+
+import { TOKENS } from "../../theme";
 
 import styles from "./CommonHeaderCards.module.css";
-
-const { Title, Text } = Typography;
 
 type CardType = {
   text: string;
   value: string | number;
-  icon: React.ReactNode;
+  valueColor?: string;
 };
 
 type CommonHeaderCardsProps = {
@@ -15,45 +15,52 @@ type CommonHeaderCardsProps = {
   loading?: boolean;
 };
 
+// Mantém a altura da linha de texto (via espaço não quebrável) e sobrepõe o skeleton,
+// para que o card tenha o mesmo tamanho carregando e carregado.
+const SkeletonLine = ({ width }: { width: number }) => (
+  <div className={styles.skeletonLine}>
+    {"\u00A0"}
+    <Skeleton.Input
+      active
+      size="small"
+      styles={{
+        root: { position: "absolute", inset: 0, display: "flex", alignItems: "center" },
+        content: { width, minWidth: 0, height: "1em" },
+      }}
+    />
+  </div>
+);
+
 export const CommonHeaderCards = ({
   cards,
   loading,
 }: CommonHeaderCardsProps) => {
   return (
-    <Flex
-      gap={24} justify="center" align="center"
+    <div
       className={styles.cards}
+      style={{ gridTemplateColumns: `repeat(${cards.length}, minmax(0, 1fr))` }}
     >
-      {cards.map((card, index) => loading ? (
-        <Skeleton
-          key={index}
-          paragraph={{ rows: 1 }}
-          className={styles.card}
-          style={{ paddingTop: 5 }}
-          active
-        />
-      ) : (
+      {cards.map((card, index) => (
         <Flex
           key={index}
-          align="center" gap={16}
+          vertical gap={TOKENS.space[8]}
           className={styles.card}
         >
-          <Flex
-            justify="center" align="center"
-            className={styles.iconContainer}
+          <div className={styles.label}>
+            {loading ? (
+              <SkeletonLine width={160} />
+            ) : card.text}
+          </div>
+          <div
+            className={styles.value}
+            style={loading ? undefined : { color: card.valueColor }}
           >
-            {card.icon}
-          </Flex>
-          <Flex vertical>
-            <Title level={4}>
-              {card.value}
-            </Title>
-            <Text>
-              {card.text}
-            </Text>
-          </Flex>
+            {loading ? (
+              <SkeletonLine width={96} />
+            ) : card.value}
+          </div>
         </Flex>
       ))}
-    </Flex>
+    </div>
   );
 };

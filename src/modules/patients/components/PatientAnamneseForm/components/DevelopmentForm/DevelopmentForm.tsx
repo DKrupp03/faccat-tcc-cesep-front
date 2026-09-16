@@ -4,7 +4,7 @@ import { IconTrendingUp } from "@tabler/icons-react";
 
 import { CommonCollapse } from "@/shared/components/CommonCollapse/CommonCollapse";
 import { CommonTextInput } from "@/shared/components/CommonTextInput/CommonTextInput";
-import { COLORS } from "@/shared/theme";
+import { TOKENS } from "@/shared/theme";
 
 export const DevelopmentForm = () => {
   const { t } = useTranslation();
@@ -13,11 +13,12 @@ export const DevelopmentForm = () => {
 
   return (
     <CommonCollapse
+      variant="card"
       title={t("patients.anamnese.development.title")}
-      icon={<IconTrendingUp size={16} color={COLORS.grey70} />}
+      icon={<IconTrendingUp size={16} />}
       initialOpen={false}
     >
-      <Row gutter={16}>
+      <Row gutter={TOKENS.space[16]}>
         <Col span={12}>
           <Form.Item name={["anamnese_data", "development", "breastFeeding"]}>
             <CommonTextInput label={t("patients.anamnese.development.breastFeeding")} />
@@ -30,7 +31,7 @@ export const DevelopmentForm = () => {
         </Col>
       </Row>
       
-      <Row gutter={16}>
+      <Row gutter={TOKENS.space[16]}>
         <Col span={12}>
           <Form.Item name={["anamnese_data", "development", "sphincterControl"]}>
             <CommonTextInput label={t("patients.anamnese.development.sphincterControl")} />
@@ -43,7 +44,7 @@ export const DevelopmentForm = () => {
         </Col>
       </Row>
 
-      <Row gutter={16}>
+      <Row gutter={TOKENS.space[16]}>
         <Col span={24}>
           <Form.Item name={["anamnese_data", "development", "socialRelations"]}>
             <CommonTextInput
@@ -55,7 +56,7 @@ export const DevelopmentForm = () => {
         </Col>
       </Row>
 
-      <Row gutter={16}>
+      <Row gutter={TOKENS.space[16]}>
         <Col span={24}>
           <Form.Item name={["anamnese_data", "development", "losses"]}>
             <CommonTextInput label={t("patients.anamnese.development.losses")} />
@@ -65,7 +66,7 @@ export const DevelopmentForm = () => {
 
       {anamneseType === "child" && (
         <>
-          <Row gutter={16}>
+          <Row gutter={TOKENS.space[16]}>
             <Col span={12}>
               <Form.Item name={["anamnese_data", "development", "dependence"]}>
                 <CommonTextInput label={t("patients.anamnese.development.dependence")} />
@@ -77,7 +78,7 @@ export const DevelopmentForm = () => {
               </Form.Item>
             </Col>
           </Row>
-          <Row gutter={16}>
+          <Row gutter={TOKENS.space[16]}>
             <Col span={24}>
               <Form.Item name={["anamnese_data", "development", "help"]}>
                 <CommonTextInput label={t("patients.anamnese.development.help")} />
@@ -87,7 +88,7 @@ export const DevelopmentForm = () => {
         </>
       )}
 
-      <Row gutter={16}>
+      <Row gutter={TOKENS.space[16]}>
         <Col span={24}>
           <Form.Item name={["anamnese_data", "development", "event"]}>
             <CommonTextInput label={t("patients.anamnese.development.event")} />

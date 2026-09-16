@@ -6,7 +6,7 @@ import { CommonCollapse } from "@/shared/components/CommonCollapse/CommonCollaps
 import { CommonTextInput } from "@/shared/components/CommonTextInput/CommonTextInput";
 import { CommonTextArea } from "@/shared/components/CommonTextArea/CommonTextArea";
 import { CommonGroupButtons } from "@/shared/components/CommonGroupButtons/CommonGroupButtons";
-import { COLORS } from "@/shared/theme";
+import { TOKENS } from "@/shared/theme";
 
 import { SectionsCard } from "../SectionsCard/SectionsCard";
 
@@ -17,11 +17,12 @@ export const ClinicalHistoryForm = () => {
 
   return (
     <CommonCollapse
+      variant="card"
       title={t("patients.anamnese.clinicalHistory.title")}
-      icon={<IconPill size={16} color={COLORS.grey70} />}
+      icon={<IconPill size={16} />}
       initialOpen={false}
     >
-      <Row gutter={16}>
+      <Row gutter={TOKENS.space[16]}>
         <Col span={24}>
           <Form.Item name={["anamnese_data", "clinicalHistory", "illnesses"]}>
             <CommonTextArea label={t("patients.anamnese.clinicalHistory.illnesses")} />
@@ -31,7 +32,7 @@ export const ClinicalHistoryForm = () => {
 
       <SectionsCard>
         <CommonCollapse title={t("patients.anamnese.clinicalHistory.medicine.title")}>
-          <Row gutter={16}>
+          <Row gutter={TOKENS.space[16]}>
             <Col span={12}>
               <Form.Item name={["anamnese_data", "clinicalHistory", "medicine", "which"]}>
                 <CommonTextInput label={t("patients.anamnese.clinicalHistory.medicine.which")} />
@@ -43,7 +44,7 @@ export const ClinicalHistoryForm = () => {
               </Form.Item>
             </Col>
           </Row>
-          <Row gutter={16}>
+          <Row gutter={TOKENS.space[16]}>
             <Col span={12}>
               <Form.Item name={["anamnese_data", "clinicalHistory", "medicine", "since"]}>
                 <CommonTextInput label={t("patients.anamnese.clinicalHistory.medicine.since")} />
@@ -58,7 +59,7 @@ export const ClinicalHistoryForm = () => {
         </CommonCollapse>
       </SectionsCard>
 
-      <Row gutter={16}>
+      <Row gutter={TOKENS.space[16]}>
         <Col span={12}>
           <Form.Item name={["anamnese_data", "clinicalHistory", "hospitalizations"]}>
             <CommonTextInput label={t("patients.anamnese.clinicalHistory.hospitalizations")} />
@@ -73,21 +74,21 @@ export const ClinicalHistoryForm = () => {
 
       <SectionsCard>
         <CommonCollapse title={t("patients.anamnese.clinicalHistory.specialists.title")}>
-          <Row gutter={16}>
+          <Row gutter={TOKENS.space[16]}>
             <Col span={24}>
               <Form.Item name={["anamnese_data", "clinicalHistory", "specialists", "happened"]}>
                 <CommonTextArea label={t("patients.anamnese.clinicalHistory.specialists.happened")} />
               </Form.Item>
             </Col>
           </Row>
-          <Row gutter={16}>
+          <Row gutter={TOKENS.space[16]}>
             <Col span={24}>
               <Form.Item name={["anamnese_data", "clinicalHistory", "specialists", "professionalsNames"]}>
                 <CommonTextArea label={t("patients.anamnese.clinicalHistory.specialists.professionalsNames")} />
               </Form.Item>
             </Col>
           </Row>
-          <Row gutter={16}>
+          <Row gutter={TOKENS.space[16]}>
             <Col span={12}>
               <Form.Item name={["anamnese_data", "clinicalHistory", "specialists", "reason"]}>
                 <CommonTextInput label={t("patients.anamnese.clinicalHistory.specialists.reason")} />
@@ -99,7 +100,7 @@ export const ClinicalHistoryForm = () => {
               </Form.Item>
             </Col>
           </Row>
-          <Row gutter={16}>
+          <Row gutter={TOKENS.space[16]}>
             <Col span={24}>
               <Form.Item name={["anamnese_data", "clinicalHistory", "specialists", "interruptionReason"]}>
                 <CommonTextInput label={t("patients.anamnese.clinicalHistory.specialists.interruptionReason")} />
@@ -112,9 +113,9 @@ export const ClinicalHistoryForm = () => {
       {anamneseType === "adolescent" && (
         <SectionsCard>
           <CommonCollapse title={t("patients.anamnese.clinicalHistory.familiars.title")}>
-            <Row gutter={16}>
+            <Row gutter={TOKENS.space[16]}>
               <Col span={16}>
-                <Flex align="center" style={{ height: 44 }}>
+                <Flex align="center">
                   <Form.Item name={["anamnese_data", "clinicalHistory", "familiars", "happenedDiagnosis"]} noStyle>
                     <CommonGroupButtons label={t("patients.anamnese.clinicalHistory.familiars.happenedDiagnosis")}>
                       <CommonGroupButtons.Button value={1}>
@@ -128,7 +129,7 @@ export const ClinicalHistoryForm = () => {
                 </Flex>
               </Col>
             </Row>
-            <Row gutter={16} style={{ marginTop: 16 }}>
+            <Row gutter={TOKENS.space[16]} style={{ marginTop: TOKENS.space[16] }}>
               <Col span={12}>
                 <Form.Item name={["anamnese_data", "clinicalHistory", "familiars", "whichDiagnosis"]}>
                   <CommonTextInput label={t("patients.anamnese.clinicalHistory.familiars.whichDiagnosis")} />
@@ -140,9 +141,9 @@ export const ClinicalHistoryForm = () => {
                 </Form.Item>
               </Col>
             </Row>
-            <Row gutter={16}>
+            <Row gutter={TOKENS.space[16]}>
               <Col span={16}>
-                <Flex align="center" style={{ height: 44 }}>
+                <Flex align="center">
                   <Form.Item name={["anamnese_data", "clinicalHistory", "familiars", "happenedSymptom"]} noStyle>
                     <CommonGroupButtons label={t("patients.anamnese.clinicalHistory.familiars.happenedSymptom")}>
                       <CommonGroupButtons.Button value={1}>
@@ -156,7 +157,7 @@ export const ClinicalHistoryForm = () => {
                 </Flex>
               </Col>
             </Row>
-            <Row gutter={16} style={{ marginTop: 16 }}>
+            <Row gutter={TOKENS.space[16]} style={{ marginTop: TOKENS.space[16] }}>
               <Col span={12}>
                 <Form.Item name={["anamnese_data", "clinicalHistory", "familiars", "kinshipSymptom"]}>
                   <CommonTextInput label={t("patients.anamnese.clinicalHistory.familiars.kinshipSymptom")} />

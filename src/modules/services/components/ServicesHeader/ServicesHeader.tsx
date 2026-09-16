@@ -18,7 +18,12 @@ import { ServicesPanelsButton } from "../ServicesPanelsButton/ServicesPanelsButt
 import { ServicesRoomsButton } from "../ServicesRoomsButton/ServicesRoomsButton";
 import type { ServicesOrder } from "../../types/service";
 
-export const ServicesHeader = () => {
+type ServicesHeaderProps = {
+  // Nas drawers só existe a lista, então o alternador Calendário/Lista não aparece.
+  hidePanelsButton?: boolean;
+};
+
+export const ServicesHeader = ({ hidePanelsButton = false }: ServicesHeaderProps) => {
   const { t } = useTranslation();
   const {
     openFilter,
@@ -44,7 +49,7 @@ export const ServicesHeader = () => {
 
   return (
     <>
-      <ServicesPanelsButton />
+      {!hidePanelsButton && <ServicesPanelsButton />}
       {panelView === "list" && (
         <CommonOrderButton
           value={orderBy}
@@ -57,8 +62,6 @@ export const ServicesHeader = () => {
         <CommonButton
           onClick={() => filtratePanel()}
           icon={<IconReload size={18} />}
-          size="large"
-          circular
           outline
         />
       </Tooltip>
@@ -66,20 +69,16 @@ export const ServicesHeader = () => {
         <CommonButton
           onClick={openFilter}
           icon={<IconFilter size={18} />}
-          size="large"
-          circular
           outline
         />
       </Tooltip>
-      <Tooltip title={t("services.actions.create")}>
-        <CommonButton
-          onClick={() => openForm()}
-          icon={<IconPlus size={18} />}
-          size="large"
-          buttonVariant="primary"
-          circular
-        />
-      </Tooltip>
+      <CommonButton
+        onClick={() => openForm()}
+        icon={<IconPlus size={18} />}
+        buttonVariant="primary"
+      >
+        {t("services.actions.new")}
+      </CommonButton>
     </>
   );
 };

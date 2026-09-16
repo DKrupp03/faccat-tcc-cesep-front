@@ -1,54 +1,30 @@
-import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { Badge, Flex } from "antd";
-import {
-  IconCircleCheck,
-  IconCircleX,
-  IconAlertCircle,
-  IconGift,
-} from "@tabler/icons-react";
 
 import type { PaymentStatus } from "../../types/payment";
-import { COLORS } from "@/shared/theme";
+import { PAYMENT_STATUS_COLORS } from "../../utils/status";
 
 import styles from "./PaymentStatusBadge.module.css";
 
 type PaymentStatusBadgeProps = {
+  // plain: texto na cor do contexto (ex.: dentro de um select)
+  plain?: boolean;
   status?: PaymentStatus;
 };
 
 export const PaymentStatusBadge = ({
   status,
+  plain = false,
 }: PaymentStatusBadgeProps) => {
   const { t } = useTranslation();
 
-  const backgroundColor = useMemo(() => {
-    if (status === "paid") return COLORS.blue;
-    if (status === "unpaid") return COLORS.yellow;
-    if (status === "overdue") return COLORS.red;
-    if (status === "free") return COLORS.gren;
-  }, [status]);
-
-  const icon = useMemo(() => {
-    if (status === "paid") return <IconCircleCheck size={16} color={COLORS.white} />;
-    if (status === "unpaid") return <IconCircleX size={16} color={COLORS.white} />;
-    if (status === "overdue") return <IconAlertCircle size={16} color={COLORS.white} />;
-    if (status === "free") return <IconGift size={16} color={COLORS.white} />;
-  }, [status]);
-
   if (!status) return;
 
+  const colors = PAYMENT_STATUS_COLORS[status];
+
   return (
-    <Badge
-      style={{ backgroundColor }}
-      count={
-        <Flex align="center" justify="center" gap={4} className={styles.badge}>
-          {icon}
-          <span>
-            {t(`payments.status.${status}`)}
-          </span>
-        </Flex>
-      }
-    />
+    <span className={styles.badge} style={plain ? undefined : { color: colors.text }}>
+      <span className={styles.dot} style={{ backgroundColor: colors.color }} />
+      {t(`payments.status.${status}`)}
+    </span>
   );
 };

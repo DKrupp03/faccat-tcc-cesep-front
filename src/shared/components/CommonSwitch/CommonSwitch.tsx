@@ -1,5 +1,7 @@
 import { Flex, Typography, Switch } from "antd";
 
+import { TOKENS } from "../../theme";
+
 import styles from "./CommonSwitch.module.css";
 
 type CommonSwitchProps = {
@@ -20,16 +22,13 @@ export const CommonSwitch = ({
   onChange,
 }: CommonSwitchProps) => {
   return (
-    <Flex gap={12} align="center">
+    <Flex gap={TOKENS.space[12]} align="center">
       <Switch
         checked={value}
         onChange={onChange}
         disabled={disabled}
       />
-      <Text
-        className={styles.label}
-        style={{ fontWeight: value ? 550 : 500 }}
-      >
+      <Text className={value ? `${styles.label} ${styles.labelActive}` : styles.label}>
         {label}
       </Text>
       {icon}

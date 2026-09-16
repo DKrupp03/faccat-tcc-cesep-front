@@ -1,15 +1,19 @@
 .title {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-ink);
   cursor: pointer;
+  transition: color var(--transition-fast);
 }
 
 .title:hover {
-  text-decoration: underline;
+  color: var(--color-accent);
+}
+
+.date {
+  font-variant-numeric: tabular-nums;
 }
 
 .evolution {
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  color: var(--color-text-secondary);
 }

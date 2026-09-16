@@ -7,6 +7,7 @@ import { useModules } from "@/shared/hooks/useModules";
 
 import { AuthCardContainer } from "../../components/AuthCardContainer/AuthCardContainer";
 import { SetPasswordForm } from "../../components/SetPasswordForm/SetPasswordForm";
+import { TOKENS } from "@/shared/theme";
 
 const { Title, Text } = Typography;
 
@@ -23,7 +24,7 @@ const SetPasswordPage = () => {
 
   return (
     <AuthCardContainer>
-      <Flex vertical gap={4}>
+      <Flex vertical gap={TOKENS.space[4]}>
         <Title level={3}>
           {t("auth.setPassword.setPassword")}
         </Title>

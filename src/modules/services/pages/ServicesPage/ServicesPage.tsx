@@ -12,6 +12,7 @@ import { ServicesHeader } from "../../components/ServicesHeader/ServicesHeader";
 import { ServicesHeaderCards } from "../../components/ServicesHeaderCards/ServicesHeaderCards";
 import { ServicesTable } from "../../components/ServicesTable/ServicesTable";
 import { ServicesCalendar } from "../../components/ServicesCalendar/ServicesCalendar";
+import { TOKENS } from "@/shared/theme";
 import styles from "./ServicesPage.module.css";
 
 const ServicesPage = () => {
@@ -27,7 +28,7 @@ const ServicesPage = () => {
 const ServicesPanel = () => {
   const { t } = useTranslation();
   const { changeActiveModule } = useModules();
-  const { filtratePanel, panelView } = useServicesList();
+  const { filtratePanel, panelView, loading, totalFiltered, calendarMonth } = useServicesList();
 
   useEffect(() => {
     changeActiveModule("services");
@@ -37,11 +38,19 @@ const ServicesPanel = () => {
 
   return (
     <Flex vertical className={styles.panel}>
-      <CommonHeader title={t("common.modules.services")}>
+      <CommonHeader
+        title={t("common.modules.services")}
+        subtitle={loading ? undefined : panelView === "calendar"
+          ? t("services.subtitle.calendar", {
+            count: totalFiltered,
+            month: calendarMonth.format("MMMM"),
+          })
+          : t("services.subtitle.list", { count: totalFiltered })}
+      >
         <ServicesHeader />
       </CommonHeader>
 
-      <Flex vertical gap={24} className={styles.body}>
+      <Flex vertical gap={TOKENS.space[24]} className={styles.body}>
         <ServicesHeaderCards />
         {panelView === "calendar" ? <ServicesCalendar /> : <ServicesTable />}
       </Flex>

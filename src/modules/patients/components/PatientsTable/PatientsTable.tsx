@@ -1,10 +1,12 @@
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
+import { Flex } from "antd";
 import type { ColumnType } from "antd/lib/table/interface";
 
 import { CommonAvatar } from "@/shared/components/CommonAvatar/CommonAvatar";
 import { CommonTable } from "@/shared/components/CommonTable/CommonTable";
 import { formatDateTime } from "@/shared/utils/formatters";
+import { TOKENS } from "@/shared/theme";
 import { PaymentStatusBadge } from "@/modules/payments/components/PaymentStatusBadge/PaymentStatusBadge";
 import type { PaymentStatus } from "@/modules/payments/types/payment";
 import type { Therapist } from "@/modules/therapists/types/therapist";
@@ -13,6 +15,11 @@ import { usePatientsList } from "../../hooks/usePatientsList";
 import { usePatientForm } from "../../hooks/usePatientForm";
 import type { Patient } from "../../types/patient";
 import styles from "./PatientsTable.module.css";
+
+const ORDER_LABELS: Record<string, string> = {
+  name_asc: "common.order.nameAsc",
+  name_desc: "common.order.nameDesc",
+};
 
 export const PatientsTable = () => {
   const { t } = useTranslation();
@@ -31,55 +38,56 @@ export const PatientsTable = () => {
   const patientsColumnFields = useMemo((): ColumnType<Patient>[] => {
     return [
       {
-        title: "",
-        dataIndex: "photo_url",
-        key: "photo_url",
-        render: (value: string) => (
-          <CommonAvatar
-            size={30}
-            photoUrl={value}
-          />
-        ),
-      },
-      {
         title: t("patients.columns.name"),
         dataIndex: "name",
         key: "name",
-        width: "30%",
+        width: "32%",
         render: (value: string, record: Patient) => (
-          <span
-            className={styles.name}
-            onClick={() => openForm(record.id)}
-          >
-            {value}
-          </span>
+          <Flex align="center" gap={TOKENS.space[12]}>
+            <CommonAvatar
+              size={32}
+              name={value}
+              photoUrl={record.photo_url}
+            />
+            <span
+              className={styles.name}
+              onClick={() => openForm(record.id)}
+            >
+              {value}
+            </span>
+          </Flex>
         ),
       },
       {
         title: t("patients.columns.services"),
         dataIndex: "services_count",
         key: "services_count",
-        width: "15%",
+        width: "12%",
+        align: "right",
+        className: styles.number,
       },
       {
         title: t("patients.columns.therapist"),
         dataIndex: "therapist",
         key: "therapist",
-        width: "15%",
+        width: "20%",
+        className: styles.therapist,
         render: (value: Therapist) => value?.name,
       },
       {
         title: t("patients.columns.paymentStatus"),
         dataIndex: "payment_status",
         key: "payment_status",
-        width: "20%",
+        width: "18%",
         render: (value?: PaymentStatus) => <PaymentStatusBadge status={value} />,
       },
       {
         title: t("patients.columns.lastService"),
         dataIndex: "last_service",
         key: "last_service",
-        width: "20%",
+        width: "18%",
+        align: "right",
+        className: styles.date,
         render: (value?: string) => formatDateTime(value),
       },
     ];
@@ -87,9 +95,11 @@ export const PatientsTable = () => {
 
   return (
     <CommonTable<Patient>
-      titleHeader={t("common.modules.patients")}
+      titleHeader={t("patients.listTitle")}
+      headerNote={ORDER_LABELS[orderBy] && t(ORDER_LABELS[orderBy])}
       columns={patientsColumnFields}
       dataSource={patients}
+      rowKey="id"
       pagination
       page={page}
       total={totalFiltered}

@@ -8,6 +8,7 @@ import {
 } from "@tabler/icons-react";
 
 import { CommonDrawer } from "@/shared/components/CommonDrawer/CommonDrawer";
+import { formatDateAndTime } from "@/shared/utils/formatters";
 import { MedicalRecordsProvider } from "@/modules/patients/providers/MedicalRecordsProvider";
 import { useMedicalRecords } from "@/modules/patients/hooks/useMedicalRecords";
 import {
@@ -148,6 +149,9 @@ export const ServiceDrawer = () => {
           isOpen={isFormOpen}
           close={handleClose}
           title={t(`services.tabs.${tab}`)}
+          subtitle={service?.id
+            ? t("services.drawer.serviceOf", { date: formatDateAndTime(service.date, service.start_time) })
+            : t("services.drawer.newService")}
           footer={footer}
           tabs={tabs}
           activeTab={tab}

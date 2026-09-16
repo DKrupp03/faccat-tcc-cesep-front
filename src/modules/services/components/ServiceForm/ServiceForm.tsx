@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { Form, Row, Col, Skeleton, Flex, Typography, Divider } from "antd";
+import { Form, Row, Col, Skeleton, Flex, Typography } from "antd";
 import { IconCalendarClock } from "@tabler/icons-react";
 import dayjs, { type Dayjs } from "dayjs";
 
@@ -15,12 +15,13 @@ import { CommonCollapse } from "@/shared/components/CommonCollapse/CommonCollaps
 import { CommonGroupButtons } from "@/shared/components/CommonGroupButtons/CommonGroupButtons";
 import { ProfilesSelect } from "@/shared/components/ProfilesSelect/ProfilesSelect";
 import { SelectRoom } from "@/shared/components/SelectRoom/SelectRoom";
-import { COLORS } from "@/shared/theme";
+import { TOKENS } from "@/shared/theme";
 import { integerMask } from "@/shared/utils/formatters";
 import { rangeRule } from "@/shared/utils/filterRules";
 import PatientsService from "@/modules/patients/services/PatientsService";
 
 import { useServiceForm } from "../../hooks/useServiceForm";
+import { ServiceStatusBadge } from "../ServiceStatusBadge/ServiceStatusBadge";
 import {
   getFrequencyOptions,
   getRecurrenceSummary,
@@ -64,7 +65,10 @@ export const ServiceForm = () => {
   const [form] = Form.useForm<ServiceFormValues>();
 
   const serviceTypeOptions = useMemo(() => getServiceTypeOptions(t), [t]);
-  const statusOptions = useMemo(() => getStatusOptions(t), [t]);
+  const statusOptions = useMemo(() => getStatusOptions(t).map((option) => ({
+    ...option,
+    label: <ServiceStatusBadge status={option.value} plain />,
+  })), [t]);
   const frequencyOptions = useMemo(() => getFrequencyOptions(t), [t]);
   const weekdayOptions = useMemo(() => getWeekdayOptions(t), [t]);
 
@@ -154,7 +158,7 @@ export const ServiceForm = () => {
       }}
       className={styles.form}
     >
-      <Row gutter={16}>
+      <Row gutter={TOKENS.space[16]}>
         <Col span={12}>
           <Form.Item name="patient_id" rules={requiredRule}>
             <ProfilesSelect
@@ -180,7 +184,7 @@ export const ServiceForm = () => {
         </Col>
       </Row>
 
-      <Row gutter={16}>
+      <Row gutter={TOKENS.space[16]}>
         <Col span={12}>
           <Form.Item name="service_type" rules={requiredRule}>
             <CommonSelect
@@ -201,7 +205,7 @@ export const ServiceForm = () => {
         </Col>
       </Row>
 
-      <Row gutter={16}>
+      <Row gutter={TOKENS.space[16]}>
         <Col span={24}>
           <Form.Item name="observations">
             <CommonTextArea
@@ -212,13 +216,12 @@ export const ServiceForm = () => {
         </Col>
       </Row>
 
-      <Divider className={styles.divider} />
-
       <CommonCollapse
         title={t("services.form.datesTimes")}
-        icon={<IconCalendarClock size={16} color={COLORS.grey70} />}
+        icon={<IconCalendarClock size={16} />}
+        variant="plain"
       >
-        <Row gutter={16}>
+        <Row gutter={TOKENS.space[16]}>
           <Col span={6}>
             <Form.Item
               name="date"
@@ -279,9 +282,9 @@ export const ServiceForm = () => {
           </Col>
         </Row>
 
-        <Row gutter={16}>
+        <Row gutter={TOKENS.space[16]}>
           <Col span={24}>
-            <Form.Item name="recurrent">
+            <Form.Item name="recurrent" className={styles.recurrentSwitch}>
               <CommonSwitch
                 label={t("services.recurrence.title")}
                 disabled={isEditing}
@@ -292,7 +295,7 @@ export const ServiceForm = () => {
 
         {isRecurrent && (
           <>
-            <Row gutter={16}>
+            <Row gutter={TOKENS.space[16]}>
               <Col span={8}>
                 <Form.Item name={["recurrence", "frequency"]} rules={requiredRule}>
                   <CommonSelect
@@ -352,9 +355,9 @@ export const ServiceForm = () => {
               )}
             </Row>
 
-            <Row gutter={16}>
+            <Row gutter={TOKENS.space[16]}>
               <Col span={12}>
-                <Flex align="center" style={{ height: 44 }}>
+                <Flex align="center">
                   <Form.Item name={["recurrence", "end_type"]} noStyle>
                     <CommonGroupButtons label={t("services.recurrence.end")}>
                       <CommonGroupButtons.Button value="by_date" disabled={isExistingSeries}>
@@ -410,16 +413,19 @@ export const ServiceForm = () => {
               </Col>
             </Row>
 
-            {recurrenceSummary && (
-              <Text className={styles.recurrenceSummary}>
-                {recurrenceSummary}
-              </Text>
-            )}
-
-            {isExistingSeries && (
-              <Text className={styles.recurrenceHint}>
-                {t("services.recurrence.locked")}
-              </Text>
+            {(recurrenceSummary || isExistingSeries) && (
+              <Flex vertical gap={TOKENS.space[6]} className={styles.recurrenceBox}>
+                {recurrenceSummary && (
+                  <Text className={styles.recurrenceSummary}>
+                    {recurrenceSummary}
+                  </Text>
+                )}
+                {isExistingSeries && (
+                  <Text className={styles.recurrenceHint}>
+                    {t("services.recurrence.locked")}
+                  </Text>
+                )}
+              </Flex>
             )}
           </>
         )}
@@ -438,6 +444,7 @@ export const ServiceFormOptions = () => {
         <CommonButton
           onClick={() => deleteService(service.id)}
           buttonVariant="danger"
+          outline
           loading={isSubmitting}
         >
           {t("common.actions.delete")}

@@ -1,18 +1,51 @@
+/* 24px entre blocos = margem do Form.Item (16) + gap (8) */
 .form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
   width: 100%;
 }
 
 .avatarContainer {
-  background-color: var(--color-grey10);
-  border-radius: 10px;
-  padding: 14px;
-  margin-bottom: 24px;
+  margin-bottom: var(--space-16);
+  padding: var(--space-16) var(--space-20);
+  border-radius: var(--radius-2xl);
+  background-color: var(--color-bg);
 }
 
-.divider {
-  margin-top: 0 !important;
+.avatarText {
+  margin-right: auto;
 }
 
-.responsiblesContainer {
-  padding-bottom: 24px;
+.avatarTitle {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-ink);
+}
+
+.avatarHint {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+}
+
+.sectionTitle {
+  margin-bottom: var(--space-16);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-ink);
+}
+
+.activeRow {
+  flex-wrap: wrap;
+  margin-bottom: var(--space-16);
+}
+
+.activeHint {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
 }
