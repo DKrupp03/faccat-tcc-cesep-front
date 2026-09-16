@@ -28,7 +28,7 @@ const PaymentsPage = () => {
 const PaymentsPanel = () => {
   const { t } = useTranslation();
   const { changeActiveModule } = useModules();
-  const { filtratePanel } = usePaymentsList();
+  const { filtratePanel, loading, total, totalFiltered } = usePaymentsList();
 
   useEffect(() => {
     changeActiveModule("payments");
@@ -38,7 +38,10 @@ const PaymentsPanel = () => {
 
   return (
     <Flex vertical className={styles.panel}>
-      <CommonHeader title={t("common.modules.payments")}>
+      <CommonHeader
+        title={t("common.modules.payments")}
+        subtitle={loading ? undefined : t("payments.subtitle", { total, filtered: totalFiltered })}
+      >
         <PaymentsHeader />
       </CommonHeader>
 

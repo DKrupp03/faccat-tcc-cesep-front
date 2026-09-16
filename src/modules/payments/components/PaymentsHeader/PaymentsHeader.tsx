@@ -63,6 +63,7 @@ export const PaymentsHeader = ({ showCharts = true }: PaymentsHeaderProps) => {
         onChange={(newOrderBy) => filtratePanel(filter, newOrderBy as PaymentsOrder)}
         options={paymentsOrderOptions}
         width={250}
+        showLabel
       />
       {showCharts && (
         <Tooltip title={t("payments.actions.showCharts")}>
@@ -87,13 +88,13 @@ export const PaymentsHeader = ({ showCharts = true }: PaymentsHeaderProps) => {
           outline
         />
       </Tooltip>
-      <Tooltip title={t("payments.actions.create")}>
-        <CommonButton
-          onClick={() => openForm()}
-          icon={<IconPlus size={18} />}
-          buttonVariant="primary"
-        />
-      </Tooltip>
+      <CommonButton
+        onClick={() => openForm()}
+        icon={<IconPlus size={18} />}
+        buttonVariant="primary"
+      >
+        {t("payments.actions.create")}
+      </CommonButton>
     </>
   );
 };

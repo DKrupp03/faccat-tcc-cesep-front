@@ -30,6 +30,7 @@ export const PaymentsHeaderCards = () => {
       {
         text: t("payments.headerCards.received"),
         value: formatCurrency(totalReceived),
+        valueColor: TOKENS.color.accent,
       },
       {
         text: t("payments.headerCards.toReceive"),

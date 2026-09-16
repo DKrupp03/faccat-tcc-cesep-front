@@ -83,7 +83,7 @@ export const CommonDocuments = ({
   return (
     <CommonCollapse
       title={label ?? t("common.documents.title")}
-      icon={<IconFiles size={16} color={TOKENS.color.textMuted} />}
+      icon={<IconFiles size={16} />}
       shouldShowAddButton={!!onUpload && !disabled}
       onClickAdd={handleAdd}
     >

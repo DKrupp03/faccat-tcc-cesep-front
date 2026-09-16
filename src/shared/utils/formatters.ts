@@ -31,7 +31,7 @@ export const formatDateAndTime = (date?: string, time?: string) => {
   if (!formattedDate) return formattedTime;
   if (!formattedTime) return formattedDate;
 
-  return `${formattedDate} - ${formattedTime}`;
+  return `${formattedDate} · ${formattedTime}`;
 };
 
 export const formatDateTime = (value?: string) => {
@@ -47,7 +47,7 @@ export const formatDateTime = (value?: string) => {
         hour: "2-digit",
         minute: "2-digit",
       }
-    ).replace(",", " -");
+    ).replace(",", " ·");
 };
 
 export const formatCurrency = (value?: string | number) => {

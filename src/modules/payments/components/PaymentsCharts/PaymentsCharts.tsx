@@ -10,7 +10,7 @@ export const PaymentsCharts = () => {
   const { statusData, monthlyData, loading } = usePaymentsCharts();
 
   return (
-    <Flex id="payments-charts" gap={TOKENS.space[24]} align="stretch" className={styles.charts}>
+    <Flex id="payments-charts" gap={TOKENS.space[16]} align="stretch" className={styles.charts}>
       <PaymentsStatusChart data={statusData} loading={loading} />
       <PaymentsMonthlyChart data={monthlyData} loading={loading} />
     </Flex>

@@ -8,6 +8,7 @@ import styles from "./CommonSelect.module.css";
 type CommonSelectProps = SelectProps & {
   icon?: ReactNode;
   label?: string;
+  labelSuffix?: ReactNode;
   required?: boolean;
 };
 
@@ -20,6 +21,7 @@ const loadingIndicator = <Spin size="small" />;
 export const CommonSelect: React.FC<CommonSelectProps> = ({
   icon,
   label,
+  labelSuffix,
   onChange,
   onClear,
   onOpenChange,
@@ -46,7 +48,7 @@ export const CommonSelect: React.FC<CommonSelectProps> = ({
   }, [onChange]);
 
   return (
-    <CommonField label={label} required={required}>
+    <CommonField label={label} labelSuffix={labelSuffix} required={required}>
       {icon && <Flex className={styles.prefix}>{icon}</Flex>}
       <Select
         ref={selectRef}

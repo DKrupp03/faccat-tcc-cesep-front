@@ -9,6 +9,7 @@ const { Title } = Typography;
 
 type ChartCardProps = {
   title: string;
+  extra?: React.ReactNode;
   info?: string;
   loading?: boolean;
   className?: string;
@@ -17,6 +18,7 @@ type ChartCardProps = {
 
 export const ChartCard = ({
   title,
+  extra,
   info,
   loading,
   className,
@@ -35,7 +37,8 @@ export const ChartCard = ({
 
   return (
     <Flex vertical className={`${styles.card} ${className ?? ""}`}>
-      <Flex align="center" gap={TOKENS.space[8]} className={styles.header}>
+      <Flex align="center" justify="space-between" gap={TOKENS.space[16]} className={styles.header}>
+        <Flex align="center" gap={TOKENS.space[8]}>
         <Title level={5} className={styles.title}>{title}</Title>
         {info && (
           <Tooltip title={info}>
@@ -46,6 +49,8 @@ export const ChartCard = ({
             />
           </Tooltip>
         )}
+        </Flex>
+        {extra}
       </Flex>
 
       <Flex justify="center" align="center" className={styles.body}>

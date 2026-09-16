@@ -1,10 +1,11 @@
-import { useMemo } from "react";
+import { useContext, useMemo } from "react";
 import { Empty, Flex, Table, type TableProps, Typography, Skeleton } from "antd";
 import { useTranslation } from "react-i18next";
 import { IconPlus } from "@tabler/icons-react";
 
 import { CommonButton } from "../CommonButton/CommonButton";
 import { TOKENS } from "../../theme";
+import { DrawerContext } from "../../contexts/DrawerContext";
 
 import styles from "./CommonTable.module.css";
 
@@ -33,6 +34,7 @@ export const CommonTable = <T extends object = object>({
   ...props
 }: CommonTableProps<T>) => {
   const { t } = useTranslation();
+  const inDrawer = useContext(DrawerContext);
 
   const shouldShowPagination = useMemo(() => (
     pagination && props.dataSource && props.dataSource.length < total!
@@ -50,15 +52,17 @@ export const CommonTable = <T extends object = object>({
       vertical
       className={styles.card}
     >
-      <Flex
-        justify="space-between" align="center"
-        className={styles.header}
-      >
-        <Title level={5} className={styles.title}>
-          {titleHeader}
-        </Title>
-        {header}
-      </Flex>
+      {!inDrawer && (titleHeader || header) && (
+        <Flex
+          justify="space-between" align="center"
+          className={styles.header}
+        >
+          <Title level={5} className={styles.title}>
+            {titleHeader}
+          </Title>
+          {header}
+        </Flex>
+      )}
 
       <Table
         className={styles.table}
@@ -70,6 +74,7 @@ export const CommonTable = <T extends object = object>({
             />
           ),
         }}
+        rowKey={props.rowKey}
         dataSource={props.dataSource}
         columns={props.columns}
         pagination={false}
@@ -79,7 +84,7 @@ export const CommonTable = <T extends object = object>({
         <Flex justify="center" className={styles.footer}>
           <CommonButton
             onClick={() => loadMore!(page! + 1)}
-            icon={<IconPlus size={14} />}
+            icon={<IconPlus size={16} />}
             buttonVariant="primary"
             outline
             loading={loadingMore}

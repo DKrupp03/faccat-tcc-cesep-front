@@ -8,11 +8,13 @@ const { Title } = Typography;
 
 type CommonHeaderProps = {
   title: string;
+  subtitle?: string;
   children?: React.ReactNode;
 };
 
 export const CommonHeader = ({
   title,
+  subtitle,
   children,
 }: CommonHeaderProps) => {
   return (
@@ -20,9 +22,14 @@ export const CommonHeader = ({
       justify="space-between" align="center"
       className={styles.header}
     >
-      <Title level={3} className={styles.title}>
-        {title}
-      </Title>
+      <Flex vertical gap={TOKENS.space[2]}>
+        <Title level={3} className={styles.title}>
+          {title}
+        </Title>
+        {subtitle && (
+          <span className={styles.subtitle}>{subtitle}</span>
+        )}
+      </Flex>
 
       <Flex align="center" gap={TOKENS.space[8]}>
         {children}

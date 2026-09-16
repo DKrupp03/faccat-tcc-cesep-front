@@ -28,7 +28,7 @@ const ServicesPage = () => {
 const ServicesPanel = () => {
   const { t } = useTranslation();
   const { changeActiveModule } = useModules();
-  const { filtratePanel, panelView } = useServicesList();
+  const { filtratePanel, panelView, loading, totalFiltered, calendarMonth } = useServicesList();
 
   useEffect(() => {
     changeActiveModule("services");
@@ -38,7 +38,15 @@ const ServicesPanel = () => {
 
   return (
     <Flex vertical className={styles.panel}>
-      <CommonHeader title={t("common.modules.services")}>
+      <CommonHeader
+        title={t("common.modules.services")}
+        subtitle={loading ? undefined : panelView === "calendar"
+          ? t("services.subtitle.calendar", {
+            count: totalFiltered,
+            month: calendarMonth.format("MMMM"),
+          })
+          : t("services.subtitle.list", { count: totalFiltered })}
+      >
         <ServicesHeader />
       </CommonHeader>
 

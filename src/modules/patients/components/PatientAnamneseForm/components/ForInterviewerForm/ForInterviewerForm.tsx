@@ -11,8 +11,9 @@ export const ForInterviewerForm = () => {
 
   return (
     <CommonCollapse
+      variant="card"
       title={t("patients.anamnese.forInterviewer.title")}
-      icon={<IconMicrophone2 size={16} color={TOKENS.color.textMuted} />}
+      icon={<IconMicrophone2 size={16} />}
       initialOpen={false}
     >
       <Row gutter={TOKENS.space[16]}>

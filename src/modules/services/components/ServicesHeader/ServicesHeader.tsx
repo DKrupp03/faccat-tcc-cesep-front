@@ -67,13 +67,13 @@ export const ServicesHeader = () => {
           outline
         />
       </Tooltip>
-      <Tooltip title={t("services.actions.create")}>
-        <CommonButton
-          onClick={() => openForm()}
-          icon={<IconPlus size={18} />}
-          buttonVariant="primary"
-        />
-      </Tooltip>
+      <CommonButton
+        onClick={() => openForm()}
+        icon={<IconPlus size={18} />}
+        buttonVariant="primary"
+      >
+        {t("services.actions.new")}
+      </CommonButton>
     </>
   );
 };

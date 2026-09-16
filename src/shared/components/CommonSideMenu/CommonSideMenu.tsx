@@ -6,7 +6,7 @@ import { useModules } from "@/shared/hooks/useModules";
 import { CommonTabs } from "../CommonTabs/CommonTabs";
 import { CommonAvatarDropdown } from "../CommonAvatarDropdown/CommonAvatarDropdown";
 import { TherapistFormProvider } from "@/modules/therapists/providers/TherapistFormProvider";
-import logoMini from "@/shared/assets/logoMini.png";
+import logoCesepC from "@/shared/assets/logoCesepC.png";
 
 import styles from "./CommonSideMenu.module.css";
 import { PATHS } from "@/routes/paths";
@@ -33,7 +33,7 @@ export const CommonSideMenu = () => {
           className={styles.logoContainer}
         >
           <img
-            src={logoMini}
+            src={logoCesepC}
             alt="CESEP"
             className={styles.logo}
           />

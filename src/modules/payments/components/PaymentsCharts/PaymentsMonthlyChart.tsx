@@ -1,12 +1,11 @@
 import { useTranslation } from "react-i18next";
+import { Flex } from "antd";
 import {
   BarChart,
   Bar,
   XAxis,
   YAxis,
-  CartesianGrid,
   Tooltip,
-  Legend,
   ResponsiveContainer,
   type TooltipProps,
 } from "recharts";
@@ -86,6 +85,18 @@ export const PaymentsMonthlyChart = ({
       info={t("payments.charts.monthlyTooltip")}
       loading={loading}
       className={styles.monthlyCard}
+      extra={(
+        <Flex align="center" gap={TOKENS.space[16]}>
+          <span className={styles.chartLegend}>
+            <span className={styles.tooltipDot} style={{ backgroundColor: C.accent }} />
+            {t("payments.charts.received")}
+          </span>
+          <span className={styles.chartLegend}>
+            <span className={styles.tooltipDot} style={{ backgroundColor: C.warning }} />
+            {t("payments.charts.toReceive")}
+          </span>
+        </Flex>
+      )}
     >
       <ResponsiveContainer width="100%" height={240}>
         <BarChart
@@ -93,11 +104,6 @@ export const PaymentsMonthlyChart = ({
           barGap={4}
           margin={{ top: 8, right: 8, left: 4, bottom: 0 }}
         >
-          <CartesianGrid
-            strokeDasharray="4 4"
-            vertical={false}
-            stroke={C.border}
-          />
           <XAxis
             dataKey="month"
             tickFormatter={formatShortMonth}
@@ -113,12 +119,6 @@ export const PaymentsMonthlyChart = ({
             tick={{ fontSize: F.size.xs, fill: C.textMuted }}
           />
           <Tooltip cursor={{ fill: C.bg }} content={renderTooltip} />
-          <Legend
-            wrapperStyle={{ fontSize: F.size.sm }}
-            formatter={(value) => (
-              <span style={{ color: C.text }}>{value}</span>
-            )}
-          />
           <Bar
             dataKey="received"
             name={t("payments.charts.received")}

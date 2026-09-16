@@ -14,8 +14,9 @@ export const DomesticEnvironmentForm = () => {
 
   return (
     <CommonCollapse
+      variant="card"
       title={t("patients.anamnese.domesticEnvironment.title")}
-      icon={<IconHome size={16} color={TOKENS.color.textMuted} />}
+      icon={<IconHome size={16} />}
       initialOpen={false}
     >
       <Row gutter={TOKENS.space[16]}>

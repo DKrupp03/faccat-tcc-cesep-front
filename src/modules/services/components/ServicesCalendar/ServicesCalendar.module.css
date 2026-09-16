@@ -90,3 +90,74 @@
   height: var(--control-height-xs) !important;
   border-radius: var(--radius-md) !important;
 }
+
+.legendItem {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-6);
+  font-size: var(--font-size-xs);
+  color: var(--color-text);
+}
+
+.legendDot {
+  width: var(--space-8);
+  height: var(--space-8);
+  border-radius: var(--radius-full);
+}
+
+.todayButton {
+  height: var(--control-height-xs) !important;
+  padding: 0 var(--space-16) !important;
+  border-radius: var(--radius-md) !important;
+  font-size: var(--font-size-sm) !important;
+}
+
+/* cabeçalho dos dias da semana */
+.wrapper :global(.ant-picker-content thead th) {
+  padding: var(--space-8) var(--space-12) !important;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-muted);
+  text-align: left;
+}
+
+/* células arredondadas; dias de outros meses em fundo suave */
+.wrapper :global(.ant-picker-calendar-date) {
+  margin: var(--space-2) !important;
+  padding: var(--space-8) !important;
+  border-top: none !important;
+  transition: background-color var(--transition-fast);
+}
+
+.wrapper :global(.ant-picker-cell:not(.ant-picker-cell-in-view) .ant-picker-calendar-date) {
+  background-color: var(--color-surface-subtle);
+}
+
+.wrapper :global(.ant-picker-cell-in-view:hover .ant-picker-calendar-date) {
+  background-color: var(--color-surface-hover) !important;
+}
+
+.wrapper :global(.ant-picker-calendar-date-value) {
+  text-align: left;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+  font-variant-numeric: tabular-nums;
+}
+
+.wrapper :global(.ant-picker-cell:not(.ant-picker-cell-in-view) .ant-picker-calendar-date-value) {
+  color: var(--color-text-muted);
+}
+
+/* dia atual em verde-petróleo */
+.wrapper :global(.ant-picker-cell-today .ant-picker-calendar-date) {
+  background-color: var(--color-accent-subtle) !important;
+}
+
+.wrapper :global(.ant-picker-cell-today .ant-picker-calendar-date-value) {
+  color: var(--color-accent);
+}
+
+.wrapper :global(.ant-picker-cell-selected .ant-picker-calendar-date) {
+  background-color: transparent;
+}

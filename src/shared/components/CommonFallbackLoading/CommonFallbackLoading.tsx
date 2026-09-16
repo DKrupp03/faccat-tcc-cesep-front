@@ -1,6 +1,6 @@
 import { Flex, Spin } from "antd";
 
-import logo from "@/shared/assets/logo.png";
+import logo from "@/shared/assets/logoCesepFull.png";
 import { TOKENS } from "@/shared/theme";
 
 import styles from "./CommonFallbackLoading.module.css";

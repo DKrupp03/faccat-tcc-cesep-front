@@ -14,3 +14,14 @@
   letter-spacing: var(--letter-spacing-tighter);
   color: var(--color-ink) !important;
 }
+
+.subtitle {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+/* ação primária com texto fica um pouco afastada dos ícones */
+.header :global(.ant-btn[data-variant="primary"]:not(.ant-btn-icon-only)) {
+  margin-left: var(--space-8);
+  padding: 0 var(--space-16) 0 var(--space-14);
+}

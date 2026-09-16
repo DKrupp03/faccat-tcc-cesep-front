@@ -10,6 +10,8 @@ const medicalRecords = {
     "deleted": "Prontuário excluído com sucesso!",
   },
 
+  "session": "{{name}} · sessão de {{date}}",
+
   "columns": {
     "title": "Título",
     "date": "Data",

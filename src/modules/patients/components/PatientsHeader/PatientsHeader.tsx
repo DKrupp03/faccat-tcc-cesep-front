@@ -59,13 +59,13 @@ export const PatientsHeader = ({ onCreateClick }: PatientsHeaderProps = {}) => {
           outline
         />
       </Tooltip>
-      <Tooltip title={t("patients.actions.create")}>
-        <CommonButton
-          onClick={onCreateClick ?? (() => openForm())}
-          icon={<IconPlus size={18} />}
-          buttonVariant="primary"
-        />
-      </Tooltip>
+      <CommonButton
+        onClick={onCreateClick ?? (() => openForm())}
+        icon={<IconPlus size={18} />}
+        buttonVariant="primary"
+      >
+        {t("patients.actions.new")}
+      </CommonButton>
     </>
   );
 };

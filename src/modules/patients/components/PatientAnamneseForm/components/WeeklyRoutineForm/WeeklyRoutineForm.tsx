@@ -11,8 +11,9 @@ export const WeeklyRoutineForm = () => {
 
   return (
     <CommonCollapse
+      variant="card"
       title={t("patients.anamnese.weeklyRoutine.title")}
-      icon={<IconClock24 size={16} color={TOKENS.color.textMuted} />}
+      icon={<IconClock24 size={16} />}
       initialOpen={false}
     >
       <Row gutter={TOKENS.space[16]}>

@@ -44,28 +44,29 @@ export const MedicalRecordsHeader = () => {
         value={orderBy}
         onChange={(newOrderBy) => filtratePanel(filter, newOrderBy as MedicalRecordsOrder)}
         options={orderOptions}
+        showLabel
       />
       <Tooltip title={t("common.actions.reload")}>
         <CommonButton
           onClick={() => filtratePanel()}
-          icon={<IconReload size={18} />}
+          icon={<IconReload size={16} />}
           outline
         />
       </Tooltip>
       <Tooltip title={t("common.actions.filtrate")}>
         <CommonButton
           onClick={openFilter}
-          icon={<IconFilter size={18} />}
+          icon={<IconFilter size={16} />}
           outline
         />
       </Tooltip>
-      <Tooltip title={t("patients.medicalRecords.actions.create")}>
-        <CommonButton
-          onClick={() => openForm()}
-          icon={<IconPlus size={18} />}
-          buttonVariant="primary"
-        />
-      </Tooltip>
+      <CommonButton
+        onClick={() => openForm()}
+        icon={<IconPlus size={16} />}
+        buttonVariant="primary"
+      >
+        {t("patients.medicalRecords.actions.create")}
+      </CommonButton>
     </>
   );
 };

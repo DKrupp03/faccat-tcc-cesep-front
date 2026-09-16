@@ -56,3 +56,13 @@
   padding: var(--space-20);
   background-color: var(--color-surface-subtle);
 }
+
+.headerNote {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+.footer :global(.ant-btn) {
+  height: var(--control-height-compact);
+  border-radius: var(--radius-md);
+}

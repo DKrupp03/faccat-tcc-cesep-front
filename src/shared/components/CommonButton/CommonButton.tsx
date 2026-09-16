@@ -75,6 +75,7 @@ export const CommonButton: React.FC<CommonButtonProps> = ({
   hoverEffect = true,
   contentAlign = "center",
   style,
+  className,
   ...props
 }) => {
   const variant = getVariant(buttonVariant, outline, !children && !!icon);
@@ -85,9 +86,9 @@ export const CommonButton: React.FC<CommonButtonProps> = ({
       theme={{
         components: {
           Button: {
-            controlHeightLG: 48,
-            controlHeight: 40,
-            controlHeightSM: 28,
+            controlHeightLG: TOKENS.control.lg,
+            controlHeight: TOKENS.control.md,
+            controlHeightSM: TOKENS.control.sm,
             fontWeight: TOKENS.font.weight.semibold,
             contentFontSize: TOKENS.font.size.md,
             contentFontSizeSM: TOKENS.font.size.sm,
@@ -113,7 +114,9 @@ export const CommonButton: React.FC<CommonButtonProps> = ({
         disabled={disabled}
         htmlType={htmlType}
         icon={icon}
-        className={styles.button}
+        className={className ? `${styles.button} ${className}` : styles.button}
+        data-variant={buttonVariant}
+        data-outline={outline || undefined}
         style={{
           justifyContent: contentAlign,
           "--button-shadow": variant.shadow ?? "none",

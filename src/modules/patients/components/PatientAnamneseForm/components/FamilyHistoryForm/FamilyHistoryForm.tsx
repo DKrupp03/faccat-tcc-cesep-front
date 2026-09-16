@@ -15,8 +15,9 @@ export const FamilyHistoryForm = () => {
 
   return (
     <CommonCollapse
+      variant="card"
       title={t("patients.anamnese.familyHistory.title")}
-      icon={<IconFriends size={16} color={TOKENS.color.textMuted} />}
+      icon={<IconFriends size={16} />}
       initialOpen={false}
     >
       <Row gutter={TOKENS.space[16]}>

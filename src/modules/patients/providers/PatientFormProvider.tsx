@@ -155,6 +155,8 @@ export const PatientFormProvider = ({
           setIsSubmitting(false);
         }
       },
+      undefined,
+      { danger: true, confirmLabel: t("common.actions.delete") },
     );
   }, [
     t,

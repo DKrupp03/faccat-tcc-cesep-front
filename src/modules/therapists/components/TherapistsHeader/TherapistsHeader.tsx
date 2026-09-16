@@ -55,13 +55,13 @@ export const TherapistsHeader = () => {
           outline
         />
       </Tooltip>
-      <Tooltip title={t("therapists.actions.create")}>
-        <CommonButton
-          onClick={() => openForm()}
-          icon={<IconPlus size={18} />}
-          buttonVariant="primary"
-        />
-      </Tooltip>
+      <CommonButton
+        onClick={() => openForm()}
+        icon={<IconPlus size={18} />}
+        buttonVariant="primary"
+      >
+        {t("therapists.actions.create")}
+      </CommonButton>
     </>
   );
 };

@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Form, Row, Col, Divider } from "antd";
+import { Form, Row, Col } from "antd";
 
 import { CommonTextInput } from "@/shared/components/CommonTextInput/CommonTextInput";
 import { CommonTextArea } from "@/shared/components/CommonTextArea/CommonTextArea";
@@ -134,6 +134,7 @@ export const MedicalRecordForm = ({
           <Form.Item name="evolution" rules={requiredRule}>
             <CommonTextArea
               label={t("patients.medicalRecords.columns.evolution")}
+              rows={7}
               required
               disabled={lockedFields.includes("evolution")}
             />
@@ -163,9 +164,7 @@ export const MedicalRecordForm = ({
         </Col>
       </Row>
 
-      <Divider className={styles.divider} />
-
-      <Row gutter={TOKENS.space[16]}>
+      <Row gutter={TOKENS.space[16]} className={styles.documents}>
         <Col span={24}>
           <CommonDocuments
             label={t("common.documents.title")}
@@ -201,6 +200,7 @@ export const MedicalRecordFormOptions = ({
         <CommonButton
           onClick={() => deleteMedicalRecord(medicalRecord.id)}
           buttonVariant="danger"
+          outline
           loading={isSubmitting}
         >
           {t("common.actions.delete")}

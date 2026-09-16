@@ -2,6 +2,16 @@
   width: 100%;
 }
 
-.divider {
-  margin: var(--space-8) 0 var(--space-16);
+.freeRow {
+  margin-bottom: var(--space-24);
+}
+
+.freeHint {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+/* 24px até o bloco de documentos = margem do Form.Item (16) + 8 */
+.documents {
+  margin-top: var(--space-8);
 }

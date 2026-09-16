@@ -42,14 +42,16 @@ export const MedicalRecordsTable = () => {
       title: t("patients.medicalRecords.columns.date"),
       dataIndex: "date",
       key: "date",
-      width: "20%",
+      width: "16%",
+      className: styles.date,
       render: (value?: string) => formatDate(value),
     },
     {
       title: t("patients.medicalRecords.columns.evolution"),
       dataIndex: "evolution",
       key: "evolution",
-      width: "50%",
+      width: "54%",
+      ellipsis: true,
       render: (value?: string) => (
         <span className={styles.evolution}>{value}</span>
       ),
@@ -58,9 +60,9 @@ export const MedicalRecordsTable = () => {
 
   return (
     <CommonTable<MedicalRecordType>
-      titleHeader={t("patients.tabs.medicalRecords")}
       columns={columns}
       dataSource={medicalRecords}
+      rowKey="id"
       pagination
       page={page}
       total={totalFiltered}

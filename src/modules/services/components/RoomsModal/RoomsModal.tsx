@@ -117,7 +117,8 @@ export const RoomsModal = ({ isOpen, close }: RoomsModalProps) => {
           <Form.List name="rooms">
             {(fields, { add, remove }) => (
               <CommonCollapse
-                title={t("services.rooms.title")}
+                title={t("services.rooms.registered")}
+                variant="plain"
                 onClickAdd={() => add({})}
                 shouldShowAddButton
                 hideExpandButton

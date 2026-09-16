@@ -26,8 +26,9 @@ export const FamilyForm = () => {
 
   return (
     <CommonCollapse
+      variant="card"
       title={t("patients.anamnese.family.title")}
-      icon={<IconUsers size={16} color={TOKENS.color.textMuted} />}
+      icon={<IconUsers size={16} />}
       initialOpen={false}
     >
       {anamneseType !== "adult" && (

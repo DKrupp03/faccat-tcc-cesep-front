@@ -17,8 +17,9 @@ export const PreviousHistoryForm = () => {
 
   return (
     <CommonCollapse
+      variant="card"
       title={t("patients.anamnese.previousHistory.title")}
-      icon={<IconHistory size={16} color={TOKENS.color.textMuted} />}
+      icon={<IconHistory size={16} />}
       initialOpen={false}
     >
       {anamneseType === "adult" ? (

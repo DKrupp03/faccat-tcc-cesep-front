@@ -15,8 +15,9 @@ export const CurrentMomentForm = () => {
 
   return (
     <CommonCollapse
+      variant="card"
       title={t("patients.anamnese.currentMoment.title")}
-      icon={<IconCalendarEvent size={16} color={TOKENS.color.textMuted} />}
+      icon={<IconCalendarEvent size={16} />}
       initialOpen={false}
     >
       <SectionsCard>

@@ -9,3 +9,21 @@
 .name:hover {
   color: var(--color-accent);
 }
+
+.number,
+.date {
+  font-variant-numeric: tabular-nums;
+}
+
+.therapist {
+  color: var(--color-text);
+}
+
+.date {
+  color: var(--color-text-secondary) !important;
+}
+
+.orderNote {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}

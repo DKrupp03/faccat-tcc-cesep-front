@@ -1,6 +1,6 @@
 import { Flex } from "antd";
 
-import logo from "@/shared/assets/logo.png";
+import logo from "@/shared/assets/logoCesepFull.png";
 
 import { TOKENS } from "@/shared/theme";
 
@@ -20,7 +20,7 @@ export const AuthCardContainer = ({ children }: { children: React.ReactNode }) =
       <Flex justify="center">
         <img
           src={logo}
-          alt="CESEP"
+          alt="cesep — Centro de Serviços em Psicologia"
           className={styles.logo}
         />
       </Flex>

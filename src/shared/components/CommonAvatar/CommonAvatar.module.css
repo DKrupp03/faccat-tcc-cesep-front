@@ -1,9 +1,26 @@
 .avatar {
-  background-color: var(--color-neutral-soft);
-  color: var(--color-text);
+  flex-shrink: 0;
+  font-weight: var(--font-weight-semibold);
 }
 
-.avatar span {
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-semibold);
+.accent {
+  background-color: var(--color-accent-soft) !important;
+  color: var(--color-accent) !important;
+}
+
+.neutral {
+  background-color: var(--color-neutral-soft) !important;
+  color: var(--color-text) !important;
+}
+
+.small {
+  font-size: var(--font-size-xs) !important;
+}
+
+.medium {
+  font-size: var(--font-size-sm) !important;
+}
+
+.large {
+  font-size: var(--font-size-xl) !important;
 }

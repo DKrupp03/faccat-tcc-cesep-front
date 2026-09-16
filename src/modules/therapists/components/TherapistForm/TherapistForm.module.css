@@ -9,10 +9,26 @@
   background-color: var(--color-bg);
 }
 
-.avatarContainer > :first-child {
+.avatarText {
   margin-right: auto;
 }
 
-.switch {
-  margin-top: calc(-1 * var(--space-12));
+.avatarTitle {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-ink);
+}
+
+.avatarHint {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+.switches {
+  margin-top: var(--space-8);
+}
+
+.switchHint {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
 }

@@ -2,13 +2,4 @@
   width: 100%;
   height: fit-content;
   margin-bottom: var(--space-16);
-  padding: var(--space-8) var(--space-16);
-  border-radius: var(--radius-2xl);
-  background-color: var(--color-surface);
-  box-shadow: var(--shadow-xs);
-}
-
-.card > :global(.ant-collapse) {
-  padding: var(--space-8) 0;
-  background-color: transparent;
 }

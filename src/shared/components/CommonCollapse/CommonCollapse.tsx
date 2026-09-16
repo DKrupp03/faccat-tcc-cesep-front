@@ -18,6 +18,8 @@ type CommonCollapseProps = {
   extraPlacement?: "start" | "end";
   expandIconPlacement?: "start" | "end";
   hideExpandButton?: boolean;
+  // "block": bloco suave dentro de formulário; "card": seção em cartão (anamnese)
+  variant?: "block" | "card" | "plain";
 };
 
 const { Title } = Typography;
@@ -33,6 +35,7 @@ export const CommonCollapse = ({
   extraPlacement = "end",
   expandIconPlacement = "end",
   hideExpandButton = false,
+  variant = "block",
 }: CommonCollapseProps) => {
   const [isCollapseOpen, setIsCollapseOpen] = useState(
     hideExpandButton ? true : initialOpen
@@ -50,16 +53,22 @@ export const CommonCollapse = ({
       <CommonButton
         onClick={() => setIsCollapseOpen((prev) => !prev)}
         icon={isCollapseOpen ? <IconChevronUp size={16} /> : <IconChevronDown size={16} />}
-        size="small"
-        outline
+        className={styles.expandButton}
+        outline={variant === "block"}
       />
     );
-  }, [hideExpandButton, isCollapseOpen]);
+  }, [hideExpandButton, isCollapseOpen, variant]);
+
+  const className = [
+    styles.collapse,
+    styles[variant],
+    isCollapseOpen ? styles.open : "",
+  ].filter(Boolean).join(" ");
 
   return (
     <Collapse
       ghost
-      className={icon ? styles.collapseWithIcon : styles.collapse}
+      className={className}
       activeKey={isCollapseOpen ? "1" : undefined}
       onChange={handleChangeCollapse}
       expandIcon={expandButton}
@@ -90,7 +99,7 @@ export const CommonCollapse = ({
               <CommonButton
                 onClick={onClickAdd}
                 icon={<IconPlus size={16} />}
-                size="small"
+                className={styles.addButton}
                 buttonVariant="primary"
               />
             )}
@@ -110,7 +119,7 @@ export const CommonCollapse = ({
           },
           body: {
             padding: 0,
-            paddingTop: TOKENS.space[16],
+            paddingTop: variant === "card" ? TOKENS.space[24] : TOKENS.space[16],
           },
         },
       }]}

@@ -13,8 +13,9 @@ export const DevelopmentForm = () => {
 
   return (
     <CommonCollapse
+      variant="card"
       title={t("patients.anamnese.development.title")}
-      icon={<IconTrendingUp size={16} color={TOKENS.color.textMuted} />}
+      icon={<IconTrendingUp size={16} />}
       initialOpen={false}
     >
       <Row gutter={TOKENS.space[16]}>

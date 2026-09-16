@@ -17,6 +17,21 @@ const therapists = {
 		lastService: "Último atendimento",
 	},
 
+	subtitle: "{{active}} ativos de {{total}} cadastrados",
+	listTitle: "Lista de terapeutas",
+	adminTag: "Admin",
+
+	drawer: {
+		newTherapist: "Novo terapeuta",
+		withCrp: "{{name}} · CRP {{crp}}",
+	},
+
+	form: {
+		photo: "Foto do terapeuta",
+		photoHint: "Imagem JPG ou PNG",
+		upload: "Enviar",
+	},
+
 	headerCards: {
 		total: "Total de terapeutas",
 		filtered: "Terapeutas filtrados",

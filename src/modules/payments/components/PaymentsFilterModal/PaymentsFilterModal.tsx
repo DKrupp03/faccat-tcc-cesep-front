@@ -16,6 +16,7 @@ import { usePaymentsFilter } from "../../hooks/usePaymentsFilter";
 import { usePaymentsList } from "../../hooks/usePaymentsList";
 import { getStatusOptions, getPaymentMethodOptions } from "../../utils/form";
 import { TOKENS } from "@/shared/theme";
+import { PaymentStatusBadge } from "../PaymentStatusBadge/PaymentStatusBadge";
 import styles from "./PaymentsFilterModal.module.css";
 
 export const PaymentsFilterModal = () => {
@@ -33,7 +34,10 @@ export const PaymentsFilterModal = () => {
   const { profile } = useAuth();
   const canFilterTherapist = !!profile?.admin || !!profile?.subordinates?.length;
 
-  const statusOptions = useMemo(() => getStatusOptions(t), [t]);
+  const statusOptions = useMemo(() => getStatusOptions(t).map((option) => ({
+    ...option,
+    label: <PaymentStatusBadge status={option.value} plain />,
+  })), [t]);
   const paymentMethodOptions = useMemo(() => getPaymentMethodOptions(t), [t]);
 
   const footerContent = useMemo(() => (

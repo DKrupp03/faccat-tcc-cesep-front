@@ -11,12 +11,14 @@ import { formatMonthYear, formatTime } from "@/shared/utils/formatters";
 
 import { useServicesList } from "../../hooks/useServicesList";
 import { useServiceForm } from "../../hooks/useServiceForm";
-import { ServiceStatusIcon, getServiceStatusColor, getServiceStatusBgColor } from "../../utils/status";
-import type { Service } from "../../types/service";
+import { getServiceStatusColor, getServiceStatusBgColor } from "../../utils/status";
+import type { Service, ServiceStatus } from "../../types/service";
 import { TOKENS } from "@/shared/theme";
 import styles from "./ServicesCalendar.module.css";
 
 const { Text } = Typography;
+
+const LEGEND_STATUSES: ServiceStatus[] = ["confirmed", "attended", "scheduled", "no_show", "cancelled"];
 
 // A API já devolve a data no formato "YYYY-MM-DD", igual à chave do calendário.
 const dayKey = (value: Dayjs) => value.format("YYYY-MM-DD");
@@ -70,7 +72,6 @@ export const ServicesCalendar = () => {
                   openForm(service.id);
                 }}
               >
-                <ServiceStatusIcon status={service.status} size={14} />
                 <span className={styles.time}>
                   {formatTime(service.start_time)}
                 </span>
@@ -112,12 +113,23 @@ export const ServicesCalendar = () => {
                   />
                 </Tooltip>
               </Flex>
-              <CommonButton
-                onClick={() => changeCalendarMonth(dayjs())}
-                outline
-              >
-                {t("services.calendar.today")}
-              </CommonButton>
+              <Flex align="center" gap={TOKENS.space[16]} wrap>
+                {LEGEND_STATUSES.map((status) => (
+                  <span key={status} className={styles.legendItem}>
+                    <span
+                      className={styles.legendDot}
+                      style={{ backgroundColor: getServiceStatusColor(status) }}
+                    />
+                    {t(`services.status.${status}`)}
+                  </span>
+                ))}
+                <CommonButton
+                  onClick={() => changeCalendarMonth(dayjs())}
+                  className={styles.todayButton}
+                >
+                  {t("services.calendar.today")}
+                </CommonButton>
+              </Flex>
             </Flex>
           )}
         />

@@ -38,7 +38,8 @@ export const PaymentsStatusChart = ({
         align="center" justify="center"
         gap={TOKENS.space[32]} className={styles.statusContent}
       >
-        <ResponsiveContainer width={180} height={180}>
+        <div className={styles.donut}>
+        <ResponsiveContainer width={160} height={160}>
           <PieChart>
             <Pie
               data={data}
@@ -57,6 +58,11 @@ export const PaymentsStatusChart = ({
             </Pie>
           </PieChart>
         </ResponsiveContainer>
+          <Flex vertical align="center" className={styles.donutCenter}>
+            <span className={styles.donutValue}>{total}</span>
+            <span className={styles.donutLabel}>{t("payments.charts.filtered")}</span>
+          </Flex>
+        </div>
 
         <Flex vertical gap={TOKENS.space[16]} className={styles.legend}>
           {data.map((item) => {
@@ -73,7 +79,7 @@ export const PaymentsStatusChart = ({
                     {t(`payments.status.${item.status}`)}
                   </Text>
                   <Text className={styles.legendValue}>
-                    {`(${item.count} - ${percent}%)`}
+                    {`${item.count} · ${percent}%`}
                   </Text>
                 </Flex>
               </Flex>

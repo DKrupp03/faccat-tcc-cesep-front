@@ -24,7 +24,7 @@ const TherapistsPage = () => {
 const TherapistsPanel = () => {
   const { t } = useTranslation();
   const { changeActiveModule } = useModules();
-  const { filtratePanel } = useTherapistsList();
+  const { filtratePanel, loading, total, totalActive } = useTherapistsList();
 
   useEffect(() => {
     changeActiveModule("therapists");
@@ -34,7 +34,10 @@ const TherapistsPanel = () => {
 
   return (
     <Flex vertical className={styles.panel}>
-      <CommonHeader title={t("common.modules.therapists")}>
+      <CommonHeader
+        title={t("common.modules.therapists")}
+        subtitle={loading ? undefined : t("therapists.subtitle", { active: totalActive, total })}
+      >
         <TherapistsHeader />
       </CommonHeader>
 

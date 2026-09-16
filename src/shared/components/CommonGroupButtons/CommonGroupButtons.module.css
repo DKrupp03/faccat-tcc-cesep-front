@@ -26,3 +26,39 @@
   font-weight: var(--font-weight-semibold);
   box-shadow: var(--shadow-sm) !important;
 }
+
+.groupAccent {
+  height: auto;
+  background-color: var(--color-surface);
+}
+
+.groupAccent .button {
+  height: var(--space-32) !important;
+}
+
+.groupFit {
+  width: fit-content;
+}
+
+.groupFit .button {
+  width: auto;
+  padding: 0 var(--space-16);
+}
+
+.buttonActiveAccent,
+.buttonActiveAccent:not(:disabled):hover {
+  background-color: var(--color-accent) !important;
+  color: var(--color-text-inverse) !important;
+  font-weight: var(--font-weight-semibold);
+}
+
+.groupCompact {
+  height: auto;
+  border-radius: var(--radius-xl);
+}
+
+.groupCompact .button {
+  height: var(--space-32) !important;
+  padding: 0 var(--space-12);
+  border-radius: var(--radius-md) !important;
+}

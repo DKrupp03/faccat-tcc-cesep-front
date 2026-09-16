@@ -10,6 +10,7 @@ type CommonTextInputProps = InputProps & {
   icon?: ReactNode;
   password?: boolean;
   label?: string;
+  labelSuffix?: ReactNode;
   required?: boolean;
 };
 
@@ -17,6 +18,7 @@ export const CommonTextInput: React.FC<CommonTextInputProps> = ({
   icon,
   password = false,
   label,
+  labelSuffix,
   required = false,
   ...props
 }: CommonTextInputProps) => {
@@ -25,7 +27,7 @@ export const CommonTextInput: React.FC<CommonTextInputProps> = ({
     : undefined;
 
   return (
-    <CommonField label={label} required={required}>
+    <CommonField label={label} labelSuffix={labelSuffix} required={required}>
       {password ? (
         <Input.Password
           prefix={prefix}

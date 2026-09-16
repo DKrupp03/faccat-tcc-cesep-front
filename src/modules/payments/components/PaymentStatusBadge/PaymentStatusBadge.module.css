@@ -1,12 +1,15 @@
 .badge {
-  color: inherit;
-  padding: var(--space-4) var(--space-8);
-  border-radius: var(--radius-xs);
-  height: 100%;
-  display: flex !important;
-}
-
-.badge span {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-8);
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-semibold);
+  white-space: nowrap;
+}
+
+.dot {
+  width: var(--space-8);
+  height: var(--space-8);
+  flex-shrink: 0;
+  border-radius: var(--radius-full);
 }

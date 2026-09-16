@@ -11,10 +11,12 @@
 
 .statusCard {
   flex: 2;
+  min-width: 0;
 }
 
 .monthlyCard {
   flex: 3;
+  min-width: 0;
 }
 
 .header {
@@ -46,8 +48,8 @@
 }
 
 .legendDot {
-  width: var(--space-8);
-  height: var(--space-8);
+  width: var(--space-12);
+  height: var(--space-12);
   border-radius: var(--radius-full);
   flex-shrink: 0;
 }
@@ -102,4 +104,38 @@
   font-size: var(--font-size-sm);
   color: var(--color-text);
   font-variant-numeric: tabular-nums;
+}
+
+.donut {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.donutCenter {
+  position: absolute;
+  inset: 0;
+  justify-content: center;
+  gap: var(--space-2);
+  pointer-events: none;
+}
+
+/* número central da rosca: 22px no design */
+.donutValue {
+  font-size: 22px;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.donutLabel {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+
+.chartLegend {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-6);
+  font-size: var(--font-size-sm);
+  color: var(--color-text);
 }

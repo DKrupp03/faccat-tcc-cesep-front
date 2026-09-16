@@ -1,5 +1,5 @@
 import { useEffect, useMemo } from "react";
-import { Form, Row, Col, Flex, Skeleton, Upload } from "antd";
+import { Form, Row, Col, Flex, Skeleton, Upload, Tooltip } from "antd";
 import { useTranslation } from "react-i18next";
 import { IconTrash, IconUpload } from "@tabler/icons-react";
 
@@ -9,7 +9,6 @@ import { CommonDatePicker } from "@/shared/components/CommonDatePicker";
 import { CommonAvatar } from "@/shared/components/CommonAvatar/CommonAvatar";
 import { CommonButton } from "@/shared/components/CommonButton/CommonButton";
 import { CommonSwitch } from "@/shared/components/CommonSwitch/CommonSwitch";
-import { CommonIconHelp } from "@/shared/components/CommonHelpIcon/CommonHelpIcon";
 import { ProfilesSelect } from "@/shared/components/ProfilesSelect/ProfilesSelect";
 import {
   phoneMask,
@@ -108,8 +107,13 @@ export const TherapistForm = () => {
       >
         <CommonAvatar
           size={56}
+          name={therapist?.name}
           photoUrl={photoUrl}
         />
+        <Flex vertical gap={TOKENS.space[2]} className={styles.avatarText}>
+          <span className={styles.avatarTitle}>{t("therapists.form.photo")}</span>
+          <span className={styles.avatarHint}>{t("therapists.form.photoHint")}</span>
+        </Flex>
         <Upload
           showUploadList={false}
           accept="image/*"
@@ -123,17 +127,21 @@ export const TherapistForm = () => {
             onClick={() => {}}
             icon={<IconUpload size={18} />}
             outline
-          />
+          >
+            {t("therapists.form.upload")}
+          </CommonButton>
         </Upload>
-        <CommonButton
-          onClick={() => {
-            setChangedPhoto(true);
-            setUploadedPhoto(undefined);
-          }}
-          icon={<IconTrash size={18} />}
-          buttonVariant="danger"
-          outline
-        />
+        <Tooltip title={t("common.actions.delete")}>
+          <CommonButton
+            onClick={() => {
+              setChangedPhoto(true);
+              setUploadedPhoto(undefined);
+            }}
+            icon={<IconTrash size={18} />}
+            buttonVariant="danger"
+            outline
+          />
+        </Tooltip>
       </Flex>
 
       <Row gutter={TOKENS.space[16]}>
@@ -226,28 +234,23 @@ export const TherapistForm = () => {
         </Col>
       </Row>
 
-      <Row gutter={TOKENS.space[16]}>
-        <Col span={6}>
-          <Form.Item name="active">
+      <Flex vertical gap={TOKENS.space[12]} className={styles.switches}>
+        <Flex align="center" gap={TOKENS.space[12]} wrap>
+          <Form.Item name="active" noStyle>
             <CommonSwitch
               label={t("therapists.columns.active")}
               disabled={!therapist?.id}
-              icon={<CommonIconHelp text={t("therapists.help.active")} />}
             />
           </Form.Item>
-        </Col>
-      </Row>
-
-      <Row gutter={TOKENS.space[16]} className={styles.switch}>
-        <Col span={6}>
-          <Form.Item name="admin">
-            <CommonSwitch
-              label={t("therapists.columns.admin")}
-              icon={<CommonIconHelp text={t("therapists.help.admin")} />}
-            />
+          <span className={styles.switchHint}>{t("therapists.help.active")}</span>
+        </Flex>
+        <Flex align="center" gap={TOKENS.space[12]} wrap>
+          <Form.Item name="admin" noStyle>
+            <CommonSwitch label={t("therapists.columns.admin")} />
           </Form.Item>
-        </Col>
-      </Row>
+          <span className={styles.switchHint}>{t("therapists.help.admin")}</span>
+        </Flex>
+      </Flex>
     </Form>
   );
 };
@@ -262,6 +265,7 @@ export const TherapistFormOptions = () => {
         <CommonButton
           onClick={() => deleteTherapist(therapist.id)}
           buttonVariant="danger"
+          outline
           loading={isSubmitting}
         >
           {t("common.actions.delete")}

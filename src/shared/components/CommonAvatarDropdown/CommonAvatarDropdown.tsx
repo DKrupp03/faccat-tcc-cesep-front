@@ -32,6 +32,8 @@ export const CommonAvatarDropdown = () => {
         >
           <CommonAvatar
             photoUrl={profile?.photo_url}
+            name={profile?.name}
+            tone="neutral"
             size={TOKENS.control.md}
           />
           <Flex vertical>
@@ -67,6 +69,8 @@ export const CommonAvatarDropdown = () => {
     >
       <CommonAvatar
         photoUrl={profile?.photo_url}
+        name={profile?.name}
+        tone="neutral"
         style={{ cursor: "pointer" }}
         size={TOKENS.control.md}
       />

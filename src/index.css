@@ -61,3 +61,13 @@ h5.ant-typography {
   background-color: var(--color-accent-soft-hover);
   color: var(--color-ink);
 }
+
+/* campo desabilitado: fundo mais claro e texto de apoio (ex.: e-mail travado) */
+.ant-input-filled.ant-input-disabled,
+.ant-input-affix-wrapper-filled.ant-input-affix-wrapper-disabled,
+.ant-select-filled.ant-select-disabled .ant-select-selector,
+.ant-select-filled.ant-select-disabled,
+.ant-picker-filled.ant-picker-disabled {
+  background-color: var(--color-surface-subtle) !important;
+  color: var(--color-text-muted) !important;
+}

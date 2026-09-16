@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { Form, Row, Col, Skeleton, Flex, Typography, Divider } from "antd";
+import { Form, Row, Col, Skeleton, Flex, Typography } from "antd";
 import { IconCalendarClock } from "@tabler/icons-react";
 import dayjs, { type Dayjs } from "dayjs";
 
@@ -21,6 +21,7 @@ import { rangeRule } from "@/shared/utils/filterRules";
 import PatientsService from "@/modules/patients/services/PatientsService";
 
 import { useServiceForm } from "../../hooks/useServiceForm";
+import { ServiceStatusBadge } from "../ServiceStatusBadge/ServiceStatusBadge";
 import {
   getFrequencyOptions,
   getRecurrenceSummary,
@@ -64,7 +65,10 @@ export const ServiceForm = () => {
   const [form] = Form.useForm<ServiceFormValues>();
 
   const serviceTypeOptions = useMemo(() => getServiceTypeOptions(t), [t]);
-  const statusOptions = useMemo(() => getStatusOptions(t), [t]);
+  const statusOptions = useMemo(() => getStatusOptions(t).map((option) => ({
+    ...option,
+    label: <ServiceStatusBadge status={option.value} plain />,
+  })), [t]);
   const frequencyOptions = useMemo(() => getFrequencyOptions(t), [t]);
   const weekdayOptions = useMemo(() => getWeekdayOptions(t), [t]);
 
@@ -212,11 +216,10 @@ export const ServiceForm = () => {
         </Col>
       </Row>
 
-      <Divider className={styles.divider} />
-
       <CommonCollapse
         title={t("services.form.datesTimes")}
-        icon={<IconCalendarClock size={16} color={TOKENS.color.textMuted} />}
+        icon={<IconCalendarClock size={16} />}
+        variant="plain"
       >
         <Row gutter={TOKENS.space[16]}>
           <Col span={6}>
@@ -281,7 +284,7 @@ export const ServiceForm = () => {
 
         <Row gutter={TOKENS.space[16]}>
           <Col span={24}>
-            <Form.Item name="recurrent">
+            <Form.Item name="recurrent" className={styles.recurrentSwitch}>
               <CommonSwitch
                 label={t("services.recurrence.title")}
                 disabled={isEditing}
@@ -410,16 +413,19 @@ export const ServiceForm = () => {
               </Col>
             </Row>
 
-            {recurrenceSummary && (
-              <Text className={styles.recurrenceSummary}>
-                {recurrenceSummary}
-              </Text>
-            )}
-
-            {isExistingSeries && (
-              <Text className={styles.recurrenceHint}>
-                {t("services.recurrence.locked")}
-              </Text>
+            {(recurrenceSummary || isExistingSeries) && (
+              <Flex vertical gap={TOKENS.space[6]} className={styles.recurrenceBox}>
+                {recurrenceSummary && (
+                  <Text className={styles.recurrenceSummary}>
+                    {recurrenceSummary}
+                  </Text>
+                )}
+                {isExistingSeries && (
+                  <Text className={styles.recurrenceHint}>
+                    {t("services.recurrence.locked")}
+                  </Text>
+                )}
+              </Flex>
             )}
           </>
         )}
@@ -438,6 +444,7 @@ export const ServiceFormOptions = () => {
         <CommonButton
           onClick={() => deleteService(service.id)}
           buttonVariant="danger"
+          outline
           loading={isSubmitting}
         >
           {t("common.actions.delete")}

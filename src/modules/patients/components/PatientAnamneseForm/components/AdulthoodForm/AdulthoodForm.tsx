@@ -11,8 +11,9 @@ export const AdulthoodForm = () => {
 
   return (
     <CommonCollapse
+      variant="card"
       title={t("patients.anamnese.adulthood.title")}
-      icon={<IconRating18Plus size={16} color={TOKENS.color.textMuted} />}
+      icon={<IconRating18Plus size={16} />}
       initialOpen={false}
     >
       <Row gutter={TOKENS.space[16]}>

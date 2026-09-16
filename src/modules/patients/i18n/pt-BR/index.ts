@@ -27,6 +27,23 @@ const patients = {
 		lastService: "Último atendimento",
 	},
 
+	subtitle: "{{active}} ativos de {{total}} cadastrados",
+	listTitle: "Lista de pacientes",
+
+	drawer: {
+		since: "{{name}} · paciente desde {{date}}",
+		newPatient: "Novo paciente",
+		records: "{{name}} · {{count}} registros",
+	},
+
+	form: {
+		personalData: "Dados pessoais",
+		serviceData: "Atendimento",
+		photo: "Foto do paciente",
+		photoHint: "Imagem JPG ou PNG",
+		upload: "Enviar",
+	},
+
 	headerCards: {
 		total: "Total de pacientes",
 		filtered: "Pacientes filtrados",
@@ -35,6 +52,7 @@ const patients = {
 
 	actions: {
 		create: "Criar paciente",
+		new: "Novo paciente",
 		created: "Paciente criado com sucesso!",
 		edit: "Editar paciente",
 		updated: "Paciente atualizado com sucesso!",

@@ -12,8 +12,9 @@ export const AdolescentIssuesForm = () => {
 
   return (
     <CommonCollapse
+      variant="card"
       title={t("patients.anamnese.adolescentIssues.title")}
-      icon={<IconAlertCircle size={16} color={TOKENS.color.textMuted} />}
+      icon={<IconAlertCircle size={16} />}
       initialOpen={false}
     >
       <Row gutter={TOKENS.space[16]}>

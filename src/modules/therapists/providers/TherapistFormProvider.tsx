@@ -159,6 +159,8 @@ export const TherapistFormProvider = ({
           setIsSubmitting(false);
         }
       },
+      undefined,
+      { danger: true, confirmLabel: t("common.actions.delete") },
     );
   }, [
     t,

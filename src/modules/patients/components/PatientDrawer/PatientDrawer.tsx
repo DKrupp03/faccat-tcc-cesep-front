@@ -8,11 +8,14 @@ import {
   IconReportMoney,
 } from "@tabler/icons-react";
 
+import dayjs from "dayjs";
+
 import { CommonDrawer } from "@/shared/components/CommonDrawer/CommonDrawer";
 
 import { ServicesProvider } from "@/modules/services/providers/ServicesProvider";
 import { PaymentsProvider } from "@/modules/payments/providers/PaymentsProvider";
 import { usePatientDrawer } from "../../hooks/usePatientDrawer";
+import { useMedicalRecords } from "../../hooks/useMedicalRecords";
 import { MedicalRecordsProvider } from "../../providers/MedicalRecordsProvider";
 import { PatientForm, PatientFormOptions } from "../PatientForm/PatientForm";
 import { PatientAnamneseForm, PatientAnamneseFormOptions } from "../PatientAnamneseForm/PatientAnamneseForm";
@@ -23,6 +26,7 @@ import { PatientPayments, PatientPaymentsOptions } from "../PatientPayments/Pati
 const PatientDrawerContent = () => {
   const { t } = useTranslation();
   const { isFormOpen, patient, tab, handleClose, handleChangeTab } = usePatientDrawer();
+  const { total: medicalRecordsTotal, loading: loadingMedicalRecords } = useMedicalRecords();
 
   const tabs = useMemo(() => ([
     {
@@ -62,6 +66,20 @@ const PatientDrawerContent = () => {
     if (tab === "payments") return <PatientPaymentsOptions />;
   }, [tab]);
 
+  const subtitle = useMemo(() => {
+    if (!patient?.id) return tab === "form" ? t("patients.drawer.newPatient") : undefined;
+    if (tab === "form" && patient.created_at) {
+      return t("patients.drawer.since", {
+        name: patient.name,
+        date: dayjs(patient.created_at).format("MMMM [de] YYYY"),
+      });
+    }
+    if (tab === "medicalRecords" && !loadingMedicalRecords) {
+      return t("patients.drawer.records", { name: patient.name, count: medicalRecordsTotal });
+    }
+    return patient.name;
+  }, [t, tab, patient, medicalRecordsTotal, loadingMedicalRecords]);
+
   const content = useMemo(() => {
     if (tab === "form") return <PatientForm />;
     if (tab === "anamnese") return <PatientAnamneseForm />;
@@ -80,6 +98,7 @@ const PatientDrawerContent = () => {
       isOpen={isFormOpen}
       close={handleClose}
       title={t(`patients.tabs.${tab}`)}
+      subtitle={subtitle}
       header={header}
       footer={footer}
       tabs={tabs}
@@ -96,7 +115,7 @@ export const PatientDrawer = () => {
   const { patient } = usePatientDrawer();
 
   return (
-    <MedicalRecordsProvider patientId={patient?.id}>
+    <MedicalRecordsProvider patientId={patient?.id} patientName={patient?.name}>
       <ServicesProvider patientId={patient?.id}>
         <PaymentsProvider patientId={patient?.id}>
           <PatientDrawerContent />

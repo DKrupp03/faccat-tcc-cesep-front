@@ -14,6 +14,7 @@ import { useServicesFilter } from "../../hooks/useServicesFilter";
 import { useServicesList } from "../../hooks/useServicesList";
 import { getServiceTypeOptions, getStatusOptions } from "../../utils/form";
 import { TOKENS } from "@/shared/theme";
+import { ServiceStatusBadge } from "../ServiceStatusBadge/ServiceStatusBadge";
 import styles from "./ServicesFilterModal.module.css";
 
 export const ServicesFilterModal = () => {
@@ -30,7 +31,10 @@ export const ServicesFilterModal = () => {
   } = useServicesFilter();
 
   const serviceTypeOptions = useMemo(() => getServiceTypeOptions(t), [t]);
-  const statusOptions = useMemo(() => getStatusOptions(t), [t]);
+  const statusOptions = useMemo(() => getStatusOptions(t).map((option) => ({
+    ...option,
+    label: <ServiceStatusBadge status={option.value} plain />,
+  })), [t]);
 
   const footerContent = useMemo(() => (
     <>

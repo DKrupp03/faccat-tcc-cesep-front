@@ -119,6 +119,7 @@ export const TOKENS = {
   control: {
     xs: 34,
     sm: 28,
+    compact: 36,
     md: 40,
     field: 44,
     lg: 48,

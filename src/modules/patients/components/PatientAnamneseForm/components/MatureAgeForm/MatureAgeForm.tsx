@@ -11,8 +11,9 @@ export const MatureAgeForm = () => {
 
   return (
     <CommonCollapse
+      variant="card"
       title={t("patients.anamnese.matureAge.title")}
-      icon={<IconOld size={16} color={TOKENS.color.textMuted} />}
+      icon={<IconOld size={16} />}
       initialOpen={false}
     >
       <Row gutter={TOKENS.space[16]}>
