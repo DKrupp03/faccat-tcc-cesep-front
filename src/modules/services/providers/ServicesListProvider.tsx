@@ -59,13 +59,14 @@ export const ServicesListProvider = ({
     const isCalendar = view === "calendar";
 
     if (isCalendar) {
+      // A grade vai do começo da semana do dia 1º ao fim da semana do último:
+      // com startOf/endOf("month") os dias vizinhos apareciam sempre vazios.
       // Data pura, sem fuso: toISOString() converte para UTC e, em UTC-3, o
-      // fim do mês virava o dia 1º do mês seguinte (e o início recuaria um dia
-      // em fusos positivos).
+      // fim do mês virava o dia 1º do mês seguinte.
       effectiveFilter = {
         ...effectiveFilter,
-        date_start: month.startOf("month").format("YYYY-MM-DD"),
-        date_end: month.endOf("month").format("YYYY-MM-DD"),
+        date_start: month.startOf("month").startOf("week").format("YYYY-MM-DD"),
+        date_end: month.endOf("month").endOf("week").format("YYYY-MM-DD"),
       };
     }
 

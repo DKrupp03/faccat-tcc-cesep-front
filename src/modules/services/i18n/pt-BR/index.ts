@@ -23,7 +23,7 @@ const services = {
 		filtrate: "Filtrar atendimentos",
 		delete: "Excluir atendimento",
 		"delete.confirmation":
-			"Tem certeza que deseja excluir este atendimento?</br>Ao continuar, <b>serão excluídos o prontuário e o pagamento</b> associados à ele!",
+			"Tem certeza que deseja excluir este atendimento?<br />Ao continuar, <b>serão excluídos o prontuário e o pagamento</b> associados à ele!",
 		deleted: "Atendimento excluído com sucesso!",
 	},
 
@@ -51,6 +51,11 @@ const services = {
 		name: "Nome da sala",
 		none: "Nenhuma sala cadastrada.",
 		saved: "Salas salvas com sucesso!",
+		removeTitle: "Excluir salas",
+		removeConfirmation_one:
+			"Ao salvar, a sala <b>{{rooms}}</b> será excluída e os atendimentos marcados nela ficarão sem sala.",
+		removeConfirmation_other:
+			"Ao salvar, as salas <b>{{rooms}}</b> serão excluídas e os atendimentos marcados nelas ficarão sem sala.",
 	},
 
 	form: {
@@ -117,7 +122,7 @@ const services = {
 			editDescription:
 				"Este atendimento faz parte de uma série. Onde deseja aplicar as alterações?",
 			deleteDescription:
-				"Este atendimento faz parte de uma série. Quais atendimentos deseja excluir?</br>Ao continuar, <b>serão excluídos os prontuários e os pagamentos</b> associados a eles!",
+				"Este atendimento faz parte de uma série. Quais atendimentos deseja excluir?<br />Ao continuar, <b>serão excluídos os prontuários e os pagamentos</b> associados a eles!",
 			single: "Somente este",
 			future: "Este e os futuros",
 			all: "Todos",

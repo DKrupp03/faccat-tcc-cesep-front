@@ -25,9 +25,17 @@ export const useMedicalRecordsFilter = () => {
 
   const handleClose = useCallback(() => closeFilter(), [closeFilter]);
 
-  const handleFiltrate = useCallback(() => {
-    const values = form.getFieldsValue(true);
-    filtratePanel(values);
+  // Valida antes de aplicar: o intervalo invertido passava direto e a listagem
+  // voltava vazia sem explicação. A leitura segue por `getFieldsValue(true)`,
+  // porque `validateFields` devolveria só os campos montados.
+  const handleFiltrate = useCallback(async () => {
+    try {
+      await form.validateFields();
+    } catch {
+      return;
+    }
+
+    filtratePanel(form.getFieldsValue(true));
     handleClose();
   }, [form, filtratePanel, handleClose]);
 

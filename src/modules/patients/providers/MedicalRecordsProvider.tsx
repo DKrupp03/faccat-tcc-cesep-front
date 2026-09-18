@@ -107,8 +107,10 @@ export const MedicalRecordsProvider = ({
       setLoading(false);
       setLoadingMore(false);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [t, patientId]);
+    // `filter` e `orderBy` são os valores padrão dos parâmetros, avaliados no
+    // escopo do callback: sem eles nas deps, `filtratePanel()` (o botão de
+    // recarregar) congelava no filtro do primeiro render.
+  }, [t, patientId, filter, orderBy]);
 
   const openFilter = useCallback(() => setIsFilterOpen(true), []);
   const closeFilter = useCallback(() => setIsFilterOpen(false), []);

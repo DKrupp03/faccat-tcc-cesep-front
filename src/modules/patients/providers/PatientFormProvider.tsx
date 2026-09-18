@@ -119,9 +119,10 @@ export const PatientFormProvider = ({
     setIsSubmitting(true);
     formValues.role = "patient";
     const rawDefaultValue = formValues.default_value;
+    // Campo limpo vira null: undefined some do JSON e o valor antigo ficava.
     formValues.default_value = (rawDefaultValue != null && rawDefaultValue !== "")
       ? Number(String(rawDefaultValue).replace(",", "."))
-      : undefined;
+      : null;
 
     if (patient?.id) {
       await updatePatient({ ...formValues, id: patient.id });

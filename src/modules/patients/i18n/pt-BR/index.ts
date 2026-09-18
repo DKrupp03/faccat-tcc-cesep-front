@@ -59,7 +59,7 @@ const patients = {
 		filtrate: "Filtrar pacientes",
 		delete: "Excluir paciente",
 		"delete.confirmation":
-			"Tem certeza que deseja excluir este paciente?</br>Ao continuar, <b>serão excluídos todos prontuários, atendimentos e pagamentos</b> associados à ele!",
+			"Tem certeza que deseja excluir este paciente?<br />Ao continuar, <b>serão excluídos todos prontuários, atendimentos e pagamentos</b> associados à ele!",
 		deleted: "Paciente excluído com sucesso!",
 	},
 

@@ -10,6 +10,7 @@ import { CommonAvatar } from "@/shared/components/CommonAvatar/CommonAvatar";
 import { CommonButton } from "@/shared/components/CommonButton/CommonButton";
 import { CommonSwitch } from "@/shared/components/CommonSwitch/CommonSwitch";
 import { ProfilesSelect } from "@/shared/components/ProfilesSelect/ProfilesSelect";
+import { useAuth } from "@/modules/auth/hooks/useAuth";
 import {
   phoneMask,
   cpfMask,
@@ -33,6 +34,8 @@ const normalizeSupervisor = (value?: number | null) => value ?? null;
 
 export const TherapistForm = () => {
   const { t } = useTranslation();
+  const { profile: currentProfile } = useAuth();
+  const canManage = !!currentProfile?.admin;
   const [form] = Form.useForm<Partial<Therapist>>();
 
   // A obrigatoriedade era só visual (o asterisco da prop `required`): sem
@@ -221,6 +224,9 @@ export const TherapistForm = () => {
         </Col>
       </Row>
 
+      {/* Supervisor, situação e admin o backend só aceita de admin (ver
+          ADMIN_ONLY_ATTRIBUTES): sem este recorte o terapeuta comum ligava o
+          switch, via "atualizado com sucesso" e nada mudava. */}
       <Row gutter={TOKENS.space[16]}>
         <Col span={12}>
           <Form.Item name="supervisor_id" normalize={normalizeSupervisor}>
@@ -229,39 +235,45 @@ export const TherapistForm = () => {
               label={t("therapists.columns.supervisor")}
               selectedProfile={therapist?.supervisor ?? undefined}
               excludeIds={supervisorExcludeIds}
+              disabled={!canManage}
+              allowClear={canManage}
             />
           </Form.Item>
         </Col>
       </Row>
 
-      <Flex vertical gap={TOKENS.space[12]} className={styles.switches}>
-        <Flex align="center" gap={TOKENS.space[12]} wrap>
-          <Form.Item name="active" noStyle>
-            <CommonSwitch
-              label={t("therapists.columns.active")}
-              disabled={!therapist?.id}
-            />
-          </Form.Item>
-          <span className={styles.switchHint}>{t("therapists.help.active")}</span>
+      {canManage && (
+        <Flex vertical gap={TOKENS.space[12]} className={styles.switches}>
+          <Flex align="center" gap={TOKENS.space[12]} wrap>
+            <Form.Item name="active" noStyle>
+              <CommonSwitch
+                label={t("therapists.columns.active")}
+                disabled={!therapist?.id}
+              />
+            </Form.Item>
+            <span className={styles.switchHint}>{t("therapists.help.active")}</span>
+          </Flex>
+          <Flex align="center" gap={TOKENS.space[12]} wrap>
+            <Form.Item name="admin" noStyle>
+              <CommonSwitch label={t("therapists.columns.admin")} />
+            </Form.Item>
+            <span className={styles.switchHint}>{t("therapists.help.admin")}</span>
+          </Flex>
         </Flex>
-        <Flex align="center" gap={TOKENS.space[12]} wrap>
-          <Form.Item name="admin" noStyle>
-            <CommonSwitch label={t("therapists.columns.admin")} />
-          </Form.Item>
-          <span className={styles.switchHint}>{t("therapists.help.admin")}</span>
-        </Flex>
-      </Flex>
+      )}
     </Form>
   );
 };
 
 export const TherapistFormOptions = () => {
   const { t } = useTranslation();
+  const { profile: currentProfile } = useAuth();
   const { therapist, isSubmitting, deleteTherapist } = useTherapistForm();
 
   return (
     <>
-      {therapist?.id && (
+      {/* Excluir é só do admin; para os demais o botão só rendia um 403. */}
+      {therapist?.id && currentProfile?.admin && (
         <CommonButton
           onClick={() => deleteTherapist(therapist.id)}
           buttonVariant="danger"

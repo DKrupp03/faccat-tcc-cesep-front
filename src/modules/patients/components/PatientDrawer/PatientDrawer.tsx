@@ -15,8 +15,10 @@ import { CommonDrawer } from "@/shared/components/CommonDrawer/CommonDrawer";
 import { ServicesProvider } from "@/modules/services/providers/ServicesProvider";
 import { PaymentsProvider } from "@/modules/payments/providers/PaymentsProvider";
 import { usePatientDrawer } from "../../hooks/usePatientDrawer";
+import { usePatientForm } from "../../hooks/usePatientForm";
 import { useMedicalRecords } from "../../hooks/useMedicalRecords";
 import { MedicalRecordsProvider } from "../../providers/MedicalRecordsProvider";
+import { PatientAnamneseProvider } from "../../providers/PatientAnamneseProvider";
 import { PatientForm, PatientFormOptions } from "../PatientForm/PatientForm";
 import { PatientAnamneseForm, PatientAnamneseFormOptions } from "../PatientAnamneseForm/PatientAnamneseForm";
 import { MedicalRecords, MedicalRecordsOptions } from "../MedicalRecords/MedicalRecords";
@@ -112,13 +114,17 @@ const PatientDrawerContent = () => {
 };
 
 export const PatientDrawer = () => {
-  const { patient } = usePatientDrawer();
+  // Direto do form: usePatientDrawer tem estado próprio (a aba ativa) e aqui
+  // criaria uma segunda instância, sem relação com a do conteúdo.
+  const { patient } = usePatientForm();
 
   return (
     <MedicalRecordsProvider patientId={patient?.id} patientName={patient?.name}>
       <ServicesProvider patientId={patient?.id} initialPanelView="list">
         <PaymentsProvider patientId={patient?.id}>
-          <PatientDrawerContent />
+          <PatientAnamneseProvider>
+            <PatientDrawerContent />
+          </PatientAnamneseProvider>
         </PaymentsProvider>
       </ServicesProvider>
     </MedicalRecordsProvider>

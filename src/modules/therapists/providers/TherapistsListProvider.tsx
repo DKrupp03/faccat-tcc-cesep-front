@@ -71,8 +71,10 @@ export const TherapistsListProvider = ({ children }: TherapistsListProviderProps
       setLoading(false);
       setLoadingMore(false);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [t]);
+    // `filter` e `orderBy` são os valores padrão dos parâmetros, avaliados no
+    // escopo do callback: sem eles nas deps, `filtratePanel()` (o botão de
+    // recarregar) congelava no filtro do primeiro render.
+  }, [t, fetchTherapists, filter, orderBy]);
 
   // Recarrega em vez de remendar a lista local: o ajuste incremental ignorava
   // a ordenação e o filtro ativos e desencontrava os totais do painel.

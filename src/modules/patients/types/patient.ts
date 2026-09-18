@@ -16,7 +16,8 @@ export type Patient = BaseProfile & {
   marital_status?: ProfileMaritalStatus;
   education_level?: ProfileEducationLevel;
   parent?: Parent;
-  default_value?: number | string;
+  // null apaga o valor; undefined some do JSON e manteria o atual.
+  default_value?: number | string | null;
   extra?: string;
   therapist_id?: number;
   therapist?: Therapist;

@@ -2,6 +2,7 @@ import { Tooltip } from "antd";
 import { IconHelpCircle } from "@tabler/icons-react";
 
 import { TOKENS } from "@/shared/theme";
+import { sanitizeRichText } from "@/shared/utils/sanitize";
 
 interface CommonIconHelpParams {
   text: string;
@@ -18,7 +19,7 @@ export const CommonIconHelp = ({
 }: CommonIconHelpParams) => {
   return (
     <Tooltip
-      title={<span dangerouslySetInnerHTML={{ __html: text }} />}
+      title={<span dangerouslySetInnerHTML={{ __html: sanitizeRichText(text) }} />}
       zIndex={9999}
     >
       <IconHelpCircle

@@ -6,6 +6,7 @@ import { IconAlertTriangle } from "@tabler/icons-react";
 import { CommonModal } from "../components/CommonModal/CommonModal";
 import { CommonButton } from "../components/CommonButton/CommonButton";
 import { ModalsContext, type ConfirmationModalOptions } from "../contexts/ModalsContext";
+import { sanitizeRichText } from "../utils/sanitize";
 import { TOKENS } from "../theme";
 
 import styles from "./ModalsProvider.module.css";
@@ -73,7 +74,7 @@ export const ModalsProvider = ({ children }: { children: React.ReactNode }) => {
             )}
             <p
               className={styles.description}
-              dangerouslySetInnerHTML={{ __html: confirmationModal.description }}
+              dangerouslySetInnerHTML={{ __html: sanitizeRichText(confirmationModal.description) }}
             />
           </Flex>
         )}

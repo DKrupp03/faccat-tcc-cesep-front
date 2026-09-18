@@ -15,7 +15,16 @@ const patientToFormData = (patient: Partial<Patient>): FormData => {
       formData.append("profile[photo]", value, value.name);
     } else if (key === "remove_photo" && value === true) {
       formData.append("profile[remove_photo]", "1");
-    } else if (value !== undefined && value !== null) {
+    } else if (key === "parent" && value !== null && typeof value === "object") {
+      // Objeto aninhado: String(value) virava "[object Object]" e o
+      // `permit(parent: {})` do Rails descartava o campo.
+      Object.entries(value as Record<string, unknown>).forEach(([field, fieldValue]) => {
+        formData.append(`profile[parent][${field}]`, fieldValue == null ? "" : String(fieldValue));
+      });
+    } else if (value === null) {
+      // Vazio vira nil no Rails: sem isso, limpar um campo não chegava ao servidor.
+      formData.append(`profile[${key}]`, "");
+    } else if (value !== undefined) {
       formData.append(`profile[${key}]`, String(value));
     }
   });

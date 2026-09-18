@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Form, Flex, Skeleton, Typography } from "antd";
+import { Form, Flex, Input, Skeleton, Typography } from "antd";
 import { IconTrash } from "@tabler/icons-react";
 
 import { CommonModal } from "@/shared/components/CommonModal/CommonModal";
@@ -8,6 +8,7 @@ import { CommonButton } from "@/shared/components/CommonButton/CommonButton";
 import { CommonCollapse } from "@/shared/components/CommonCollapse/CommonCollapse";
 import { CommonTextInput } from "@/shared/components/CommonTextInput/CommonTextInput";
 import { useNotification } from "@/shared/hooks/useNotification";
+import { useModals } from "@/shared/hooks/useModals";
 import RoomsService from "@/shared/services/RoomsService";
 import type { Room } from "@/shared/types/room";
 import { TOKENS } from "@/shared/theme";
@@ -28,6 +29,7 @@ const { Text } = Typography;
 export const RoomsModal = ({ isOpen, close }: RoomsModalProps) => {
   const { t } = useTranslation();
   const { openNotification } = useNotification();
+  const { openConfirmationModal } = useModals();
 
   const [form] = Form.useForm<RoomsFormValues>();
   const [rooms, setRooms] = useState<Room[]>([]);
@@ -63,17 +65,10 @@ export const RoomsModal = ({ isOpen, close }: RoomsModalProps) => {
     };
   }, [isOpen, t]);
 
-  const handleSave = async () => {
-    let values: RoomsFormValues;
-    try {
-      values = await form.validateFields();
-    } catch {
-      return;
-    }
-
+  const persist = async (submitted: Partial<Room>[]) => {
     setIsSubmitting(true);
     try {
-      const response = await RoomsService.syncRooms(values.rooms ?? []);
+      const response = await RoomsService.syncRooms(submitted);
 
       if (!response.success) {
         openNotification("error", response.errors!);
@@ -85,6 +80,34 @@ export const RoomsModal = ({ isOpen, close }: RoomsModalProps) => {
     } finally {
       setIsSubmitting(false);
     }
+  };
+
+  const handleSave = async () => {
+    let values: RoomsFormValues;
+    try {
+      values = await form.validateFields();
+    } catch {
+      return;
+    }
+
+    const submitted = values.rooms ?? [];
+
+    // O sync apaga tudo que não veio na lista e desvincula os atendimentos
+    // marcados nela, e isso não tinha nenhuma confirmação.
+    const removed = rooms.filter((room) => !submitted.some((item) => item.id === room.id));
+
+    if (removed.length === 0) return persist(submitted);
+
+    openConfirmationModal(
+      t("services.rooms.removeTitle"),
+      t("services.rooms.removeConfirmation", {
+        count: removed.length,
+        rooms: removed.map((room) => room.name).join(", "),
+      }),
+      () => persist(submitted),
+      undefined,
+      { danger: true, confirmLabel: t("common.actions.delete") },
+    );
   };
 
   const footerContent = (
@@ -125,7 +148,11 @@ export const RoomsModal = ({ isOpen, close }: RoomsModalProps) => {
               >
                 {fields.map((field) => (
                   <Flex key={field.key} gap={TOKENS.space[16]} align="flex-start">
-                    <Form.Item name={[field.name, "id"]} hidden noStyle />
+                    {/* `hidden` no lugar de `noStyle`, que tiraria o wrapper e
+                        deixaria o campo à mostra. */}
+                    <Form.Item name={[field.name, "id"]} hidden>
+                      <Input />
+                    </Form.Item>
                     {/* Largura fixa no botão: numa Col estreita ele era
                         espremido e deformado. */}
                     <Form.Item

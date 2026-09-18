@@ -46,7 +46,7 @@ const therapists = {
 		filtrate: "Filtrar terapeutas",
 		delete: "Excluir terapeuta",
 		"delete.confirmation":
-			"Tem certeza que deseja excluir este terapeuta?</br>Ao continuar, <b>serão excluídos todos prontuários e atendimentos</b> associados à ele!",
+			"Tem certeza que deseja excluir este terapeuta?<br />Ao continuar, <b>serão excluídos todos prontuários e atendimentos</b> associados à ele!",
 		deleted: "Terapeuta excluído com sucesso!",
 	},
 

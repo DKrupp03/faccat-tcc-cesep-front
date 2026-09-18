@@ -61,7 +61,7 @@ export const MedicalRecordsFilterModal = () => {
           <Col span={12}>
             <Form.Item
               name="date_end"
-              noStyle
+              className={styles.validated}
               dependencies={["date_start"]}
               getValueProps={dateValueProps}
               normalize={normalizeDate}

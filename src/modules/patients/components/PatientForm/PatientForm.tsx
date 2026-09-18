@@ -246,10 +246,13 @@ export const PatientForm = () => {
             </Form.Item>
           </Col>
           <Col span={6}>
+            {/* Sem allowClear: o "×" devolvia undefined, que some do JSON, e
+                não desvinculava nada. */}
             <Form.Item name="therapist_id">
               <ProfilesSelect
                 role="therapist"
                 disabled={!!therapistId}
+                allowClear={false}
                 showHelp
               />
             </Form.Item>

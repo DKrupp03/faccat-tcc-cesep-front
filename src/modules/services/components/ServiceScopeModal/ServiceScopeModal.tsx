@@ -2,6 +2,7 @@ import { useTranslation } from "react-i18next";
 
 import { CommonModal } from "@/shared/components/CommonModal/CommonModal";
 import { CommonButton } from "@/shared/components/CommonButton/CommonButton";
+import { sanitizeRichText } from "@/shared/utils/sanitize";
 
 import type { ServiceScope } from "../../types/service";
 
@@ -49,7 +50,7 @@ export const ServiceScopeModal = ({ action, close, onSelect }: ServiceScopeModal
         </>
       }
     >
-      <span dangerouslySetInnerHTML={{ __html: description }} />
+      <span dangerouslySetInnerHTML={{ __html: sanitizeRichText(description) }} />
     </CommonModal>
   );
 };

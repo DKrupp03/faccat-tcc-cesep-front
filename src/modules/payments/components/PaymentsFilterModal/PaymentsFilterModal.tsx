@@ -118,7 +118,7 @@ export const PaymentsFilterModal = () => {
           <Col span={12}>
             <Form.Item
               name="expiration_date_end"
-              noStyle
+              className={styles.validated}
               dependencies={["expiration_date_start"]}
               getValueProps={dateValueProps}
               normalize={normalizeDate}
@@ -142,7 +142,7 @@ export const PaymentsFilterModal = () => {
           <Col span={12}>
             <Form.Item
               name="payment_date_end"
-              noStyle
+              className={styles.validated}
               dependencies={["payment_date_start"]}
               getValueProps={dateValueProps}
               normalize={normalizeDate}

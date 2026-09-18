@@ -55,7 +55,7 @@ export const ServicesTable = () => {
         title: t("services.columns.serviceType"),
         dataIndex: "service_type",
         key: "service_type",
-        width: "22%",
+        width: "21%", // as larguras somavam 101%
         ellipsis: true,
         className: styles.secondary,
         render: (_: unknown, record: Service) => getServiceTypeLabel(t, record.service_type),
