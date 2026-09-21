@@ -10,7 +10,7 @@ import { TOKENS } from "@/shared/theme";
 
 import { useTherapistsList } from "../../hooks/useTherapistsList";
 import { useTherapistForm } from "../../hooks/useTherapistForm";
-import type { Therapist } from "../../types/therapist";
+import type { Therapist, TherapistSummary } from "../../types/therapist";
 import styles from "./TherapistsTable.module.css";
 
 const ORDER_LABELS: Record<string, string> = {
@@ -71,12 +71,13 @@ export const TherapistsTable = () => {
         className: styles.number,
       },
       {
-        title: t("therapists.columns.email"),
-        dataIndex: "email",
-        key: "email",
+        title: t("therapists.columns.supervisor"),
+        dataIndex: "supervisor",
+        key: "supervisor",
         width: "26%",
         ellipsis: true,
-        className: styles.email,
+        className: styles.supervisor,
+        render: (value?: TherapistSummary | null) => value?.name ?? "",
       },
       {
         title: t("therapists.columns.lastService"),

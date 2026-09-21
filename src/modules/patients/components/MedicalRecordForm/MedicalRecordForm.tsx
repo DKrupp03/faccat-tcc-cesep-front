@@ -1,16 +1,20 @@
 import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Form, Row, Col } from "antd";
+import { Form, Row, Col, Flex } from "antd";
 
 import { CommonTextInput } from "@/shared/components/CommonTextInput/CommonTextInput";
 import { CommonTextArea } from "@/shared/components/CommonTextArea/CommonTextArea";
 import { CommonDatePicker } from "@/shared/components/CommonDatePicker";
 import { CommonButton } from "@/shared/components/CommonButton/CommonButton";
 import { CommonDocuments } from "@/shared/components/CommonDocuments/CommonDocuments";
+import { CommonSelect } from "@/shared/components/CommonSelect/CommonSelect";
+import { CommonSwitch } from "@/shared/components/CommonSwitch/CommonSwitch";
 import { ServicesSelect } from "@/shared/components/ServicesSelect/ServicesSelect";
-import { dateValueProps, normalizeDate } from "@/shared/utils/formatters";
+import { dateValueProps, formatDateTimeInline, normalizeDate } from "@/shared/utils/formatters";
 
 import { useMedicalRecords } from "../../hooks/useMedicalRecords";
+import { useCanReviewMedicalRecord } from "../../hooks/useCanReviewMedicalRecord";
+import { useServiceTherapist } from "../../hooks/useServiceTherapist";
 import type { MedicalRecordType } from "../../types/medicalRecord";
 import { TOKENS } from "@/shared/theme";
 import styles from "./MedicalRecordForm.module.css";
@@ -39,6 +43,24 @@ export const MedicalRecordForm = ({
     () => [{ required: true, message: t("common.errors.required") }],
     [t],
   );
+
+  // O visto acompanha o atendimento escolhido: só o supervisor do terapeuta
+  // dele edita, mas todos veem a marca.
+  const serviceId = Form.useWatch("service_id", form);
+  const serviceTherapist = useServiceTherapist(serviceId);
+  const isSupervisor = useCanReviewMedicalRecord(serviceTherapist?.id);
+
+  // O visto não se desfaz depois de salvo: nem o supervisor que o deu desmarca
+  // (a API recusa do mesmo jeito). Antes de salvar o campo ainda vai e volta.
+  const isReviewSaved = medicalRecord?.reviewed ?? false;
+  const canReview = isSupervisor && !isReviewSaved;
+
+  const reviewHint = isReviewSaved && medicalRecord?.reviewer
+    ? t("patients.medicalRecords.help.reviewedBy", {
+      name: medicalRecord.reviewer.name,
+      date: formatDateTimeInline(medicalRecord.reviewed_at ?? undefined),
+    })
+    : t("patients.medicalRecords.help.reviewed");
 
   const [newFiles, setNewFiles] = useState<File[]>([]);
   const [removedIds, setRemovedIds] = useState<number[]>([]);
@@ -71,6 +93,7 @@ export const MedicalRecordForm = ({
   const handleFinish = (values: Partial<MedicalRecordType>) => {
     submitMedicalRecord({
       ...values,
+      reviewed: values.reviewed ?? false,
       new_attachments: newFiles,
       remove_attachment_ids: removedIds,
     });
@@ -115,7 +138,7 @@ export const MedicalRecordForm = ({
       </Row>
 
       <Row gutter={TOKENS.space[16]}>
-        <Col span={24}>
+        <Col span={serviceTherapist ? 16 : 24}>
           <Form.Item name="service_id" rules={requiredRule}>
             <ServicesSelect
               label={t("patients.medicalRecords.columns.service")}
@@ -127,6 +150,18 @@ export const MedicalRecordForm = ({
             />
           </Form.Item>
         </Col>
+        {serviceTherapist && (
+          <Col span={8}>
+            {/* Fora do Form: é informação do atendimento, não campo do
+                prontuário — não entra no que é enviado ao salvar. */}
+            <CommonSelect
+              label={t("patients.medicalRecords.columns.therapist")}
+              options={[{ label: serviceTherapist.name, value: serviceTherapist.id }]}
+              value={serviceTherapist.id}
+              disabled
+            />
+          </Col>
+        )}
       </Row>
 
       <Row gutter={TOKENS.space[16]}>
@@ -161,6 +196,20 @@ export const MedicalRecordForm = ({
               disabled={lockedFields.includes("supervision_record")}
             />
           </Form.Item>
+        </Col>
+      </Row>
+
+      <Row gutter={TOKENS.space[16]}>
+        <Col span={24}>
+          <Flex align="center" gap={TOKENS.space[12]} className={styles.reviewedRow}>
+            <Form.Item name="reviewed" noStyle>
+              <CommonSwitch
+                label={t("patients.medicalRecords.columns.reviewed")}
+                disabled={!canReview}
+              />
+            </Form.Item>
+            <span className={styles.reviewedHint}>{reviewHint}</span>
+          </Flex>
         </Col>
       </Row>
 

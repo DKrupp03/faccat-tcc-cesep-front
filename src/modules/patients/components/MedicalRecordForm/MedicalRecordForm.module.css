@@ -6,3 +6,13 @@
 .documents {
   margin-top: var(--space-8);
 }
+
+.reviewedRow {
+  flex-wrap: wrap;
+  margin-bottom: var(--space-16);
+}
+
+.reviewedHint {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}

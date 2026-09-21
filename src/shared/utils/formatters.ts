@@ -50,6 +50,12 @@ export const formatDateTime = (value?: string) => {
     ).replace(",", " ·");
 };
 
+// "dd/mm/aaaa hh:mm": mesma data e hora de `formatDateTime`, sem o separador
+// "·", para frases corridas ("Visto por Fulano em ...").
+export const formatDateTimeInline = (value?: string) => (
+  formatDateTime(value).replace(" ·", "")
+);
+
 export const formatCurrency = (value?: string | number) => {
   const number = typeof value === "string" ? Number(value) : value ?? 0;
 

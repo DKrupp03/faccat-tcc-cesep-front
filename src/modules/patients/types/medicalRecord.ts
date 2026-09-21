@@ -5,6 +5,8 @@ export type MedicalRecordsOrder = "date_desc" | "date_asc";
 export type MedicalRecordsFilter = {
   date_start?: string;
   date_end?: string;
+  // 1 (vistos), 0 (não vistos) ou -1 (todos), como o filtro de situação.
+  reviewed?: number;
 };
 
 export type MedicalRecordsPayload = {
@@ -20,6 +22,11 @@ export type MedicalRecordAttachment = {
   url: string;
 };
 
+export type MedicalRecordReviewer = {
+  id: number;
+  name: string;
+};
+
 export type MedicalRecordType = {
   id: number;
   title: string;
@@ -28,10 +35,13 @@ export type MedicalRecordType = {
   documentary_record?: string | null;
   supervision_record?: string | null;
   service_id?: number;
+  reviewed?: boolean;
+  reviewer_id?: number | null;
+  reviewed_at?: string | null;
+  reviewer?: MedicalRecordReviewer | null;
   attachments?: MedicalRecordAttachment[];
   new_attachments?: File[];
   remove_attachment_ids?: number[];
-  // service: ServiceType;
 };
 
 export type MedicalRecordResponse = CommonResponse & {

@@ -43,6 +43,7 @@ export const MedicalRecordsProvider = ({
   const defaultFilter: MedicalRecordsFilter = useMemo(() => ({
     date_start: undefined,
     date_end: undefined,
+    reviewed: -1,
   }), []);
 
   const [medicalRecords, setMedicalRecords] = useState<MedicalRecordType[]>([]);

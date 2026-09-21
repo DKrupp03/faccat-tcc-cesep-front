@@ -1,9 +1,10 @@
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { Form, Row, Col } from "antd";
+import { Form, Row, Col, Flex } from "antd";
 
 import { CommonModal } from "@/shared/components/CommonModal/CommonModal";
 import { CommonButton } from "@/shared/components/CommonButton/CommonButton";
+import { CommonGroupButtons } from "@/shared/components/CommonGroupButtons/CommonGroupButtons";
 import { dateValueProps, normalizeDate } from "@/shared/utils/formatters";
 import { dateRangeRule } from "@/shared/utils/filterRules";
 import { CommonDatePicker } from "@/shared/components/CommonDatePicker";
@@ -69,6 +70,25 @@ export const MedicalRecordsFilterModal = () => {
             >
               <CommonDatePicker label={t("patients.medicalRecords.filter.dateEnd")} />
             </Form.Item>
+          </Col>
+        </Row>
+        <Row gutter={TOKENS.space[16]}>
+          <Col span={24}>
+            <Flex justify="start">
+              <Form.Item name="reviewed" noStyle>
+                <CommonGroupButtons label={t("patients.medicalRecords.columns.reviewed")}>
+                  <CommonGroupButtons.Button value={1}>
+                    {t("patients.medicalRecords.filter.reviewed")}
+                  </CommonGroupButtons.Button>
+                  <CommonGroupButtons.Button value={0}>
+                    {t("patients.medicalRecords.filter.notReviewed")}
+                  </CommonGroupButtons.Button>
+                  <CommonGroupButtons.Button value={-1}>
+                    {t("common.active.all")}
+                  </CommonGroupButtons.Button>
+                </CommonGroupButtons>
+              </Form.Item>
+            </Flex>
           </Col>
         </Row>
       </Form>

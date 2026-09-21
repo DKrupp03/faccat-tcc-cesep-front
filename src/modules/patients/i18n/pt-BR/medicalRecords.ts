@@ -19,11 +19,20 @@ const medicalRecords = {
     "documentaryRecord": "Registro documental",
     "supervisionRecord": "Registros da supervisão",
     "service": "Atendimento",
+    "therapist": "Terapeuta",
+    "reviewed": "Visto pelo supervisor",
+  },
+
+  "help": {
+    "reviewed": "Somente o supervisor do terapeuta do atendimento pode dar o visto, e depois de salvo ele não pode ser desfeito.",
+    "reviewedBy": "Visto por {{name}} em {{date}}",
   },
 
   "filter": {
     "dateStart": "Data inicial",
     "dateEnd": "Data final",
+    "reviewed": "Vistos",
+    "notReviewed": "Não vistos",
   },
   
   "order": {
