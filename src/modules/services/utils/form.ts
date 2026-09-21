@@ -17,6 +17,8 @@ const SERVICE_STATUSES: ServiceStatus[] = [
 ];
 
 const SERVICE_TYPES: ServiceType[] = [
+  "psychological_assessment",
+  "psychological_support",
   "clinical_psychology_tcc",
   "clinical_psychology_psychoanalysis",
   "clinical_psychology_systemic",

@@ -159,6 +159,8 @@ const services = {
 	},
 
 	serviceTypes: {
+		psychological_assessment: "Avaliação psicológica",
+		psychological_support: "Acolhimento psicológico",
 		clinical_psychology_tcc: "Psicologia Clínica – TCC",
 		clinical_psychology_psychoanalysis: "Psicologia Clínica – Psicanálise",
 		clinical_psychology_systemic: "Psicologia Clínica – Sistêmica",

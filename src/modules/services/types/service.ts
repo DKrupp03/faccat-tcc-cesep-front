@@ -11,6 +11,8 @@ export type ServiceStatus =
   | "cancelled";
 
 export type ServiceType =
+  | "psychological_assessment"
+  | "psychological_support"
   | "clinical_psychology_tcc"
   | "clinical_psychology_psychoanalysis"
   | "clinical_psychology_systemic"
