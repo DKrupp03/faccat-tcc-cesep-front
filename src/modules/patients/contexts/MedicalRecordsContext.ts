@@ -1,5 +1,8 @@
 import { createContext } from "react";
 
+import type { ServiceProfile } from "@/modules/services/types/service";
+
+import type { MedicalRecordAccess } from "../hooks/useMedicalRecordAccess";
 import type {
   MedicalRecordType,
   MedicalRecordsFilter,
@@ -22,6 +25,11 @@ export type MedicalRecordsContextType = {
   medicalRecord: MedicalRecordType | undefined;
   isSubmitting: boolean;
   loadingMedicalRecord: boolean;
+  // Terapeuta do atendimento escolhido no formulário: mora aqui porque o
+  // rodapé da drawer (fora do Form) também depende dele para liberar o botão.
+  serviceTherapist: ServiceProfile | undefined;
+  access: MedicalRecordAccess;
+  setFormServiceId: (serviceId: number) => void;
   filtratePanel: (
     newFilter?: MedicalRecordsFilter,
     newOrderBy?: MedicalRecordsOrder,

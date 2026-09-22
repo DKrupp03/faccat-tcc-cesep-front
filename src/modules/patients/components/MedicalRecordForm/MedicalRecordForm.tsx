@@ -10,12 +10,12 @@ import { CommonDocuments } from "@/shared/components/CommonDocuments/CommonDocum
 import { CommonSelect } from "@/shared/components/CommonSelect/CommonSelect";
 import { CommonSwitch } from "@/shared/components/CommonSwitch/CommonSwitch";
 import { CommonIconAlert } from "@/shared/components/CommonAlertIcon/CommonAlertIcon";
+import { CommonIconHelp } from "@/shared/components/CommonHelpIcon/CommonHelpIcon";
+import { CommonNoticeCard } from "@/shared/components/CommonNoticeCard/CommonNoticeCard";
 import { ServicesSelect } from "@/shared/components/ServicesSelect/ServicesSelect";
 import { dateValueProps, formatDateTimeInline, normalizeDate } from "@/shared/utils/formatters";
 
 import { useMedicalRecords } from "../../hooks/useMedicalRecords";
-import { useCanReviewMedicalRecord } from "../../hooks/useCanReviewMedicalRecord";
-import { useServiceTherapist } from "../../hooks/useServiceTherapist";
 import type { MedicalRecordType } from "../../types/medicalRecord";
 import { TOKENS } from "@/shared/theme";
 import styles from "./MedicalRecordForm.module.css";
@@ -36,6 +36,9 @@ export const MedicalRecordForm = ({
     medicalRecord,
     submitMedicalRecord,
     patientId,
+    serviceTherapist,
+    setFormServiceId,
+    access,
   } = useMedicalRecords();
 
   // A obrigatoriedade era só visual (o asterisco da prop `required`): sem
@@ -45,11 +48,13 @@ export const MedicalRecordForm = ({
     [t],
   );
 
-  // O visto acompanha o atendimento escolhido: só o supervisor do terapeuta
-  // dele edita, mas todos veem a marca.
+  // Quem edita o quê vem do atendimento escolhido: o provider busca o
+  // terapeuta dele e daí tira as permissões, que o rodapé também consulta.
   const serviceId = Form.useWatch("service_id", form);
-  const serviceTherapist = useServiceTherapist(serviceId);
-  const isSupervisor = useCanReviewMedicalRecord(serviceTherapist?.id);
+
+  useEffect(() => {
+    if (serviceId) setFormServiceId(serviceId);
+  }, [serviceId, setFormServiceId]);
 
   // O visto não se desfaz depois de salvo: nem o supervisor que o deu desmarca
   // (a API recusa do mesmo jeito). Antes de salvar o campo ainda vai e volta.
@@ -58,7 +63,13 @@ export const MedicalRecordForm = ({
   // O visto é sobre o que o terapeuta registrou: enquanto o prontuário não
   // existe não há o que visar, então o campo só abre depois de salvo.
   const isRecordSaved = !!medicalRecord?.id;
-  const canReview = isSupervisor && isRecordSaved && !isReviewSaved;
+  const canReview = access.canEditSupervision && !isReviewSaved;
+
+  // O `lockedFields` continua valendo por cima: na aba de prontuário do
+  // atendimento o vínculo já está resolvido e não se troca por ali.
+  const isDisabled = (field: keyof MedicalRecordType) => (
+    !access.canEditRecord || lockedFields.includes(field)
+  );
 
   const reviewHint = isReviewSaved && medicalRecord?.reviewer
     ? t("patients.medicalRecords.help.reviewedBy", {
@@ -104,136 +115,157 @@ export const MedicalRecordForm = ({
     });
   };
 
-  const isServiceLocked = lockedFields.includes("service_id");
+  const isServiceLocked = isDisabled("service_id");
+
+  // As regras abrem o formulário: os campos bloqueados só fazem sentido com
+  // elas à vista, e quem só consulta entende de saída por que nada abre.
+  const rules = useMemo(() => ([
+    t("patients.medicalRecords.rules.create"),
+    t("patients.medicalRecords.rules.therapist"),
+    t("patients.medicalRecords.rules.supervisor"),
+    t("patients.medicalRecords.rules.review"),
+    t("patients.medicalRecords.rules.others"),
+  ]), [t]);
 
   return (
-    <Form
-      id="medical-record-form"
-      form={form}
-      layout="vertical"
-      requiredMark={false}
-      onFinish={handleFinish}
-      initialValues={defaultValues}
-      className={styles.form}
-    >
-      <Row gutter={TOKENS.space[16]}>
-        <Col span={16}>
-          <Form.Item name="title" rules={requiredRule}>
-            <CommonTextInput
-              label={t("patients.medicalRecords.columns.title")}
-              required
-              disabled={lockedFields.includes("title")}
-            />
-          </Form.Item>
-        </Col>
-        <Col span={8}>
-          <Form.Item
-            name="date"
-            rules={requiredRule}
-            getValueProps={dateValueProps}
-            normalize={normalizeDate}
-          >
-            <CommonDatePicker
-              label={t("patients.medicalRecords.columns.date")}
-              required
-              disabled={lockedFields.includes("date")}
-            />
-          </Form.Item>
-        </Col>
-      </Row>
+    // O corpo da gaveta é um flex em linha: sem a coluna, o card ficaria ao
+    // lado do formulário em vez de abrir o bloco.
+    <Flex vertical className={styles.wrapper}>
+      <CommonNoticeCard
+        className={styles.rules}
+        title={t("patients.medicalRecords.rules.title")}
+        items={rules}
+      />
 
-      <Row gutter={TOKENS.space[16]}>
-        <Col span={serviceTherapist ? 16 : 24}>
-          <Form.Item name="service_id" rules={requiredRule}>
-            <ServicesSelect
-              label={t("patients.medicalRecords.columns.service")}
-              required
-              disabled={isServiceLocked}
-              allowClear={false}
-              patientId={patientId}
-              withoutMedicalRecord
-            />
-          </Form.Item>
-        </Col>
-        {serviceTherapist && (
-          <Col span={8}>
-            {/* Fora do Form: é informação do atendimento, não campo do
-                prontuário — não entra no que é enviado ao salvar. */}
-            <CommonSelect
-              label={t("patients.medicalRecords.columns.therapist")}
-              options={[{ label: serviceTherapist.name, value: serviceTherapist.id }]}
-              value={serviceTherapist.id}
-              disabled
-            />
-          </Col>
-        )}
-      </Row>
-
-      <Row gutter={TOKENS.space[16]}>
-        <Col span={24}>
-          <Form.Item name="evolution" rules={requiredRule}>
-            <CommonTextArea
-              label={t("patients.medicalRecords.columns.evolution")}
-              rows={7}
-              required
-              disabled={lockedFields.includes("evolution")}
-            />
-          </Form.Item>
-        </Col>
-      </Row>
-
-      <Row gutter={TOKENS.space[16]}>
-        <Col span={24}>
-          <Form.Item name="documentary_record">
-            <CommonTextArea
-              label={t("patients.medicalRecords.columns.documentaryRecord")}
-              disabled={lockedFields.includes("documentary_record")}
-            />
-          </Form.Item>
-        </Col>
-      </Row>
-
-      <Row gutter={TOKENS.space[16]}>
-        <Col span={24}>
-          <Form.Item name="supervision_record">
-            <CommonTextArea
-              label={t("patients.medicalRecords.columns.supervisionRecord")}
-              disabled={lockedFields.includes("supervision_record")}
-            />
-          </Form.Item>
-        </Col>
-      </Row>
-
-      <Row gutter={TOKENS.space[16]}>
-        <Col span={24}>
-          <Flex align="center" gap={TOKENS.space[12]} className={styles.reviewedRow}>
-            <Form.Item name="reviewed" noStyle>
-              <CommonSwitch
-                label={t("patients.medicalRecords.columns.reviewed")}
-                disabled={!canReview}
-                icon={isRecordSaved ? undefined : (
-                  <CommonIconAlert text={t("patients.medicalRecords.help.notSaved")} />
-                )}
+      <Form
+        id="medical-record-form"
+        form={form}
+        layout="vertical"
+        requiredMark={false}
+        onFinish={handleFinish}
+        initialValues={defaultValues}
+        className={styles.form}
+      >
+        <Row gutter={TOKENS.space[16]}>
+          <Col span={16}>
+            <Form.Item name="title" rules={requiredRule}>
+              <CommonTextInput
+                label={t("patients.medicalRecords.columns.title")}
+                required
+                disabled={isDisabled("title")}
               />
             </Form.Item>
-            <span className={styles.reviewedHint}>{reviewHint}</span>
-          </Flex>
-        </Col>
-      </Row>
+          </Col>
+          <Col span={8}>
+            <Form.Item
+              name="date"
+              rules={requiredRule}
+              getValueProps={dateValueProps}
+              normalize={normalizeDate}
+            >
+              <CommonDatePicker
+                label={t("patients.medicalRecords.columns.date")}
+                required
+                disabled={isDisabled("date")}
+              />
+            </Form.Item>
+          </Col>
+        </Row>
 
-      <Row gutter={TOKENS.space[16]} className={styles.documents}>
-        <Col span={24}>
-          <CommonDocuments
-            label={t("common.documents.title")}
-            documents={visibleDocuments}
-            pendingFiles={newFiles}
-            onUpload={(files) => setNewFiles((prev) => [...prev, ...files])}
-            onRemove={(id) => setRemovedIds((prev) => [...prev, Number(id)])}
-            onRemovePending={(idx) => setNewFiles((prev) => prev.filter((_, i) => i !== idx))}
-          />
-        </Col>
-      </Row>
-    </Form>
+        <Row gutter={TOKENS.space[16]}>
+          <Col span={serviceTherapist ? 16 : 24}>
+            <Form.Item name="service_id" rules={requiredRule}>
+              <ServicesSelect
+                label={t("patients.medicalRecords.columns.service")}
+                required
+                disabled={isServiceLocked}
+                allowClear={false}
+                patientId={patientId}
+                withoutMedicalRecord
+              />
+            </Form.Item>
+          </Col>
+          {serviceTherapist && (
+            <Col span={8}>
+              {/* Fora do Form: é informação do atendimento, não campo do
+                  prontuário — não entra no que é enviado ao salvar. */}
+              <CommonSelect
+                label={t("patients.medicalRecords.columns.therapist")}
+                options={[{ label: serviceTherapist.name, value: serviceTherapist.id }]}
+                value={serviceTherapist.id}
+                disabled
+              />
+            </Col>
+          )}
+        </Row>
+
+        <Row gutter={TOKENS.space[16]}>
+          <Col span={24}>
+            <Form.Item name="evolution" rules={requiredRule}>
+              <CommonTextArea
+                label={t("patients.medicalRecords.columns.evolution")}
+                rows={7}
+                required
+                disabled={isDisabled("evolution")}
+              />
+            </Form.Item>
+          </Col>
+        </Row>
+
+        <Row gutter={TOKENS.space[16]}>
+          <Col span={24}>
+            <Form.Item name="documentary_record">
+              <CommonTextArea
+                label={t("patients.medicalRecords.columns.documentaryRecord")}
+                disabled={isDisabled("documentary_record")}
+              />
+            </Form.Item>
+          </Col>
+        </Row>
+
+        <Row gutter={TOKENS.space[16]}>
+          <Col span={24}>
+            <Form.Item name="supervision_record">
+              <CommonTextArea
+                label={t("patients.medicalRecords.columns.supervisionRecord")}
+                disabled={!access.canEditSupervision}
+              />
+            </Form.Item>
+          </Col>
+        </Row>
+
+        <Row gutter={TOKENS.space[16]}>
+          <Col span={24}>
+            <Flex align="center" gap={TOKENS.space[12]} className={styles.reviewedRow}>
+              <Form.Item name="reviewed" noStyle>
+                <CommonSwitch
+                  label={t("patients.medicalRecords.columns.reviewed")}
+                  disabled={!canReview}
+                  icon={isRecordSaved ? undefined : (
+                    <CommonIconAlert text={t("patients.medicalRecords.help.notSaved")} />
+                  )}
+                />
+              </Form.Item>
+              <span className={styles.reviewedHint}>{reviewHint}</span>
+            </Flex>
+          </Col>
+        </Row>
+
+        <Row gutter={TOKENS.space[16]} className={styles.documents}>
+          <Col span={24}>
+            <CommonDocuments
+              label={t("common.documents.title")}
+              documents={visibleDocuments}
+              pendingFiles={newFiles}
+              onUpload={(files) => setNewFiles((prev) => [...prev, ...files])}
+              onRemove={(id) => setRemovedIds((prev) => [...prev, Number(id)])}
+              onRemovePending={(idx) => setNewFiles((prev) => prev.filter((_, i) => i !== idx))}
+              disabled={!access.canEditRecord}
+            />
+          </Col>
+        </Row>
+      </Form>
+    </Flex>
   );
 };
 
@@ -249,7 +281,16 @@ export const MedicalRecordFormOptions = ({
     medicalRecord,
     isSubmitting,
     deleteMedicalRecord,
+    access,
   } = useMedicalRecords();
+
+  const isRecordSaved = !!medicalRecord?.id;
+
+  // Botão barrado pede explicação: criar é só do terapeuta do atendimento, e
+  // editar, só dele e do supervisor — para os demais o prontuário é leitura.
+  const blockedHint = isRecordSaved
+    ? t("patients.medicalRecords.help.readOnly")
+    : t("patients.medicalRecords.help.onlyTherapistCreates");
 
   return (
     <>
@@ -259,17 +300,20 @@ export const MedicalRecordFormOptions = ({
           buttonVariant="danger"
           outline
           loading={isSubmitting}
+          disabled={!access.canDelete}
         >
           {t("common.actions.delete")}
         </CommonButton>
       )}
+      {!access.canSubmit && <CommonIconHelp text={blockedHint} size={18} />}
       <CommonButton
         htmlType="submit"
         form="medical-record-form"
         buttonVariant="primary"
         loading={isSubmitting}
+        disabled={!access.canSubmit}
       >
-        {medicalRecord?.id
+        {isRecordSaved
           ? t("patients.medicalRecords.actions.edit")
           : t("patients.medicalRecords.actions.create")}
       </CommonButton>

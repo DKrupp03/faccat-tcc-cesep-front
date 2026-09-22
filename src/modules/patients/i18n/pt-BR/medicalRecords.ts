@@ -27,6 +27,17 @@ const medicalRecords = {
     "reviewed": "Somente o supervisor do terapeuta do atendimento pode dar o visto, e depois de salvo ele não pode ser desfeito.",
     "reviewedBy": "Visto por {{name}} em {{date}}",
     "notSaved": "O prontuário ainda não foi salvo pelo terapeuta, o que impede o visto.",
+    "onlyTherapistCreates": "Somente o terapeuta do atendimento pode criar o prontuário.",
+    "readOnly": "Somente o terapeuta do atendimento e o supervisor dele podem editar este prontuário.",
+  },
+
+  "rules": {
+    "title": "Quem edita o prontuário",
+    "create": "Só o <b>terapeuta do atendimento</b> pode criar o prontuário.",
+    "therapist": "O terapeuta edita todos os campos, exceto os registros da supervisão e o visto.",
+    "supervisor": "O <b>supervisor</b> dele edita apenas os registros da supervisão e o visto, depois de o prontuário ser salvo.",
+    "review": "O visto, uma vez salvo, não pode ser desfeito.",
+    "others": "Os demais usuários apenas consultam o prontuário.",
   },
 
   "filter": {

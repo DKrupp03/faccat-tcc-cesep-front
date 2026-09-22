@@ -1,5 +1,13 @@
+.wrapper {
+  width: 100%;
+}
+
 .form {
   width: 100%;
+}
+
+.rules {
+  margin-bottom: var(--space-16);
 }
 
 /* 24px até o bloco de documentos = margem do Form.Item (16) + 8 */

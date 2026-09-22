@@ -14,6 +14,8 @@ import {
   MedicalRecordFormOptions,
 } from "../components/MedicalRecordForm/MedicalRecordForm";
 import MedicalRecordsService from "../services/MedicalRecordsService";
+import { useServiceTherapist } from "../hooks/useServiceTherapist";
+import { useMedicalRecordAccess } from "../hooks/useMedicalRecordAccess";
 import type {
   MedicalRecordType,
   MedicalRecordsFilter,
@@ -60,6 +62,13 @@ export const MedicalRecordsProvider = ({
   const [medicalRecord, setMedicalRecord] = useState<MedicalRecordType>();
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [loadingMedicalRecord, setLoadingMedicalRecord] = useState<boolean>(false);
+  const [formServiceId, setFormServiceId] = useState<number>();
+
+  // As regras de edição dependem do terapeuta do atendimento, e o formulário
+  // não é o único a consultá-las: o rodapé da drawer decide por elas se o
+  // botão de salvar abre. Por isso a busca acontece aqui, uma vez só.
+  const serviceTherapist = useServiceTherapist(formServiceId);
+  const access = useMedicalRecordAccess(serviceTherapist?.id, !!medicalRecord?.id);
 
   const filtratePanel = useCallback(async (
     newFilter: MedicalRecordsFilter = filter,
@@ -127,12 +136,14 @@ export const MedicalRecordsProvider = ({
 
         if (response.success) {
           setMedicalRecord(response.medical_record);
+          setFormServiceId(response.medical_record.service_id);
         }
       } finally {
         setLoadingMedicalRecord(false);
       }
     } else {
       setMedicalRecord(undefined);
+      setFormServiceId(undefined);
     }
 
     setIsFormOpen(true);
@@ -141,6 +152,7 @@ export const MedicalRecordsProvider = ({
   const closeForm = useCallback(() => {
     setIsFormOpen(false);
     setMedicalRecord(undefined);
+    setFormServiceId(undefined);
   }, []);
 
   const submitMedicalRecord = useCallback(async (values: Partial<MedicalRecordType>) => {
@@ -172,6 +184,7 @@ export const MedicalRecordsProvider = ({
 
       if (keepFormOpenOnSubmit) {
         setMedicalRecord(saved);
+        setFormServiceId(saved.service_id);
       } else {
         closeForm();
       }
@@ -239,6 +252,9 @@ export const MedicalRecordsProvider = ({
         medicalRecord,
         isSubmitting,
         loadingMedicalRecord,
+        serviceTherapist,
+        access,
+        setFormServiceId,
         filtratePanel,
         openFilter,
         closeFilter,
