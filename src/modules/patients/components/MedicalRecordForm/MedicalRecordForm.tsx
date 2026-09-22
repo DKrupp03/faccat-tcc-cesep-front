@@ -9,6 +9,7 @@ import { CommonButton } from "@/shared/components/CommonButton/CommonButton";
 import { CommonDocuments } from "@/shared/components/CommonDocuments/CommonDocuments";
 import { CommonSelect } from "@/shared/components/CommonSelect/CommonSelect";
 import { CommonSwitch } from "@/shared/components/CommonSwitch/CommonSwitch";
+import { CommonIconAlert } from "@/shared/components/CommonAlertIcon/CommonAlertIcon";
 import { ServicesSelect } from "@/shared/components/ServicesSelect/ServicesSelect";
 import { dateValueProps, formatDateTimeInline, normalizeDate } from "@/shared/utils/formatters";
 
@@ -53,7 +54,11 @@ export const MedicalRecordForm = ({
   // O visto não se desfaz depois de salvo: nem o supervisor que o deu desmarca
   // (a API recusa do mesmo jeito). Antes de salvar o campo ainda vai e volta.
   const isReviewSaved = medicalRecord?.reviewed ?? false;
-  const canReview = isSupervisor && !isReviewSaved;
+
+  // O visto é sobre o que o terapeuta registrou: enquanto o prontuário não
+  // existe não há o que visar, então o campo só abre depois de salvo.
+  const isRecordSaved = !!medicalRecord?.id;
+  const canReview = isSupervisor && isRecordSaved && !isReviewSaved;
 
   const reviewHint = isReviewSaved && medicalRecord?.reviewer
     ? t("patients.medicalRecords.help.reviewedBy", {
@@ -206,6 +211,9 @@ export const MedicalRecordForm = ({
               <CommonSwitch
                 label={t("patients.medicalRecords.columns.reviewed")}
                 disabled={!canReview}
+                icon={isRecordSaved ? undefined : (
+                  <CommonIconAlert text={t("patients.medicalRecords.help.notSaved")} />
+                )}
               />
             </Form.Item>
             <span className={styles.reviewedHint}>{reviewHint}</span>

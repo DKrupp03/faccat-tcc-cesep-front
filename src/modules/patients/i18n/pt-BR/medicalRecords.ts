@@ -26,6 +26,7 @@ const medicalRecords = {
   "help": {
     "reviewed": "Somente o supervisor do terapeuta do atendimento pode dar o visto, e depois de salvo ele não pode ser desfeito.",
     "reviewedBy": "Visto por {{name}} em {{date}}",
+    "notSaved": "O prontuário ainda não foi salvo pelo terapeuta, o que impede o visto.",
   },
 
   "filter": {
